@@ -127,6 +127,6 @@ export PATH=/opt/neovim/bin:$PATH
 export VISUAL=nvim
 
 # added by Berryconda3 installer
-export PATH="/home/jason/berryconda3/bin:$PATH"
+export PATH="/home/pi/berryconda3/bin:$PATH"
 
 
