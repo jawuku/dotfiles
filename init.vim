@@ -128,10 +128,6 @@ set encoding=utf-8
 " show line numbers
 set nu rnu
 
-" use 256 colors when possible
-let &t_Co = 256
-colorscheme fisa
-
 " save as sudo
 ca w!! w !sudo tee "%"
 
@@ -272,7 +268,10 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.notexists = '∄'
 
-
+" Airline unicode symbols
+" Uncomment these and disable the Powerline symbols to use
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '◀'
 "let g:airline_left_sep = '»'
 "let g:airline_right_sep = '«'
 "let g:airline_symbols.readonly = '🔒'
