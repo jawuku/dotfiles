@@ -102,7 +102,7 @@ endif
 let mapleader = ','
 
 " Set clipboard
-set clipboard+unnamedplus
+set clipboard+=unnamedplus
 
 " Copy to clipboard
 vnoremap  <leader>y  "+y
