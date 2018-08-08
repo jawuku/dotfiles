@@ -98,11 +98,23 @@ endif
 " Vim settings and mappings
 " You can edit them as you wish
 
-" Enable deoplete at startup
-let g:deoplete#enable_at_startup = 1
+" Set leader key to comma (,)
+let mapleader = ','
 
 " Set clipboard
-set clipboard^=unnamed,unnamedplus
+set clipboard+unnamedplus
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " tabs and spaces handling
 set expandtab
@@ -147,6 +159,9 @@ nmap ,t :NERDTreeFind<CR>
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " Deoplete ------------------------------
+
+" Enable deoplete at startup
+let g:deoplete#enable_at_startup = 1
 
 " Use a case-insensitive compare between the current word and 
 " potential completions.
@@ -230,22 +245,39 @@ let g:airline#extensions#ale#enabled = 1
 if !exists('g:airline_symbols')
    let g:airline_symbols = {}
 endif
-"let g:airline_left_sep = '⮀'
-"let g:airline_left_alt_sep = '⮁'
-"let g:airline_right_sep = '⮂'
-"let g:airline_right_alt_sep = '⮃'
-"let g:airline_symbols.branch = '⭠'
-"let g:airline_symbols.readonly = '⭤'
-"let g:airline_symbols.linenr = '⭡'
 
-"let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '◀'
+" Colour schemes
+if has('gui_running')
+	" Solarized colourscheme in gui (Gvim) mode.
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+    set termguicolors
+    set background=light
+	colorscheme solarized
+else
+    " Fisadev's dark colour scheme is nice in text mode
+    let &t_Co = 256
+    colorscheme fisa
+    " set background=dark
+    " colorscheme solarized
+endif
 
-let g:airline_left_sep = '»'
-let g:airline_right_sep = '«'
-let g:airline_symbols.readonly = '🔒'
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = '㏑'
+" Powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.notexists = '∄'
+
+
+"let g:airline_left_sep = '»'
+"let g:airline_right_sep = '«'
+"let g:airline_symbols.readonly = '🔒'
+"let g:airline_symbols.linenr = '☰'
+"let g:airline_symbols.maxlinenr = '㏑'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.notexists = '∄'
