@@ -33,17 +33,12 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'w0rp/ale'
 
 " Code Completetion
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'zchee/deoplete-jedi'
-  "Plug 'Shougo/context_filetype.vim'
-else
   Plug 'Shougo/deoplete.nvim'
   Plug 'Shougo/context_filetype.vim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'davidhalter/jedi-vim'
-endif
+let g:deoplete#enable_at_startup = 1
 
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
@@ -66,14 +61,10 @@ call plug#end()
 "========================================================
 "Vim settings
 "
-let mapleader = ','
-
-" Set Berryconda as the Python 3 binary
-let g:python3_host_prog='/home/pi/berryconda3/bin/python3'
 
 "Line numbers
-set number relativenumber
 
+set number relativenumber
 "tabs and spaces
 set expandtab
 set tabstop=4
@@ -88,19 +79,7 @@ syntax enable
 
 "Clipboard settings - unnamed for Windows or MacOS
 " unnamedplus for Unix/Linux
-set clipboard+=unnamedplus
-
-" Copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy  "+yy
-
-" Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+set clipboard^=unnamed,unnamedplus
 
 " Set character for indented lines
 let g:indentLine_char = '┆'
@@ -134,58 +113,32 @@ nnoremap <space> za
 " isort settings - enable Python 3 as default
 let g:vim_isort_python_version = 'python3'
 
-" Deoplete -----------------------------
-
-" Use deoplete.
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-" complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
-
-" Jedi-vim ------------------------------
-
-" Disable autocompletion (using deoplete instead)
-let g:jedi#completions_enabled = 0
-" Airline ------------------------------
-
-let g:airline_powerline_fonts = 0
-let g:airline_theme = 'bubblegum'
-let g:airline#extensions#whitespace#enabled = 0
-
-"Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-
-"Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-"ALE to display warnings in airline
-let g:airline#extensions#ale#enabled = 1
-
-" to use fancy symbols for airline, uncomment the following lines and use a
-" patched font (more info on docs/fancy_symbols.rst)
-if !exists('g:airline_symbols')
-   let g:airline_symbols = {}
-endif
-
-" Colour schemes
+"Colour schemes
 if has('gui_running')
-	" Solarized colourscheme in gui (Gvim) mode.
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+    " unicode symbols and solarized
+    " colourscheme in gui (Gvim) mode.
     set termguicolors
+    set guifont=Roboto\ Mono\ for\ Powerline\ 14
     set background=light
 	colorscheme solarized
 else
     " Fisadev's dark colour scheme is nice in text mode
-    let &t_Co = 256
-    colorscheme fisa
-    " set background=dark
-    " colorscheme solarized
+ 	let &t_Co = 256
+	colorscheme fisa
 endif
 
-" Powerline symbols
+" Airline ------------------------------
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'bubblegum'
+let g:airline#extensions#whitespace#enabled = 0
+
+" to use fancy symbols for airline, uncomment the following lines and use a
+" patched font (more info on the README.rst)
+if !exists('g:airline_symbols')
+   let g:airline_symbols = {}
+endif
+
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -196,8 +149,15 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.notexists = '∄'
 
-" Airline unicode symbols
-" Uncomment these and disable the Powerline symbols to use
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+
+"Airline unicode symbols - use if no Powerline fonts available
+
 "let g:airline_left_sep = '▶'
 "let g:airline_right_sep = '◀'
 "let g:airline_left_sep = '»'
