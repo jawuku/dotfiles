@@ -113,10 +113,10 @@ nnoremap <space> za
 " isort settings - enable Python 3 as default
 let g:vim_isort_python_version = 'python3'
 
-"Colour schemes
+" Colour schemes -----------------------
+
 if has('gui_running')
-    " unicode symbols and solarized
-    " colourscheme in gui (Gvim) mode.
+    " solarized colourscheme in gui (Gvim) mode.
     set termguicolors
     set guifont=Roboto\ Mono\ for\ Powerline\ 14
     set background=light
