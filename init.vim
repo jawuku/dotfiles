@@ -1,7 +1,7 @@
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Make sure you use single quotes
 
@@ -19,6 +19,9 @@ Plug 'fisadev/fisa-vim-colorscheme'
 " Solarized truecolor theme
 Plug 'altercation/vim-colors-solarized'
 
+" neovim-qt
+Plug 'equalsraf/neovim-gui-shim'
+
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -32,15 +35,12 @@ Plug 'tmhedberg/SimpylFold'
 " Linting
 Plug 'w0rp/ale'
 
-" Code completion using deoplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" Python autocompletion with deoplete and jedi
-Plug 'zchee/deoplete-jedi'
-Plug 'davidhalter/jedi'
-
-" Javascript autocompletion with deoplete and ternjs
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+" Code completion
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'ryanolsonx/vim-lsp-python'
 
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
@@ -64,11 +64,27 @@ call plug#end()
 "Vim settings
 "
 
+" Configure C/C++ language server
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+" Configure Javascript server
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'typescript-language-server',
+      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+      \ })
+endif
+
 " Change mapleader to comma ','
 let mapleader = ',' 
-
-" Enable deoplete at startup
-let g:deoplete#enable_at_startup = 1
 
 "Line numbers
 set number relativenumber
@@ -137,7 +153,7 @@ let g:vim_isort_python_version = 'python3'
 " Default python locations
 let g:python_host_prog = '/usr/bin/python2'
 
-let g:python3_host_prog = '/home/jason/anaconda3/bin/python3'
+let g:python3_host_prog = '/home/jason/berryconda3/bin/python3'
 
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
 " (neomake, ...)
@@ -145,11 +161,6 @@ let g:python3_host_prog = '/home/jason/anaconda3/bin/python3'
 set shell=/bin/bash  
 " For Termux
 " set shell=/data/data/com.termux/files/usr/bin/bash
-
-" w0rp ALE config
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
 
 " leader+l = manual ALE linting
 nnoremap <leader>l :ALELint<CR>
@@ -197,14 +208,12 @@ let g:airline_symbols.notexists = '∄'
 "let g:airline_symbols.notexists = '∄'
 
 " Colour schemes
-if has('gui_running')
-	" Solarized colourscheme in gui (Gvim) mode.
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
-    set termguicolors
-    set background=dark
-	colorscheme solarized
-else
-    " Fisadev's dark colour scheme is nice in text mode
-    let &t_Co = 256
-    colorscheme fisa
-endif
+
+set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+set termguicolors
+set background=dark
+colorscheme solarized
+
+" Fisadev's dark colour scheme is nice in text mode
+" let &t_Co = 256
+" colorscheme fisa
