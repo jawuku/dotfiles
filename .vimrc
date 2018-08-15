@@ -32,13 +32,12 @@ Plug 'tmhedberg/SimpylFold'
 " Linting
 Plug 'w0rp/ale'
 
-" Code Completetion
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'davidhalter/jedi-vim'
-let g:deoplete#enable_at_startup = 1
+" Code Completion
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'ryanolsonx/vim-lsp-python'
 
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
@@ -62,9 +61,29 @@ call plug#end()
 "Vim settings
 "
 
-"Line numbers
+" Configure C/C++ language server
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
 
+" Configure Javascript server
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'typescript-language-server',
+      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+      \ })
+endif
+
+
+"Line numbers
 set number relativenumber
+
 "tabs and spaces
 set expandtab
 set tabstop=4
