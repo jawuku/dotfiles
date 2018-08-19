@@ -36,9 +36,9 @@ Plug 'w0rp/ale'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'ryanolsonx/vim-lsp-python'
-
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" pip3 install
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
 
@@ -97,7 +97,7 @@ set encoding=utf-8
 syntax enable
 
 "Clipboard settings - unnamed for Windows or MacOS
-" unnamedplus for Unix/Linux
+" unnamedplus for Unix/Linux. Install xsel for linux
 set clipboard^=unnamed,unnamedplus
 
 " Set character for indented lines
@@ -139,17 +139,18 @@ if has('gui_running')
     set termguicolors
     set guifont=Roboto\ Mono\ for\ Powerline\ 14
     set background=light
-	colorscheme solarized
+    colorscheme solarized
+    let g:airline_theme = 'papercolor'
 else
     " Fisadev's dark colour scheme is nice in text mode
- 	let &t_Co = 256
-	colorscheme fisa
+    let &t_Co = 256
+    colorscheme fisa
+    let g:airline_theme = 'bubblegum'
 endif
 
 " Airline ------------------------------
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 
 " to use fancy symbols for airline, uncomment the following lines and use a
