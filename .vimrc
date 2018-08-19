@@ -38,7 +38,7 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'ryanolsonx/vim-lsp-python'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" pip3 install python-language-server
+
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
 
@@ -99,7 +99,7 @@ set encoding=utf-8
 syntax enable
 
 "Clipboard settings - unnamed for Windows or MacOS
-" unnamedplus for Unix/Linux. Install xsel for linux
+" unnamedplus for Unix/Linux
 set clipboard^=unnamed,unnamedplus
 
 " Set character for indented lines
@@ -107,11 +107,11 @@ let g:indentLine_char = '┆'
 
 " Autoclose ------------------------------
 
-" Fix to let ESC work as espected with Autoclose plugin
+" Fix to let ESC work as expected with Autoclose plugin
 " (without this, when showing an autocompletion window,
 "  ESC won't leave insert  mode)
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
- 
+
 " Key combos for split screens:
 "
 "    Ctrl+J move to the split below
@@ -136,23 +136,36 @@ let g:vim_isort_python_version = 'python3'
 
 " Colour schemes -----------------------
 
+" Use F5 to toggle between light and dark backgounds in GUI mode
+call togglebg#map("<F5>")
+
 if has('gui_running')
     " solarized colourscheme in gui (Gvim) mode.
     set termguicolors
     set guifont=Roboto\ Mono\ for\ Powerline\ 14
     set background=light
-    colorscheme solarized
+	colorscheme solarized
     let g:airline_theme = 'papercolor'
 else
     " Fisadev's dark colour scheme is nice in text mode
-    let &t_Co = 256
-    colorscheme fisa
+ 	let &t_Co = 256
+	colorscheme fisa
     let g:airline_theme = 'bubblegum'
 endif
+
+" Two new user-defined commands to select Fisa or Solarized colours
+" with matching Airline themes
+" :SolarPaper selects dark Solarized colour scheme, with papercolor Airline theme
+" :Fisa selects Fisadev colour scheme, with bubblegum Airline theme
+
+
+command SolarPaper set termguicolors | set background=dark | colorscheme solarized | AirlineTheme papercolor
+command Fisa let &t_Co =256 | colorscheme fisa | AirlineTheme bubblegum
 
 " Airline ------------------------------
 
 let g:airline_powerline_fonts = 1
+"let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 
 " to use fancy symbols for airline, uncomment the following lines and use a
@@ -176,7 +189,6 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
-
 
 "Airline unicode symbols - use if no Powerline fonts available
 
