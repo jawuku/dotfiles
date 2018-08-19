@@ -35,10 +35,10 @@ Plug 'w0rp/ale'
 " Code Completion
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/vim-lspy
 Plug 'ryanolsonx/vim-lsp-python'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" pip3 install
+" pip3 install python-language-server
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
 
