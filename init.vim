@@ -127,7 +127,7 @@ let g:indentLine_char = '┆'
 
 " Autoclose ------------------------------
 
-" Fix to let ESC work as espected with Autoclose plugin
+" Fix to let ESC work as expected with Autoclose plugin
 " (without this, when showing an autocompletion window,
 "  ESC won't leave insert  mode)
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
@@ -221,3 +221,9 @@ colorscheme solarized
 " Fisadev's dark colour scheme is a nice alternative in text mode
 " let &t_Co = 256
 " colorscheme fisa
+" AirlineTheme bubblegum
+
+" Two new user-defined commands to select Fisa or Solarized colours
+" with matching Airline themes (bubblegum and papercolor respectively)
+command SolarPaper set termguicolors | set background=dark | colorscheme solarized | AirlineTheme papercolor
+command Fisa let &t_Co =256 | colorscheme fisa | AirlineTheme bubblegum
