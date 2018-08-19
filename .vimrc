@@ -35,7 +35,7 @@ Plug 'w0rp/ale'
 " Code Completion
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lspy
+Plug 'prabirshrestha/vim-lsp'
 Plug 'ryanolsonx/vim-lsp-python'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " pip3 install python-language-server
@@ -80,6 +80,8 @@ if executable('typescript-language-server')
       \ })
 endif
 
+" autmatically close the autocomplete preview window when finished
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "Line numbers
 set number relativenumber
