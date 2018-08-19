@@ -36,6 +36,7 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'w0rp/ale'
 
 " Code completion
+" pip3 install python-language-server
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -82,6 +83,9 @@ if executable('typescript-language-server')
       \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
       \ })
 endif
+
+" automatically close the autocomplete preview window when finished
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Change mapleader to comma ','
 let mapleader = ',' 
@@ -174,7 +178,7 @@ if !exists('g:airline_symbols')
 endif
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'papercolor'
 let g:airline#extensions#whitespace#enabled = 0
 
 "Enable the list of buffers
@@ -209,11 +213,11 @@ let g:airline_symbols.notexists = '∄'
 
 " Colour schemes
 
-set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+set guifont=Roboto\ Mono\ for\ Powerline\ 14
 set termguicolors
 set background=dark
 colorscheme solarized
 
-" Fisadev's dark colour scheme is nice in text mode
+" Fisadev's dark colour scheme is a nice alternative in text mode
 " let &t_Co = 256
 " colorscheme fisa
