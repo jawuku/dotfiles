@@ -145,12 +145,12 @@ if has('gui_running')
     set guifont=Roboto\ Mono\ for\ Powerline\ 14
     set background=light
 	colorscheme solarized
-    let g:airline_theme = 'papercolor'
+   	AirlineTheme papercolor
 else
     " Fisadev's dark colour scheme is nice in text mode
  	let &t_Co = 256
 	colorscheme fisa
-    let g:airline_theme = 'bubblegum'
+    	AirlineTheme bubblegum
 endif
 
 " Two new user-defined commands to select Fisa or Solarized colours
