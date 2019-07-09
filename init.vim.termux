@@ -53,12 +53,13 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'ryanolsonx/vim-lsp-python'
 Plug 'ryanolsonx/vim-lsp-javascript'
+Plug 'keremc/asyncomplete-clang'
 
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
 
 " Surround
-Plug 'tpope/vim-surround' 
+"Plug 'tpope/vim-surround' 
 
 " Display indentation lines
 Plug 'Yggdroot/indentLine'
