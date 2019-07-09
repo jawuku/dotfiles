@@ -213,8 +213,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'papercolor'
 let g:airline#extensions#whitespace#enabled = 0
 
-"Enable the list of buffers
+"Enable the list of buffers and list numbers
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
