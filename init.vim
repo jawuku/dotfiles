@@ -183,6 +183,10 @@ call deoplete#custom#option('auto_complete_delay', 100)
 " enable or disable deoplete auto-completion
 call deoplete#custom#option('auto_complete', v:true)
 
+" C/C++ autocomplete via clang
+g:deoplete#sources#clang#/opt/clang/lib/libclang.so
+g:deoplete#sources#clang#clang_header=/opt/clang/lib/clang
+
 " Neomake settings
 " install pylint and eslint:
 " pip3 install pylint
