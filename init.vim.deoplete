@@ -6,6 +6,9 @@
     endif
 call plug#begin()
 
+" Fancy startup screen
+Plug 'mhinz/vim-startify'
+
 " Deoplete (different loading for Neovim vs Vim)
 if has('nvim')
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -15,32 +18,40 @@ else
 	Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" Language Servers
-Plug 'autozimu/LanguageClient-neovim', {
-			\ 'branch': 'next',
-			\ 'do': 'bash install.sh',
-			\ }
-
 " Asynchrynous Linting Engine
 "Plug 'w0rp/ale'
 Plug 'neomake/neomake'
 
 "Javascript Plugins
-Plug 'carlitux/deoplete-ternjs'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+
+" Javascript syntax and indentation
+Plug 'pangloss/vim-javascript'
 
 "Typescript Plugins
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
-Plug 'mhartington/deoplete-typescript'
-
+Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+  
 "Python Plugins
-Plug 'zchee/deoplete-jedi'
-Plug 'davidhalter/jedi-vim'
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'sbdchd/neoformat'
 
+" python syntax highlighting and more
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
+
+" C/C++ completion
+Plug 'zchee/deoplete-clang'
+Plug 'Shougo/neoinclude.vim'
+
 " Better Language Packs
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
+
+" highlight URLs inside vim
+Plug 'itchyny/vim-highlighturl'
+
+" open URL in browser
+Plug 'tyru/open-browser.vim'
 
 " Terminal Vim with 256 colours
 Plug 'fisadev/fisa-vim-colorscheme'
@@ -70,55 +81,76 @@ Plug 'scrooloose/nerdtree'
 " Code Folding
 Plug 'tmhedberg/SimpylFold'
 
+" handy unix command inside Vim (Rename, Move etc.)
+Plug 'tpope/vim-eunuch'
+
+
 " Initialise plugin system
 call plug#end()
+
+"{{ vim-plug settings
+" use shortnames for common vim-plug command to reduce typing
+" To use these shortcut: first activate command line with `:`, then input the
+" short alias name, e.g., `pi`, then press <space>, the alias will be expanded
+" to the original command automatically
+call Cabbrev('pi', 'PlugInstall')
+call Cabbrev('pud', 'PlugUpdate')
+call Cabbrev('pug', 'PlugUpgrade')
+call Cabbrev('ps', 'PlugStatus')
+call Cabbrev('pc', 'PlugClean')
+"}}
 
 " Put your non-Plugin stuff after this line
 "========================================================
 "Neovim settings
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-let g:tern_request_timeout = 1
-let g:tern_request_timeout = 6000
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-let g:deoplete#sources#tss#javascript_support = 1
-let g:tsuquyomi_javascript_support = 1
-let g:tsuquyomi_auto_open = 1
-let g:tsuquyomi_disable_quickfix = 1
+"{{ auto-completion related
+"""""""""""""""""""""""""""" deoplete settings""""""""""""""""""""""""""
+" wheter to enable deoplete automatically after start nvim
+let g:deoplete#enable_at_startup = 0
 
-let g:jedi#completions_enabled = 0
-let g:jedi#use_splits_not_buffers = "right"
+" start deoplete when we go to insert mode
+augroup deoplete_start
+    autocmd!
+    autocmd InsertEnter * call deoplete#enable()
+augroup END
 
+" maximum candidate window length
+call deoplete#custom#source('_', 'max_menu_width', 80)
 
-" Configure C/C++ language server
-if executable('clangd')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
-endif
+" minimum character length needed to start completion,
+" see https://goo.gl/QP9am2
+call deoplete#custom#source('_', 'min_pattern_length', 1)
 
-" Configure Javascript server
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-      \ 'name': 'typescript-language-server',
-      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-      \ })
-endif
+" whether to disable completion for certain syntax
+" call deoplete#custom#source('_', {
+"     \ 'filetype': ['vim'],
+"     \ 'disabled_syntaxes': ['String']
+"     \ })
+call deoplete#custom#source('_', {
+    \ 'filetype': ['python'],
+    \ 'disabled_syntaxes': ['Comment']
+    \ })
+
+" ignore certain sources, because they only cause nosie most of the time
+call deoplete#custom#option('ignore_sources', {
+   \ '_': ['around', 'buffer', 'tag']
+   \ })
+
+" candidate list item limit
+call deoplete#custom#option('max_list', 30)
+
+"The number of processes used for the deoplete parallel feature.
+call deoplete#custom#option('num_processes', 16)
+
+" Delay the completion after input in milliseconds.
+call deoplete#custom#option('auto_complete_delay', 100)
+
+" enable or disable deoplete auto-completion
+call deoplete#custom#option('auto_complete', v:true)
 
 " Neomake settings
-let g:neomake_python_enabled_makers = ['pylint']
+let g:neomake_python_enabled_makers = ['pylint3']
 let g:neomake_javascript_enabled_makers = ['eslint']
 call neomake#configure#automake('nrwi', 500)
 let g:neomake_open_list = 2
