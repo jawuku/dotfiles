@@ -3,5 +3,6 @@ if exists('g:GuiLoaded')
     GuiFont! Roboto Mono for Powerline:h16
     let g:GuiInternalClipboard = 1
     GuiPopupmenu 1
+    " use neovim's ordinary powerline tab line
     GuiTabline 0
 endif
