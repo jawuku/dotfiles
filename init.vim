@@ -259,6 +259,17 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Nerdtree settings
+" <Ctrl-n> to activate Nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
+" Close nvim if Nerdtree is the only window open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Define Nerdtree arrows
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
 " Default python locations
 " let g:python_host_prog = '/usr/bin/python2'
 
