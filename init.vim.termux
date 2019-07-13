@@ -180,7 +180,11 @@ let g:vim_isort_python_version = 'python3'
 " Default python locations
 " let g:python_host_prog = '/usr/bin/python2'
 
+" For Termux, use this location
 let g:python3_host_prog = '/data/data/com.termux/files/usr/bin/python3'
+
+" Otherwise for Linux, use the conventional
+" let g:python_host_prog = '/usr/bin/python3'
 
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
 " (neomake, ...)
