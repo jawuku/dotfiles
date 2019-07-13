@@ -115,7 +115,7 @@ Plug 'scrooloose/nerdtree'
 " Code Folding
 Plug 'tmhedberg/SimpylFold'
 
-" handy unix command inside Vim (Rename, Move etc.)
+" handy unix command inside Vim (rm, mv, mkdir etc.)
 Plug 'tpope/vim-eunuch'
 
 
@@ -188,9 +188,9 @@ g:deoplete#sources#clang#/opt/clang/lib/libclang.so
 g:deoplete#sources#clang#clang_header=/opt/clang/lib/clang
 
 " Neomake settings
-" install pylint and eslint:
-" pip3 install pylint
-" or install flake8 as an alternative
+" install flake8 and eslint:
+" pip3 install flake8
+" or install pylint as an alternative, and change option below
 " sudo npm install -g eslint
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
@@ -202,6 +202,8 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
 " Neoformat settings - convert tabs to spaces, align and strip trailing spaces
+" pip3 install yapf
+" sudo npm -g install prettier
 let g:neoformat_basic_format_align = 1
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
