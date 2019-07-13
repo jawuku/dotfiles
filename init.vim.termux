@@ -20,8 +20,8 @@ call plug#begin('~/.config/nvim/plugged')
 " Terminal Vim with 256 colours
 Plug 'fisadev/fisa-vim-colorscheme'
 
-" Solarized truecolor theme
-Plug 'altercation/vim-colors-solarized'
+" NeoSolarized truecolor theme
+Plug 'iCyMind/NeoSolarized'
 
 " neovim-qt
 "Plug 'equalsraf/neovim-gui-shim'
@@ -238,7 +238,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 set guifont=Roboto\ Mono\ for\ Powerline\ 14
 set termguicolors
 set background=dark
-colorscheme solarized
+colorscheme NeoSolarized
 
 " Fisadev's dark colour scheme is a nice alternative in text mode
 " let &t_Co = 256
@@ -247,5 +247,5 @@ colorscheme solarized
 
 " Two new user-defined commands to select Fisa or Solarized colours
 " with matching Airline themes (bubblegum and papercolor respectively)
-command SolarPaper set termguicolors | set background=dark | colorscheme solarized | AirlineTheme papercolor
+command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized | AirlineTheme papercolor
 command Fisa let &t_Co =256 | colorscheme fisa | AirlineTheme bubblegum
