@@ -64,7 +64,7 @@ Plug 'pangloss/vim-javascript'
 
 "Typescript Plugins
 Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
   
 "Python Plugins
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
