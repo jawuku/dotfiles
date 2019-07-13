@@ -1,0 +1,4 @@
+-mcpu=cortex-a72
+-mfloat-abi=hard
+-mfpu=neon-fp-armv8
+-mneon-for-64bits
