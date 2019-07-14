@@ -184,8 +184,8 @@ call deoplete#custom#option('auto_complete_delay', 100)
 call deoplete#custom#option('auto_complete', v:true)
 
 " C/C++ autocomplete via clang
-g:deoplete#sources#clang#/opt/clang/lib/libclang.so
-g:deoplete#sources#clang#clang_header=/opt/clang/lib/clang
+let g:deoplete#sources#clang#/opt/clang/lib/libclang.so
+let g:deoplete#sources#clang#clang_header=/opt/clang/lib/clang
 
 " Neomake settings
 " install flake8 and eslint:
