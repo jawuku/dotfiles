@@ -34,6 +34,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Linting
 Plug 'w0rp/ale'
 
+" Formatting
+Plug 'sbdchd/neoformat'
+
 " python syntax highlighting and more
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 
