@@ -71,7 +71,6 @@ Plug 'neomake/neomake'
 " Code completion
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 
 " Configure language servers
@@ -88,6 +87,7 @@ Plug 'ryanolsonx/vim-lsp-javascript'
 " Neoinclude
 Plug 'Shougo/neoinclude.vim'
 Plug 'kyouryuukunn/asyncomplete-neoinclude.vim'
+
 " Automatically close parentheses etc.
 Plug 'Townk/vim-autoclose'
 
@@ -146,18 +146,6 @@ if executable('clangd')
         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
         \ })
 endif
-
-" asyncomplete buffer registration
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'config': {
-    \    'max_buffer_size': 5000000,
-    \  },
-    \ }))
-
 
 " Neoinclude registration
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
@@ -278,24 +266,6 @@ let g:neomake_open_list = 2
 
 " automatically close the autocomplete preview window when finished
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Asynchronous Linting Engine (ALE)
-"
-" leader+l = manual ALE linting
-"nnoremap <leader>l :ALELint<CR>
-"
-"Configure ALE to jump between linting errors:
-" [c - to previous error
-" ]c - to next error
-"nmap <silent> [c <Plug>(ale_previous_wrap)
-"nmap <silent> ]c <Plug>(ale_next_wrap)
-"
-" Change ALE warning signs
-"let g:ale_sign_error = '❌'
-"let g:ale_sign_warning = '⚠️'
-"
-" ALE to display warnings in airline
-"let g:airline#extensions#ale#enabled = 1
 
 " Airline ------------------------------
 
