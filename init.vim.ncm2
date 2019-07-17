@@ -1,10 +1,45 @@
- " Install Vim Plug if not installed
-    if empty(glob('~/.config/nvim/autoload/plug.vim'))
-      silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-      autocmd VimEnter * PlugInstall
-    endif
-call plug#begin()
+function! Cabbrev(key, value) abort
+    " create command alias safely, see https://bit.ly/2ImFOpL
+    " the following two functions are taken from answer below on SO
+    " https://stackoverflow.com/a/10708687/6064933
+
+    execute printf('cabbrev <expr> %s (getcmdtype() == ":" && getcmdpos() <= %d) ? %s : %s',
+    \ a:key, 1+len(a:key), Single_quote(a:value), Single_quote(a:key))
+endfunction
+
+function! Single_quote(str) abort
+    return "'" . substitute(copy(a:str), "'", "''", 'g') . "'"
+endfunction
+
+" ============================================================================
+" Vim-plug initialization
+" Avoid modifying this section, unless you are very sure of what you are doing
+
+let vim_plug_just_installed = 0
+let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
+if !filereadable(vim_plug_path)
+    echo "Installing Vim-plug..."
+    echo ""
+    silent !mkdir -p ~/.config/nvim/autoload
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    let vim_plug_just_installed = 1
+endif
+
+" manually load vim-plug the first time
+if vim_plug_just_installed
+    :execute 'source '.fnameescape(vim_plug_path)
+endif
+
+" Obscure hacks done, you can now modify the rest of the .vimrc as you wish :)
+
+" ============================================================================
+" Active plugins
+" You can disable or add new ones here:
+
+" this needs to be here, so vim-plug knows we are declaring the plugins we
+" want to use
+call plug#begin('~/.config/nvim/plugged')
+
 
 " Fancy startup screen
 Plug 'mhinz/vim-startify'
@@ -14,7 +49,6 @@ Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-
 
 " Asynchrynous Linting Engine
 Plug 'neomake/neomake'
@@ -36,8 +70,9 @@ Plug 'ncm2/ncm2-jedi'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 
 " C/C++ completion
-Plug 'zchee/deoplete-clang'
+Plug 'ncm2/ncm2-pyclang'
 Plug 'Shougo/neoinclude.vim'
+Plug 'ncm2/ncm2-neoinclude'
 
 " C/C++ syntax
 Plug 'vim-jp/vim-cpp'
