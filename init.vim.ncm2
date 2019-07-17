@@ -80,6 +80,10 @@ Plug 'vim-jp/vim-cpp'
 " Solidity Ethereum syntax
 Plug 'tomlion/vim-solidity'
 
+" neomake uses solium for solidity linting
+" npm install -g ethlint
+" solium --init
+
 " Better Language Packs
 "Plug 'sheerun/vim-polyglot'
 
