@@ -20,8 +20,8 @@ call plug#begin('~/.config/nvim/plugged')
 " Terminal Vim with 256 colours
 Plug 'fisadev/fisa-vim-colorscheme'
 
-" NeoSolarized truecolor theme
-Plug 'iCyMind/NeoSolarized'
+" Solarized truecolor theme
+Plug 'altercation/vim-colors-solarized'
 
 " neovim-qt
 "Plug 'equalsraf/neovim-gui-shim'
@@ -37,7 +37,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tmhedberg/SimpylFold'
 
 " Linting
-Plug 'w0rp/ale'
+Plug 'neomake/neomake'
 
 " Code completion
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -77,7 +77,6 @@ call plug#end()
 "========================================================
 "Vim settings
 "
-
 " Configure C/C++ language server manually
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
@@ -180,11 +179,7 @@ let g:vim_isort_python_version = 'python3'
 " Default python locations
 " let g:python_host_prog = '/usr/bin/python2'
 
-" For Termux, use this location
 let g:python3_host_prog = '/data/data/com.termux/files/usr/bin/python3'
-
-" Otherwise for Linux, use the conventional
-" let g:python_host_prog = '/usr/bin/python3'
 
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
 " (neomake, ...)
@@ -217,9 +212,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'papercolor'
 let g:airline#extensions#whitespace#enabled = 0
 
-"Enable the list of buffers and list numbers
+"Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -242,7 +236,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 set guifont=Roboto\ Mono\ for\ Powerline\ 14
 set termguicolors
 set background=dark
-colorscheme NeoSolarized
+colorscheme solarized
 
 " Fisadev's dark colour scheme is a nice alternative in text mode
 " let &t_Co = 256
@@ -251,5 +245,5 @@ colorscheme NeoSolarized
 
 " Two new user-defined commands to select Fisa or Solarized colours
 " with matching Airline themes (bubblegum and papercolor respectively)
-command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized | AirlineTheme papercolor
+command SolarPaper set termguicolors | set background=dark | colorscheme solarized | AirlineTheme papercolor
 command Fisa let &t_Co =256 | colorscheme fisa | AirlineTheme bubblegum
