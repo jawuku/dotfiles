@@ -62,8 +62,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tmhedberg/SimpylFold'
 
 " Linting
-"Plug 'w0rp/ale'
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 
 " Code completion
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -90,9 +89,6 @@ Plug 'Townk/vim-autoclose'
 
 " Display indentation lines
 Plug 'Yggdroot/indentLine'
-
-" handy unix command inside Vim (rm, mv, mkdir etc.)
-Plug 'tpope/vim-eunuch'
 
 " NerdTree
 Plug 'scrooloose/nerdtree'
@@ -149,6 +145,17 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'refresh_pattern': '\(<\|"\|/\)$',
     \ 'completor': function('asyncomplete#sources#neoinclude#completor'),
     \ }))
+
+" Julia language server registration
+let s:julia_exe = '/opt/julia/bin/julia'
+let s:julia_lsp_startscript = '/home/pi/Sourcecode/Julia/startlanguageserver.jl'
+if executable('julia')
+  autocmd User lsp_setup call lsp#register_server({
+  \ 'name': 'julia',
+  \ 'cmd': {server_info->[s:julia_exe, '--startup-file=no', '--history-file=no', s:julia_lsp_startscript]},
+  \ 'whitelist': ['julia'],
+  \ })
+endif
 
 " automatically close the autocomplete preview window when finished
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -257,36 +264,33 @@ set shell=/bin/bash
 " For Termux
 " set shell=/data/data/com.termux/files/usr/bin/bash
 
-" Neomake settings
-" install flake8 and eslint:
-" pip3 install flake8
-" or install pylint as an alternative, and change option below
-" sudo npm install -g eslint
-let g:neomake_python_enabled_makers = ['flake8']
-let g:neomake_javascript_enabled_makers = ['eslint']
-call neomake#configure#automake('nrwi', 500)
-let g:neomake_open_list = 2
-
-" automatically close the autocomplete preview window when finished
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Asynchronous Linting Engine (ALE)
-"
+" ---------------------------------
 " leader+l = manual ALE linting
-"nnoremap <leader>l :ALELint<CR>
+nnoremap <leader>l :ALELint<CR>
 "
 "Configure ALE to jump between linting errors:
 " [c - to previous error
 " ]c - to next error
-"nmap <silent> [c <Plug>(ale_previous_wrap)
-"nmap <silent> ]c <Plug>(ale_next_wrap)
+nmap <silent> [c <Plug>(ale_previous_wrap)
+nmap <silent> ]c <Plug>(ale_next_wrap)
 "
 " Change ALE warning signs
 "let g:ale_sign_error = '❌'
 "let g:ale_sign_warning = '⚠️'
 "
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier', 'eslint'],
+\   'python': ['yapf', 'flake8'],
+\}
+
 " ALE to display warnings in airline
-"let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 " Airline ------------------------------
 
@@ -322,6 +326,7 @@ if has('gui_running')
     set termguicolors
     set background=light
 	colorscheme NeoSolarized
+    set guicursor+=n-v-c:blinkon0
 else
     " NeoSolarized dark colour scheme in text mode
     set termguicolors
@@ -331,5 +336,5 @@ endif
 
 " Two new user-defined commands to select Fisa or Solarized colours
 " with matching Airline themes (bubblegum and papercolor respectively)
-command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized | AirlineTheme papercolor
-command Fisa let &t_Co =256 | colorscheme fisa | AirlineTheme bubblegum
+command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized
+command Fisa let &t_Co =256 | colorscheme fisa
