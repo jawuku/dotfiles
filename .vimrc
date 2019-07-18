@@ -51,9 +51,6 @@ Plug 'fisadev/fisa-vim-colorscheme'
 " NeoSolarized truecolor theme
 Plug 'iCyMind/NeoSolarized'
 
-" neovim-qt
-"Plug 'equalsraf/neovim-gui-shim'
-
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -135,9 +132,6 @@ set nocompatible
 filetype plugin on
 filetype indent on
 
-" startify viminfo
-set viminfo='100,n$HOME/.vim/files/info/viminfo
-
 " Configure C/C++ language server manually
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
@@ -146,6 +140,7 @@ if executable('clangd')
         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
         \ })
 endif
+
 
 " Neoinclude registration
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
@@ -157,6 +152,14 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 
 " automatically close the autocomplete preview window when finished
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" tab completion
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+" Force refresh completion
+imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " Change mapleader to comma ','
 let mapleader = ',' 
@@ -266,6 +269,24 @@ let g:neomake_open_list = 2
 
 " automatically close the autocomplete preview window when finished
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Asynchronous Linting Engine (ALE)
+"
+" leader+l = manual ALE linting
+"nnoremap <leader>l :ALELint<CR>
+"
+"Configure ALE to jump between linting errors:
+" [c - to previous error
+" ]c - to next error
+"nmap <silent> [c <Plug>(ale_previous_wrap)
+"nmap <silent> ]c <Plug>(ale_next_wrap)
+"
+" Change ALE warning signs
+"let g:ale_sign_error = '❌'
+"let g:ale_sign_warning = '⚠️'
+"
+" ALE to display warnings in airline
+"let g:airline#extensions#ale#enabled = 1
 
 " Airline ------------------------------
 
