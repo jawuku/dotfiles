@@ -1,0 +1,47 @@
+" Minimalistic .vimrc
+
+" use modern Vim settings instead of vi
+set nocompatible
+
+" enable syntax highlighting
+syntax on
+
+" enable file type dectection and auto-indentation
+filetype plugin indent on
+
+" line numbers (including relative)
+set nu rnu
+
+" allow hidden buffers
+set hidden
+
+" tabs and spaces
+set expandtab softtabstop=4 shiftwidth=4
+
+" unicode utf-8
+set encoding=utf-8
+
+" Clipboard settings
+set clipboard^=unnamed,unnamedplus
+
+" disable backup
+set nobackup
+
+" always show position and status line
+set ruler
+set laststatus=2
+
+" command line completion
+set wildmenu
+
+" use case insensitive search, except when with capital letters
+set ignorecase smartcase
+
+" confirmation dialogue to ask if you want to save file on exit
+set confirm
+
+" different cursor shapes in insert mode
+let &t_SI = "\<Esc>[5 q" "SI = insert mode, blinking vertical bar
+let &t_SR = "\<Esc>[4 q" "SR = replace mode, solid underscore
+let &t_EI = "\<Esc>[2 q" "EI = normal mode, solid block
+

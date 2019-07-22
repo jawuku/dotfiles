@@ -1,8 +1,3 @@
-" init.nvim - using deoplete and w0rp/ale
-" optional settings for neomake commented out
-" uncomment and comment out ale settings to change
-"
-" Command abbreviation function
 function! Cabbrev(key, value) abort
     " create command alias safely, see https://bit.ly/2ImFOpL
     " the following two functions are taken from answer below on SO
@@ -57,12 +52,12 @@ else
 	Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" Asynchrynous Linting Engine and formatter
-Plug 'w0rp/ale'
-" Plug 'neomake/neomake'
-" Plug 'sbdchd/neoformat'
+" Asynchrynous Linting Engine
+"Plug 'w0rp/ale'
+Plug 'neomake/neomake'
 
-" Javascript Plugins
+"Javascript Plugins
+" sudo npm install -g tern
 Plug 'carlitux/deoplete-ternjs'
 
 " Javascript syntax and indentation
@@ -70,11 +65,12 @@ Plug 'pangloss/vim-javascript'
 
 "Typescript Plugins
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+  Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
   
 "Python Plugins
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'sbdchd/neoformat'
 
 " python syntax highlighting and more
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
@@ -84,7 +80,7 @@ Plug 'Shougo/deoplete-clangx'
 Plug 'Shougo/neoinclude.vim'
 
 " Better Language Packs
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 
 " highlight URLs inside vim
 Plug 'itchyny/vim-highlighturl'
@@ -100,6 +96,9 @@ Plug 'iCyMind/NeoSolarized'
 
 " Enter brackets, quotes etc. in pairs
 Plug 'jiangmiao/auto-pairs'
+
+"Rainbow Parentheses
+Plug 'kien/rainbow_parentheses.vim'
 
 " neovim-qt
 Plug 'equalsraf/neovim-gui-shim'
@@ -119,7 +118,6 @@ Plug 'scrooloose/nerdtree'
 
 " Code Folding
 Plug 'tmhedberg/SimpylFold'
-
 
 " Initialise plugin system
 call plug#end()
@@ -158,12 +156,17 @@ call deoplete#custom#source('_', 'max_menu_width', 80)
 " see https://goo.gl/QP9am2
 call deoplete#custom#source('_', 'min_pattern_length', 1)
 
+" whether to disable completion for certain syntax
+" call deoplete#custom#source('_', {
+"     \ 'filetype': ['vim'],
+"     \ 'disabled_syntaxes': ['String']
+"     \ })
 call deoplete#custom#source('_', {
     \ 'filetype': ['python'],
     \ 'disabled_syntaxes': ['Comment']
     \ })
 
-" ignore certain sources, because they only cause noise most of the time
+" ignore certain sources, because they only cause nosie most of the time
 call deoplete#custom#option('ignore_sources', {
    \ '_': ['around', 'buffer', 'tag']
    \ })
@@ -180,36 +183,63 @@ call deoplete#custom#option('auto_complete_delay', 100)
 " enable or disable deoplete auto-completion
 call deoplete#custom#option('auto_complete', v:true)
 
-" C/C++ autocomplete via clang
-call deoplete#custom#var('clangx', 'clang_binary', '/opt/clang/bin/clang')
-
 " Neomake settings
-" if not already installed, install flake8 and eslint:
+" if not already installed:
 " pip3 install flake8
-" or install pylint as an alternative, and change option below
+" (or install pylint as an alternative)
 " sudo npm install -g eslint
-"let g:neomake_python_enabled_makers = ['flake8']
-"let g:neomake_javascript_enabled_makers = ['eslint']
-"call neomake#configure#automake('nrwi', 500)
-"let g:neomake_open_list = 2
-
-" Neoformat settings - convert tabs to spaces, align and strip trailing spaces
-" If not already installed:
-" sudo npm install -g prettier
-" pip3 install yapf
-" sudo apt install astyle
-" let g:neoformat_basic_format_align = 1
-" let g:neoformat_basic_format_retab = 1
-" let g:neoformat_basic_format_trim = 1
-" let g:neoformat_enabled_python = ['yapf']
-" let g:neoformat_enabled_javascript = ['prettier']
+" sudo npm install -g ethlint
+let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_solidity_enabled_makers = ['solium']
+call neomake#configure#automake('nrwi', 500)
+let g:neomake_open_list = 2
 
 " automatically close the autocomplete preview window when finished
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" disable vim-polyglot for python
-let g:polyglot_disabled = ['python', 'javascript']
 
+" Neoformat settings - convert tabs to spaces, align and strip trailing spaces
+" if not already installed:
+" pip3 install yapf
+" sudo npm install -g prettier
+" sudo apt install astyle
+let g:neoformat_basic_format_align = 1
+let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim = 1
+let g:neoformat_enabled_python = ['yapf']
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_c = ['astyle']
+let g:neoformat_enabled_cpp = ['astyle']
+
+" Nerd Tree
+" ---------
+"
+" Control-n to toggle Nerd Tree
+map <C-n> :NERDTreeToggle<CR>
+
+" Close nvim when Nerd Tree is the only remaining window left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Nerd Commenter
+" --------------
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+"
+"Misc. Settings
+"--------------
 " Change mapleader to comma ','
 let mapleader = ',' 
 
@@ -227,6 +257,12 @@ set encoding=utf-8
 
 " Enable syntax highlighting
 syntax enable
+
+" Enable filetype plugins
+filetype plugin indent on
+
+" ignore case when searching (except for capiital letters)
+set ignorecase smartcase
 
 "Clipboard settings - unnamed for Windows or MacOS
 " unnamedplus for Unix/Linux
@@ -259,22 +295,12 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Nerdtree settings
-" <Ctrl-n> to activate Nerdtree
-map <C-n> :NERDTreeToggle<CR>
-
-" Close nvim if Nerdtree is the only window open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Define Nerdtree arrows
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-
 " Default python locations
 " let g:python_host_prog = '/usr/bin/python2'
 
 let g:python3_host_prog = '/usr/bin/python3'
-
+" For Termux Python3
+" let g:python3_host_prog = '/data/data/com.termux/files/usr/bin/python3'
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
 " (neomake, ...)
 " For Linux, set shell as:
@@ -282,40 +308,15 @@ set shell=/bin/bash
 " For Termux
 " set shell=/data/data/com.termux/files/usr/bin/bash
 
-" Asynchronous Linting Engine (ALE)
-" ---------------------------------
-" leader+l = manual ALE linting
-nnoremap <leader>l :ALELint<CR>
-"
-"Configure ALE to jump between linting errors:
-" [c - to previous error
-" ]c - to next error
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)
-"
-" Change ALE warning signs
-"let g:ale_sign_error = '❌'
-"let g:ale_sign_warning = '⚠️'
-"
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier', 'eslint'],
-\   'python': ['yapf', 'flake8'],
-\}
-
-" ALE to display warnings in airline
-let g:airline#extensions#ale#enabled = 1
-
 " Airline ------------------------------
+" let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'papercolor'
 let g:airline#extensions#whitespace#enabled = 0
 
 "Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -334,21 +335,39 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "let g:airline_symbols.paste = 'ρ'
 "let g:airline_symbols.notexists = '∄'
 
+" Rainbow Parentheses Options
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 " Colour schemes
 
-if has('gui_running')
-	" Solarized colourscheme in gui (Gvim) mode.
-    set guifont=Roboto\ Mono\ for\ Powerline\ 14
-    set termguicolors
-    set background=light
-	colorscheme NeoSolarized
-else
-    " NeoSolarized dark colour scheme in text mode
-    set termguicolors
-    set background=dark
-	colorscheme NeoSolarized
-endif
-
+set guifont=Roboto\ Mono\ for\ Powerline\ 14
+set termguicolors
+set background=dark
+colorscheme NeoSolarized
 
 " Fisadev's dark colour scheme is a nice alternative in text mode
 " let &t_Co = 256
@@ -356,5 +375,6 @@ endif
 " AirlineTheme bubblegum
 
 " Two new user-defined commands to select Fisa or NeoSolarized colours
-command Solar set termguicolors | set background=dark | colorscheme NeoSolarized
-command Fisa let &t_Co =256 | colorscheme fisa
+" with matching Airline themes (bubblegum and papercolor respectively)
+command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized | AirlineTheme papercolor
+command Fisa let &t_Co =256 | colorscheme fisa | AirlineTheme bubblegum
