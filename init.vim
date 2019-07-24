@@ -75,12 +75,15 @@ Plug 'sbdchd/neoformat'
 " python syntax highlighting and more
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 
+" ARMv6/7 syntax highlighting
+Plug 'ARM9/arm-syntax-vim'
+
 " C/C++ completion
 Plug 'Shougo/deoplete-clangx'
 Plug 'Shougo/neoinclude.vim'
 
 " Better Language Packs
-"Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 " highlight URLs inside vim
 Plug 'itchyny/vim-highlighturl'
@@ -93,6 +96,9 @@ Plug 'fisadev/fisa-vim-colorscheme'
 
 " NeoSolarized truecolor theme
 Plug 'iCyMind/NeoSolarized'
+
+" VSCode's Dark+ Theme ported to vim
+Plug 'dunstontc/vim-vscode-theme'
 
 " Enter brackets, quotes etc. in pairs
 Plug 'jiangmiao/auto-pairs'
@@ -158,9 +164,9 @@ call deoplete#custom#source('_', 'min_pattern_length', 1)
 
 " whether to disable completion for certain syntax
 " call deoplete#custom#source('_', {
-"     \ 'filetype': ['vim'],
-"     \ 'disabled_syntaxes': ['String']
-"     \ })
+    " \ 'filetype': ['vim'],
+    " \ 'disabled_syntaxes': ['String']
+    " \ })
 call deoplete#custom#source('_', {
     \ 'filetype': ['python'],
     \ 'disabled_syntaxes': ['Comment']
@@ -187,8 +193,8 @@ call deoplete#custom#option('auto_complete', v:true)
 " if not already installed:
 " pip3 install flake8
 " (or install pylint as an alternative)
-" sudo npm install -g eslint
-" sudo npm install -g ethlint
+" sudo npm install -g eslint (for JavaScript)
+" sudo npm install -g ethlint (for ethereum solium)
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_solidity_enabled_makers = ['solium']
@@ -223,6 +229,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " Nerd Commenter
 " --------------
+"
+" common keys:
+" <leader>cc - comment out current line in normal mode,
+" or text selected in visual mode
+" <leader>c<space> - comment/uncomment selected lines 
+" <leader>c$ - comment till end of line
+" <leader>cy - copies (yanks) selected text before commenting it
+"
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
@@ -264,7 +278,16 @@ filetype plugin indent on
 " ignore case when searching (except for capiital letters)
 set ignorecase smartcase
 
-"Clipboard settings - unnamed for Windows or MacOS
+" confirmation dialogue to ask if you want to save file on exit
+set confirm
+
+" disable vim-polyglot for python and JS
+let g:polyglot_disabled = ['javascript', 'python']
+
+" ARMv6/7 syntax highlighting
+au BufNewFile,BufRead *.s,*.S set filetype=arm " arm = armv6/7
+
+" Clipboard settings - unnamed for Windows or MacOS
 " unnamedplus for Unix/Linux
 set clipboard^=unnamed,unnamedplus
 
@@ -304,7 +327,7 @@ let g:python3_host_prog = '/usr/bin/python3'
 " fix problems with uncommon shells (fish, xonsh) and plugins running commands
 " (neomake, ...)
 " For Linux, set shell as:
-set shell=/bin/bash  
+set shell=/bin/bash
 " For Termux
 " set shell=/data/data/com.termux/files/usr/bin/bash
 
@@ -367,7 +390,7 @@ au Syntax * RainbowParenthesesLoadBraces
 set guifont=Roboto\ Mono\ for\ Powerline\ 14
 set termguicolors
 set background=dark
-colorscheme NeoSolarized
+colorscheme dark_plus
 
 " Fisadev's dark colour scheme is a nice alternative in text mode
 " let &t_Co = 256
@@ -375,6 +398,6 @@ colorscheme NeoSolarized
 " AirlineTheme bubblegum
 
 " Two new user-defined commands to select Fisa or NeoSolarized colours
-" with matching Airline themes (bubblegum and papercolor respectively)
-command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized | AirlineTheme papercolor
-command Fisa let &t_Co =256 | colorscheme fisa | AirlineTheme bubblegum
+command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized
+command Fisa let &t_Co =256 | colorscheme fisa
+command Darkplus set termguicolors | colorscheme dark_plus
