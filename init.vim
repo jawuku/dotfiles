@@ -172,7 +172,7 @@ call deoplete#custom#source('_', {
     \ 'disabled_syntaxes': ['Comment']
     \ })
 
-" ignore certain sources, because they only cause nosie most of the time
+" ignore certain sources, because they only cause noise most of the time
 call deoplete#custom#option('ignore_sources', {
    \ '_': ['around', 'buffer', 'tag']
    \ })
