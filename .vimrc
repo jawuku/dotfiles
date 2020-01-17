@@ -1,49 +1,7 @@
-function! Cabbrev(key, value) abort
-    " create command alias safely, see https://bit.ly/2ImFOpL
-    " the following two functions are taken from answer below on SO
-    " https://stackoverflow.com/a/10708687/6064933
-
-    execute printf('cabbrev <expr> %s (getcmdtype() == ":" && getcmdpos() <= %d) ? %s : %s',
-    \ a:key, 1+len(a:key), Single_quote(a:value), Single_quote(a:key))
-endfunction
-
-function! Single_quote(str) abort
-    return "'" . substitute(copy(a:str), "'", "''", 'g') . "'"
-endfunction
-
-" ============================================================================
-" Vim-plug initialization
-" Avoid modify this section, unless you are very sure of what you are doing
-
-let vim_plug_just_installed = 0
-let vim_plug_path = expand('~/.vim/autoload/plug.vim')
-if !filereadable(vim_plug_path)
-    echo "Installing Vim-plug..."
-    echo ""
-    silent !mkdir -p ~/.vim/autoload
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    let vim_plug_just_installed = 1
-endif
-
-" manually load vim-plug the first time
-if vim_plug_just_installed
-    :execute 'source '.fnameescape(vim_plug_path)
-endif
-
-" Obscure hacks done, you can now modify the rest of the .vimrc as you wish :)
-
-" ============================================================================
-" Active plugins
-" You can disable or add new ones here:
-
-" this needs to be here, so vim-plug knows we are declaring the plugins we
-" want to use
+" Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
 " Plugins from github repos:
-
-" Fancy startup screen
-"Plug 'mhinz/vim-startify'
 
 " Terminal Vim with 256 colours
 Plug 'fisadev/fisa-vim-colorscheme'
@@ -61,31 +19,10 @@ Plug 'sheerun/vim-polyglot'
 " Simpler code folding
 Plug 'tmhedberg/SimpylFold'
 
-" Linting
-Plug 'w0rp/ale'
-
-" Code completion
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-
-" Configure language servers
-" Setup Python and Javascript servers
-"
-" pip3 install python-language-server
-" npm install -g typescript typescript-language-server
-" install clang & LLVM libraries
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'ryanolsonx/vim-lsp-python'
-Plug 'ryanolsonx/vim-lsp-javascript'
-
-" Neoinclude
-Plug 'Shougo/neoinclude.vim'
-Plug 'kyouryuukunn/asyncomplete-neoinclude.vim'
-
 " Automatically close parentheses etc.
-Plug 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
+" can install coc-pairs instead
+"i.e. :CocInstall coc-pairs
 
 " Display indentation lines
 Plug 'Yggdroot/indentLine'
@@ -93,117 +30,52 @@ Plug 'Yggdroot/indentLine'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 
-" Initialise plugin system
+" Code completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" R support - :CocInstall coc-r-lsp
+" Python - :CocInstall coc-python
+" JSON - :CocInstall coc-json
+" set up Julia, C/C++ language servers in config.json file
+
+" Rainbow Parentheses
+Plug 'luochen1990/rainbow'
+
+" Julia language support
+Plug 'JuliaEditorSupport/julia-vim'
+let g:default_julia_version = "devel"
+
+" List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-"{{ vim-plug settings
-" use shortnames for common vim-plug command to reduce typing
-" To use these shortcut: first activate command line with `:`, then input the
-" short alias name, e.g., `pi`, then press <space>, the alias will be expanded
-" to the original command automatically
-call Cabbrev('pi', 'PlugInstall')
-call Cabbrev('pud', 'PlugUpdate')
-call Cabbrev('pug', 'PlugUpgrade')
-call Cabbrev('ps', 'PlugStatus')
-call Cabbrev('pc', 'PlugClean')
-"}}
+" ====================
+" Vim General Settings
+" ====================
 
-"PlugInstall [name ...] [#threads] Install plugins
-"PlugUpdate [name ...] [#threads] Install or update plugins
-"PlugClean[!] Remove unused directories (bang version will clean without prompt)
-"PlugUpgrade Upgrade vim-plug itself
-"PlugStatus Check the status of plugins
-"PlugDiff Examine changes from the previous update and the pending changes
-"PlugSnapshot[!] [output path] Generate script for restoring the current snapshot of the plugins
-
-
-" Put your non-Plugin stuff after this line
-"========================================================
-"Vim settings
-
-" no vi-compatible
+" use modern Vim settings instead of vi
 set nocompatible
 
-" allow plugins by file type (required for plugins!)
-filetype plugin on
-filetype indent on
+" enable syntax highlighting
+syntax on
 
-" Configure C/C++ language server manually
-if executable('clangd')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
-endif
+" enable file type dectection and auto-indentation
+filetype plugin indent on
 
+" line numbers (including relative)
+set nu rnu
 
-" Neoinclude registration
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
-    \ 'name': 'neoinclude',
-    \ 'whitelist': ['cpp'],
-    \ 'refresh_pattern': '\(<\|"\|/\)$',
-    \ 'completor': function('asyncomplete#sources#neoinclude#completor'),
-    \ }))
+" allow hidden buffers
+set hidden
 
-" Julia language server registration
-let s:julia_exe = '/opt/julia/bin/julia'
-let s:julia_lsp_startscript = '/home/pi/Sourcecode/Julia/startlanguageserver.jl'
-if executable('julia')
-  autocmd User lsp_setup call lsp#register_server({
-  \ 'name': 'julia',
-  \ 'cmd': {server_info->[s:julia_exe, '--startup-file=no', '--history-file=no', s:julia_lsp_startscript]},
-  \ 'whitelist': ['julia'],
-  \ })
-endif
+" tabs and spaces
+set expandtab autoindent softtabstop=4 shiftwidth=4
 
-" automatically close the autocomplete preview window when finished
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" tab completion
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-
-" Force refresh completion
-imap <c-space> <Plug>(asyncomplete_force_refresh)
+" unicode utf-8
+set encoding=utf-8
 
 " Change mapleader to comma ','
 let mapleader = ',' 
 
-"Line numbers
-set number relativenumber
-
-" file and directory settings
-set undofile autochdir 
-
-"tabs and spaces
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-
-" Set for UTF-8
-set encoding=utf-8
-
-" Enable syntax highlighting
-syntax enable
-
-" Nerdtree settings
-" <Ctrl-n> to activate Nerdtree
-map <C-n> :NERDTreeToggle<CR>
-
-" Close nvim if Nerdtree is the only window open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Define Nerdtree arrows
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-
-
-
-"Clipboard settings - unnamed for Windows or MacOS
-" unnamedplus for Unix/Linux
+" Clipboard settings
 set clipboard^=unnamed,unnamedplus
 
 " Copy to clipboard
@@ -218,92 +90,185 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+" disable backup
+set nobackup
 
-" Set character for indented lines
+" always show position and status line
+set ruler
+set laststatus=2
+
+" file and directory settings
+set undofile autochdir 
+
+" command line completion
+set wildmenu
+
+" use case insensitive search, except when with capital letters
+set ignorecase smartcase
+
+" confirmation dialogue to ask if you want to save file on exit
+set confirm
+
+" set python3 path
+let g:python3_host_prog='/usr/bin/python3'
+
+" different cursor shapes in insert mode
+let &t_SI = "\<Esc>[5 q" "SI = insert mode, blinking vertical bar
+let &t_SR = "\<Esc>[4 q" "SR = replace mode, solid underscore
+let &t_EI = "\<Esc>[2 q" "EI = normal mode, solid block
+
+" Plugin setup
+
+" --------------
+" coc-nvim setup
+" --------------
+
+" airline-coc integration
+let g:airline#extensions#coc#enabled = 1
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" -----------------
+" NerdTree Settings
+" -----------------
+
+" <Ctrl-n> to activate Nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
+" Close nvim if Nerdtree is the only window open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Define Nerdtree arrows
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+
+" --------------------- 
+" Indent line Character
+" ---------------------
 let g:indentLine_char = '┆'
 
-" Autoclose ------------------------------
-
-" Fix to let ESC work as expected with Autoclose plugin
-" (without this, when showing an autocompletion window,
-"  ESC won't leave insert  mode)
-let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
- 
-" Key combos for split screens:
-"
-"    Ctrl+J move to the split below
-"    Ctrl+K move to the split above
-"    Ctrl+L move to the split to the right
-"    Ctrl+H move to the split to the left
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Enable code folding
-
+" --------------------- 
+" Enable Code Folding
+" --------------------- 
 set foldmethod=indent
 set foldlevel=99
 
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" Default python locations
-" let g:python_host_prog = '/usr/bin/python2'
-
-" For Termux, use this location
-" let g:python3_host_prog = '/data/data/com.termux/files/usr/bin/python3'
-
-" Otherwise for Linux, use the conventional
-let g:python_host_prog = '/usr/bin/python3'
-
-" fix problems with uncommon shells (fish, xonsh) and plugins running commands
-" (neomake, ...)
-" For Linux, set shell as:
-set shell=/bin/bash  
-" For Termux
-" set shell=/data/data/com.termux/files/usr/bin/bash
-
-
-" Asynchronous Linting Engine (ALE)
-" ---------------------------------
-" leader+l = manual ALE linting
-nnoremap <leader>l :ALELint<CR>
-"
-"Configure ALE to jump between linting errors:
-" [c - to previous error
-" ]c - to next error
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)
-"
-" Change ALE warning signs
-"let g:ale_sign_error = '❌'
-"let g:ale_sign_warning = '⚠️'
-"
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier', 'eslint'],
-\   'python': ['yapf', 'flake8'],
-\}
-
-" ALE to display warnings in airline
-let g:airline#extensions#ale#enabled = 1
-
-" Airline ------------------------------
-
+" ------- 
+" Airline
+" -------
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'papercolor'
 let g:airline#extensions#whitespace#enabled = 0
 
-"Enable the list of buffers and list numbers
+"Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+
 
 " Airline unicode symbols
 " Uncomment these and disable the Powerline symbols to use
@@ -318,23 +283,33 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "let g:airline_symbols.paste = 'ρ'
 "let g:airline_symbols.notexists = '∄'
 
+" --------------
 " Colour schemes
+" --------------
 
 if has('gui_running')
-	" Solarized colourscheme in gui (Gvim) mode.
-    set guifont=Roboto\ Mono\ for\ Powerline\ 14
+        " Solarized colourscheme in gui (Gvim) mode.
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
     set termguicolors
     set background=light
-	colorscheme NeoSolarized
-    set guicursor+=n-v-c:blinkon0
+        colorscheme NeoSolarized
 else
     " NeoSolarized dark colour scheme in text mode
     set termguicolors
     set background=dark
-	colorscheme NeoSolarized
+        colorscheme NeoSolarized
 endif
 
-" Two new user-defined commands to select Fisa or Solarized colours
-" with matching Airline themes (bubblegum and papercolor respectively)
-command SolarPaper set termguicolors | set background=dark | colorscheme NeoSolarized
+
+" Fisadev's dark colour scheme is a nice alternative in text mode
+" let &t_Co = 256
+" colorscheme fisa
+" AirlineTheme bubblegum
+
+" Two new user-defined commands to select Fisa or NeoSolarized colours
+command Solar set termguicolors | set background=dark | colorscheme NeoSolarized
 command Fisa let &t_Co =256 | colorscheme fisa
+
+" Rainbow Parentheses
+let g:rainbow_active = 1
+
