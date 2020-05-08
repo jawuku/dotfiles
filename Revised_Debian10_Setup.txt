@@ -314,7 +314,6 @@ sudo apt-get install -y nodejs
 
 coc-nvim setup - put in init.vim
 --------------------------------
-
 " Code completion
 " run following commands in vim after installation
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -324,6 +323,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Julia - :CoCInstall coc-julia
 " C/C++ - :CocInstall coc-clangd (requires clang-tools package)
 " Autoclose parentheses :CocInstall coc-pairs
+
+Bash language server
+--------------------
+sudo npm i -g bash-language-server
+add json config in coc-settings.json (see
 
 install neovim-qt
 -----------------
@@ -358,7 +362,7 @@ Setup Emacs for Clojure
 # install Vim mode instructions at https://www.emacswiki.org/emacs/VimMode
 
 Alternative Clojure Editors by Zach Oakes (www.sekao.net)
----------------------------------------------
+---------------------------------------------------------
 
 1) Nightcode - get deb or appimage and install from https://sekao.net/nightcode/
 
