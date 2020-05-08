@@ -140,6 +140,10 @@ mpv (or totem, smplayer, vlc)
 
 qalculate-gtk (or galculator) (or stick with xcalc)
 
+xarchiver (or file-roller)
+
+xfburn (or brasero)
+
 Web Browsers - a choice
 -----------------------
 
@@ -191,7 +195,6 @@ utilities
 xclip
 chkrootkit
 bleachbit or (secure-delete) 
-xarchiver
 libnotify-bin
 notify-osd
 clang-tools
@@ -306,7 +309,8 @@ sudo cpanm Neovim::Ext
 
 Install nodejs for coc.nvim
 ---------------------------
-sudo apt install nodejs npm
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
 coc-nvim setup - put in init.vim
 --------------------------------
