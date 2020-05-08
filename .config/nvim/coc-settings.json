@@ -1,9 +1,8 @@
 {
-  "suggest.snippetIndicator": "🍦",
-   "languageserver": {
+"languageserver": {
     "clojure-lsp": {
       "command": "bash",
-      "args": ["-c", "cd /Users/case/dev/lsp/ && lein run"],
+      "args": ["-c", "clojure-lsp"],
       "filetypes": ["clojure"],
       "rootPatterns": ["project.clj"],
       "additionalSchemes": ["jar", "zipfile"],
