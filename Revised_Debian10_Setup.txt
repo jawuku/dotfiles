@@ -315,19 +315,31 @@ sudo apt-get install -y nodejs
 coc-nvim setup - put in init.vim
 --------------------------------
 " Code completion
-" run following commands in vim after installation
+" Put in init.vim:
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" run following commands in vim after installation
 " R support - :CocInstall coc-r-lsp
 " Python - :CocInstall coc-python
 " JSON - :CocInstall coc-json
 " Julia - :CoCInstall coc-julia
-" C/C++ - :CocInstall coc-clangd (requires clang-tools package)
+" C/C++ - :CocInstall coc-clangd (requires clang, clangd and clang-tools package)
 " Autoclose parentheses :CocInstall coc-pairs
+:CocInstall coc-r-lsp coc-python coc-json coc-julia coc-clangd coc-pairs
 
 Bash language server
 --------------------
 sudo npm i -g bash-language-server
-add json config in coc-settings.json (see
+add json config in coc-settings.json:
+
+"languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  }
 
 install neovim-qt
 -----------------
