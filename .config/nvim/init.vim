@@ -311,4 +311,3 @@ let g:rainbow_active = 1
 " Fisadev's colour scheme for 256 colour terminals in text mode
 "let &t_Co = 256
 "colorscheme fisa
-colorscheme gruvbox
