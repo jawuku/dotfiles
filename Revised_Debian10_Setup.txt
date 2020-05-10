@@ -127,16 +127,21 @@ Other packages to install using "sudo apt install" (alternatives are in parenthe
 tint2 (or lxpanel)
 
 pcmanfm (or doublecmd-gtk)
+also consider ranger, a command line alternative
 
 sakura (or lxterminal)
 
 shotwell (or viewnior, gpicview, geeqie, ristretto, qiv)
+consider fim for framebuffer use. 
 
 geany libvte9 (or use medit)
 
 zathura zathura-djvu zathura-cb  (or xpdf, atril)
 
 mpv (or totem, smplayer, vlc)
+vlc also has an ncurses interface (vlc -I ncurses)
+add alias in ~/.bashrc:
+alias vlc='vlc -I ncurses'
 
 qalculate-gtk (or galculator) (or stick with xcalc)
 
