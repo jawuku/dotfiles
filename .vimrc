@@ -1,3 +1,9 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
@@ -9,6 +15,9 @@ Plug 'fisadev/fisa-vim-colorscheme'
 " NeoSolarized truecolor theme
 Plug 'iCyMind/NeoSolarized'
 
+"Gruvbox theme
+Plug 'morhetz/gruvbox'
+
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -19,11 +28,6 @@ Plug 'sheerun/vim-polyglot'
 " Simpler code folding
 Plug 'tmhedberg/SimpylFold'
 
-" Automatically close parentheses etc.
-"Plug 'Townk/vim-autoclose'
-" can install coc-pairs instead
-"i.e. :CocInstall coc-pairs
-
 " Display indentation lines
 Plug 'Yggdroot/indentLine'
 
@@ -32,10 +36,17 @@ Plug 'scrooloose/nerdtree'
 
 " Code completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" run following commands in vim after installation
 " R support - :CocInstall coc-r-lsp
 " Python - :CocInstall coc-python
 " JSON - :CocInstall coc-json
-" set up Julia, C/C++ language servers in config.json file
+" Julia - :CoCInstall coc-julia
+" C/C++ - :CocInstall coc-clangd (requires clang-tools package)
+" Autoclose parentheses :CocInstall coc-pairs
+" set up Clojure, C/C++ language servers in config.json file
+
+"Asynchronous Linting Engine (ALE)
+Plug 'dense-analysis/ale'
 
 " Rainbow Parentheses
 Plug 'luochen1990/rainbow'
@@ -241,7 +252,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
-
 " --------------------- 
 " Indent line Character
 " ---------------------
@@ -288,28 +298,22 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " --------------
 
 if has('gui_running')
-        " Solarized colourscheme in gui (Gvim) mode.
+    " NeoSolarized colourscheme in gui (Gvim) mode.
     set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
     set termguicolors
     set background=light
-        colorscheme NeoSolarized
+    colorscheme NeoSolarized
 else
-    " NeoSolarized dark colour scheme in text mode
-    set termguicolors
+    " Gruvbox dark colour scheme in text mode
     set background=dark
-        colorscheme NeoSolarized
+    colorscheme gruvbox
 endif
 
-
-" Fisadev's dark colour scheme is a nice alternative in text mode
-" let &t_Co = 256
-" colorscheme fisa
-" AirlineTheme bubblegum
-
-" Two new user-defined commands to select Fisa or NeoSolarized colours
-command Solar set termguicolors | set background=dark | colorscheme NeoSolarized
-command Fisa let &t_Co =256 | colorscheme fisa
+" Two new user-defined commands to select Gruvbox or NeoSolarized colours
+command Solarlight  set termguicolors | set background=light | colorscheme NeoSolarized
+command Solardark   set termguicolors | set background=dark  | colorscheme NeoSolarized
+command Gruvlight   set termguicolors | set background=light | colorscheme gruvbox
+command Gruvdark    set termguicolors | set background=dark  | colorscheme gruvbox
 
 " Rainbow Parentheses
 let g:rainbow_active = 1
-
