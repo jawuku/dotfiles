@@ -9,11 +9,8 @@ call plug#begin('~/.vim/plugged')
 
 " Plugins from github repos:
 
-" Terminal Vim with 256 colours
-Plug 'fisadev/fisa-vim-colorscheme'
-
 " NeoSolarized truecolor theme
-Plug 'iCyMind/NeoSolarized'
+Plug 'icymind/NeoSolarized'
 
 "Gruvbox theme
 Plug 'morhetz/gruvbox'
