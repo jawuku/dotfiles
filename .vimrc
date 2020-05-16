@@ -111,6 +111,12 @@ set laststatus=2
 " file and directory settings
 set undofile autochdir 
 
+" disable swapfile
+set noswapfile
+
+" disable modeline - use airline status bar instead
+set nomodeline
+
 " command line completion
 set wildmenu
 
