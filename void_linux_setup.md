@@ -29,7 +29,7 @@ sudo vpm i base-devel
 ```
 ## add headers for current kernel
 ```sh
-#sudo vpm i linux5.4-headers-$(uname -r)
+sudo vpm i linux5.4-headers-$(uname -r)
 ```
 ## add non-free repository to install NVIDIA drivers
 ```sh
