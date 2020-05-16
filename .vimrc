@@ -52,6 +52,9 @@ Plug 'luochen1990/rainbow'
 Plug 'JuliaEditorSupport/julia-vim'
 let g:default_julia_version = "devel"
 
+" Vim-slime to interact with running REPL
+Plug 'jpalardy/vim-slime'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -234,6 +237,11 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" ------------------
+" Vim Slime Settings
+" ------------------
+let g:slime_target = "x11"
 
 " -----------------
 " NerdTree Settings
