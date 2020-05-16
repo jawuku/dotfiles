@@ -67,8 +67,9 @@ cd fonts
 
 ## add colour bash prompt
 
-echo '# Custom bash prompt via kirsle.net/wizards/ps1.html
-export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"' >> ~/.bashrc
+echo '# Custom bash prompt via kirsle.net/wizards/ps1.html' >> ~/.bashrc
+
+echo 'export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"' >> ~/.bashrc
 
 ## install extra programs
 
@@ -111,6 +112,8 @@ library("devtools")
 devtools::github_install("IRkernel/IRkernel")
 IRkernel::installspec()
 
-
-# type 'yes' for local installation, and select mirror
+### type 'yes' for local installation, and select mirror
 q() # to exit
+
+## Clojure
+sudo vpm i leiningen
