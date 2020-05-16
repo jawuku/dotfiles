@@ -1,23 +1,28 @@
 # Void Linux post-install
-
+```sh
 cd ~
+```
 ## update repository and update (do twice then reboot)
-
+```sh
 sudo xbps-install -Su
-
+```
 ## vpm is a nice wrapper for xbps, similar syntax to apt
+```sh
 sudo xbps-install vpm
-
+```
 ## add some useful tools, and populate directories in user directory 
+```sh
 sudo vpm install bash-completion git zip unzip p7zip xdg-user-dirs
 sudo vpm install exa wget curl
-
+```
 ## add some text editors to make life easier (vpm i = vpm install)
+```sh
 sudo vpm i nano neovim
-
+```
 ## add nano syntax highlighter
+```sh
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
-
+```
 ## include development libraries (equivalent of build-essential in Debian)
 sudo vpm i base-devel
 
