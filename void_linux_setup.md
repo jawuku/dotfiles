@@ -52,6 +52,7 @@ cp -rf Numix-Circle/ ~/.icons/
 cp -rf Numix-Circle-Light/ ~/.icons/
 
 cd ~
+
 rm -rf numix-icon-theme numix-icon-theme-circle/
 
 ## install powerline fonts
