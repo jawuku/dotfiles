@@ -13,6 +13,7 @@ sudo xbps-install vpm
 ## add some useful tools, and populate directories in user directory 
 ```sh
 sudo vpm install bash-completion git zip unzip p7zip xdg-user-dirs
+
 sudo vpm install exa wget curl
 ```
 ## add some text editors to make life easier (vpm i = vpm install)
@@ -38,28 +39,36 @@ sudo vpm addrepo void-repo-non-free
 ## install NVIDIA drivers and kernel headers, then reboot
 ```sh
 sudo vpm i nvidia
+
 sudo nvidia-xconfig
+
 sudo reboot
 ```
 ## arc themes with icons
 ```sh
 sudo vpm i arc-icon-theme arc-theme gnome-themes-standard
+
 sudo vpm i gnome-icon-theme gnome-icon-theme-extras
 ```
 ## add some icon themes - Numix and Numix Circle
 ```sh
 git clone https://github.com/numixproject/numix-icon-theme-circle.git
+
 git clone https://github.com/numixproject/numix-icon-theme.git
 
 mkdir ~/{.icons,.themes}
+
 ## then install icon theme directories in ~/.icons/
 cd ~/numix-icon-theme
 
 cp -rf Numix/ ~/.icons
+
 cp -rf Numix-Light/ ~/.icons
 
 cd ~/numix-icon-theme-circle
+
 cp -rf Numix-Circle/ ~/.icons/
+
 cp -rf Numix-Circle-Light/ ~/.icons/
 
 cd ~
@@ -69,9 +78,13 @@ rm -rf numix-icon-theme numix-icon-theme-circle/
 ## install powerline fonts
 ```sh
 mkdir -p ~/github
+
 cd ~/github
+
 git clone https://github.com/powerline/fonts.git
+
 cd fonts
+
 ./install.sh
 ```
 ### can delete ~/github/fonts if desired
@@ -83,6 +96,12 @@ cd fonts
 echo '# Custom bash prompt via kirsle.net/wizards/ps1.html' >> ~/.bashrc
 
 echo 'export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"' >> ~/.bashrc
+```
+## add power management utilities
+```sh
+sudo vpm i tlp
+
+sudo tlp start
 ```
 ## install extra programs
 ```sh
@@ -106,14 +125,20 @@ sudo vpm i atom
 ```sh
 sudo vpm i julia julia-doc
 ```
-## install Jupyter package in Julia
+## install language server and Jupyter kernel in Julia
 ```sh
 julia
+
 using Pkg
+
 Pkg.add("IJulia")
+
 Pkg.add("LanguageServer")
+
 Pkg.add("SymbolServer")
+
 Pkg.add("StaticLint")
+
 exit()
 ```
 ## add package "uber-juno" in atom
@@ -128,8 +153,11 @@ sudo vpm i R libxml2-devel zlib-devel libcurl-devel czmq-devel
 ```sh
 R
 install.packages( c("tidyverse", "devtools", "languageserver") )
+
 library("devtools")
+
 devtools::github_install("IRkernel/IRkernel")
+
 IRkernel::installspec()
 ```
 ### type 'yes' for local installation, and select mirror
