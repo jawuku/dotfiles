@@ -12,8 +12,8 @@ call plug#begin('~/.vim/plugged')
 " NeoSolarized truecolor theme
 Plug 'icymind/NeoSolarized'
 
-"Gruvbox theme
-Plug 'morhetz/gruvbox'
+"Papercolor theme
+Plug 'NLKNguyen/papercolor-theme'
 
 " Airline
 Plug 'vim-airline/vim-airline'
@@ -309,16 +309,16 @@ if has('gui_running')
     set background=light
     colorscheme NeoSolarized
 else
-    " Gruvbox dark colour scheme in text mode
+    " Papercolor dark colour scheme in text mode
     set background=dark
-    colorscheme gruvbox
+    colorscheme PaperColor
 endif
 
-" Two new user-defined commands to select Gruvbox or NeoSolarized colours
+" Two new user-defined commands to select PaperColor or NeoSolarized colours
 command Solarlight  set termguicolors | set background=light | colorscheme NeoSolarized
 command Solardark   set termguicolors | set background=dark  | colorscheme NeoSolarized
-command Gruvlight   set termguicolors | set background=light | colorscheme gruvbox
-command Gruvdark    set termguicolors | set background=dark  | colorscheme gruvbox
+command Paperlight set background=light | colorscheme PaperColor
+command Paperdark  set background=dark  | colorscheme PaperColor
 
 " Rainbow Parentheses
 let g:rainbow_active = 1
