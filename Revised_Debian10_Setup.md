@@ -1,33 +1,55 @@
-# Debian System Setup - Steps needed after install from non-free iso
+## Debian System Setup - Steps needed after install from non-free iso
 
-## Increase font size
+### Increase font size
 ```sh
 sudo dpkg-reconfigure console-setup
+
+# select UTF-8 for character set
+# Latin1 for keymap
+# TerminusBold font
+# 12x24 size
 ```
-### select UTF-8 for character set
-### Latin1 for keymap
-### TerminusBold font
-### 12x24 size
-
-## Set up wifi
-~~~#‭ ‬add these lines to‭ ‬/etc/network/interfaces
+### Set up wifi (from https://linuxconfig.org/how-to-connect-to-wifi-from-the-cli-on-debian-10-buster)
+~~#‭ ‬add these lines to‭ ‬/etc/network/interfaces
 allow-hotplug wlp2s0 (or whatever interface)
-
 iface wlp2s0 ‬inet dhcp
-
 wpa-ssid ESSID
+wpa-psk PASSWORD~~
+```sh
+sudo wpa_passphrase ESSID PASSWORD > /etc/wpa_supplicant/wpa_supplicant.conf
 
-wpa-psk PASSWORD
-
-(add proper values for ESSID and PASSWORD,‭ ‬then save‭)
-
-# do the following command:
+#(add proper values for ESSID and PASSWORD,‭ ‬then save‭)
+```
+~~# do the following command:
 sudo /sbin/ifup wlp2s0
-~~~
-# Add the words "contrib non-free" to the first two lines in  /etc/apt/sources.list
-# Also add the backports:
-deb http://deb.debian.org/debian buster-backports main
+~~
+### edit /etc/wpa_supplicant/wpa_supplicant.conf
+```sh
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+### delete the comment in quotes, to conceal ESSID and PASSWORD
+### and add following  line above network block:
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
+```
+### add protocol settings for WPA2 inside network block:
+```
+proto=RSN
+key_mgmt=WPA-PSK
+group=CCMP
+pairwise=CCMP
+```
+### save and exit.
 
+### restart wpa_supplicant service
+```sh
+sudo systemctl restart wpa_supplicant
+```
+### Add the words "contrib non-free" to the first two lines in  /etc/apt/sources.list
+### Also add the backports:
+```
+deb http://deb.debian.org/debian buster-backports main
+```
 # Update and upgrade
 sudo apt update && sudo apt -y upgrade
 
