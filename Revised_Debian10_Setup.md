@@ -1,6 +1,6 @@
-## Debian System Setup - Steps needed after install from non-free iso
+# Debian System Setup - Steps needed after install from non-free iso
 
-### Increase font size
+## Increase font size
 ```sh
 sudo dpkg-reconfigure console-setup
 
@@ -9,7 +9,8 @@ sudo dpkg-reconfigure console-setup
 # TerminusBold font
 # 12x24 size
 ```
-### Set up wifi (from https://linuxconfig.org/how-to-connect-to-wifi-from-the-cli-on-debian-10-buster)
+## Set up wifi
+## (from https://linuxconfig.org/how-to-connect-to-wifi-from-the-cli-on-debian-10-buster)
 ~~#‭ ‬add these lines to‭ ‬/etc/network/interfaces
 allow-hotplug wlp2s0 (or whatever interface)
 iface wlp2s0 ‬inet dhcp
@@ -23,35 +24,44 @@ sudo wpa_passphrase ESSID PASSWORD > /etc/wpa_supplicant/wpa_supplicant.conf
 ~~# do the following command:
 sudo /sbin/ifup wlp2s0
 ~~
-### edit /etc/wpa_supplicant/wpa_supplicant.conf
+### Edit /etc/wpa_supplicant/wpa_supplicant.conf
 ```sh
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 ```
-### delete the comment in quotes, to conceal ESSID and PASSWORD
+### Delete the comment in quotes, to conceal ESSID and PASSWORD
 ### and add following  line above network block:
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
 ```
-### add protocol settings for WPA2 inside network block:
+### Add protocol settings for WPA2 inside network block:
 ```
 proto=RSN
 key_mgmt=WPA-PSK
 group=CCMP
 pairwise=CCMP
 ```
-### save and exit.
+### Save and exit.
 
-### restart wpa_supplicant service
+### Restart wpa_supplicant service
 ```sh
 sudo systemctl restart wpa_supplicant
 ```
-### Add the words "contrib non-free" to the first two lines in  /etc/apt/sources.list
-### Also add the backports:
+## Add to Debian repositories
+### Example /etc/apt/sources.list
+### Taken from https://wiki.debian.org/SourcesList
+```deb http://deb.debian.org/debian buster main contrib non-free
+deb-src http://deb.debian.org/debian buster main contrib non-free
+
+deb http://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free
+
+deb http://deb.debian.org/debian buster-updates main contrib non-free
+deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 ```
-deb http://deb.debian.org/debian buster-backports main
-```
-# Update and upgrade
+### Update and upgrade
+```sh
 sudo apt update && sudo apt -y upgrade
+```
 
 Add updated kernels to run new AMD graphics
 -------------------------------------------
