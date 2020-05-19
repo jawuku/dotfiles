@@ -1,17 +1,16 @@
-Debian System Setup - Steps needed after install from non-free iso
-==================================================================
+# Debian System Setup - Steps needed after install from non-free iso
 
-# Increase font size
+## Increase font size
+```sh
 sudo dpkg-reconfigure console-setup
+```
+### select UTF-8 for character set
+### Latin1 for keymap
+### TerminusBold font
+### 12x24 size
 
-# select UTF-8 for character set
-# Latin1 for keymap
-# TerminusBold font
-# 12x24 size
-
-Set up wifi
------------
-#‭ ‬add these lines to‭ ‬/etc/network/interfaces
+## Set up wifi
+~~~#‭ ‬add these lines to‭ ‬/etc/network/interfaces
 allow-hotplug wlp2s0 (or whatever interface)
 
 iface wlp2s0 ‬inet dhcp
@@ -24,7 +23,7 @@ wpa-psk PASSWORD
 
 # do the following command:
 sudo /sbin/ifup wlp2s0
-
+~~~
 # Add the words "contrib non-free" to the first two lines in  /etc/apt/sources.list
 # Also add the backports:
 deb http://deb.debian.org/debian buster-backports main
