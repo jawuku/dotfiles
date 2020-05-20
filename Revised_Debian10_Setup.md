@@ -58,35 +58,25 @@ deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-f
 deb http://deb.debian.org/debian buster-updates main contrib non-free
 deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 ```
+## Install Liquorix Kernel Sources (from https://www.liquorix.net)
+### Copy & paste following long line for sources:
+```sh
+codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{print $3}' | grep -Eo '^[a-z]+' | sort | uniq -c | sort -n | tail -n1 | grep -Eo '[a-z]+$')" && sudo apt-get update && sudo apt-get install apt-transport-https && echo -e "deb http://liquorix.net/debian $codename main\ndeb-src http://liquorix.net/debian $codename main\n\n# Mirrors:\n#\n# Unit193 - France\n# deb http://mirror.unit193.net/liquorix $codename main\n# deb-src http://mirror.unit193.net/liquorix $codename main" | sudo tee /etc/apt/sources.list.d/liquorix.list && curl https://liquorix.net/linux-liquorix.pub | sudo apt-key add - && sudo apt-get update
+```
+### Then install kernel:
+```sh
+sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+```
 ### Update and upgrade
 ```sh
 sudo apt update && sudo apt -y upgrade
 ```
-
-Add updated kernels to run new AMD graphics
--------------------------------------------
-sudo apt -t buster-backports install linux-image-5.4.0-0.bpo.2-amd64
-sudo apt -t buster-backports install linux-headers-5.4.0-0.bpo.2-amd64
-sudo reboot
-
-Install firmware from Debian testing to cover new AMD GPUs and CPUs
--------------------------------------------------------------------
-mkdir ~/Downloads
-cd ~/Downloads
-wget http://ftp.uk.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-amd-graphics_20190717-2_all.deb
-wget http://ftp.uk.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-linux-free_20200122-1_all.deb
-wget http://ftp.uk.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-linux-nonfree_20190717-2_all.deb
-wget http://ftp.uk.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-linux_20190717-2_all.deb
-wget http://ftp.uk.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-misc-nonfree_20190717-2_all.deb
-wget http://ftp.uk.debian.org/debian/pool/non-free/f/firmware-nonfree/amd64-microcode_3.20191218.1_amd64.deb
-sudo dpkg -i *.deb
- 
-Install essential programs (if not already installed)
------------------------------------------------------
-sudo apt install build-essential linux-headers-$(uname -r) curl pz7ip-full zip git
-
-Install exa, an ls drop-in addition (download latest version if not 0.9.0)
---------------------------------------------------------------------------
+## Install essential programs (if not already installed)
+```sh
+sudo apt install build-essential curl pz7ip-full zip git
+```
+### Install exa, an ls drop-in addition (download latest version if not 0.9.0)
+```sh
 wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
 
 unzip exa-linux-x86_64-0.9.0.zip
@@ -97,42 +87,40 @@ exa -la ~
 
 # add exa to .bashrc
 echo "alias ls=exa" >> ~/.bashrc
-
-Xorg and openbox
-----------------
+```
+## Xorg and openbox
+```sh
 sudo apt install xorg desktop-base openbox obconf fonts-dejavu ttf-bitstream-vera
 mkdir -p ~/.config/openbox
 cp /etc/xdg/openbox/rc.xml ~/.config/openbox/rc.xml
-
-Load up a simple blank openbox session, and exit
-------------------------------------------------
+```
+### Load up a simple blank openbox session, and exit
+```sh
 echo "exec openbox-session" > ~/.xinitrc
 startx
-
-Install wallpapers
--------------------
+```
+### Install wallpapers
+```sh
 sudo apt install nitrogen # wallpaper changer. Alternative package is 'feh'
 sudo apt  install gnome-backgrounds
 nitrogen # select wallpaper in /usr/share/backgrounds/gnome
-
-Obmenu-generator - provide dynamic Openbox menus - 2 methods to install
------------------------------------------------------------------------
-
-a) Obmenu-generator - manual installation
------------------------------------------
-# install prerequisites
+```
+### Obmenu-generator - provide dynamic Openbox menus - 2 methods to install
+### a) Obmenu-generator - manual installation
+```sh
 sudo apt install libgtk2-perl
 
 sudo apt install cpanminus # enables downloading of Perl modules
 sudo cpanm Linux::DesktopFiles
 sudo cpanm Data::Dump
 sudo cpanm File::DesktopEntry
+
 # download and install obmenu-generator from github
 cd ~
 git clone https://github.com/trizen/obmenu-generator.git
 cd obmenu-generator
 
-# place obmenu-generator executable within system PATH
+# place obmenu-generator executable to /usr/bin
 sudo cp obmenu-generator /usr/bin
 
 # copy configuration files
@@ -141,20 +129,21 @@ cp schema.pl ~/.config/obmenu-generator # edit the new copy of schema.pl to your
 
  # generate dynamic Openbox menu with icons
 obmenu-generator -i -p
+```
 
-
-b) Alternative Install using Debian repository hosted at OpenSuse
------------------------------------------------------------------
+### b) Alternative Install using Debian repository hosted at OpenSuse
+```sh
 sudo echo 'deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /' > /etc/apt/sources.list.d/obmenu-generator.list
+
 wget -nv https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key -O Release.key
+
 sudo apt-key add - < Release.key
 sudo apt update
 sudo apt install obmenu-generator
 obmenu-generator -i -p
-
-Other packages to install using "sudo apt install" (alternatives are in parentheses)
-------------------------------------------------------------------------------------
-
+```
+## Other packages to install using "sudo apt install" (alternatives are in parentheses)
+```
 tint2 (or lxpanel)
 
 pcmanfm (or doublecmd-gtk)
@@ -180,37 +169,6 @@ xarchiver (or file-roller)
 
 xfburn (or brasero)
 
-Web Browsers - a choice
------------------------
-
-1) Vivaldi browser
-------------------
-wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.33-1_amd64.deb)
-sudo apt install gdebi
-sudo gdebi viv*.deb
-
-2) vimb browser (lightweight alternative)
------------------------------------------
-# get prerequisites
-sudo apt install libwebkit2gtk-4.0-dev pkg-config
-
-# get source code (change filename to latest release)
-cd ~/Downloads
-wget https://github.com/fanglingsu/vimb/archive/3.6.0.tar.gz
-tar xf 3.6.0.tar.gz
-cd vimb-3.6.0
-make -j4 V=1
-sudo make install
-
-3) Web Browser alternatives in repositories
--------------------------------------------
-midori
-firefox
-chromium
-
-Other packages to install
--------------------------
-
 lxappearance
 
 pavucontrol pasystray
@@ -230,56 +188,89 @@ utilities
 
 xclip
 chkrootkit
-bleachbit or (secure-delete) 
+bleachbit (or secure-delete) 
 libnotify-bin
 notify-osd
 clang-tools
 
-Rainbow Bash Prompt: add this to end of ~/.bashrc
--------------------------------------------------
+```
+## Web Browsers - a choice
 
+### a) Vivaldi browser
+```sh
+wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.33-1_amd64.deb)
+sudo apt install gdebi
+sudo gdebi viv*.deb
+```
+### b) vimb browser (lightweight alternative)
+```sh
+# get prerequisites
+sudo apt install libwebkit2gtk-4.0-dev pkg-config
+
+# get source code (change filename to latest release)
+cd ~/Downloads
+
+wget https://github.com/fanglingsu/vimb/archive/3.6.0.tar.gz
+
+tar xf 3.6.0.tar.gz
+
+cd vimb-3.6.0
+
+make -j4 V=1
+
+sudo make install
+```
+## Rainbow Bash Prompt: add this to end of ~/.bashrc
+```
 # Custom bash prompt adapted from kirsle.net/wizards/ps1.html
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
-
-Install powerline fonts
------------------------
+```
+## Install powerline fonts
+```sh
 mkdir -p ~/github
+
 cd ~/github
+
 git clone https://github.com/powerline/fonts.git
+
 cd fonts
+
 ./install.sh
 
-## can delete ~/github/fonts if desired
-## delete font directories in ~/.local/share/fonts if no longer needed
-## and run fc-cache -f to update local font database
-
-python3 libraries
------------------
-
-sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2
-
-add to ~/.config/openbox/autostart
-----------------------------------
+# can delete ~/github/fonts if desired
+# delete font directories in ~/.local/share/fonts if no longer needed
+# and run fc-cache -f to update local font database
+```
+## Openbox Autostart
+### add to ~/.config/openbox/autostart
+```
 nitrogen --restore &
 tint2 &
-
-
-R v. 4.0
---------
-# Add to /etc/apt/sources.list.d/R.list - change buster to bullseye for Debian testing
+```
+# Data Science Setup
+## Install Python 3 libraries
+```sh
+sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2
+```
+## R v. 4.0
+### Make new file /etc/apt/sources.list.d/R.list
+```
 deb http://cloud.r-project.org/bin/linux/debian buster-cran40/
-
-# secure signing of repository
+```
+### secure signing of repository
+```sh
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
 sudo apt update
-
-#install R and dependencies (new version from CRAN repository, not Debian)
+```
+### install R and dependencies (new version from CRAN repository, not Debian)
+```sh
 sudo apt install -t buster-cran40 r-base r-base-dev
-
-# install tidyverse
+```
+### install tidyverse, devtools and language server
+```sh
 sudo apt install libxml2-dev libssl-dev libcurl4-openssl-dev
 R
-install.packages("tidyverse")
+install.packages("tidyverse", "languageserver")
 
 # IRkernel - for use in Jupyter notebook
 install.packages("devtools")
@@ -291,11 +282,9 @@ IRkernel::installspec()
 
 # add languageserver
 install.packages("languageserver")
-# or alternatively devtools::install_github("REditorSupport/languageserver")
-
-Julia
------
-
+```
+## Julia
+```
 # install binary
 download zip file
 unzip to folder
@@ -312,44 +301,46 @@ Pkg.add("IJulia")
 Pkg.add("LanguageServer")
 Pkg.add("SymbolServer")
 Pkg.add("StaticLint")
-
-# Julia editor
+```
+~~ Julia editor
 https://github.com/jonathanBieler/GtkIDE.jl (Julia language editor) (or juliapro)
-
-neovim
-------
-if debian bullseye, install from repos.
-e.g. sudo apt install neovim
-
-otherwise install appimage or compile from source.
-
-Install neovim appimage
------------------------
+~~
+## Neovim
+### Install appimage
+```sh
 cd ~/Downloads
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+
+wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim-linux64.tar.gz
+
 chmod u+x nvim.appimage
+
 sudo ln -s ~/Downloads/nvim.appimage /usr/local/bin/nvim
-
-Python environment for neovim Pynvim (not needed for bullseye as it is already up to date)
-------------------------------------------------------------------------------------------
+```
+### Python environment for neovim Pynvim
+```sh
 sudo apt install python3-venv python3-virtualenv
+
 mkdir ~/environments
+
 cd ~/environments
+
 pyvenv nvim
+
 source nvim/bin/activate
+
 python3.7 -m pip install pynvim
-
-Neovim Perl support (optional)
-------------------------------
+```
+### Neovim Perl support (optional)
+```sh
 sudo cpanm Neovim::Ext
-
-Install nodejs for coc.nvim
----------------------------
+```
+### Install nodejs for coc.nvim
+```sh
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
-coc-nvim setup - put in init.vim
---------------------------------
+```
+### coc-nvim setup - put in init.vim
+```
 " Code completion
 " Put in init.vim:
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -362,12 +353,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " C/C++ - :CocInstall coc-clangd (requires clang, clangd and clang-tools package)
 " Autoclose parentheses :CocInstall coc-pairs
 :CocInstall coc-r-lsp coc-python coc-json coc-julia coc-clangd coc-pairs
-
-Bash language server
---------------------
+```
+### Bash language server
+```sh
 sudo npm i -g bash-language-server
-add json config in coc-settings.json:
-
+```
+### add json config in coc-settings.json:
+```
 "languageserver": {
     "bash": {
       "command": "bash-language-server",
@@ -376,76 +368,87 @@ add json config in coc-settings.json:
       "ignoredRootPaths": ["~"]
     }
   }
-
-install neovim-qt
------------------
+```
+###cinstall neovim-qt
+```sh
 # install prerequisites
 sudo apt install doxygen libgtest-dev libmsgpack-dev cmake qt5-qmake qt5-qmake-bin qtbase5-dev qtbase5-dev-tools libqt5svg5-dev qtchooser libqt5concurrent5 libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5widgets5 libqt5xml5
 
 # install from github
 cd ~/github
+
 git clone https://github.com/equalsraf/neovim-qt.git
+
 cd neovim-qt
+
 mkdir build
+
 cd build
+
 cmake -DCMAKE_BUILD_TYPE=Release ..
+
 make
+
 set NVIM_QT_RUNTIME_PATH=../src/gui/runtime ./bin/nvim-qt
 
 # in .bashrc, add line to aliases:
+
 alias nvim-qt='~/github/neovim-qt/build/bin/nvim-qt'
-
-Clojure Installation
---------------------
+```
+## Clojure Installation
+```sh
 sudo apt install leiningen # also brings in OpenJDK 11
-
-(optional) An alternative to Neovim is Emacs
---------------------------------------------
+```
+## An alternative to Neovim is Emacs (optional)
+```sh
 sudo apt install emacs25
-
-Setup Emacs for Clojure
------------------------
+```
+### Setup Emacs for Clojure
+```
 # follow instructions at https://github.com/flyingmachine/emacs-for-clojure/
 # follow language tutorial at braveclojure.com
 # install Vim mode instructions at https://www.emacswiki.org/emacs/VimMode
+```
+### Excellent Alternative Clojure Editors by Zach Oakes (www.sekao.net)
 
-Alternative Clojure Editors by Zach Oakes (www.sekao.net)
----------------------------------------------------------
+### 1) Nightcode - get deb or appimage and install from https://sekao.net/nightcode/
 
-1) Nightcode - get deb or appimage and install from https://sekao.net/nightcode/
+### 2) Paravim - follow instructions at https://sekao.net/paravim/clj/
+(may need to install libtinfo5 package)
 
-2) Paravim - follow instructions at https://sekao.net/paravim/clj/
-may need to install libtinfo5 package
+### 3) Nightlight - https://sekao.net/nightlight
 
-3) Nightlight - https://sekao.net/nightlight
+### 4) Lightmod - web-based Clojure development - https://sekao.net/lightmod
 
-4) Lightmod - web-based Clojure development - https://sekao.net/lightmod
+### Cursive IDE for Clojure - runs on Intellij IDE
 
-Cursive IDE for Clojure - runs on Intellij IDE
-----------------------------------------------
+### https://cursive-ide.com - for setup instructions
 
-https://cursive-ide.com - for setup instructions
-
-Virtualbox download
--------------------
-# Download and register secure key
+## Virtualbox download
+### Download and register secure key
+```sh
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-
-# Create new sources list at /etc/apt/sources.list.d/Virtualbox.list
-# and add the following line:
+```
+### Create new sources list at /etc/apt/sources.list.d/Virtualbox.list
+### and add the following line:
+```
 deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian buster contrib
-
-# install
+```
+### install
+```sh
 sudo apt update
 sudo apt install virtualbox-6.1
-
-Alternative to virtualbox is QEMU/KVM using virt-manager
---------------------------------------------------------
+```
+### Alternative to virtualbox is QEMU/KVM using virt-manager
+```sh
 sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients \
+
 bridge-utils virt-manager
+
 sudo adduser `id -un` libvirt
+
 sudo adduser `id -un` kvm
 
 # then logout and re-login
 virsh list -all # should be blank list
-
+```
