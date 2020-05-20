@@ -66,7 +66,7 @@ codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{
 ```sh
 sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
 ```
-## 2) Install Debian backports kernel (5.x)
+## 2) Install Debian backports kernel (5.4 LTS)
 ### Add to /etc/apt/sources.list
 ```
 # Debian Backports respository
@@ -76,7 +76,9 @@ deb-src http://deb.debian.org/debian buster-backports main contrib non-free
 ### Install kernel and updated firmware
 ```sh
 sudo apt update
-sudo apt install -t buster-backports linux-image-amd64
+sudo apt install -t buster-backports linux-image-5.4.0-0.bpo.2-amd64
+sudo apt install -t buster-backports linux-headers-5.4.0-0.bpo.2-amd64
+
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 ```
 ## Other programs
