@@ -11,19 +11,12 @@ sudo dpkg-reconfigure console-setup
 ```
 ## Set up wifi
 ## (from https://linuxconfig.org/how-to-connect-to-wifi-from-the-cli-on-debian-10-buster)
-~~#‭ ‬add these lines to‭ ‬/etc/network/interfaces
-allow-hotplug wlp2s0 (or whatever interface)
-iface wlp2s0 ‬inet dhcp
-wpa-ssid ESSID
-wpa-psk PASSWORD~~
+
 ```sh
 sudo wpa_passphrase ESSID PASSWORD > /etc/wpa_supplicant/wpa_supplicant.conf
 
 #(add proper values for ESSID and PASSWORD,‭ ‬then save‭)
 ```
-~~# do the following command:
-sudo /sbin/ifup wlp2s0
-~~
 ### Edit /etc/wpa_supplicant/wpa_supplicant.conf
 ```sh
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
