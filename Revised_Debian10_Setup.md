@@ -42,16 +42,22 @@ sudo systemctl restart wpa_supplicant
 ## Add to Debian repositories
 ### Example /etc/apt/sources.list
 ### Taken from https://wiki.debian.org/SourcesList
-```deb http://deb.debian.org/debian buster main contrib non-free
+```
+deb     http://deb.debian.org/debian buster main contrib non-free
 deb-src http://deb.debian.org/debian buster main contrib non-free
 
-deb http://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb     http://deb.debian.org/debian-security/ buster/updates main contrib non-free
 deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free
 
-deb http://deb.debian.org/debian buster-updates main contrib non-free
+deb     http://deb.debian.org/debian buster-updates main contrib non-free
 deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 ```
-## Install Liquorix Kernel Sources (from https://www.liquorix.net)
+### Update and upgrade
+```sh
+sudo apt update && sudo apt -y upgrade
+```
+## Install Kernels - 2 choices
+## 1) Install Liquorix Kernel Sources (from https://www.liquorix.net)
 ### Copy & paste following long line for sources:
 ```sh
 codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{print $3}' | grep -Eo '^[a-z]+' | sort | uniq -c | sort -n | tail -n1 | grep -Eo '[a-z]+$')" && sudo apt-get update && sudo apt-get install apt-transport-https && echo -e "deb http://liquorix.net/debian $codename main\ndeb-src http://liquorix.net/debian $codename main\n\n# Mirrors:\n#\n# Unit193 - France\n# deb http://mirror.unit193.net/liquorix $codename main\n# deb-src http://mirror.unit193.net/liquorix $codename main" | sudo tee /etc/apt/sources.list.d/liquorix.list && curl https://liquorix.net/linux-liquorix.pub | sudo apt-key add - && sudo apt-get update
@@ -60,10 +66,20 @@ codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{
 ```sh
 sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
 ```
-### Update and upgrade
-```sh
-sudo apt update && sudo apt -y upgrade
+## 2) Install Debian backports kernel (5.4 LTS)
+### Add to /etc/apt/sources.list
 ```
+# Debian Backports respository
+deb     http://deb.debian.org/debian buster-backports main contrib non-free
+deb-src http://deb.debian.org/debian buster-backports main contrib non-free
+```
+### Install kernel and updated firmware
+```sh
+sudo apt update
+sudo apt install -t buster-backports linux-image-amd64
+sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
+```
+## Other programs
 ## Install essential programs (if not already installed)
 ```sh
 sudo apt install build-essential curl pz7ip-full zip git
