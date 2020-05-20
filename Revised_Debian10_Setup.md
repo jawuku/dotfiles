@@ -102,7 +102,7 @@ sudo apt  install gnome-backgrounds
 
 nitrogen # select wallpaper in /usr/share/backgrounds/gnome
 ```
-### Obmenu-generator - provide dynamic Openbox menus - 2 methods to install
+### [Obmenu-generator](https://github.com/trizen/obmenu-generator/blob/master/INSTALL.md) - provide dynamic Openbox menus - 2 methods to install
 ### a) Obmenu-generator - manual installation
 ```sh
 sudo apt install libgtk2-perl
@@ -202,7 +202,7 @@ clang-tools
 ```
 ## Web Browsers - a choice
 
-### a) Vivaldi browser
+### a) [Vivaldi browser](https://www.vivaldi.com)
 ```sh
 wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.33-1_amd64.deb
 
@@ -210,7 +210,7 @@ sudo apt install gdebi
 
 sudo gdebi viv*.deb
 ```
-### b) vimb browser (lightweight alternative)
+### b) [vimb browser](https://github.com/fanglingsu/vimb) (lightweight alternative)
 ```sh
 # get prerequisites
 sudo apt install libwebkit2gtk-4.0-dev pkg-config
@@ -233,7 +233,7 @@ sudo make install
 # Custom bash prompt adapted from kirsle.net/wizards/ps1.html
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
 ```
-## Install powerline fonts
+## Install [powerline fonts](https://github.com/powerline/fonts)
 ```sh
 mkdir -p ~/github
 
@@ -253,7 +253,7 @@ cd fonts
 ### add to ~/.config/openbox/autostart
 ```sh
 nitrogen --restore &
-tint2 &
+tint2 & # xfce4-panel &
 ```
 # Data Science Setup
 ## Install Python 3 libraries
@@ -375,7 +375,7 @@ sudo npm i -g bash-language-server
     }
   }
 ```
-### Install neovim-qt
+### Install [neovim-qt](https://github.com/equalsraf/neovim-qt)
 ```sh
 # install prerequisites
 sudo apt install doxygen libgtest-dev libmsgpack-dev cmake qt5-qmake qt5-qmake-bin qtbase5-dev qtbase5-dev-tools libqt5svg5-dev qtchooser libqt5concurrent5 libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5widgets5 libqt5xml5
