@@ -66,7 +66,7 @@ codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{
 ```sh
 sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
 ```
-## 2) Install Debian backports kernel (5.4 LTS)
+## 2) Install Debian backports kernel (5.x)
 ### Add to /etc/apt/sources.list
 ```
 # Debian Backports respository
