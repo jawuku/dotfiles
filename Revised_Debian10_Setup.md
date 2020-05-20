@@ -91,7 +91,9 @@ echo "alias ls=exa" >> ~/.bashrc
 ## Xorg and openbox
 ```sh
 sudo apt install xorg desktop-base openbox obconf fonts-dejavu ttf-bitstream-vera
+
 mkdir -p ~/.config/openbox
+
 cp /etc/xdg/openbox/rc.xml ~/.config/openbox/rc.xml
 ```
 ### Load up a simple blank openbox session, and exit
@@ -102,7 +104,9 @@ startx
 ### Install wallpapers
 ```sh
 sudo apt install nitrogen # wallpaper changer. Alternative package is 'feh'
+
 sudo apt  install gnome-backgrounds
+
 nitrogen # select wallpaper in /usr/share/backgrounds/gnome
 ```
 ### Obmenu-generator - provide dynamic Openbox menus - 2 methods to install
@@ -111,13 +115,18 @@ nitrogen # select wallpaper in /usr/share/backgrounds/gnome
 sudo apt install libgtk2-perl
 
 sudo apt install cpanminus # enables downloading of Perl modules
+
 sudo cpanm Linux::DesktopFiles
+
 sudo cpanm Data::Dump
+
 sudo cpanm File::DesktopEntry
 
 # download and install obmenu-generator from github
 cd ~
+
 git clone https://github.com/trizen/obmenu-generator.git
+
 cd obmenu-generator
 
 # place obmenu-generator executable to /usr/bin
@@ -125,6 +134,7 @@ sudo cp obmenu-generator /usr/bin
 
 # copy configuration files
 mkdir -p ~/.config/obmenu-generator
+
 cp schema.pl ~/.config/obmenu-generator # edit the new copy of schema.pl to your liking
 
  # generate dynamic Openbox menu with icons
@@ -138,13 +148,16 @@ sudo echo 'deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/
 wget -nv https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key -O Release.key
 
 sudo apt-key add - < Release.key
+
 sudo apt update
+
 sudo apt install obmenu-generator
+
 obmenu-generator -i -p
 ```
 ## Other packages to install using "sudo apt install" (alternatives are in parentheses)
 ```
-tint2 (or lxpanel)
+tint2 (or lxpanel or xfce4-panel)
 
 pcmanfm (or doublecmd-gtk)
 also consider ranger, a command line alternative
@@ -159,8 +172,8 @@ geany libvte9 (or use medit)
 zathura zathura-djvu zathura-cb  (or xpdf, atril)
 
 mpv (or totem, smplayer, vlc)
-vlc also has an ncurses interface (vlc -I ncurses)
-add alias in ~/.bashrc:
+# vlc also has an ncurses interface (vlc -I ncurses)
+# add alias in ~/.bashrc:
 alias vlc='vlc -I ncurses'
 
 qalculate-gtk (or galculator) (or stick with xcalc)
@@ -198,8 +211,10 @@ clang-tools
 
 ### a) Vivaldi browser
 ```sh
-wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.33-1_amd64.deb)
+wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.33-1_amd64.deb
+
 sudo apt install gdebi
+
 sudo gdebi viv*.deb
 ```
 ### b) vimb browser (lightweight alternative)
@@ -221,7 +236,7 @@ make -j4 V=1
 sudo make install
 ```
 ## Rainbow Bash Prompt: add this to end of ~/.bashrc
-```
+```sh
 # Custom bash prompt adapted from kirsle.net/wizards/ps1.html
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
 ```
@@ -243,7 +258,7 @@ cd fonts
 ```
 ## Openbox Autostart
 ### add to ~/.config/openbox/autostart
-```
+```sh
 nitrogen --restore &
 tint2 &
 ```
@@ -270,10 +285,11 @@ sudo apt install -t buster-cran40 r-base r-base-dev
 ```sh
 sudo apt install libxml2-dev libssl-dev libcurl4-openssl-dev
 R
-install.packages("tidyverse", "languageserver")
+install.packages("tidyverse")
 
 # IRkernel - for use in Jupyter notebook
 install.packages("devtools")
+
 library("devtools")
 
 devtools::install_github("IRkernel/IRkernel")
@@ -302,9 +318,6 @@ Pkg.add("LanguageServer")
 Pkg.add("SymbolServer")
 Pkg.add("StaticLint")
 ```
-~~ Julia editor
-https://github.com/jonathanBieler/GtkIDE.jl (Julia language editor) (or juliapro)
-~~
 ## Neovim
 ### Install appimage
 ```sh
@@ -339,7 +352,7 @@ sudo cpanm Neovim::Ext
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
-### coc-nvim setup - put in init.vim
+### Coc-nvim setup - put in init.vim
 ```
 " Code completion
 " Put in init.vim:
@@ -358,7 +371,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 ```sh
 sudo npm i -g bash-language-server
 ```
-### add json config in coc-settings.json:
+### Add json config in coc-settings.json:
 ```
 "languageserver": {
     "bash": {
@@ -369,7 +382,7 @@ sudo npm i -g bash-language-server
     }
   }
 ```
-###cinstall neovim-qt
+### Install neovim-qt
 ```sh
 # install prerequisites
 sudo apt install doxygen libgtest-dev libmsgpack-dev cmake qt5-qmake qt5-qmake-bin qtbase5-dev qtbase5-dev-tools libqt5svg5-dev qtchooser libqt5concurrent5 libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5widgets5 libqt5xml5
@@ -441,9 +454,7 @@ sudo apt install virtualbox-6.1
 ```
 ### Alternative to virtualbox is QEMU/KVM using virt-manager
 ```sh
-sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients \
-
-bridge-utils virt-manager
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
 
 sudo adduser `id -un` libvirt
 
