@@ -343,7 +343,8 @@ sudo cpanm Neovim::Ext
 ### Install nodejs for coc.nvim
 ```sh
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt update
+sudo apt install -y nodejs
 ```
 ### Coc-nvim setup - put in init.vim
 ```
@@ -378,7 +379,9 @@ sudo npm i -g bash-language-server
 ### Install [neovim-qt](https://github.com/equalsraf/neovim-qt)
 ```sh
 # install prerequisites
-sudo apt install doxygen libgtest-dev libmsgpack-dev cmake qt5-qmake qt5-qmake-bin qtbase5-dev qtbase5-dev-tools libqt5svg5-dev qtchooser libqt5concurrent5 libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5widgets5 libqt5xml5
+sudo apt install doxygen libgtest-dev libmsgpack-dev cmake qt5-qmake qt5-qmake-bin qtbase5-dev \
+qtbase5-dev-tools libqt5svg5-dev qtchooser libqt5concurrent5 libqt5core5a libqt5dbus5 libqt5gui5 \
+libqt5network5 libqt5widgets5 libqt5xml5
 
 # install from github
 cd ~/github
