@@ -12,7 +12,7 @@ sudo dpkg-reconfigure console-setup
 ## Set up wifi
 ## (from https://wiki.debian.org/WiFi/HowToUse)
 ### Edit /etc/network/interfaces and add the lines
-### Substitute ESSID and PASSWORD with actual values, save and exit
+### Substitute ESSID and PASSWORD with actual values, save and exit editor
 ```
 # Wifi Setup
 allow hotplug wlp2s0
