@@ -98,7 +98,7 @@ cp /etc/xdg/openbox/rc.xml ~/.config/openbox/rc.xml
 
 sudo reboot
 ```
-## Graphical desktop. Right-click for basic menu.
+## Graphical desktop. Right-click for basic menu. Open Terminal emulator.
 ### Install wallpapers
 ```sh
 sudo apt install nitrogen # wallpaper changer. Alternative package is 'feh'
