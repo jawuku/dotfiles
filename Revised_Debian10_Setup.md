@@ -10,34 +10,20 @@ sudo dpkg-reconfigure console-setup
 # 12x24 size
 ```
 ## Set up wifi
-## (from https://linuxconfig.org/how-to-connect-to-wifi-from-the-cli-on-debian-10-buster)
-
+## (from https://wiki.debian.org/WiFi/HowToUse)
+### Edit /etc/network/interfaces and add the lines
+### Substitute ESSID and PASSWORD with actual values
+```
+# Wifi Setup
+allow hotplug wlp2s0
+iface wlp2s0 inet dhcp
+wpa-ssid ESSID
+wpa-psk PASSWORD
+```
+### Bring up interface
 ```sh
-sudo wpa_passphrase ESSID PASSWORD > /etc/wpa_supplicant/wpa_supplicant.conf
-
-#(add proper values for ESSID and PASSWORD,‭ ‬then save‭)
-```
-### Edit /etc/wpa_supplicant/wpa_supplicant.conf
-```sh
-sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
-```
-### Delete the comment in quotes, to conceal ESSID and PASSWORD
-### and add following  line above network block:
-```
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
-```
-### Add protocol settings for WPA2 inside network block:
-```
-proto=RSN
-key_mgmt=WPA-PSK
-group=CCMP
-pairwise=CCMP
-```
-### Save and exit.
-
-### Restart wpa_supplicant service
-```sh
-sudo systemctl restart wpa_supplicant
+sudo ifup wlp2s0
+ip a
 ```
 ## Add to Debian repositories
 ### Example /etc/apt/sources.list
@@ -57,16 +43,7 @@ deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 sudo apt update && sudo apt -y upgrade
 ```
 ## Install Kernels - 2 choices
-## 1) Install Liquorix Kernel Sources (from https://www.liquorix.net)
-### Copy & paste following long line for sources:
-```sh
-codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{print $3}' | grep -Eo '^[a-z]+' | sort | uniq -c | sort -n | tail -n1 | grep -Eo '[a-z]+$')" && sudo apt-get update && sudo apt-get install apt-transport-https && echo -e "deb http://liquorix.net/debian $codename main\ndeb-src http://liquorix.net/debian $codename main\n\n# Mirrors:\n#\n# Unit193 - France\n# deb http://mirror.unit193.net/liquorix $codename main\n# deb-src http://mirror.unit193.net/liquorix $codename main" | sudo tee /etc/apt/sources.list.d/liquorix.list && curl https://liquorix.net/linux-liquorix.pub | sudo apt-key add - && sudo apt-get update
-```
-### Then install kernel:
-```sh
-sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
-```
-## 2) Install Debian backports kernel (5.4 LTS)
+## 1) Install Debian backports kernel (5.4 LTS)
 ### Add to /etc/apt/sources.list
 ```
 # Debian Backports respository
@@ -81,10 +58,19 @@ sudo apt install -t buster-backports linux-headers-5.4.0-0.bpo.2-amd64
 
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 ```
+## 2) Install Liquorix Kernel Sources (from https://www.liquorix.net)
+### Copy & paste following long line for sources:
+```sh
+codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{print $3}' | grep -Eo '^[a-z]+' | sort | uniq -c | sort -n | tail -n1 | grep -Eo '[a-z]+$')" && sudo apt-get update && sudo apt-get install apt-transport-https && echo -e "deb http://liquorix.net/debian $codename main\ndeb-src http://liquorix.net/debian $codename main\n\n# Mirrors:\n#\n# Unit193 - France\n# deb http://mirror.unit193.net/liquorix $codename main\n# deb-src http://mirror.unit193.net/liquorix $codename main" | sudo tee /etc/apt/sources.list.d/liquorix.list && curl https://liquorix.net/linux-liquorix.pub | sudo apt-key add - && sudo apt-get update
+```
+### Then install kernel:
+```sh
+sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+```
 ## Other programs
 ## Install essential programs (if not already installed)
 ```sh
-sudo apt install build-essential curl pz7ip-full zip git
+sudo apt install build-essential curl p7zip-full zip git wget
 ```
 ### Install exa, an ls drop-in addition (download latest version if not 0.9.0)
 ```sh
