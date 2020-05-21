@@ -57,6 +57,7 @@ sudo apt install -t buster-backports linux-image-5.4.0-0.bpo.2-amd64
 sudo apt install -t buster-backports linux-headers-5.4.0-0.bpo.2-amd64
 
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
+sudo reboot
 ```
 ## 2) Install Liquorix Kernel Sources (from https://www.liquorix.net)
 ### Copy & paste following long line for sources:
@@ -66,6 +67,7 @@ codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{
 ### Then install kernel:
 ```sh
 sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+sudo reboot
 ```
 ## Other programs
 ## Install essential programs (if not already installed)
