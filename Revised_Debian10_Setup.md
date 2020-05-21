@@ -89,17 +89,16 @@ echo "alias ls=exa" >> ~/.bashrc
 ```
 ## Xorg and openbox
 ```sh
-sudo apt install xorg desktop-base openbox obconf fonts-dejavu ttf-bitstream-vera
+sudo apt install xorg desktop-base openbox obconf lightdm
+sudo apt install fonts-dejavu ttf-bitstream-vera
 
 mkdir -p ~/.config/openbox
 
 cp /etc/xdg/openbox/rc.xml ~/.config/openbox/rc.xml
+
+sudo reboot
 ```
-### Load up a simple blank openbox session, and exit
-```sh
-echo "exec openbox-session" > ~/.xinitrc
-startx
-```
+## Graphical desktop. Right-click for basic menu.
 ### Install wallpapers
 ```sh
 sudo apt install nitrogen # wallpaper changer. Alternative package is 'feh'
