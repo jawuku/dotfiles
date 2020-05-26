@@ -7,7 +7,7 @@ sudo dpkg-reconfigure console-setup
 # select UTF-8 for character set
 # Latin1 for keymap
 # TerminusBold font
-# 12x24 size
+# choose 12x24 or 14x28 size
 ```
 ## Set up wifi
 ## (from https://wiki.debian.org/WiFi/HowToUse)
@@ -157,7 +157,7 @@ obmenu-generator -i -p
 ```
 tint2 (or lxpanel or xfce4-panel)
 
-pcmanfm (or doublecmd-gtk)
+thunar (or pcmanfm or doublecmd-gtk)
 also consider ranger, a command line alternative
 
 sakura (or lxterminal)
@@ -165,7 +165,13 @@ sakura (or lxterminal)
 shotwell (or viewnior, gpicview, geeqie, ristretto, qiv)
 consider fim for framebuffer use. 
 
+imagemagick
+
 geany libvte9 (or use medit)
+
+vim-gtk3
+
+cheese
 
 zathura zathura-djvu zathura-cb  (or xpdf, atril)
 
@@ -192,17 +198,51 @@ transmission-gtk
 
 nitrogen (or feh)
 
-numix-icon-theme-circle
-
 utilities
 ---------
 
 xclip
+
 chkrootkit
+
 bleachbit (or secure-delete) 
+
 libnotify-bin
+
 notify-osd
+
 clang-tools
+
+gnome-disk-utility
+
+yelp
+
+orage (or gsimplecalc, zenity)
+
+redshift
+
+psensor
+
+gufw
+
+network-manager-gnome
+
+lightdm-gtk-greeter
+
+lightdm-gtk-greeter-settings
+
+volumeicon-alsa (or pasystray)
+
+scrot
+
+xcompmgr
+
+lxpolkit
+
+htop
+
+gdebi
+
 
 ```
 ## Web Browsers - a choice
