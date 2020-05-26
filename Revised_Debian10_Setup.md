@@ -243,7 +243,13 @@ htop
 
 gdebi
 
+lxtask
+```
+### GTK and Icon themes
+```sh
+sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk theme
 
+sudo apt install numix-icon-theme-circle moka-icon-theme tango-icon-theme
 ```
 ## Web Browsers - a choice
 
