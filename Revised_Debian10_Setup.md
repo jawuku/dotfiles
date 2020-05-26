@@ -249,7 +249,7 @@ lxtask
 ```sh
 sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk theme
 
-sudo apt install numix-icon-theme-circle moka-icon-theme tango-icon-theme
+sudo apt install numix-icon-theme-circle moka-icon-theme
 ```
 ## Web Browsers - a choice
 
@@ -278,6 +278,23 @@ cd vimb-3.6.0
 make -j4 V=1
 
 sudo make install
+```
+### 3) [Iridium Browser (Privacy-focused version of Chromium)](https://iridiumbrowser.de/downloads/debian)
+```sh
+wget -qO - https://downloads.iridiumbrowser.de/ubuntu/iridium-release-sign-01.pub|sudo apt-key add -
+cat <<EOF | sudo tee /etc/apt/sources.list.d/iridium-browser.list
+deb [arch=amd64] https://downloads.iridiumbrowser.de/deb/ stable main
+#deb-src https://downloads.iridiumbrowser.de/deb/ stable main
+EOF
+sudo apt update
+
+## enable kernel user namespaces
+sudo su
+echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/00-local-userns.conf
+service procps restart
+exit
+
+sudo apt install iridium-browser
 ```
 ## Rainbow Bash Prompt: add this to end of ~/.bashrc
 ```sh
