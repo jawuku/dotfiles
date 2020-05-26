@@ -13,6 +13,7 @@ sudo dpkg-reconfigure console-setup
 ## (from https://wiki.debian.org/WiFi/HowToUse)
 ### Edit /etc/network/interfaces and add the lines
 ### Substitute ESSID and PASSWORD with actual values, save and exit editor
+### Once Openbox and wicd are installed, delete these lines
 ```
 # Wifi Setup
 allow hotplug wlp2s0
@@ -225,7 +226,7 @@ psensor
 
 gufw
 
-network-manager-gnome
+wicd
 
 lightdm-gtk-greeter
 
