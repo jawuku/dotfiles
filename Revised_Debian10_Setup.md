@@ -250,13 +250,13 @@ lxtask
 ```sh
 sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk theme
 
-sudo apt install numix-icon-theme-circle moka-icon-theme
+sudo apt install numix-icon-theme-circle moka-icon-theme breeze-cursor-theme
 ```
 ## Web Browsers - a choice
 
 ### a) [Vivaldi browser](https://www.vivaldi.com)
 ```sh
-wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.33-1_amd64.deb
+wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.38-1_amd64.deb
 
 sudo apt install gdebi
 
