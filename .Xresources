@@ -2,9 +2,11 @@ xterm*faceName: Roboto Mono for Powerline
 xterm*faceSize: 14
 xterm*geometry: 80x25
 *scrollBar: 1
-*saveLines: 4096
+*saveLines: 12288
 *scrollTtyOutput: false
 *scrollWithBuffer: true
+xterm*rightScrollBar: True
+
 *scrollTtyKeypress: true
 *selectToClipboard: true
 
