@@ -1,7 +1,7 @@
+# Openbox programs to be loaded from the start
+nitrogen --restore &
 lxpolkit &
 tint2 &
-pasystray &
-nm-applet &
-xcompmgr &
-pulseaudio-start &
-volumeicon &
+redshift &
+compton &
+(sleep 3 && wicd) &
