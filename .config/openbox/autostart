@@ -5,3 +5,4 @@ tint2 &
 redshift &
 compton &
 (sleep 3 && wicd) &
+xautolock -time 15 -locker i3lock &
