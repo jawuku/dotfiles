@@ -8,6 +8,10 @@ xterm*geometry: 80x25
 *scrollTtyKeypress: true
 *selectToClipboard: true
 
+xterm*VT100.Translations: #override \
+                 Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+                 Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
+
 !Theme Ten
 !from web.archive.org/web/20090130061234/http://phraktured.net/terminal-colors
 *background: rgb:1a/1a/1a
