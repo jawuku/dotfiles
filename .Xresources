@@ -5,7 +5,7 @@ xterm*geometry: 80x25
 *saveLines: 12288
 *scrollTtyOutput: false
 *scrollWithBuffer: true
-xterm*rightScrollBar: True
+xterm*rightScrollBar: true
 
 *scrollTtyKeypress: true
 *selectToClipboard: true
