@@ -311,7 +311,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 if has('gui_running')
     " NeoSolarized colourscheme in gui (Gvim) mode.
-    set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
+    set guifont=Roboto\ Mono\ for\ Powerline\ 14
     set termguicolors
     set background=light
     colorscheme NeoSolarized
@@ -321,7 +321,7 @@ else
     colorscheme PaperColor
 endif
 
-" Two new user-defined commands to select PaperColor or NeoSolarized colours
+" 4 new user-defined commands to select PaperColor or NeoSolarized colours
 command Solarlight  set termguicolors | set background=light | colorscheme NeoSolarized
 command Solardark   set termguicolors | set background=dark  | colorscheme NeoSolarized
 command Paperlight set background=light | colorscheme PaperColor
