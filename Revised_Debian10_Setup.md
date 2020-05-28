@@ -43,7 +43,7 @@ deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 ```sh
 sudo apt update && sudo apt -y upgrade
 ```
-## Install Kernels - 2 choices
+## Install Kernels - take one of 2 choices
 ## 1) Install Debian backports kernel (5.4 LTS)
 ### Add to /etc/apt/sources.list
 ```
@@ -108,6 +108,15 @@ sudo apt  install gnome-backgrounds
 
 nitrogen # select wallpaper in /usr/share/backgrounds/gnome
 ```
+### A nice collection of wallpapers from Eznix
+### Select nitrogen wallpapers in ~/Pictures/Wallpaper
+```sh
+cd ~/Pictures
+
+wget https://downloads.sourceforge.net/project/ezos/MyFiles/Wallpaper.tar
+
+tar xf Wallpaper.tar
+```
 ### [Obmenu-generator](https://github.com/trizen/obmenu-generator/blob/master/INSTALL.md) - provide dynamic Openbox menus - 2 methods to install
 ### a) Obmenu-generator - manual installation
 ```sh
@@ -122,7 +131,7 @@ sudo cpanm Data::Dump
 sudo cpanm File::DesktopEntry
 
 # download and install obmenu-generator from github
-cd ~
+mkdir ~/github; cd hithub
 
 git clone https://github.com/trizen/obmenu-generator.git
 
@@ -161,9 +170,9 @@ tint2 (or lxpanel or xfce4-panel)
 thunar (or pcmanfm or doublecmd-gtk)
 also consider ranger, a command line alternative
 
-sakura (or lxterminal)
+xfce4-terminal (or sakura, lxterminal)
 
-shotwell (or viewnior, gpicview, geeqie, ristretto, qiv)
+mirage (or shotwell, viewnior, gpicview, geeqie, ristretto, qiv)
 consider fim for framebuffer use. 
 
 imagemagick
@@ -176,28 +185,28 @@ cheese
 
 zathura zathura-djvu zathura-cb  (or xpdf, atril)
 
-mpv (or totem, smplayer, vlc)
+smplayer (or pragha, lxmusic, vlc, smplayer)
 # vlc also has an ncurses interface (vlc -I ncurses)
 # add alias in ~/.bashrc:
 alias vlc='vlc -I ncurses'
+# cmus is another command line alternative
 
 qalculate-gtk (or galculator) (or stick with xcalc)
+a command-line alternative is apcalc
 
 xarchiver (or file-roller)
 
 xfburn (or brasero)
 
-lxappearance
+lxappearance lxappearance-obconf
 
-pavucontrol pasystray
+pavucontrol
 
-rofi (or gmrun or dmenu)
+rofi (or gmrun, dmenu)
 
 ntp
 
 transmission-gtk
-
-nitrogen (or feh)
 
 utilities
 ---------
@@ -218,9 +227,11 @@ gnome-disk-utility
 
 yelp
 
-orage (or gsimplecalc, zenity)
-
-redshift
+gsimplecal (or orage, zenity)
+# add the following lines in ~/.config/tint2/tint2rc in the Clock section:
+# clock_lclick_command = gsimplecal
+# clock_rclick_command 
+redshift-gtk
 
 psensor
 
@@ -232,11 +243,9 @@ lightdm-gtk-greeter
 
 lightdm-gtk-greeter-settings
 
-volumeicon-alsa (or pasystray)
-
 scrot
 
-xcompmgr
+compton compton-conf
 
 lxpolkit
 
@@ -245,6 +254,8 @@ htop
 gdebi
 
 lxtask
+
+xautolock i3lock
 ```
 ### GTK and Icon themes
 ```sh
@@ -304,8 +315,6 @@ export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput se
 ```
 ## Install [powerline fonts](https://github.com/powerline/fonts)
 ```sh
-mkdir -p ~/github
-
 cd ~/github
 
 git clone https://github.com/powerline/fonts.git
@@ -314,15 +323,26 @@ cd fonts
 
 ./install.sh
 
-# can delete ~/github/fonts if desired
-# delete font directories in ~/.local/share/fonts if no longer needed
-# and run fc-cache -f to update local font database
+# run ~/github/uninstall.sh if you want to uninstall
 ```
 ## Openbox Autostart
 ### add to ~/.config/openbox/autostart
 ```sh
 nitrogen --restore &
-tint2 & # xfce4-panel &
+
+lxpolkit &
+
+tint2 &
+
+compton &
+
+(sleep 3 && wicd) &
+
+xautolock - time 15 -locker i3lock &
+
+# Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
+#pgrep redshift | xargs -n1 kill -9 &
+redshift-gtk -l 51.508:-0.128 -t 6500:3600 &
 ```
 # Data Science Setup
 ## Install Python 3 libraries
