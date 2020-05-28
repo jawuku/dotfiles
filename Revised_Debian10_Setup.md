@@ -230,7 +230,8 @@ yelp
 gsimplecal (or orage, zenity)
 # add the following lines in ~/.config/tint2/tint2rc in the Clock section:
 # clock_lclick_command = gsimplecal
-# clock_rclick_command 
+# clock_rclick_command = gsimplecal
+
 redshift-gtk
 
 psensor
@@ -279,7 +280,7 @@ sudo gdebi viv*.deb
 sudo apt install libwebkit2gtk-4.0-dev pkg-config
 
 # get source code (change filename to latest release)
-cd ~/Downloads
+cd ~/github
 
 wget https://github.com/fanglingsu/vimb/archive/3.6.0.tar.gz
 
@@ -397,10 +398,8 @@ Pkg.add("IJulia")
 
 # add language server
 Pkg.add("LanguageServer")
-Pkg.add("SymbolServer")
-Pkg.add("StaticLint")
 ```
-## Neovim
+## Neovim (optional - no need if you already have vim)
 ### Install appimage
 ```sh
 cd ~/Downloads
@@ -429,16 +428,16 @@ python3.7 -m pip install pynvim
 ```sh
 sudo cpanm Neovim::Ext
 ```
-### Install nodejs for coc.nvim
+### Install nodejs for coc.nvim - use in Vim too
 ```sh
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt update
 sudo apt install -y nodejs
 ```
-### Coc-nvim setup - put in init.vim
+### Coc-nvim setup - put in .vimrc or init.vim
 ```
 " Code completion
-" Put in init.vim:
+" Put in .vimrc /  init.vim:
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " run following commands in vim after installation
