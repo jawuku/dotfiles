@@ -1,8 +1,14 @@
 # Openbox programs to be loaded from the start
 nitrogen --restore &
+
 lxpolkit &
+
 tint2 &
-redshift &
+
 compton &
+
 (sleep 3 && wicd) &
+
 xautolock -time 15 -locker i3lock &
+
+redshift-gtk -l 53:229:-4.129 -t 6500:3500 &
