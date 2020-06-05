@@ -131,7 +131,7 @@ sudo cpanm Data::Dump
 sudo cpanm File::DesktopEntry
 
 # download and install obmenu-generator from github
-mkdir ~/github; cd hithub
+mkdir ~/github; cd github
 
 git clone https://github.com/trizen/obmenu-generator.git
 
@@ -185,7 +185,7 @@ cheese
 
 zathura zathura-djvu zathura-cb  (or xpdf, atril)
 
-smplayer (or pragha, lxmusic, vlc, smplayer)
+smplayer (or pragha, lxmusic, vlc)
 # vlc also has an ncurses interface (vlc -I ncurses)
 # add alias in ~/.bashrc:
 alias vlc='vlc -I ncurses'
@@ -217,9 +217,7 @@ chkrootkit
 
 bleachbit (or secure-delete) 
 
-libnotify-bin
-
-notify-osd
+dunst dbus-x11 libnotify-bin
 
 clang-tools
 
@@ -260,7 +258,7 @@ xautolock i3lock
 ```
 ### GTK and Icon themes
 ```sh
-sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk theme
+sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk-theme
 
 sudo apt install numix-icon-theme-circle moka-icon-theme breeze-cursor-theme
 ```
