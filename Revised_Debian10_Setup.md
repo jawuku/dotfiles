@@ -224,7 +224,7 @@ chkrootkit
 
 bleachbit (or secure-delete) 
 
-dunst dbus-x11 libnotify-bin
+xfce4-notifyd libnotify-bin
 
 clang-tools
 
@@ -261,8 +261,7 @@ gdebi
 
 lxtask
 
-xautolock i3lock
-```
+light-locker```
 ### GTK and Icon themes
 ```sh
 sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk-theme
@@ -336,15 +335,15 @@ cd fonts
 ```sh
 nitrogen --restore &
 
+compton &
+
 lxpolkit &
 
 tint2 &
 
-compton &
+pnmixer &
 
 (sleep 3 && wicd) &
-
-xautolock - time 15 -locker i3lock &
 
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
 #pgrep redshift | xargs -n1 kill -9 &
