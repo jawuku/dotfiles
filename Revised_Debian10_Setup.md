@@ -43,7 +43,7 @@ deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 ```sh
 sudo apt update && sudo apt -y upgrade
 ```
-## Install Kernels - take one of 2 choices
+## Install Kernels - take one of 2 choices - may install 1) then 2)
 ## 1) Install Debian backports kernel (5.4 LTS)
 ### Add to /etc/apt/sources.list
 ```
@@ -398,19 +398,18 @@ chmod u+x nvim.appimage
 
 sudo ln -s ~/Downloads/nvim.appimage /usr/local/bin/nvim
 ```
-### Python environment for neovim Pynvim
+### Create Python 3 environment for neovim Pynvim
 ```sh
-sudo apt install python3-venv python3-virtualenv
+sudo apt install python3-venv
 
 mkdir ~/environments
 
 cd ~/environments
 
-pyvenv nvim
-
+python3.7 -m venv ~/environments/nvim
 source nvim/bin/activate
 
-python3.7 -m pip install pynvim
+python -m pip install --user pynvim #using environment's own python 3.7
 ```
 ### Neovim Perl support (optional)
 ```sh
