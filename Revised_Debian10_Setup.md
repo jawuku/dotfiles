@@ -73,6 +73,8 @@ sudo reboot
 ## 3) Xanmod kernel
 ### Copy and paste into terminal
 ```sh
+sudo apt install wget gnupg
+
 echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
 
 sudo apt update && sudo apt install linux-xanmod-rt
