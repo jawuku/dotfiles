@@ -43,7 +43,7 @@ deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 ```sh
 sudo apt update && sudo apt -y upgrade
 ```
-## Install Kernels - take one of 2 choices
+## Install Kernels - take one of 3 choices
 ## 1) Install Debian backports kernel (5.4 LTS)
 ### Add to /etc/apt/sources.list
 ```
@@ -69,6 +69,13 @@ codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{
 ```sh
 sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
 sudo reboot
+```
+## 3) Xanmod kernel
+### Copy and paste into terminal
+```sh
+echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
+
+sudo apt update && sudo apt install linux-xanmod-rt
 ```
 ## Other programs
 ## Install essential programs (if not already installed)
@@ -490,7 +497,10 @@ set NVIM_QT_RUNTIME_PATH=../src/gui/runtime ./bin/nvim-qt
 
 alias nvim-qt='~/github/neovim-qt/build/bin/nvim-qt'
 ```
-## Clojure Installation
+## Clojure Installation - two steps
+### 1) Install Clojure command line at www.clojure.org
+### click green button ["Getting Started"](https://clojure.org/guides/getting_started#_clojure_installer_and_cli_tools)
+### 2) Install [Leiningen](https://leiningen.org) and follow instructions
 ```sh
 sudo apt install leiningen # also brings in OpenJDK 11
 ```
@@ -515,8 +525,8 @@ sudo apt install emacs25
 
 ### 4) Lightmod - web-based Clojure development - https://sekao.net/lightmod
 
+### [u]Other Clojure Editors[/u]
 ### Cursive IDE for Clojure - runs on Intellij IDE
-
 ### https://cursive-ide.com - for setup instructions
 
 ## Virtualbox download
