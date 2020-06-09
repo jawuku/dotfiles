@@ -108,15 +108,6 @@ sudo apt  install gnome-backgrounds
 
 nitrogen # select wallpaper in /usr/share/backgrounds/gnome
 ```
-### A nice collection of wallpapers from Eznix
-### Select nitrogen wallpapers in ~/Pictures/Wallpaper
-```sh
-cd ~/Pictures
-
-wget https://downloads.sourceforge.net/project/ezos/MyFiles/Wallpaper.tar
-
-tar xf Wallpaper.tar
-```
 ### [Obmenu-generator](https://github.com/trizen/obmenu-generator/blob/master/INSTALL.md) - provide dynamic Openbox menus - 2 methods to install
 ### a) Obmenu-generator - manual installation
 ```sh
