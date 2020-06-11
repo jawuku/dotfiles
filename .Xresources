@@ -35,25 +35,42 @@ xterm*VT100.Translations: #override \
 !*color14:    rgb:96/cc/cc
 !*color15:    rgb:ff/ff/ff
 
-!================================
-! tango theme
-!================================
+! Tender color scheme, made by jacoborus
+! adapted by Jose Esparza
 
-*background:              #000000
-*foreground:              #babdb6
-*color0:                  #2e3436
-*color1:                  #cc0000
-*color2:                  #4e9a06
-*color3:                  #c4a000
-*color4:                  #3465a4
-*color5:                  #75507b
-*color6:                  #06989a
-*color7:                  #d3d7cf
-*color8:                  #555753
-*color9:                  #ef2929
-*color10:                 #8ae234
-*color11:                 #fce94f
-*color12:                 #729fcf
-*color13:                 #ad7fa8
-*color14:                 #34e2e2
-*color15:                 #eeeeec
+! special
+URxvt.foreground:   #eeeeee
+URxvt.background:   #282828
+URxvt.cursorColor:  #eeeeee
+
+! black
+URxvt.color0:       #282828
+URxvt.color8:       #4c4c4c
+
+! red
+URxvt.color1:       #f43753
+URxvt.color9:       #f43753
+
+! green
+URxvt.color2:       #c9d05c
+URxvt.color10:      #c9d05c
+
+! yellow
+URxvt.color3:       #ffc24b
+URxvt.color11:      #ffc24b
+
+! blue
+URxvt.color4:       #b3deef
+URxvt.color12:      #b3deef
+
+! magenta
+URxvt.color5:       #d3b987
+URxvt.color13:      #d3b987
+
+! cyan
+URxvt.color6:       #73cef4
+URxvt.color14:      #73cef4
+
+! white
+URxvt.color7:       #eeeeee
+URxvt.color15:      #feffff
