@@ -481,7 +481,11 @@ alias nvim-qt='~/github/neovim-qt/build/bin/nvim-qt'
 ```
 ## Clojure Installation - two steps
 ### 1) Install Clojure command line at www.clojure.org
-### click green button ["Getting Started"](https://clojure.org/guides/getting_started#_installation_on_linux)
+### click green button ["Get Started!"](https://clojure.org/guides/getting_started#_installation_on_linux)
+### Also install rlwrap to use clj command line
+```sh
+sudo apt install rlwrap
+```
 ### 2) Install [Leiningen](https://leiningen.org) and follow instructions
 ```sh
 sudo apt install leiningen # also brings in OpenJDK 11
