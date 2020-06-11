@@ -16,22 +16,44 @@ xterm*VT100.Translations: #override \
 
 !Theme Ten
 !from web.archive.org/web/20090130061234/http://phraktured.net/terminal-colors
-*background: rgb:1a/1a/1a
-*foreground: rgb:d6/d6/d6
-*color0:     rgb:00/00/00
-*color1:     rgb:98/56/5e
-*color2:     rgb:66/82/5d
-*color3:     rgb:96/91/76
-*color4:     rgb:4d/65/85
-*color5:     rgb:96/73/95
-*color6:     rgb:5f/7f/7b
-*color7:     rgb:b3/b3/b3
-*color8:     rgb:73/73/73
-*color9:     rgb:cf/a3/a9
-*color10:    rgb:ca/f7/bb
-*color11:    rgb:ff/f8/bc
-*color12:    rgb:83/a3/be
-*color13:    rgb:bb/a9/cf
-*color14:    rgb:96/cc/cc
-*color15:    rgb:ff/ff/ff
+!*background: rgb:1a/1a/1a
+!*foreground: rgb:d6/d6/d6
+!*color0:     rgb:00/00/00
+!*color1:     rgb:98/56/5e
+!*color2:     rgb:66/82/5d
+!*color3:     rgb:96/91/76
+!*color4:     rgb:4d/65/85
+!*color5:     rgb:96/73/95
+!*color6:     rgb:5f/7f/7b
+!*color7:     rgb:b3/b3/b3
+!*color8:     rgb:73/73/73
+!*color9:     rgb:cf/a3/a9
+!*color10:    rgb:ca/f7/bb
+!*color11:    rgb:ff/f8/bc
+!*color12:    rgb:83/a3/be
+!*color13:    rgb:bb/a9/cf
+!*color14:    rgb:96/cc/cc
+!*color15:    rgb:ff/ff/ff
 
+!================================
+! tango theme
+!================================
+
+*background:              #000000
+*foreground:              #babdb6
+*color0:                  #2e3436
+*color1:                  #cc0000
+*color2:                  #4e9a06
+*color3:                  #c4a000
+*color4:                  #3465a4
+*color5:                  #75507b
+*color6:                  #06989a
+*color7:                  #d3d7cf
+*color8:                  #555753
+*color9:                  #ef2929
+*color10:                 #8ae234
+*color11:                 #fce94f
+*color12:                 #729fcf
+*color13:                 #ad7fa8
+*color14:                 #34e2e2
+*color15:                 #eeeeec
