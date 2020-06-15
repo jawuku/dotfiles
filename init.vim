@@ -14,13 +14,13 @@ Plug 'davidhalter/jedi-vim'
 Plug 'deoplete-plugins/deoplete-jedi'
 
 "Auto-pairs "" '' `` [] () {}
-Plug 'jiangmiao/auto-pairs', { 'tag': 'v2.0.0' }
+Plug 'jiangmiao/auto-pairs'
 
 " Asynchronous Linter
 Plug 'w0rp/ale'
 
 "Conjure
-Plug 'Olical/conjure', { 'tag': 'v3.4.0', 'do': 'bin/compile' }
+Plug 'Olical/conjure', { 'tag': 'v3.4.0'}
 
 "Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -50,7 +50,7 @@ call plug#end()
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('keyword_patterns', {'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'})
 " Change clang binary path
-call deoplete#custom#var('clangx', 'clang_binary', '/bin/clang')
+call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
 set completeopt-=preview
 
 let g:float_preview#docked = 0
@@ -106,6 +106,10 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " Indent line Character
 let g:indentLine_char = '┆'
 
+" Python 3 path
+let g:python3_host_prog='/usr/bin/python3'
+" for FreeBSD, set as
+" let g:python3_host_prog='/usr/local/bin/python3.7'
 
 " Asynchronous Linting Engine (ALE)
 " leader+l = manual ALE linting
