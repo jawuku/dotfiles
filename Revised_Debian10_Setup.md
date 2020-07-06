@@ -91,7 +91,6 @@ echo "alias ls=exa" >> ~/.bashrc
 ## Xorg and openbox
 ```sh
 sudo apt install xorg desktop-base openbox obconf lightdm
-sudo apt install fonts-dejavu ttf-bitstream-vera
 
 mkdir -p ~/.config/openbox
 
@@ -245,7 +244,8 @@ gdebi
 
 lxtask
 
-light-locker```
+light-locker
+```
 ### GTK and Icon themes
 ```sh
 sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk-theme
@@ -256,7 +256,7 @@ sudo apt install numix-icon-theme-circle moka-icon-theme breeze-cursor-theme
 
 ### a) [Vivaldi browser](https://www.vivaldi.com)
 ```sh
-wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.38-1_amd64.deb
+wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.1.1929.45-1_amd64.deb
 
 sudo apt install gdebi
 
@@ -317,6 +317,8 @@ cd fonts
 ## Openbox Autostart
 ### add to ~/.config/openbox/autostart
 ```sh
+(sleep 3 && xrandr -s 1368x768) &
+
 nitrogen --restore &
 
 compton &
@@ -327,7 +329,7 @@ tint2 &
 
 pnmixer &
 
-(sleep 3 && wicd) &
+wicd &
 
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
 #pgrep redshift | xargs -n1 kill -9 &
@@ -392,7 +394,7 @@ Pkg.add("LanguageServer")
 ```sh
 cd ~/Downloads
 
-wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim-linux64.tar.gz
+wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
 
 chmod u+x nvim.appimage
 
@@ -400,7 +402,7 @@ sudo ln -s ~/Downloads/nvim.appimage /usr/local/bin/nvim
 ```
 ### Create Python 3 environment for neovim Pynvim
 ```sh
-sudo apt install python3-venv
+sudo apt install python3-venv python3-pip
 
 mkdir ~/environments
 
@@ -409,7 +411,7 @@ cd ~/environments
 python3.7 -m venv ~/environments/nvim
 source nvim/bin/activate
 
-python -m pip install --user pynvim #using environment's own python 3.7
+python -m pip install --user pynvim # using environment's own python 3.7
 ```
 ### Neovim Perl support (optional)
 ```sh
