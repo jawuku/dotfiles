@@ -497,11 +497,11 @@ sudo apt install leiningen # also brings in OpenJDK 11
 sudo apt install emacs25
 ```
 ### Setup Emacs for Clojure
-```
-# follow instructions at https://github.com/flyingmachine/emacs-for-clojure/
-# follow language tutorial at braveclojure.com
-# install Vim mode instructions at https://www.emacswiki.org/emacs/VimMode
-```
+
+#### follow instructions at https://github.com/flyingmachine/emacs-for-clojure/
+#### follow language tutorial at braveclojure.com
+#### install Vim mode instructions at https://www.emacswiki.org/emacs/VimMode
+
 ### Excellent Alternative Clojure Editors by Zach Oakes (www.sekao.net)
 
 ### 1) Nightcode - get deb or appimage and install from https://sekao.net/nightcode/
