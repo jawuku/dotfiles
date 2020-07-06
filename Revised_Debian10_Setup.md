@@ -222,6 +222,8 @@ gsimplecal (or orage, zenity)
 
 redshift-gtk
 
+cbatticon
+
 psensor
 
 gufw
@@ -330,6 +332,8 @@ tint2 &
 pnmixer &
 
 wicd &
+
+cbatticon -l 15 -r 5 &
 
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
 #pgrep redshift | xargs -n1 kill -9 &
