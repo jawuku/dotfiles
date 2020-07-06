@@ -1,4 +1,6 @@
 # Openbox programs to be loaded from the start
+xrandr -s 1368x768 &
+
 nitrogen --restore &
 
 lxpolkit &
@@ -7,8 +9,12 @@ tint2 &
 
 compton &
 
-(sleep 3 && wicd) &
+pnmixer &
 
-xautolock -time 15 -locker i3lock &
+wicd &
 
-redshift-gtk -l 53:229:-4.129 -t 6500:3500 &
+#xautolock -time 15 -locker i3lock &
+
+redshift-gtk -l 52:384:-3.756 -t 6000:3500 &
+
+cbatticon -l 15 -r 5 &
