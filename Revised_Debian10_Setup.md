@@ -167,7 +167,7 @@ consider fim for framebuffer use.
 
 imagemagick
 
-geany libvte9 (or use medit)
+geany libvte9 (or medit)
 
 vim-gtk3
 
