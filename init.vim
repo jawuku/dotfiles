@@ -19,8 +19,13 @@ Plug 'jiangmiao/auto-pairs'
 " Asynchronous Linter
 Plug 'w0rp/ale'
 
-"Conjure
+" Conjure
 Plug 'Olical/conjure', { 'tag': 'v4.5.0'}
+
+" Vim jack-in
+Plug 'tpope/vim-dispatch'
+Plug 'clojure-vim/vim-jack-in'
+Plug 'radenling/vim-dispatch-neovim'
 
 "Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
