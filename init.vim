@@ -139,7 +139,7 @@ let g:ale_linters = {
 " install yapf, flake8, clang-tools
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf', 'flake8'],
+\   'python': ['yapf3', 'flake8'],
 \   'c': ['clangd', 'clang-format'],
 \   'cpp': ['clangd', 'clang-format']
 \}
