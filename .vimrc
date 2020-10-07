@@ -10,11 +10,11 @@ call plug#begin('~/.vim/plugged')
 
 " Plugins from github repos:
 
-" NeoSolarized truecolor theme
-Plug 'icymind/NeoSolarized'
+" Gruvbox colour theme
+Plug 'morhetz/gruvbox'
 
-"Papercolor theme
-Plug 'NLKNguyen/papercolor-theme'
+" Tender colour theme
+Plug 'jacoborus/tender'
 
 " Airline
 Plug 'vim-airline/vim-airline'
@@ -29,6 +29,9 @@ Plug 'tmhedberg/SimpylFold'
 " Display indentation lines
 Plug 'Yggdroot/indentLine'
 
+" Conjure
+Plug 'Olical/conjure', {'tag': 'v4.5.0'}
+
 " NerdTree
 Plug 'scrooloose/nerdtree'
 
@@ -40,6 +43,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " JSON - :CocInstall coc-json
 " Julia - :CoCInstall coc-julia
 " C/C++ - :CocInstall coc-clangd (requires clang-tools package)
+" File Explorer - :CocInstall coc-explorer (optional) 
 " Autoclose parentheses :CocInstall coc-pairs
 " set up Clojure, C/C++ language servers in config.json file
 
@@ -310,22 +314,21 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " --------------
 
 if has('gui_running')
-    " NeoSolarized colourscheme in gui (Gvim) mode.
-    set guifont=Roboto\ Mono\ for\ Powerline\ 14
+    " Gruvbox colourscheme in gui (Gvim) mode.
+    set guifont=Source Code\ Pro\ for\ Powerline\ 14
     set termguicolors
     set background=light
-    colorscheme NeoSolarized
+    colorscheme gruvbox
 else
-    " Papercolor dark colour scheme in text mode
+    " Tender colour scheme in text mode
     set background=dark
-    colorscheme PaperColor
+    colorscheme tender
 endif
 
 " 4 new user-defined commands to select PaperColor or NeoSolarized colours
-command Solarlight  set termguicolors | set background=light | colorscheme NeoSolarized
-command Solardark   set termguicolors | set background=dark  | colorscheme NeoSolarized
-command Paperlight set background=light | colorscheme PaperColor
-command Paperdark  set background=dark  | colorscheme PaperColor
+command GruvLight  set termguicolors | set background=light | colorscheme gruvbox
+command GruvDark   set termguicolors | set background=dark  | colorscheme gruvbox
+command Tender  set background=dark  | colorscheme tender
 
 " Rainbow Parentheses
 let g:rainbow_active = 1
