@@ -45,7 +45,7 @@ Plug 'icymind/NeoSolarized'
 Plug 'NLKNguyen/papercolor-theme'
 
 " Conjure
-Plug 'Olical/conjure', {'tag': 'v3.4.0'}
+Plug 'Olical/conjure', {'tag': 'v4.5.0'}
 
 " Initialise plugin system
 call plug#end()
@@ -303,7 +303,7 @@ let g:indentLine_char = '┆'
 " Airline
 " -------
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'tenderplus'
+let g:airline_theme = 'papercolor'
 let g:airline#extensions#whitespace#enabled = 0
 
 "Enable the list of buffers
@@ -360,12 +360,12 @@ augroup END
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
-" --------------------
-" gruvbox colourscheme
-" --------------------
+" -------------
+"  colourscheme
+" -------------
 set termguicolors
 let g:gruvbox_italic = 1
-set background=dark
+set background=light
 
 let g:PaperColor_Theme_Options = {
   \   'theme': {
@@ -375,4 +375,4 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 
-colorscheme PaperColor
+colorscheme gruvbox
