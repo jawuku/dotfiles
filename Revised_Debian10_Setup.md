@@ -398,7 +398,7 @@ Pkg.add("LanguageServer")
 ```sh
 cd ~/Downloads
 
-wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
+wget https://github.com/neovim/neovim/releases/download/v0.4.4/nvim.appimage
 
 chmod u+x nvim.appimage
 
