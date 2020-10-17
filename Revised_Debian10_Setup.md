@@ -415,7 +415,7 @@ cd ~/environments
 python3.7 -m venv ~/environments/nvim
 source nvim/bin/activate
 
-python -m pip install --user pynvim # using environment's own python 3.7
+python -m pip install pynvim # using environment's own python 3.7
 ```
 ### Neovim Perl support (optional)
 ```sh
@@ -517,10 +517,8 @@ sudo apt install emacs25
 
 ### 4) Lightmod - web-based Clojure development - https://sekao.net/lightmod
 
-### [u]Other Clojure Editors[/u]
-### Cursive IDE for Clojure - runs on Intellij IDE
-### https://cursive-ide.com - for setup instructions
-
+## [u]Other Clojure Editors[/u]
+### [Practicalli's Guide to Clojure Editors](https://practicalli.github.io/clojure/clojure-editors/)
 ## Virtualbox download
 ### Download and register secure key
 ```sh
