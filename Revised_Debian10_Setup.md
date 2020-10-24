@@ -427,7 +427,20 @@ python -m pip install pynvim # using environment's own python 3.7
 ```sh
 sudo cpanm Neovim::Ext
 ```
-### Install nodejs for coc.nvim - use in Vim too
+### Install node.js for coc.nvim - use in Vim too
+#### 1st method - use Node Version Manager (nvm)
+```sh
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+```
+close terminal, and reopen new terminal, then
+```
+# display long list of node.js versions
+nvm ls-remote
+
+# install particular version, for example the LTS v12 version:
+nvm install lts/erbium
+```
+#### 2nd method - use apt package manager
 ```sh
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt update
