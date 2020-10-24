@@ -515,6 +515,19 @@ sudo apt install rlwrap
 ```sh
 sudo apt install leiningen # also brings in OpenJDK 11
 ```
+### If using Vim/Neovim, also add the following:
+#### 1) [Joker](https::/github.com/candid82/joker) (a small Clojure interpreter)
+```sh
+wget https://github.com/candid82/joker/releases/download/v0.15.7/joker-0.15.7-linux-amd64.zip
+unzip joker-0.15.7-linux-amd64.zip
+sudo mv joker /usr/local/bin
+```
+#### 2) [clj-kondo](https://github.com/borkdude/clj-kondo/blob/master/doc/install.md) - a linter for Clojure
+```sh
+curl -sLO https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/install-clj-kondo
+chmod +x install-clj-kondo
+sudo ./install-clj-kondo
+```
 ## An alternative to Neovim is Emacs (optional)
 ```sh
 sudo apt install emacs25
