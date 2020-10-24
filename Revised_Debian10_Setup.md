@@ -325,7 +325,7 @@ cd fonts
 ## Openbox Autostart
 ### add to ~/.config/openbox/autostart
 ```sh
-(sleep 3 && xrandr -s 1368x768) &
+(sleep 3 && xrandr -s 1920x1080) &
 
 nitrogen --restore &
 
