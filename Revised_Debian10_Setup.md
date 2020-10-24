@@ -60,16 +60,27 @@ sudo apt install -t buster-backports linux-headers-5.4.0-0.bpo.2-amd64
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 sudo reboot
 ```
-## 2) Install Liquorix Kernel Sources (from https://www.liquorix.net)
+## 2) Install Xanmod Kernel Sources (5.8) (from https://www.xanmod.org)
 ### Copy & paste following long line for sources:
 ```sh
-codename="$(find /etc/apt -type f -name '*.list' | xargs grep -E '^deb' | awk '{print $3}' | grep -Eo '^[a-z]+' | sort | uniq -c | sort -n | tail -n1 | grep -Eo '[a-z]+$')" && sudo apt-get update && sudo apt-get install apt-transport-https && echo -e "deb http://liquorix.net/debian $codename main\ndeb-src http://liquorix.net/debian $codename main\n\n# Mirrors:\n#\n# Unit193 - France\n# deb http://mirror.unit193.net/liquorix $codename main\n# deb-src http://mirror.unit193.net/liquorix $codename main" | sudo tee /etc/apt/sources.list.d/liquorix.list && curl https://liquorix.net/linux-liquorix.pub | sudo apt-key add - && sudo apt-get update
+echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
 ```
 ### Then install kernel:
 ```sh
-sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+sudo apt update
+sudo apt install linux-xanmod
 sudo reboot
 ```
+### Update AMD or Intel Microcode for Xanmod kernels
+#### For AMD CPUs
+```sh
+sudo apt install amd64-microcode
+```
+#### For Intel CPUs
+```sh
+sudo apt install intel-microcode iucode-tool
+```
+
 ## Other programs
 ## Install essential programs (if not already installed)
 ```sh
@@ -256,7 +267,19 @@ sudo apt install numix-icon-theme-circle moka-icon-theme breeze-cursor-theme
 ```
 ## Web Browsers - a choice
 
-### a) [Vivaldi browser](https://www.vivaldi.com)
+### 1) [Brave Browser - Privacy Focused Browser](https://brave.com/linux/#linux)
+```sh
+sudo apt install apt-transport-https curl
+
+curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+
+echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+sudo apt update
+
+sudo apt install brave-browser
+```
+### 2) [Vivaldi browser](https://www.vivaldi.com)
 ```sh
 wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.1.1929.45-1_amd64.deb
 
@@ -264,7 +287,7 @@ sudo apt install gdebi
 
 sudo gdebi viv*.deb
 ```
-### b) [vimb browser](https://github.com/fanglingsu/vimb) (lightweight alternative)
+### 3) [vimb browser](https://github.com/fanglingsu/vimb) (lightweight alternative)
 ```sh
 # get prerequisites
 sudo apt install libwebkit2gtk-4.0-dev pkg-config
@@ -281,23 +304,6 @@ cd vimb-3.6.0
 make -j4 V=1
 
 sudo make install
-```
-### 3) [Iridium Browser (Privacy-focused version of Chromium)](https://iridiumbrowser.de/downloads/debian)
-```sh
-wget -qO - https://downloads.iridiumbrowser.de/ubuntu/iridium-release-sign-01.pub|sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/iridium-browser.list
-deb [arch=amd64] https://downloads.iridiumbrowser.de/deb/ stable main
-#deb-src https://downloads.iridiumbrowser.de/deb/ stable main
-EOF
-sudo apt update
-
-## enable kernel user namespaces
-sudo su
-echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/00-local-userns.conf
-service procps restart
-exit
-
-sudo apt install iridium-browser
 ```
 ## Rainbow Bash Prompt: add this to end of ~/.bashrc
 ```sh
