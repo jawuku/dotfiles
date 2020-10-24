@@ -281,7 +281,7 @@ sudo apt install brave-browser
 ```
 ### 2) [Vivaldi browser](https://www.vivaldi.com)
 ```sh
-wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.1.1929.45-1_amd64.deb
+wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.4.2066.86-1_amd64.deb
 
 sudo apt install gdebi
 
