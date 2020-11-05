@@ -348,6 +348,7 @@
         <command>xbacklight -10</command>
       </action>
     </keybind>
+    <!-- Ctrl-Alt-T opens default terminal -->
     <keybind key="C-A-t">
       <action name="Execute">
         <command>x-terminal-emulator</command>
@@ -368,6 +369,7 @@
         <command>sh -c "pactl set-sink-mute 0 true ; pactl set-sink-volume 0 0%"</command>
       </action>
     </keybind>
+    <!-- Alt-F2 opens run dialog -->
     <keybind key="A-F2">
       <action name="Execute">
         <name>rofi</name>
