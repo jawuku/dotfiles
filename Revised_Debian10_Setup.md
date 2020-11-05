@@ -43,6 +43,10 @@ deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 ```sh
 sudo apt update && sudo apt -y upgrade
 ```
+## Install essential programs (if not already installed)
+```sh
+sudo apt install build-essential curl p7zip-full zip git wget gnupg2
+```
 ## Install Kernels - take one of 2 choices - may install 1) then 2)
 ## 1) Install Debian backports kernel (5.4 LTS)
 ### Add to /etc/apt/sources.list
@@ -82,10 +86,6 @@ sudo apt install intel-microcode iucode-tool
 ```
 
 ## Other programs
-## Install essential programs (if not already installed)
-```sh
-sudo apt install build-essential curl p7zip-full zip git wget
-```
 ### Install exa, an ls drop-in addition (download latest version if not 0.9.0)
 ```sh
 wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
@@ -101,7 +101,7 @@ echo "alias ls=exa" >> ~/.bashrc
 ```
 ## Xorg and openbox
 ```sh
-sudo apt install xorg desktop-base openbox obconf lightdm
+sudo apt install xorg desktop-base openbox obconf lightdm obsession firefox-esr
 
 mkdir -p ~/.config/openbox
 
@@ -166,27 +166,27 @@ obmenu-generator -i -p
 ```
 ## Other packages to install using "sudo apt install" (alternatives are in parentheses)
 ```
-tint2 (or lxpanel or xfce4-panel)
+tint2 (or lxpanel, xfce4-panel)
 
-thunar (or pcmanfm or doublecmd-gtk)
+thunar (or pcmanfm, doublecmd-gtk)
 also consider ranger, a command line alternative
 
-xfce4-terminal (or sakura, lxterminal)
+sakura (or xfce4-terminal, lxterminal)
 
-mirage (or shotwell, viewnior, gpicview, geeqie, ristretto, qiv)
+shotwell (or mirage, viewnior, gpicview, geeqie, ristretto, qiv)
 consider fim for framebuffer use. 
 
 imagemagick
 
 geany libvte9 (or medit)
 
-vim-gtk3
+vim-gtk3 (or install neovim, as described below)
 
 cheese
 
 zathura zathura-djvu zathura-cb  (or xpdf, atril)
 
-smplayer (or pragha, lxmusic, vlc)
+pragha (or smplayer, lxmusic, vlc)
 # vlc also has an ncurses interface (vlc -I ncurses)
 # add alias in ~/.bashrc:
 alias vlc='vlc -I ncurses'
@@ -226,14 +226,14 @@ gnome-disk-utility
 
 yelp
 
-gsimplecal (or orage, zenity)
+orage (or gsimplecal, zenity)
 # add the following lines in ~/.config/tint2/tint2rc in the Clock section:
-# clock_lclick_command = gsimplecal
-# clock_rclick_command = gsimplecal
+# clock_lclick_command = orage
+# clock_rclick_command = orage
 
 redshift-gtk
 
-cbatticon
+cbatticon (if installing on a laptop)
 
 psensor
 
@@ -261,11 +261,11 @@ light-locker
 ```
 ### GTK and Icon themes
 ```sh
-sudo apt install greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk-theme
+sudo apt install arc-theme greybird-gtk-theme blackbird-gtk-theme bluebird-gtk-theme numix-gtk-theme
 
-sudo apt install numix-icon-theme-circle moka-icon-theme breeze-cursor-theme
+sudo apt install papirus-icon-theme numix-icon-theme-circle moka-icon-theme breeze-cursor-theme
 ```
-## Web Browsers - a choice
+## Alternative Browsers to Firefix (optional)
 
 ### 1) [Brave Browser - Privacy Focused Browser](https://brave.com/linux/#linux)
 ```sh
@@ -281,7 +281,7 @@ sudo apt install brave-browser
 ```
 ### 2) [Vivaldi browser](https://www.vivaldi.com)
 ```sh
-wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.4.2066.86-1_amd64.deb
+wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.4.2066.94-1_amd64.deb
 
 sudo apt install gdebi
 
@@ -304,6 +304,8 @@ cd vimb-3.6.0
 make -j4 V=1
 
 sudo make install
+# to uninstall, go into ~/github/vimb-3.6.0
+# and issue: sudo make uninstall
 ```
 ## Rainbow Bash Prompt: add this to end of ~/.bashrc
 ```sh
@@ -337,12 +339,11 @@ tint2 &
 
 pnmixer &
 
-wicd &
+wicd-gtk &
 
-cbatticon -l 15 -r 5 &
+# cbatticon -l 15 -r 5 &
 
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
-#pgrep redshift | xargs -n1 kill -9 &
 redshift-gtk -l 51.508:-0.128 -t 6500:3600 &
 ```
 # Data Science Setup
@@ -382,9 +383,9 @@ IRkernel::installspec()
 # add languageserver
 install.packages("languageserver")
 ```
-## Julia
+## Julia (www.julialang.org)
 ```
-# install binary
+# install latest Linux binary from julialang.org
 download zip file
 unzip to folder
 
@@ -421,7 +422,7 @@ cd ~/environments
 python3.7 -m venv ~/environments/nvim
 source nvim/bin/activate
 
-python -m pip install pynvim # using environment's own python 3.7
+python -m pip install pynvim wheel # using environment's own python 3.7
 ```
 ### Neovim Perl support (optional)
 ```sh
@@ -437,8 +438,8 @@ close terminal, and reopen new terminal, then
 # display long list of node.js versions
 nvm ls-remote
 
-# install particular version, for example the LTS v12 version:
-nvm install lts/erbium
+# install particular version, for example the new LTS version 14.15.0:
+nvm install lts/fermium
 ```
 #### 2nd method - use apt package manager
 ```sh
@@ -529,13 +530,38 @@ chmod +x install-clj-kondo
 sudo ./install-clj-kondo
 ```
 ## An alternative to Neovim is Emacs (optional)
+### Install Emacs 26.1
 ```sh
-sudo apt install emacs25
+sudo apt install emacs
+```
+### Alternatively, install latest Emacs 27.1 from source
+### a) Download source from github:
+```sh
+cd ~/github
+git clone --branch emacs-27 --depth 1 https://github.com/emacs-mirror/emacs.git
+```
+### b) Install build prerequisites:
+```sh
+sudo apt install autoconf texinfo fd-find libxpm-dev libgif-dev libtiff-dev \
+libgnutls28-dev libmailutils-dev ripgrep
+```
+### c) Compile and install:
+```
+./autogen.sh
+./configure --with-mailutils
+make
+sudo make install
+```
+### d) Install Doom Emacs (https://github.com/hlissner/doom-emacs) - Vim Keybindings
+```sh
+# delete or rename ~/.emacs.d if already exists, before installing Doom Emacs
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
 ```
 ### Setup Emacs for Clojure
 
-#### follow instructions at https://github.com/flyingmachine/emacs-for-clojure/
-#### follow language tutorial at braveclojure.com
+#### follow instructions at https://www.ianjones.us/clojure-development-in-emacs
+#### or at https://github.com/flyingmachine/emacs-for-clojure/
 #### install Vim mode instructions at https://www.emacswiki.org/emacs/VimMode
 
 ### Excellent Alternative Clojure Editors by Zach Oakes (www.sekao.net)
