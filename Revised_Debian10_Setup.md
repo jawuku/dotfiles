@@ -47,24 +47,8 @@ sudo apt update && sudo apt -y upgrade
 ```sh
 sudo apt install build-essential curl p7zip-full zip git wget gnupg2
 ```
-## Install Kernels - take one of 2 choices - may install 1) then 2)
-## 1) Install Debian backports kernel (5.4 LTS)
-### Add to /etc/apt/sources.list
-```
-# Debian Backports respository
-deb     http://deb.debian.org/debian buster-backports main contrib non-free
-deb-src http://deb.debian.org/debian buster-backports main contrib non-free
-```
-### Install kernel and updated firmware
-```sh
-sudo apt update
-sudo apt install -t buster-backports linux-image-5.4.0-0.bpo.2-amd64
-sudo apt install -t buster-backports linux-headers-5.4.0-0.bpo.2-amd64
-
-sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
-sudo reboot
-```
-## 2) Install Xanmod Kernel Sources (5.8) (from https://www.xanmod.org)
+## Install updated kernel
+### Install Xanmod Kernel Sources (5.8) (from https://www.xanmod.org)
 ### Copy & paste following long line for sources:
 ```sh
 echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
@@ -73,6 +57,7 @@ echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.
 ```sh
 sudo apt update
 sudo apt install linux-xanmod
+sudo apt upgrade
 sudo reboot
 ```
 ### Update AMD or Intel Microcode for Xanmod kernels
@@ -84,7 +69,22 @@ sudo apt install amd64-microcode
 ```sh
 sudo apt install intel-microcode iucode-tool
 ```
+### Alternatively, Install Debian backports kernel (5.4 LTS)
+#### Add to /etc/apt/sources.list
+```
+# Debian Backports respository
+deb     http://deb.debian.org/debian buster-backports main contrib non-free
+deb-src http://deb.debian.org/debian buster-backports main contrib non-free
+```
+#### Install kernel and updated firmware
+```sh
+sudo apt update
+sudo apt install -t buster-backports linux-image-5.4.0-0.bpo.2-amd64
+sudo apt install -t buster-backports linux-headers-5.4.0-0.bpo.2-amd64
 
+sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
+sudo reboot
+```
 ## Other programs
 ### Install exa, an ls drop-in addition (download latest version if not 0.9.0)
 ```sh
