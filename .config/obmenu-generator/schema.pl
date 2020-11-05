@@ -31,8 +31,9 @@ our $SCHEMA = [
 
     #          COMMAND                 LABEL              ICON
     {item => ['xdg-open .',       'File Manager', 'system-file-manager']},
-    {item => ['sakura',            'Terminal',     'utilities-terminal']},
-    {item => ['xdg-open http://', 'Web Browser',  'web-browser']},
+    {item => ['sakura -l',            'Terminal',     'utilities-terminal']},
+    {item => ['xdg-open http://', 'Web Browser',  'web-browser']}
+    {item => ['geany', 'Geany text editor',  'text-x-generic']},
     {item => ['rofi -show run',            'Run command',  'system-run']},
 
     {sep => 'Categories'},
@@ -98,12 +99,12 @@ our $SCHEMA = [
 
     {sep => undef},
 
-    ## The xscreensaver lock command
-    {item => ['xscreensaver-command -lock', 'Lock', 'system-lock-screen']},
+    ## The light-locker lock command
+    {item => ['light-locker-command -l', 'Lock', 'system-lock-screen']},
 
     ## This option uses the default Openbox's "Exit" action
-    {exit => ['Exit', 'application-exit']},
+    #{exit => ['Exit', 'application-exit']},
 
     ## This uses the 'oblogout' menu
-    # {item => ['oblogout', 'Exit', 'application-exit']},
+    {item => ['obsession-logout', 'Exit', 'application-exit']},
 ]
