@@ -46,11 +46,11 @@ sudo reboot
 ```
 ## arc themes with icons
 ```sh
-sudo vpm i arc-icon-theme arc-theme gnome-themes-standard
+sudo vpm i arc-icon-theme arc-theme breeze-cursors
 
-sudo vpm i gnome-icon-theme gnome-icon-theme-extras
+sudo vpm i papirus-icon-theme
 ```
-## add some icon themes - Numix and Numix Circle
+## add some icon themes - Numix and Numix Circle (optional)
 ```sh
 git clone https://github.com/numixproject/numix-icon-theme-circle.git
 
@@ -87,10 +87,10 @@ cd fonts
 
 ./install.sh
 ```
-### can delete ~/github/fonts if desired
-### delete font directories in ~/.local/share/fonts if no longer needed
-### and run fc-cache -f to update local font database
-
+### to uninstall powerline fonts, type
+```sh
+source ~/github/fonts/uninstall.sh
+```
 ## add colour bash prompt
 ```sh
 echo '# Custom bash prompt via kirsle.net/wizards/ps1.html' >> ~/.bashrc
@@ -166,5 +166,8 @@ q() # to exit
 ```
 ## Clojure
 ```sh
-sudo vpm i leiningen
+sudo vpm i clojure leiningen joker
+cd ~/Downloads
+# for clj-kondo linter - change file name to clj-kondo, make it executable and move to directory on PATH
+wget https://download.opensuse.org/repositories/home:/zilti:/clojure/AppImage/clj-kondo-latest-x86_64.AppImage
 ```
