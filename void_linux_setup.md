@@ -1,7 +1,4 @@
-# Void Linux post-install
-```sh
-cd ~
-```
+# Void Linux post-install (www.voidlinux.org)
 ## update repository and update (do twice then reboot)
 ```sh
 sudo xbps-install -Su
@@ -167,7 +164,8 @@ q() # to exit
 ## Clojure
 ```sh
 sudo vpm i clojure leiningen joker
-cd ~/Downloads
+
 # for clj-kondo linter - change file name to clj-kondo, make it executable and move to directory on PATH
+cd ~/Downloads
 wget https://download.opensuse.org/repositories/home:/zilti:/clojure/AppImage/clj-kondo-latest-x86_64.AppImage
 ```
