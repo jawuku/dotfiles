@@ -30,7 +30,7 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'Yggdroot/indentLine'
 
 " Conjure
-Plug 'Olical/conjure', {'tag': 'v4.5.0'}
+Plug 'Olical/conjure', {'tag': 'v4.8.0'}
 
 " NerdTree
 Plug 'scrooloose/nerdtree'
