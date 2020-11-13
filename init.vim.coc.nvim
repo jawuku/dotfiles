@@ -45,7 +45,7 @@ Plug 'icymind/NeoSolarized'
 Plug 'NLKNguyen/papercolor-theme'
 
 " Conjure
-Plug 'Olical/conjure', {'tag': 'v4.5.0'}
+Plug 'Olical/conjure', {'tag': 'v4.8.0'}
 
 " Initialise plugin system
 call plug#end()
@@ -64,7 +64,7 @@ set nu rnu
 set hidden
 
 " tabs and spaces
-set expandtab autoindent softtabstop=4 shiftwidth=4
+set expandtab autoindent softtabstop=2 shiftwidth=2
 
 " unicode utf-8
 set encoding=utf-8
@@ -119,7 +119,7 @@ set ignorecase smartcase
 set confirm
 
 " set python3 path
-let g:python3_host_prog='$HOME/environments/nvim/bin/python3'
+let g:python3_host_prog='$HOME/pynvim/bin/python'
 
 " different cursor shapes in insert mode
 let &t_SI = "\<Esc>[5 q" "SI = insert mode, blinking vertical bar
@@ -172,7 +172,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+" <cr> ould be remapped by other vim plugin, try `:verbose imap <CR>`.
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
@@ -337,14 +337,17 @@ let g:ale_sign_warning = '⚠' " unicode U+26A0 Warning Sign
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_linters = {
-\   'clojure': ['clj-kondo', 'joker']
+\   'clojure': ['clj-kondo', 'joker'],
+\   'python': ['flake8'],
+\   'c': ['clangd'],
+\   'cpp': ['clangd']
 \}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf3', 'flake8'],
-\   'c': ['clangd', 'clang-format'],
-\   'cpp': ['clangd', 'clang-format']
+\   'python': ['yapf3'],
+\   'c': ['clang-format'],
+\   'cpp': ['clang-format']
 \}
 
 " -------------------
@@ -365,7 +368,7 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 " -------------
 set termguicolors
 let g:gruvbox_italic = 1
-set background=light
+set background=dark
 
 let g:PaperColor_Theme_Options = {
   \   'theme': {
@@ -375,4 +378,4 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 
-colorscheme gruvbox
+colorscheme NeoSolarized
