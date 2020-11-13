@@ -20,7 +20,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale'
 
 " Conjure
-Plug 'Olical/conjure', { 'tag': 'v4.5.0'}
+Plug 'Olical/conjure', { 'tag': 'v4.8.0'}
 
 " Vim jack-in
 Plug 'tpope/vim-dispatch'
