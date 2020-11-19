@@ -349,7 +349,7 @@ redshift-gtk -l 51.508:-0.128 -t 6500:3600 &
 # Data Science Setup
 ## Install Python 3 libraries
 ```sh
-sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2 python3-pip nvidia-cuda-dev
+sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2 python3-pip nvidia-cuda-toolkit nvidia-cuda-dev
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu # for NVIDIA cards
 ```
@@ -415,7 +415,7 @@ sudo ln -s ~/Downloads/nvim.appimage /usr/local/bin/nvim
 ```
 ### Create Python 3 environment for neovim Pynvim
 ```sh
-sudo apt install python3-venv python3-pip
+sudo apt install python3-venv
 
 mkdir ~/environments
 
