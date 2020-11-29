@@ -433,17 +433,17 @@ sudo cpanm Neovim::Ext
 ### Install node.js for coc.nvim - use in Vim too
 #### 1st method - use Node Version Manager (nvm)
 ```sh
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 ```
 close terminal, and reopen new terminal, then
 ```
 # display long list of node.js versions
 nvm ls-remote
 
-# install particular version, for example the new LTS version 14.15.0:
-nvm install lts/fermium
+# install particular version, for example the new LTS version 14.15.1:
+nvm install --lts
 ```
-#### 2nd method - use apt package manager
+#### 2nd method - use apt package manager (but less control over versions as nvm)
 ```sh
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt update
