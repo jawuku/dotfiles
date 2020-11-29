@@ -45,7 +45,7 @@ Plug 'icymind/NeoSolarized'
 Plug 'NLKNguyen/papercolor-theme'
 
 " Conjure
-Plug 'Olical/conjure', {'tag': 'v4.8.0'}
+Plug 'Olical/conjure', {'tag': 'v4.9.0'}
 
 " Initialise plugin system
 call plug#end()
