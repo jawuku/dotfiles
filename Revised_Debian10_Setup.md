@@ -466,7 +466,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 ```
 ### Bash language server
 ```sh
-sudo npm i -g bash-language-server
+npm install -g bash-language-server
 ```
 ### Add json config in coc-settings.json:
 ```
