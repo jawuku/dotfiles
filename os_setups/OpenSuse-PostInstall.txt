@@ -1,0 +1,67 @@
+nvm installer for nodejs
+------------------------
+
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+
+# logout, relogin
+nvm install --lts
+
+npm install -g neovim clj-kondo
+
+conda install plugins
+---------------------
+
+conda install gmpy2 hy pandas scikit-learn matplotlib notebook 
+
+Install R for OpenSuse
+----------------------
+
+VERSION=$(grep "^PRETTY_NAME" /etc/os-release | tr " " "_" | sed -e 's/PRETTY_NAME=//' | sed -e 's/"//g')
+
+sudo zypper addrepo -f http://download.opensuse.org/repositories/devel\:/languages\:/R\:/patched/$VERSION/ R-base
+
+sudo zypper install R-base R-base-devel
+
+
+Install dependencies for R languageserver, IRkernel, tidyverse
+--------------------------------------------------------------
+
+sudo zypper install libxml2-devel libopenssl-devel libcurl-devel libunwind-devel \
+libzmq5 cppzmq-devel
+
+Install clang - installs clangd and clang-format for neovim
+-----------------------------------------------------------
+
+sudo zypper install clang9
+
+
+Install Julia libraries
+-----------------------
+
+press ]
+
+add IJulia, LanguageServer, LinearAlgebra
+
+press Backspace, then exit()
+
+clojure-lsp
+-----------
+git clone https://github.com/snoe/clojure-lsp.git
+
+cd clojure-lsp/
+
+./install_clojure_lsp  # installs into ~/bin
+
+
+Coc.nvim plugins
+----------------
+:CocInstall coc-julia coc-python coc-json coc-r-lsp coc-clangd
+
+conda plugins
+
+Calysto Hy - make sure conda environment already activated when installing
+----------
+
+pip3 install git+https://github.com/ekaschalk/jedhy.git
+pip3 install git+https://github.com/Calysto/calysto_hy.git
+python3 -m calysto_hy install --user
