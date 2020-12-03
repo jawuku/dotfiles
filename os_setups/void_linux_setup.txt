@@ -20,7 +20,7 @@ curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 sudo vpm i base-devel
 
 # add headers for current kernel
-#sudo vpm i linux5.4-headers-$(uname -r)
+sudo vpm i linux5.8-headers-$(uname -r)
 
 # add non-free repository to install NVIDIA drivers
 sudo vpm addrepo void-repo-non-free 
