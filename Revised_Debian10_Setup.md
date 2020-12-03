@@ -346,44 +346,27 @@ wicd-gtk &
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
 redshift-gtk -l 51.508:-0.128 -t 6500:3600 &
 ```
-# Data Science Setup
-## Install Python 3 libraries
+# Data Science Setup - Revised Setup - use Miniforge 3
+## Install Miniforge3 - a Miniconda distribution using the conda-forge channel
 ```sh
-sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2 python3-pip nvidia-cuda-toolkit nvidia-cuda-dev
-pip3 install --upgrade pip
-pip3 install --user tensorflow-gpu # for NVIDIA cards
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+chmod +x Miniforge3-Linux-x86_64.sh
+./Miniforge3-Linux-x86_64.sh
 ```
-## R v. 4.0
-### Make new file /etc/apt/sources.list.d/R.list
-```
-deb http://cloud.r-project.org/bin/linux/debian buster-cran40/
-```
-### secure signing of repository
+accept default options, close terminal and open another one.
+### Deactivate base environment, create a new one called 'datasci'
 ```sh
-sudo apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
-sudo apt update
+conda config --set auto_activate_base false
+conda create --name datasci
+conda activate datasci
 ```
-### install R and dependencies (new version from CRAN repository, not Debian)
+## Install Python 3 libraries in 'datasci' enrironment
 ```sh
-sudo apt install -t buster-cran40 r-base r-base-dev
+conda install pandas scikit-learn matplotlib notebook gmpy2
 ```
-### install tidyverse, devtools and language server
+## Install R v4.0
 ```sh
-sudo apt install libxml2-dev libssl-dev libcurl4-openssl-dev
-R
-install.packages("tidyverse")
-
-# IRkernel - for use in Jupyter notebook
-install.packages("devtools")
-
-library("devtools")
-
-devtools::install_github("IRkernel/IRkernel")
-
-IRkernel::installspec()
-
-# add languageserver
-install.packages("languageserver")
+conda install r-base r-essentials r-devtools r-languageserver r-tidyverse r-irkernel
 ```
 ## Julia (www.julialang.org)
 ```
@@ -413,18 +396,9 @@ chmod u+x nvim.appimage
 
 sudo ln -s ~/Downloads/nvim.appimage /usr/local/bin/nvim
 ```
-### Create Python 3 environment for neovim Pynvim
+### Neovim Python3 support
 ```sh
-sudo apt install python3-venv
-
-mkdir ~/environments
-
-cd ~/environments
-
-python3.7 -m venv ~/environments/nvim
-source nvim/bin/activate
-
-python -m pip install pynvim wheel # using environment's own python 3.7
+conda install pynvim
 ```
 ### Neovim Perl support (optional)
 ```sh
@@ -531,6 +505,8 @@ curl -sLO https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/ins
 chmod +x install-clj-kondo
 sudo ./install-clj-kondo
 ```
+#### 3) [clojure-lsp](https://github.com/snoe/clojure-lsp/releases/) - Clojure language server
+get latest release by clicking on the clojure-lsp link, download source code, compile and install
 ## An alternative to Neovim is Emacs (optional)
 ### Install Emacs 26.1
 ```sh
