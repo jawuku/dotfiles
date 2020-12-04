@@ -385,6 +385,19 @@ Pkg.add("IJulia")
 # add language server
 Pkg.add("LanguageServer")
 ```
+## Hy Language - a Python Lisp
+### Ensure conda 'datasci' environment already activated
+```sh
+pip3 install git+https://github.com/ekaschalk/jedhy.git
+pip3 install git+https://github.com/Calysto/calysto_hy.git
+python3 -m calysto_hy install --sys-prefix
+```
+### Example Hy code - a factorial function
+```clojure
+(defn factorial [n] (reduce * (map inc (range n))))
+(factorial 100)
+;;  93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
+```
 ## Neovim (optional - no need if you already have vim)
 ### Install appimage
 ```sh
@@ -536,7 +549,7 @@ sudo make install
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
 ```
-### Setup Emacs for Clojure
+### Setup Emacs for Clojure (Optional)
 
 #### follow instructions at https://www.ianjones.us/clojure-development-in-emacs
 #### or at https://github.com/flyingmachine/emacs-for-clojure/
