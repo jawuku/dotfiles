@@ -388,6 +388,10 @@ Pkg.add("LanguageServer")
 ## Hy Language - a Python Lisp
 ### Ensure conda 'datasci' environment already activated
 ```sh
+conda install hy
+
+# Install Calysto Hy, an Hy kernel for Jupyter Notebook
+
 pip3 install git+https://github.com/ekaschalk/jedhy.git
 pip3 install git+https://github.com/Calysto/calysto_hy.git
 python3 -m calysto_hy install --sys-prefix
