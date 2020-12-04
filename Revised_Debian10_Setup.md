@@ -69,7 +69,7 @@ sudo apt install amd64-microcode
 ```sh
 sudo apt install intel-microcode iucode-tool
 ```
-### Alternatively, Install Debian backports kernel (5.4 LTS)
+### Alternatively, Install Debian backports kernel (5.8)
 #### Add to /etc/apt/sources.list
 ```
 # Debian Backports respository
@@ -79,8 +79,8 @@ deb-src http://deb.debian.org/debian buster-backports main contrib non-free
 #### Install kernel and updated firmware
 ```sh
 sudo apt update
-sudo apt install -t buster-backports linux-image-5.4.0-0.bpo.2-amd64
-sudo apt install -t buster-backports linux-headers-5.4.0-0.bpo.2-amd64
+sudo apt install -t buster-backports linux-image-5.8.0-0.bpo.2-amd64
+sudo apt install -t buster-backports linux-headers-5.8.0-0.bpo.2-amd64
 
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 sudo reboot
