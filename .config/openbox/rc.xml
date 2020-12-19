@@ -348,12 +348,33 @@
         <command>xbacklight -10</command>
       </action>
     </keybind>
-    <!-- Ctrl-Alt-T opens default terminal -->
+    <!-- Ctrl-Alt-T opens sakura login terminal -->
     <keybind key="C-A-t">
       <action name="Execute">
-        <command>x-terminal-emulator</command>
+        <command>sakura -l</command>
       </action>
     </keybind>
+    <!-- Multimedia Keys -->
+    <keybind key="XF86AudioPlay">
+     <action name="Execute">
+       <command>pragha --pause</command>
+     </action>
+   </keybind>
+   <keybind key="XF86AudioStop">
+     <action name="Execute">
+       <command>pragha --stop</command>
+     </action>
+   </keybind>
+   <keybind key="XF86AudioNext">
+     <action name="Execute">
+       <command>pragha --next</command>
+     </action>
+   </keybind>
+   <keybind key="XF86AudioPrev">
+     <action name="Execute">
+       <command>pragha --prev</command>
+     </action>
+   </keybind>
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
         <command>sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%"</command>
