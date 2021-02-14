@@ -45,19 +45,23 @@ sudo apt update && sudo apt -y upgrade
 ```
 ## Install essential programs (if not already installed)
 ```sh
-sudo apt install build-essential curl p7zip-full zip git wget gnupg2
+sudo apt install build-essential curl p7zip-full zip git gnupg2
+mkdir ~/bin
 ```
 ## Install updated kernel
-### Install Xanmod Kernel Sources (5.8) (from https://www.xanmod.org)
-### Copy & paste following long line for sources:
+### Install Xanmod Kernel Sources (5.10) (from https://www.xanmod.org)
+### Copy & paste following lines for sources:
 ```sh
-echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
+echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list
+
+wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/xanmod-kernel.gpg add -
 ```
 ### Then install kernel:
 ```sh
 sudo apt update
+
 sudo apt install linux-xanmod
-sudo apt upgrade
+
 sudo reboot
 ```
 ### Update AMD or Intel Microcode for Xanmod kernels
@@ -69,7 +73,7 @@ sudo apt install amd64-microcode
 ```sh
 sudo apt install intel-microcode iucode-tool
 ```
-### Alternatively, Install Debian backports kernel (5.8)
+### Alternatively, Install Debian backports kernel (5.9)
 #### Add to /etc/apt/sources.list
 ```
 # Debian Backports respository
@@ -79,8 +83,8 @@ deb-src http://deb.debian.org/debian buster-backports main contrib non-free
 #### Install kernel and updated firmware
 ```sh
 sudo apt update
-sudo apt install -t buster-backports linux-image-5.8.0-0.bpo.2-amd64
-sudo apt install -t buster-backports linux-headers-5.8.0-0.bpo.2-amd64
+sudo apt install -t buster-backports linux-image-amd64
+sudo apt install -t buster-backports linux-headers-amd64
 
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 sudo reboot
@@ -92,7 +96,8 @@ wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.
 
 unzip exa-linux-x86_64-0.9.0.zip
 
-sudo mv exa-linux-x86_64 /usr/local/bin/exa
+mv exa-linux-x86_64 ~/bin/exa
+
 # test it out
 exa -la ~
 
@@ -101,7 +106,13 @@ echo "alias ls=exa" >> ~/.bashrc
 ```
 ## Xorg and openbox
 ```sh
-sudo apt install xorg desktop-base openbox obconf lightdm obsession firefox-esr
+sudo apt install xserver-xorg-core
+
+sudo apt install openbox
+
+sudo apt install xinit
+
+sudo apt install slim obsession firefox-esr obconf
 
 mkdir -p ~/.config/openbox
 
@@ -110,7 +121,7 @@ cp /etc/xdg/openbox/rc.xml ~/.config/openbox/rc.xml
 sudo reboot
 ```
 ## Graphical desktop. Right-click for basic menu. Open Terminal emulator.
-### Install wallpapers
+### Install wallpapers (optional)
 ```sh
 sudo apt install nitrogen # wallpaper changer. Alternative package is 'feh'
 
