@@ -11,9 +11,9 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Status line
-"Plug 'liuchengxu/eleline.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'liuchengxu/eleline.vim'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 
 "Better language packs
 Plug 'sheerun/vim-polyglot'
@@ -48,8 +48,8 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'JuliaEditorSupport/julia-vim'
 let g:default_julia_version = "devel"
 
-" Terminal Vim with 256 colours
-Plug 'morhetz/gruvbox'
+" Tender colour scheme
+Plug 'jacoborus/tender.vim'
 
 " NeoSolarized truecolor theme
 Plug 'iCyMind/NeoSolarized'
@@ -76,7 +76,7 @@ set nu rnu
 set hidden
 
 " tabs and spaces
-set expandtab autoindent tabstop=4 softtabstop=4 shiftwidth=4
+set expandtab softtabstop=4 shiftwidth=4
 
 " unicode utf-8
 set encoding=utf-8
