@@ -1,6 +1,6 @@
 ## Debian System Setup v.3 - Updated for Debian 11 (Bullseye)
 
-### 00 - Prior preparation - get offline packages
+### 00) - Prior preparation - get offline packages
 
 Get a free formatted (FAT32) USB disk
 
