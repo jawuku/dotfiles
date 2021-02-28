@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Nightmare-01</name>
+    <name>Nightmare-02</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -58,7 +58,7 @@
     <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
       <name>sans</name>
-      <size>10</size>
+      <size>11</size>
       <!-- font size in points -->
       <weight>bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -67,7 +67,7 @@
     </font>
     <font place="InactiveWindow">
       <name>sans</name>
-      <size>10</size>
+      <size>11</size>
       <!-- font size in points -->
       <weight>bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -120,7 +120,7 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>2</number>
+    <number>4</number>
     <firstdesk>1</firstdesk>
     <names>
       <!-- set names up here if you want to, like this:
@@ -322,13 +322,14 @@
       </action>
     </keybind>
     <!-- Keybindings for running applications -->
-    <keybind key="W-e">
+    <!-- Alt-F2 opens a run dialogue (Rofi) -->
+    <keybind key="A-F2">
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
-          <name>File Manager</name>
+          <name>Rofi</name>
         </startupnotify>
-        <command>thunar</command>
+        <command>rofi -show drun -theme Adapta-Nokto</command>
       </action>
     </keybind>
     <!-- Launch scrot when Print is pressed -->
@@ -337,74 +338,24 @@
         <command>scrot</command>
       </action>
     </keybind>
-    <!-- Multimedia Keys -->
-    <keybind key="XF86MonBrightnessUp">
+    <!-- Control-Escape launches jgmenu -->
+    <keybind key="C-Escape">
       <action name="Execute">
-        <command>xbacklight +10</command>
+        <command>jgmenu_run</command>
       </action>
     </keybind>
-    <keybind key="XF86MonBrightnessDown">
-      <action name="Execute">
-        <command>xbacklight -10</command>
-      </action>
-    </keybind>
-    <!-- Ctrl-Alt-T opens sakura login terminal -->
+    <!-- Control-Alt-T launches a login terminal -->
     <keybind key="C-A-t">
       <action name="Execute">
         <command>sakura -l</command>
       </action>
     </keybind>
-    <!-- Multimedia Keys -->
-    <keybind key="XF86AudioPlay">
-     <action name="Execute">
-       <command>pragha --pause</command>
-     </action>
-   </keybind>
-   <keybind key="XF86AudioStop">
-     <action name="Execute">
-       <command>pragha --stop</command>
-     </action>
-   </keybind>
-   <keybind key="XF86AudioNext">
-     <action name="Execute">
-       <command>pragha --next</command>
-     </action>
-   </keybind>
-   <keybind key="XF86AudioPrev">
-     <action name="Execute">
-       <command>pragha --prev</command>
-     </action>
-   </keybind>
-    <keybind key="XF86AudioRaiseVolume">
+    <!-- Control-Alt-L locks the screen -->
+    <keybind key="C-A-l">
       <action name="Execute">
-        <command>sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%"</command>
+        <command>light-locker-command -l</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioLowerVolume">
-      <action name="Execute">
-        <command>sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -5%"</command>
-      </action>
-    </keybind>
-    <keybind key="XF86AudioMute">
-      <action name="Execute">
-        <command>sh -c "pactl set-sink-mute 0 true ; pactl set-sink-volume 0 0%"</command>
-      </action>
-    </keybind>
-    <!-- Alt-F2 opens run dialog -->
-    <keybind key="A-F2">
-      <action name="Execute">
-        <name>rofi</name>
-        <command>rofi -show run</command>
-      </action>
-    </keybind>
-    
-    <!-- Alt-Shift-Space opens Openbox root menu anywhere -->
-    <keybind key="A-S-space">
-      <action name="ShowMenu">
-        <menu>root-menu</menu>
-      </action>
-    </keybind>
-    
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
@@ -712,8 +663,8 @@
         </action>
       </mousebind>
       <mousebind button="Right" action="Press">
-        <action name="ShowMenu">
-          <menu>root-menu</menu>
+        <action name="Execute">
+          <command>jgmenu_run</command>
         </action>
       </mousebind>
     </context>
