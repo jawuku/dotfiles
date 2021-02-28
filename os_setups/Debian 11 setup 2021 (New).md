@@ -15,7 +15,9 @@ wireless-regdb
 iucode-tool
 
 https://packages.debian.org/bullseye/iwd
+
 https://packages.debian.org/bullseye/wireless-regdb
+
 https://packages.debian.org/bullseye/iucode-tool
 
 and put them in the directory 'extradebs' on usb disk
