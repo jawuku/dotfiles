@@ -50,13 +50,20 @@ cd /mnt/usbdisk/
 Install relevant debs, such as:
 
 bluez-firmware
+
 firmware-intel-sound
+
 firmware-intelwimax
+
 firmware-iwlwifi
+
 firmware-linux-free
+
 firmware-misc-nonfree
+
 firmware-realtek
-intel-microcode (both amd64 and i386) (don't worry about error)
+
+intel-microcode (both amd64 and i386) (don't worry about the error)
 
 #### install network utils
 ```
