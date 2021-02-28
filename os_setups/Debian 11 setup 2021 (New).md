@@ -155,6 +155,7 @@ eyestrain prevention: redshift-gtk
 document viewer: atril
 word processor: abiword
 spreadsheet: gnumeric
+media player: celluloid
 compositor: jonaburg/picom from github, compton or picom from repositories
 program launcher: rofi
 menu system: johanmalm/jgmenu or nwg-piotr/sgtk-menu (latter 2 from github)
