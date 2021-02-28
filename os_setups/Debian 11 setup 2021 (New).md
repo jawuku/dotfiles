@@ -130,7 +130,7 @@ sudo apt install nvidia-driver
 sudo reboot
 ```
 ### 09) other packages to install via apt
-
+```
 file manager : thunar
 gui text editor : geany
 terminal: sakura
@@ -156,11 +156,40 @@ utils: gtk-theme-switch
 notification: xfce4-notifyd libnotify-bin
 lock screen: light-locker
 calendar: gsimplecal
-
+```
 ### 10) Download rc.xml to ~/.config/openbox/rc.xml
-### 11) Rofi
+```
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/rc.xml -O ~/.config/openbox/rc.xml
+```
+#### and a list of applications to autostart
+```
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/autostart -O ~/.config/openbox/autostart
+chmod +x ~/.config/openbox/autostart
+```
+#### listing of autostarted items
+```
+# Openbox programs to be loaded from the start
+
+picom &
+
+lxpolkit &
+
+tint2 &
+
+light-locker &
+
+pnmixer &
+
+# Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
+redshift-gtk -l 51.508:-0.128 -t 6500:3500 &
+```
+### 11) Rofi - run program launcher
 #### Download config.rasi and Adapta-Nokto.rasi to ~/.config/rofi
-### 12) jgmenu
+```
+https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/Adapta-Nokto.rasi
+https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/config.rasi
+```
+### 12) jgmenu - nice menu system, replaces Openbox menu
 
 #### set up git subdirectory, download jgmenu
 ```
@@ -192,7 +221,11 @@ jgmenu_run init -i
 ```
 #### can optionally download jgmenurc config files
 #### into ~/.config/jgmenu
-
+```
+https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/append.csv
+https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/prepend.csv
+https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/jgmenurc
+```
 ### 13) ufw firewall
 ```
 sudo apt install ufw
@@ -207,7 +240,7 @@ python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu
 ```
-### 14) R
+### 14) R Language
 ```
 sudo apt install r-base r-base-dev r-cran-tidyverse r-cran-irkernel
 
@@ -259,17 +292,11 @@ chmod +x linux-install-1.10.2.796.sh
 
 sudo ./linux-install-1.10.2.796.sh
 ```
-# install latest LTS nodejs
+### 17) install latest LTS nodejs
+```
 curl -sL install-node.now.sh/lts | sh
-
-# themes from outside
-1) Vertex icon theme
-https://github.com/horst3180/vertex-icons
-
-2) Mistral Openbox theme
-https://www.box-look.org/content/show.php/Mistral?content=167604
-
-### 17) Setup Yubikey
+```
+### 18) Setup Yubikey
 ```
 sudo apt install libpam-u2f
 mkdir -p ~/.config/Yubico
@@ -311,3 +338,9 @@ sudo nano /etc/pam.d/login
 # add
 auth    required    pam_u2f.so
 ```
+#### themes from outside
+1) Vertex icon theme
+https://github.com/horst3180/vertex-icons
+
+2) Mistral Openbox theme
+https://www.box-look.org/content/show.php/Mistral?content=167604
