@@ -1,4 +1,4 @@
-xterm*faceName: Roboto Mono Regular
+xterm*faceName: Fira Code Retina
 xterm*faceSize: 14
 xterm*geometry: 80x25
 *scrollBar: 1
