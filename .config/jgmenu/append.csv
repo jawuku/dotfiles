@@ -1,0 +1,7 @@
+^sep()
+Exit,^checkout(exit),system-shutdown
+^tag(exit)
+exit to prompt,openbox --exit,system-log-out
+Suspend,systemctl -i suspend,system-log-out
+Reboot,systemctl -i reboot,system-reboot
+Poweroff,systemctl -i poweroff,system-shutdown
