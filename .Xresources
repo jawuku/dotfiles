@@ -1,4 +1,4 @@
-xterm*faceName: Roboto Mono for Powerline
+xterm*faceName: Roboto Mono Regular
 xterm*faceSize: 14
 xterm*geometry: 80x25
 *scrollBar: 1
@@ -9,6 +9,8 @@ xterm*rightScrollBar: true
 
 *scrollTtyKeypress: true
 *selectToClipboard: true
+xterm*utf8: true
+xterm*locale: true
 
 xterm*VT100.Translations: #override \
                  Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
