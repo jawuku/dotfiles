@@ -1,17 +1,14 @@
 # Openbox programs to be loaded from the start
-(sleep 3 && xrandr -s 1680x1050) &
 
-nitrogen --restore &
-
-compton &
+picom &
 
 lxpolkit &
 
 tint2 &
 
-pnmixer &
+light-locker &
 
-#wicd-gtk &
+pnmixer &
 
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
 redshift-gtk -l 51.508:-0.128 -t 6500:3500 &
