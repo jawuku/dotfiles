@@ -17,14 +17,20 @@ use 'tmhedberg/SimpylFold'
 -- Display indentation lines
 use 'Yggdroot/indentLine'
 
+-- nvim telescope (file finder and previewer)
+use {
+  'nvim-telescope/telescope.nvim',
+  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+}
+    
 -- NerdTree
-use 'scrooloose/nerdtree'
-
--- CoC.nvim
--- use {'neoclide/coc.nvim', branch = 'release'}
+-- use 'scrooloose/nerdtree'
 
 -- nvim native language server
 use 'neovim/nvim-lspconfig'
+
+-- CoC.nvim
+-- use {'neoclide/coc.nvim', branch = 'release'}
 
 -- autocompletion support
 use 'nvim-lua/completion-nvim'
@@ -44,7 +50,13 @@ use 'luochen1990/rainbow'
 -- neovim-qt
 use 'equalsraf/neovim-gui-shim'
 
---- w0rp/ale
-use 'w0rp/ale'
+-- autoclose pairs
+use 'jiangmiao/auto-pairs'
+
+-- linter for neovim written in lua
+use 'mfussenegger/nvim-lint'
+
+-- w0rp/ale
+-- use 'w0rp/ale'
 
 end)
