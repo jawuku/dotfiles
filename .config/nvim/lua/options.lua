@@ -33,4 +33,4 @@ opt('w', 'number', true)              -- Show line number
 opt('w', 'relativenumber', true)      -- Relative line numbers
 opt('w', 'signcolumn', 'auto')        -- show sign column 
 
-vim.g['python3_host_prog'] = '/home/bookiboo/nvim/bin/python3'
+vim.g['python3_host_prog'] = '$HOME/nvim/bin/python3'
