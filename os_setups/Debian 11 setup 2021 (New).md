@@ -302,6 +302,14 @@ chmod +x linux-install-1.10.2.796.sh
 
 sudo ./linux-install-1.10.2.796.sh
 ```
+#### d) Install Clojure Language Server
+```
+wget https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install-latest-clojure-lsp.sh
+
+chmod +x install-latest-clojure-lsp.sh
+
+sudo ./install-latest-clojure-lsp.sh
+```
 ### 17) install latest LTS nodejs
 ```
 curl -sL install-node.now.sh/lts | sh
