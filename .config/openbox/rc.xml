@@ -356,6 +356,22 @@
         <command>light-locker-command -l</command>
       </action>
     </keybind>
+    <!-- Multimedia Keys - raise, lower and mute volume -->
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute">
+        <command>amixer sset Master,0 5+</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute">
+        <command>amixer sset Master,0 5-</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute">
+        <command>amixer sset Master,0 toggle</command>
+      </action>
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
