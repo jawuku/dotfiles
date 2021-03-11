@@ -11,9 +11,9 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Status line
-Plug 'liuchengxu/eleline.vim'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+" Plug 'liuchengxu/eleline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 "Better language packs
 Plug 'sheerun/vim-polyglot'
@@ -28,7 +28,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree'
 
 " Code completion with coc.nvim
-" requires nodejs and npm packages
+" requires nodejs and npm packages (npm install -g neovim)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " run following commands in vim after installation
 " R support - :CocInstall coc-r-lsp
@@ -36,6 +36,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " JSON - :CocInstall coc-json
 " Julia - :CoCInstall coc-julia
 " C/C++ - :CocInstall coc-clangd (requires clang-tools package)
+" Clojure - :CocInstall coc-conjure (requires cider script, clojure-lsp, clj-kondo, joker)
 " Autoclose parentheses :CocInstall coc-pairs
 
 " Asynchrynous Linting Engine
@@ -56,11 +57,12 @@ Plug 'iCyMind/NeoSolarized'
 
 "Rainbow Parentheses
 Plug 'luochen1990/rainbow'
+
 " neovim-qt
 Plug 'equalsraf/neovim-gui-shim'
 
-" REPL interaction
-Plug 'jpalardy/vim-slime'
+" Conjure
+Plug 'Olical/conjure', {'tag': 'v4.15.0'}
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -254,10 +256,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-" ----------------
-" Vim-Slime config
-" ----------------
-let g:slime_target='tmux'
 
 " -----------------
 " NerdTree Settings
@@ -308,6 +306,6 @@ let g:rainbow_active = 1
 " --------------
 " Colour Schemes
 " --------------
-" Fisadev's colour scheme for 256 colour terminals in text mode
-"let &t_Co = 256
-"colorscheme fisa
+set termguicolors
+set background=dark
+colorscheme NeoSolarized
