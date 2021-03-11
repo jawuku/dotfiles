@@ -7,5 +7,5 @@ if exists('g:GuiLoaded')
     GuiPopupmenu 1
     GuiTabline 0
 else
-    colorscheme gruvbox
+    colorscheme tender
 endif
