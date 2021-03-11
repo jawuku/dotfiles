@@ -1,18 +1,27 @@
-vim.cmd [[packadd packer.nvim]]
+-- check if packer.nvim is installed (~/local/share/nvim/site/packer)
+-- if not, then install
+
+local execute = vim.api.nvim_command
+local fn = vim.fn
+
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+  execute 'packadd packer.nvim'
+end
 
 return require('packer').startup(function()
 
+-- Packer can manage itself as an optional plugin
 use {'wbthomason/packer.nvim', opt = true}
 
--- statusline (new)
--- use 'beauwilliams/statusline.lua'
-use {'ojroques/nvim-hardline'}
+-- status bar
+use 'ojroques/nvim-hardline'
 
--- Better language packs
-use 'sheerun/vim-polyglot'
-
--- Simpler code folding
-use 'tmhedberg/SimpylFold'
+-- Treesitter
+use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+use 'nvim-treesitter/playground'
 
 -- Display indentation lines
 use 'Yggdroot/indentLine'
@@ -22,22 +31,12 @@ use {
   'nvim-telescope/telescope.nvim',
   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 }
-    
--- NerdTree
--- use 'scrooloose/nerdtree'
 
 -- nvim native language server
 use 'neovim/nvim-lspconfig'
 
--- CoC.nvim
--- use {'neoclide/coc.nvim', branch = 'release'}
-
 -- autocompletion support
-use 'nvim-lua/completion-nvim'
-
--- Julia language support
-use 'JuliaEditorSupport/julia-vim'
-vim.g.default_julia_version = 'devel'
+use 'hrsh7th/nvim-compe'
 
 -- Colour schemes
 use 'dunstontc/vim-vscode-theme'
@@ -51,12 +50,9 @@ use 'luochen1990/rainbow'
 use 'equalsraf/neovim-gui-shim'
 
 -- autoclose pairs
-use 'jiangmiao/auto-pairs'
+use 'Raimondi/delimitMate'
 
 -- linter for neovim written in lua
 use 'mfussenegger/nvim-lint'
-
--- w0rp/ale
--- use 'w0rp/ale'
 
 end)
