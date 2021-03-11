@@ -238,11 +238,6 @@ set termguicolors
 set background=dark
 colorscheme solarized
 
-" Fisadev's dark colour scheme is a nice alternative in text mode
-" let &t_Co = 256
-" colorscheme fisa
-" AirlineTheme bubblegum
-
 " Two new user-defined commands to select Fisa or Solarized colours
 " with matching Airline themes (bubblegum and papercolor respectively)
 command SolarPaper set termguicolors | set background=dark | colorscheme solarized | AirlineTheme papercolor
