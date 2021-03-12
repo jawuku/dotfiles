@@ -23,6 +23,7 @@ opt('b', 'tabstop', indent)           -- Number of spaces tabs count for
 -- global options
 opt('o', 'autochdir', true)           -- automatically change directory
 opt('o', 'cmdheight', 2)
+opt('o', 'completeopt' = 'menuone,noselect') -- enable nvim.compe 
 opt('o', 'confirm', true)
 opt('o', 'hidden', true)              -- Enable modified buffers in background
 opt('o', 'ignorecase', true)          -- Ignore case
