@@ -27,7 +27,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" set clipboard
+" nvim interoperability with system clipboard
+" install xclip
 set  clipboard+=unnamedplus
 
 " nvim-compe key mappings along with delimitMate
