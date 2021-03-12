@@ -55,4 +55,7 @@ use 'Raimondi/delimitMate'
 -- linter for neovim written in lua
 use 'mfussenegger/nvim-lint'
 
+-- conjure
+use {'Olical/conjure', tag = 'v4.15.0'}
+
 end)
