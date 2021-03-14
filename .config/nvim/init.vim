@@ -45,10 +45,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 
 " Rainbow Parentheses
-Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 
 " Conjure
 Plug 'Olical/conjure', {'tag': 'v4.15.0'}
+
+" Clojure completion
+Plug 'clojure-vim/async-clj-omni'
 
 " Initialise plugin system
 call plug#end()
@@ -90,6 +93,17 @@ nnoremap  <leader>Y  "+yg_
 nnoremap  <leader>y  "+y
 nnoremap  <leader>yy  "+yy
 
+" Key combos for split screens:
+"
+"    Ctrl+J move to the split below
+"    Ctrl+K move to the split above
+"    Ctrl+L move to the split to the right
+"    Ctrl+H move to the split to the left
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
@@ -104,7 +118,7 @@ set ruler
 set laststatus=2
 
 " file and directory settings
-set undofile autochdir 
+set undofile autochdir
 
 " disable swapfile
 set noswapfile
@@ -122,7 +136,7 @@ set ignorecase smartcase
 set confirm
 
 " set python3 path - uses python in ~/pynvim/bin environment
-let g:python3_host_prog='$HOME/pynvim/bin/python'
+let g:python3_host_prog='/usr/bin/python3'
 
 " different cursor shapes in insert mode
 let &t_SI = "\<Esc>[5 q" "SI = insert mode, blinking vertical bar
@@ -297,12 +311,12 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
-" --------------------- 
+" ---------------------
 " Indent line Character
 " ---------------------
 let g:indentLine_char = '┆'
 
-" ------- 
+" -------
 " Airline
 " -------
 let g:airline_powerline_fonts = 1
@@ -356,15 +370,7 @@ let g:ale_fixers = {
 " -------------------
 " Rainbow Parentheses
 " -------------------
-
-" Activation based on file type
-augroup rainbow_progs
-  autocmd!
-  autocmd FileType lisp,clojure,scheme,r,c,cpp,json RainbowParentheses
-augroup END
-
-let g:rainbow#max_level = 16
-let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+let g:rainbow_active = 1
 
 " -------------
 "  colourscheme
@@ -380,5 +386,5 @@ let g:PaperColor_Theme_Options = {
   \     }
   \   }
   \ }
+colorscheme tender
 
-colorscheme NeoSolarized
