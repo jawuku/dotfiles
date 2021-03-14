@@ -1,6 +1,20 @@
 -- Language Server configuration
 -- Follow installation notes below before running the neovim LSP.
 
+--[[
+    _        __     ____                                     
+    /      /    )   /    )                                   
+---/-------\-------/____/-------__----__--_/_-------------__-
+  /         \     /            (_ ` /___) /    /   /    /   )
+_/____/_(____/___/____________(__)_(___ _(_ __(___(____/___/_
+                                                      /      
+                                                     /       
+lspsetup.lua
+
+ASCII art from https://ascii.co.uk/text
+style: Big Chief
+]]--
+
 -- Julia language server - to install:
 -- julia -e 'using Pkg; Pkg.add("LanguageServer"); Pkg.add("SymbolServer")'
 require'lspconfig'.julials.setup{}
