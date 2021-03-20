@@ -75,6 +75,9 @@ require('telescope').setup {}
 require('telescope').load_extension('fzy_native')
 
 -- Developer Icons
-require'nvim-web-devicons'.setup {
+require('nvim-web-devicons').setup {
  default = true;
 }
+
+-- Bufferline setup
+lua require'bufferline'.setup{}
