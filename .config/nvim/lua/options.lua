@@ -23,9 +23,9 @@ vim.cmd 'colorscheme tender'
 local indent = 2
 bo.expandtab = true          -- Use spaces instead of tabs
 bo.modeline = false          -- don't display mode, as status bar does this
-bo.shiftwidth = 'indent'     -- Size of an indent
+bo.shiftwidth = indent       -- Size of an indent
 bo.smartindent = true        -- Insert indents automatically
-bo.tabstop = 'indent'        -- Number of spaces tabs count for
+bo.tabstop = indent          -- Number of spaces tabs count for
 
 -- global options --
 o.autochdir = true           -- automatically change directory
