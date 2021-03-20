@@ -62,3 +62,14 @@ kmap('n', '<leader>p', '"+p', {noremap = true})
 kmap('n', '<leader>P', '"+P', {noremap = true})
 kmap('v', '<leader>p', '"+p', {noremap = true})
 kmap('v', '<leader>P', '"+P', {noremap = true})
+
+--[[ Telescope.nvim mappings
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+]]--
+kmap('n', '<leader>ff', '<cmd>lua require('telescope.builtin').find_files()<cr>', {noremap = true})
+kmap('n', '<leader>fg', '<cmd>lua require('telescope.builtin').live_grep()<cr>', {noremap = true})
+kmap('n', '<leader>fb', '<cmd>lua require('telescope.builtin').buffers()<cr>', {noremap = true})
+kmap('n', '<leader>fh', '<cmd>lua require('telescope.builtin').help_tagss()<cr>', {noremap = true})
