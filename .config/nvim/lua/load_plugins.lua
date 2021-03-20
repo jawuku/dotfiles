@@ -22,6 +22,9 @@ use 'nvim-treesitter/playground'
 -- Display indentation lines
 use 'Yggdroot/indentLine'
 
+-- Developer Icons
+use 'kyazdani42/nvim-web-devicons'
+
 -- nvim telescope (file finder and previewer)
 use {'nvim-telescope/telescope.nvim',
   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
