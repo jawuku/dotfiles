@@ -80,4 +80,4 @@ require('nvim-web-devicons').setup {
 }
 
 -- Bufferline setup
-lua require'bufferline'.setup{}
+require'bufferline'.setup{}
