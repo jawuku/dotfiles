@@ -12,7 +12,7 @@ style: Big Chief
 ]]--
 
 -- Treesitter - enable modules
-require 'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   
     highlight = {
@@ -42,7 +42,7 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 -- nvim-compe (completion engine)
-require'compe'.setup {
+require('compe').setup {
     enabled = true;
     autocomplete = true;
     debug = false;
@@ -69,3 +69,7 @@ require'compe'.setup {
       conjure = true;
     };
   }
+
+-- Telescope.nvim setup
+require('telescope').setup {}
+require('telescope').load_extension('fzy_native')
