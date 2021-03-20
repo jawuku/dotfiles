@@ -73,3 +73,8 @@ require('compe').setup {
 -- Telescope.nvim setup
 require('telescope').setup {}
 require('telescope').load_extension('fzy_native')
+
+-- Developer Icons
+require'nvim-web-devicons'.setup {
+ default = true;
+}
