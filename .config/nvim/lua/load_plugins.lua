@@ -27,6 +27,8 @@ use {'nvim-telescope/telescope.nvim',
   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 }
 
+use 'nvim-telescope/telescope-fzy-native.nvim'
+
 -- nvim native language server
 use 'neovim/nvim-lspconfig'
 
