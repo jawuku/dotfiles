@@ -3,12 +3,12 @@
 " ==========================
 
 " load config files
-require('load_plugins')
-require('setup_plugins')
-require('options')
-require('keymaps')
-require('lspsetup')
-require('hardline').setup {}
+lua require('load_plugins')
+lua require('setup_plugins')
+lua require('options')
+lua require('keymaps')
+lua require('lspsetup')
+lua require('hardline').setup {}
 
 " lazy load packer.nvim plugins
 autocmd BufWritePost plugins.lua PackerCompile
