@@ -2,11 +2,13 @@
 " Init.vim for neovim >= 0.5
 " ==========================
 
-lua require 'plugins'
-lua require 'setup_plugins'
-lua require 'options'
-lua require 'lspsetup'
-lua require('hardline').setup {}
+" load config files
+require('load_plugins')
+require('setup_plugins')
+require('options')
+require('keymaps')
+require('lspsetup')
+require('hardline').setup {}
 
 " lazy load packer.nvim plugins
 autocmd BufWritePost plugins.lua PackerCompile
