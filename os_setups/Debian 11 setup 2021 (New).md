@@ -268,10 +268,12 @@ sudo apt install julia
 
 julia
 
-Using Pkg
-Pkg.add("LinearAlgebra")
-Pkg.add("LanguageServer")
-Pkg.add("IJulia")
+]
+
+add IJulia, Plots, OhMyREPL, LanguageServer, SymbolServer
+
+<backspace>
+
 exit()
 ```
 ### 16) Java and Clojure
@@ -286,7 +288,7 @@ wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O 
 
 chmod +x ~/bin/lein
 
-~/.bin/lein
+~/bin/lein
 ```
 do 'lein upgrade' to update to new version
 
@@ -296,11 +298,11 @@ cd ~/Downloads
 
 sudo apt install rlwrap
 
-curl -O https://download.clojure.org/install/linux-install-1.10.2.796.sh
+curl -O https://download.clojure.org/install/linux-install-1.10.3.814.sh
 
-chmod +x linux-install-1.10.2.796.sh
+chmod +x linux-install-1.10.3.814.sh
 
-sudo ./linux-install-1.10.2.796.sh
+sudo ./linux-install-1.10.3.814.sh
 ```
 #### d) Install Clojure Language Server
 ```
@@ -312,7 +314,10 @@ sudo ./install-latest-clojure-lsp.sh
 ```
 ### 17) install latest LTS nodejs
 ```
-curl -sL install-node.now.sh/lts | sh
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+# close terminal, reopen then run:
+nvm install --lts
 ```
 ### 18) Setup Yubikey
 ```
