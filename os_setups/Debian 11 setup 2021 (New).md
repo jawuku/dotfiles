@@ -169,12 +169,14 @@ calendar: gsimplecal
 ```
 ### 10) Download rc.xml to ~/.config/openbox/rc.xml
 ```
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/rc.xml -O ~/.config/openbox/rc.xml
+mkdir -p ~/.config/{openbox,rofi}
+cd ~/.config/openbox
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/rc.xml
 ```
 #### and a list of applications to autostart
 ```
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/autostart -O ~/.config/openbox/autostart
-chmod +x ~/.config/openbox/autostart
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/autostart
+chmod +x autostart
 ```
 #### listing of autostarted items
 ```
@@ -196,8 +198,9 @@ redshift-gtk -l 51.508:-0.128 -t 6500:3500 &
 ### 11) Rofi - run program launcher
 #### Download config.rasi and Adapta-Nokto.rasi to ~/.config/rofi
 ```
-https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/Adapta-Nokto.rasi
-https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/config.rasi
+cd ~/.config/rofi
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/Adapta-Nokto.rasi
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/config.rasi
 ```
 ### 12) jgmenu - nice menu system, replaces Openbox menu
 
@@ -211,7 +214,7 @@ git clone https://github.com/johanmalm/jgmenu.git
 #### install dependencies
 ```
 sudo apt install debhelper libx11-dev libxrandr-dev libcairo2-dev \
-libpango-1.0-dev librsvg2-dev libxml2-dev libglib2.0-dev libmenu-cache-dev \
+libpango1.0-dev librsvg2-dev libxml2-dev libglib2.0-dev libmenu-cache-dev \
 openbox-menu xfce4-panel libxfce4panel-2.0-dev 
 ```
 #### compile and build Debian package
