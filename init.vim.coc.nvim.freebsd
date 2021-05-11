@@ -3,14 +3,17 @@ call plug#begin(stdpath('data') . '/plugged')
 
 " Specify required plugins here
 
-" Gruvbox theme
+" Gruvbox colour scheme
 Plug 'morhetz/gruvbox'
 
+" Tender colour scheme
 Plug 'jacoborus/tender.vim'
 
-" Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" NeoSolarized truecolor theme
+Plug 'icymind/NeoSolarized'
+
+" Lightline
+Plug 'itchyny/lightline.vim'
 
 "Better language packs
 Plug 'sheerun/vim-polyglot'
@@ -38,14 +41,8 @@ Plug 'dense-analysis/ale'
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 
-" NeoSolarized truecolor theme
-Plug 'icymind/NeoSolarized'
-
-"Papercolor theme
-Plug 'NLKNguyen/papercolor-theme'
-
 " Conjure
-Plug 'Olical/conjure', {'tag': 'v4.9.0'}
+Plug 'Olical/conjure', {'tag': 'v4.18.0'}
 
 " Initialise plugin system
 call plug#end()
@@ -95,6 +92,7 @@ vnoremap <leader>P "+P
 
 " disable backup
 set nobackup
+set nowritebackup
 
 " always show position and status line
 set ruler
@@ -106,7 +104,7 @@ set undofile autochdir
 " disable swapfile
 set noswapfile
 
-" disable modeline - use airline status bar instead
+" disable modeline - use lightline status bar instead
 set nomodeline
 
 " command line completion
@@ -146,7 +144,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
+if has("nvim-0.5.0") || has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
@@ -168,16 +166,16 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> ould be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -196,8 +194,10 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
@@ -240,8 +240,18 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
 " Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+" Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
@@ -277,8 +287,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-" autoclose preview window
-set completeopt-=preview
 
 " -----------------
 " NerdTree Settings
@@ -300,23 +308,10 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let g:indentLine_char = '┆'
 
 " ------- 
-" Airline
+" Lightline
 " -------
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'papercolor'
-let g:airline#extensions#whitespace#enabled = 0
-
-"Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-
-"Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-" airline-coc integration
-let g:airline#extensions#coc#enabled = 1
-
-" ALE to display warnings in airline
-let g:airline#extensions#ale#enabled = 1
+let g:lightline = {'colorscheme': 'tender'}
 
 " ---------------------------------
 " Asynchronous Linting Engine (ALE)
@@ -339,15 +334,15 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_linters = {
 \   'clojure': ['clj-kondo', 'joker'],
 \   'python': ['flake8'],
-\   'c': ['clangd'],
-\   'cpp': ['clangd']
+\   'c': ['ccls'],
+\   'cpp': ['ccls']
 \}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf3'],
-\   'c': ['clang-format'],
-\   'cpp': ['clang-format']
+\   'python': ['yapf'],
+\   'c': ['uncrustify'],
+\   'cpp': ['uncrustify']
 \}
 
 " -------------------
@@ -370,12 +365,4 @@ set termguicolors
 let g:gruvbox_italic = 1
 set background=dark
 
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default': {
-  \       'allow_italic': 1
-  \     }
-  \   }
-  \ }
-
-colorscheme NeoSolarized
+colorscheme tender
