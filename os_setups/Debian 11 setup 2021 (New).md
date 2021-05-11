@@ -125,7 +125,7 @@ deb-src http://security.debian.org/debian/ bullseye-security main contrib non-fr
 ```
 ### 06) Install basic command-line utilities
 ```
-sudo apt install build-essential git p7zip-full zip curl exa
+sudo apt install build-essential git p7zip-full zip curl exa linux-headers-amd64
 ```
 ### 07) Basic Xorg and Openbox
 ```
