@@ -155,7 +155,7 @@ eyestrain prevention: redshift-gtk
 document viewer: atril
 word processor: abiword
 spreadsheet: gnumeric
-media player: celluloid
+media player: smplayer
 compositor: jonaburg/picom from github, compton or picom from repositories
 program launcher: rofi
 menu system: johanmalm/jgmenu or nwg-piotr/sgtk-menu (latter 2 from github)
@@ -169,7 +169,7 @@ calendar: gsimplecal
 ```
 ### 10) Download rc.xml to ~/.config/openbox/rc.xml
 ```
-mkdir -p ~/.config/{openbox,rofi}
+mkdir -p ~/.config/{openbox,rofi,jgmenu}
 cd ~/.config/openbox
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/rc.xml
 ```
@@ -235,6 +235,7 @@ jgmenu_run init -i
 #### can optionally download jgmenurc config files
 #### into ~/.config/jgmenu
 ```
+cd ~/.config/jgmenu
 https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/append.csv
 https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/prepend.csv
 https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/jgmenurc
