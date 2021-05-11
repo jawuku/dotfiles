@@ -236,9 +236,9 @@ jgmenu_run init -i
 #### into ~/.config/jgmenu
 ```
 cd ~/.config/jgmenu
-https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/append.csv
-https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/prepend.csv
-https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/jgmenurc
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/append.csv
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/prepend.csv
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/jgmenurc
 ```
 ### 13) ufw firewall
 ```
