@@ -38,14 +38,8 @@ Plug 'scrooloose/nerdtree'
 " Language Server Protocol
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'lighttiger2505/deoplete-vim-lsp'
-Plug 'machakann/vim-lsp-julia'
-
-" Deoplete
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'lighttiger2505/deoplete-vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 "Asynchronous Linting Engine (ALE)
 Plug 'dense-analysis/ale'
@@ -54,6 +48,7 @@ Plug 'dense-analysis/ale'
 Plug 'junegunn/rainbow_parentheses.vim'
 
 " Julia language support
+Plug 'machakann/vim-lsp-julia'
 Plug 'JuliaEditorSupport/julia-vim'
 let g:default_julia_version = "devel"
 
@@ -62,8 +57,6 @@ let g:default_julia_version = "devel"
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
-
-let g:deoplete#enable_at_startup = 1
 
 " ====================
 " Vim General Settings
