@@ -249,7 +249,7 @@ sudo ufw enable
 ### 14) Python 3 data science
 ```
 sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2 \
-python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
+python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu
