@@ -149,7 +149,7 @@ task manager: htop
 policykit: lxpolkit
 volume: pavucontrol pnmixer
 web browser: firefox-esr
-backup web: vivaldi or brave (from respective websites)
+backup web: vivaldi or brave (from respective websites), or midori (from repositories)
 bit  torrent:  transmission-gtk
 eyestrain prevention: redshift-gtk
 document viewer: atril
@@ -163,7 +163,7 @@ status bar: tint2, lxpanel or xfce4-panel
 icons: elementary-xfce-icon-theme
 moka-icon-theme
 utils: gtk-theme-switch
-notification: xfce4-notifyd libnotify-bin
+notification: dunst (xfce4-notifyd libnotify-bin as alternative)
 lock screen: light-locker
 calendar: gsimplecal
 ```
@@ -246,7 +246,21 @@ sudo apt install ufw
 
 sudo ufw enable
 ```
-### 14) Python 3 data science
+### 14) System notifications using Dunst
+Note: you can skip this section if you installed the 2 packages *xfce4-notifyd* and *libnotify-bin* instead
+
+```
+sudo apt install dunst
+
+mkdir -p ~/.config/dunst
+cd ~/.config/dunst
+
+wget https://raw.githubusercontent.com/dunst-project/dunst/master/dunstrc
+# (edit file to your needs)
+
+systemctl restart --user dunst.service
+```
+### 15) Python 3 data science
 ```
 sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2 \
 python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
@@ -254,7 +268,7 @@ python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu
 ```
-### 14) R Language
+### 16) R Language
 ```
 sudo apt install r-base r-base-dev r-cran-tidyverse r-cran-irkernel
 
@@ -266,7 +280,7 @@ Answer 'yes' twice to setting up a personal library
 ```
 q()
 ```
-### 15) Julia Language
+### 17) Julia Language
 ```
 sudo apt install julia
 
@@ -280,7 +294,7 @@ add IJulia, Plots, OhMyREPL, LanguageServer, SymbolServer
 
 exit()
 ```
-### 16) Java and Clojure
+### 18) Java and Clojure
 
 #### a) Install Java JDK
 ```
@@ -316,14 +330,14 @@ chmod +x install-latest-clojure-lsp.sh
 
 sudo ./install-latest-clojure-lsp.sh
 ```
-### 17) install latest LTS nodejs
+### 19) install latest LTS nodejs
 ```
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 # close terminal, reopen then run:
 nvm install --lts
 ```
-### 18) Setup Yubikey
+### 20) Setup Yubikey
 ```
 sudo apt install libpam-u2f
 mkdir -p ~/.config/Yubico
