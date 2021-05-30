@@ -130,7 +130,7 @@ sudo apt install build-essential git p7zip-full unzip zip curl exa linux-headers
 ### 07) Basic Xorg and Openbox
 ```
 sudo apt install xserver-xorg-core openbox fonts-dejavu fonts-roboto \
-fonts-firacode lightdm desktop-base openbox-menu xterm
+fonts-firacode lightdm desktop-base openbox-menu xterm x11-xserver-utils
 ```
 ### 08) Add Nvidia drivers and reboot
 ```
