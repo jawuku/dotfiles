@@ -247,6 +247,7 @@ sudo apt install ufw
 sudo ufw enable
 ```
 ### 14) System notifications using Dunst
+#### from [Addictive Tips](https://www.addictivetips.com/ubuntu-linux-tips/set-up-better-system-notifications-on-linux-with-dunst/)
 Note: you can skip this section if you installed the 2 packages *xfce4-notifyd* and *libnotify-bin* instead
 
 ```
@@ -260,6 +261,8 @@ wget https://raw.githubusercontent.com/dunst-project/dunst/master/dunstrc
 
 systemctl restart --user dunst.service
 ```
+#### Optional - make Dunst look better from a YouTube video by [Brodie Robertson](https://www.youtube.com/watch?v=-Ky9YgvUa40)
+also look at his relevant [github configuration files.](https://github.com/BrodieRobertson/dotfiles/tree/master/config/dunst)
 ### 15) Python 3 data science
 ```
 sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2 \
