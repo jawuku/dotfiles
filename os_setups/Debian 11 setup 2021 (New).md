@@ -125,21 +125,62 @@ deb-src http://security.debian.org/debian/ bullseye-security main contrib non-fr
 ```
 ### 06) Install basic command-line utilities
 ```
-sudo apt install build-essential git p7zip-full unzip zip curl exa linux-headers-amd64
+sudo apt install build-essential git p7zip-full unzip zip curl bat exa linux-headers-amd64
 ```
-### 07) Basic Xorg and Openbox
+### 07) Install a simple zsh shell setup (Optional)
+```
+sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
+```
+#### Set up ~/.zshrc as follows
+```
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt notify
+unsetopt beep
+
+zstyle :compinstall filename '/home/username/.zshrc'
+# replace username with your own name
+
+autoload -Uz compinit
+compinit
+
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+alias ls='exa -la --icons'
+alias cat=batcat
+
+# Colourful yet compact prompt
+PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
+```
+#### Set zsh as the default login shell
+copy login shell for zsh
+```
+cp ~/.profile ~/.zprofile
+```
+change default shell to zsh
+```
+chsh
+```
+enter your password
+then enter **/usr/bin/zsh** when prompted
+
+logout and login again to your new zsh prompt!
+
+### 08) Basic Xorg and Openbox
 ```
 sudo apt install xserver-xorg-core openbox fonts-dejavu fonts-roboto \
 fonts-firacode lightdm desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf
 ```
-### 08) Add Nvidia drivers and reboot
+### 09) Add Nvidia drivers and reboot
 ```
 sudo apt install nvidia-driver
 
 sudo reboot
 ```
-### 09) other packages to install via apt
+### 10) other packages to install via apt
 ```
 file manager : thunar
 gui text editor : geany
@@ -151,24 +192,24 @@ policykit: lxpolkit
 volume: pavucontrol pnmixer
 web browser: firefox-esr
 backup web: vivaldi or brave (from respective websites), or midori (from repositories)
-bit  torrent:  transmission-gtk
+bit-torrent:  transmission-gtk
 eyestrain prevention: redshift-gtk
 document viewer: atril
 word processor: abiword
 spreadsheet: gnumeric
 media player: smplayer
-compositor: jonaburg/picom from github, compton or picom from repositories
+compositor: picom
 program launcher: rofi
 menu system: johanmalm/jgmenu or nwg-piotr/sgtk-menu (latter 2 from github)
 status bar: tint2, lxpanel or xfce4-panel
 icons: elementary-xfce-icon-theme
 moka-icon-theme
 utils: gtk-theme-switch
-notification: dunst (xfce4-notifyd libnotify-bin as alternative)
+notification: dunst (**xfce4-notifyd** together with **libnotify-bin** as an alternative)
 lock screen: light-locker
 calendar: gsimplecal
 ```
-### 10) Download rc.xml to ~/.config/openbox/rc.xml
+### 11) Download rc.xml to ~/.config/openbox/rc.xml
 ```
 mkdir -p ~/.config/{openbox,rofi,jgmenu}
 cd ~/.config/openbox
@@ -198,14 +239,14 @@ pnmixer &
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
 redshift-gtk -l 51.508:-0.128 -t 6500:3500 &
 ```
-### 11) Rofi - run program launcher
+### 12) Rofi - run program launcher
 #### Download config.rasi and Adapta-Nokto.rasi to ~/.config/rofi
 ```
 cd ~/.config/rofi
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/Adapta-Nokto.rasi
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/config.rasi
 ```
-### 12) jgmenu - nice menu system, replaces Openbox menu
+### 13) jgmenu - nice menu system, replaces Openbox menu
 
 #### set up git subdirectory, download jgmenu
 ```
@@ -243,16 +284,15 @@ wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/app
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/prepend.csv
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/jgmenurc
 ```
-### 13) ufw firewall
+### 14) ufw firewall
 ```
 sudo apt install ufw
 
 sudo ufw enable
 ```
-### 14) System notifications using Dunst
+### 15) System notifications using Dunst *(if not using xfce4-notifyd with libnotifyd)*
 #### from [Addictive Tips](https://www.addictivetips.com/ubuntu-linux-tips/set-up-better-system-notifications-on-linux-with-dunst/)
 Note: you can skip this section if you installed the 2 packages *xfce4-notifyd* and *libnotify-bin* instead
-
 ```
 sudo apt install dunst
 
@@ -266,15 +306,15 @@ systemctl restart --user dunst.service
 ```
 #### Optional - make Dunst look better from a YouTube video by [Brodie Robertson](https://www.youtube.com/watch?v=-Ky9YgvUa40)
 also look at his relevant [github configuration files.](https://github.com/BrodieRobertson/dotfiles/tree/master/config/dunst)
-### 15) Python 3 data science
+### 16) Python 3 basic data science Debian packages
 ```
-sudo apt install python3-pandas python3-sklearn python3-matplotlib jupyter python3-gmpy2 \
+sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 \
 python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu
 ```
-### 16) R Language
+### 17) R Language Debian packages
 ```
 sudo apt install r-base r-base-dev r-cran-tidyverse r-cran-irkernel
 
@@ -286,7 +326,7 @@ Answer 'yes' twice to setting up a personal library
 ```
 q()
 ```
-### 17) Julia Language
+### 18) Julia Language
 ```
 sudo apt install julia
 
@@ -300,7 +340,7 @@ add IJulia, Plots, OhMyREPL, LanguageServer, SymbolServer
 
 exit()
 ```
-### 18) Java and Clojure
+### 19) Java and Clojure
 
 #### a) Install Java JDK
 ```
@@ -336,14 +376,14 @@ chmod +x install-latest-clojure-lsp.sh
 
 sudo ./install-latest-clojure-lsp.sh
 ```
-### 19) install latest LTS nodejs
+### 20) install latest LTS nodejs
 ```
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 # close terminal, reopen then run:
 nvm install --lts
 ```
-### 20) Setup Yubikey
+### 21) Setup Yubikey
 ```
 sudo apt install libpam-u2f
 mkdir -p ~/.config/Yubico
