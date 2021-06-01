@@ -1,4 +1,4 @@
-# Debian System Setup - Steps needed after install from non-free iso
+# Debian 10 (Buster) Setup - Steps needed after install from non-free iso
 
 ## Increase font size
 ```sh
