@@ -1,4 +1,5 @@
 ## Debian System Setup v.3 - Updated for Debian 11 (Bullseye)
+## Set up a full Openbox Desktop Environment from scratch
 
 ### 00) - Prior preparation - get offline packages
 
