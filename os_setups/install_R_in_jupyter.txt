@@ -1,10 +1,14 @@
 ## Install support for R in Jupyter notebook
-sudo apt install r-cran-devtools
+# Note - for Debian 11, Ubuntu 20.04+, just issue the command
+sudo apt install r-cran-irkernel
+
+# the commands below are neded for Debian 10 (Buster) only:
+#sudo apt install r-cran-devtools
 
 # commands in R text console
-library(devtools)
+#library(devtools)
 
-devtools::install_github("IRkernel/IRkernel")
+#devtools::install_github("IRkernel/IRkernel")
 
-IRkernel::installspec()
+#IRkernel::installspec()
 
