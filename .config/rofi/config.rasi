@@ -1,7 +1,6 @@
 configuration {
 	modi: "window,run,drun";
 	show-icons: true;
-	theme: "Adapta-Nokto";
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
