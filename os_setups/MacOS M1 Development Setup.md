@@ -54,18 +54,19 @@ q()
 #### https://colab.research.google.com/notebook#create=true&language=r
 
 ### Install Native Julia (1.7.0 beta3 is the first Apple Silicon version)
+#### Download [Julia v1.7.0-beta3 for Apple Silicon](https://julialang-s3.julialang.org/bin/mac/aarch64/1.7/julia-1.7.0-beta3-macaarch64.dmg)
+#### Drop app into Applications Folder
+#### Add binary to path to run in terminal:
 ```sh
-wget https://julialang-s3.julialang.org/bin/mac/aarch64/1.7/julia-1.7.0-beta3-macaarch64.dmg
-
 ln -s /Applications/Julia-1.7.app/Contents/Resources/julia/bin/julia /usr/local/bin/julia
 ```
-#### precompile some packages in a system image for fast loading
+#### Precompile some packages in a system image for fast loading
 #### change *username* to your own username
 #### add new system image kernel to Jupyter notebook
 ```julia
 julia
 
-]
+(press ])
 
 add IJulia, Plots, OhMyREPL, PackageCompiler
 
@@ -79,10 +80,11 @@ IJulia.installkernel("Julia Fast Plots", "--sysimage=/Users/username/julia_fast_
 
 exit()
 ```
-#### run Julia with new system image
+#### Run Julia with new system image
 ```sh
 julia --sysimage "/Users/username/julia_fast_plots.so"
 ```
-### Vscodium
+### Vscodium code editor
+```sh
 brew install --cask vscodium
-
+```
