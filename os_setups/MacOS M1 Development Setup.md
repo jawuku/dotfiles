@@ -29,10 +29,12 @@ conda activate datasci
 
 mamba install seaborn sympy jupyter notebook scikit-learn
 ```
-### install R, libraries and Jupyter kernel
+### install R, libraries, radian terminal extension and Jupyter kernel
 ```sh
 cd ~
 brew install r libxml2 libgit2
+
+pip3 install --user radian # within the 'datasci' environment
 
 R
 ```
@@ -84,7 +86,18 @@ exit()
 ```sh
 julia --sysimage "/Users/username/julia_fast_plots.so"
 ```
-### Vscodium code editor
-```sh
-brew install --cask vscodium
-```
+### Visual Studio Code Installation
+#### Download this link https://code.visualstudio.com/sha/download?build=stable&os=darwin-arm64
+#### unzip it and click the icon to install
+
+### Install R Support for VSCode
+#### Install R Extension for Visual Studio Code by Yuki Ueda
+#### and R LSP Client
+
+#### Press Command (⌘) and the comma key (,) for Settings
+#### Search for and enable:
+#### * R-Session Watcher
+#### * R: Always Use ActiveTerminal
+
+#### Open new Terminal (Select Terminal -> New Terminal or press Control-Shift-BackTick)
+#### enter *radian* and press enter
