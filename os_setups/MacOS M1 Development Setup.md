@@ -100,4 +100,7 @@ julia --sysimage "/Users/username/julia_fast_plots.so"
 #### * R: Always Use ActiveTerminal
 
 #### Open new Terminal (Select Terminal -> New Terminal or press Control-Shift-BackTick)
-#### enter *radian* and press enter
+```sh
+conda activate datasci
+radian
+```
