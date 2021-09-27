@@ -308,12 +308,37 @@ systemctl restart --user dunst.service
 #### Optional - make Dunst look better from a YouTube video by [Brodie Robertson](https://www.youtube.com/watch?v=-Ky9YgvUa40)
 also look at his relevant [github configuration files.](https://github.com/BrodieRobertson/dotfiles/tree/master/config/dunst)
 ### 16) Python 3 basic data science Debian packages
-```
+#### a) Debian native package way
+```sh
 sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 \
 python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu
+```
+#### or b) conda-forge way
+```sh
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+chmod +x Mambaforge-Linux-x86_64.sh
+./Mambaforge-Linux-x86_64.sh
+```
+Answer 'yes' to prompts, and close terminal when finished..
+Reopen the terminal
+
+To disable the default 'base' environment:
+```sh
+conda config --set auto_activate_base false
+conda deactivate
+```
+Create a new environment, for example named 'datasci'
+```sh
+conda create --name datasci
+conda activate datasci
+```
+Install Python libraries
+```sh
+mamba install notebook seaborn gmpy2 scikit-learn sympy
+python -m pip install --user tensorflow-gpu
 ```
 ### 17) R Language Debian packages
 ```
