@@ -21,7 +21,8 @@ PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %
 
 # aliases
 # install exa and bat from repositories
-alias ls="exa -la --icons"
+alias ls="exa"
+alias ll="exa -la --icons"
 alias cat="batcat"
 
 # copy and paste conda settings below from ~/.bashrc
