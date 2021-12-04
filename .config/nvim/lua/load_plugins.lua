@@ -13,7 +13,8 @@ style: Big Chief
 return require('packer').startup(function()
 
 -- status bar
-use 'ojroques/nvim-hardline'
+-- use 'ojroques/nvim-hardline'
+use 'itchyny/lightline.vim'
 
 -- Treesitter
 use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
