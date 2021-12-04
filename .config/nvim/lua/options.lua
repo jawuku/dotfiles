@@ -11,13 +11,12 @@ ASCII art from https://ascii.co.uk/text
 style: Big Chief	   
 ]]--
 
+local g = vim.g
 local o = vim.o
 local wo = vim.wo
 local bo = vim.bo
-
--- Put your favorite colour scheme here
--- Choices: tender, dark_plus, NeoSolarized
-vim.cmd 'colorscheme tender'
+local opt = vim.opt
+local cmd = vim.cmd
 
 -- local buffer options --
 local indent = 2
@@ -53,11 +52,18 @@ wo.number = true             -- Show line number
 wo.relativenumber = true     -- Relative line numbers
 wo.signcolumn = 'auto'       -- show sign column 
 
+-- Put your favorite colour scheme here
+-- Choices: tender, dark_plus, NeoSolarized
+cmd 'colorscheme tender'
+
 -- Set Python executable binary
-vim.g.python3_host_prog = '$HOME/nvim/bin/python3'
+g.python3_host_prog = '$HOME/nvim/bin/python3'
+
+-- tenderplus colour scheme for lightline
+g.lightline = { 'colorscheme': 'tenderplus' }
 
 -- Set indent-line character
-vim.g.indentLine_char = '┆'
+g.indentLine_char = '┆'
 
 -- Rainbow parentheses on
-vim.g.rainbow_active = 1
+g.rainbow_active = 1
