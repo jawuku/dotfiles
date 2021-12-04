@@ -30,7 +30,7 @@ require('setup_plugins')
 require('options')
 require('keymaps')
 require('lspsetup')
-require('hardline').setup {}
+-- require('hardline').setup {}
 
 -- lazy load packer.nvim plugins
-vim.cmd('autocmd BufWritePost plugins.lua PackerCompile')
+cmd('autocmd BufWritePost plugins.lua PackerCompile')
