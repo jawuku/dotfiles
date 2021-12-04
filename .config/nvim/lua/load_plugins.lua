@@ -57,7 +57,7 @@ use 'Raimondi/delimitMate'
 use 'mfussenegger/nvim-lint'
 
 -- conjure
-use {'Olical/conjure', tag = 'v4.15.0'}
+use 'Olical/conjure'
 
 -- compe-conjure (make compe work with conjure)
 use 'tami5/compe-conjure'
