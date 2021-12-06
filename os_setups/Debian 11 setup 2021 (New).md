@@ -123,6 +123,9 @@ deb-src http://deb.debian.org/debian/ bullseye main contrib non-free
 
 deb     http://security.debian.org/debian/ bullseye-security main contrib non-free
 deb-src http://security.debian.org/debian/ bullseye-security main contrib non-free
+
+deb     http://deb.debian.org/debian/ bullseye-updates main contrib non-free
+deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free   
 ```
 ### 06) Install basic command-line utilities
 ```
@@ -136,7 +139,7 @@ sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
 ```
 HISTFILE=~/.histfile
 HISTSIZE=1000
-SAVEHIST=1000
+SAVEHIST=2000
 setopt notify
 unsetopt beep
 
@@ -174,10 +177,12 @@ logout and login again to your new zsh prompt!
 ### 08) Basic Xorg and Openbox
 ```
 sudo apt install xserver-xorg-core openbox fonts-dejavu fonts-roboto \
-fonts-firacode lightdm desktop-base openbox-menu xterm x11-xserver-utils \
-lxappearance lxappearance-obconf
+fonts-liberation lightdm desktop-base openbox-menu xterm x11-xserver-utils \
+lxappearance lxappearance-obconf lightdm-gtk-greeter-settings xdg-user-dirs
+
+xdg-user-dirs-update
 ```
-### 09) Add Nvidia drivers and reboot
+### 09) Add Nvidia drivers and reboot (no need to do anything for AMD GPUs/APUs
 ```
 sudo apt install nvidia-driver
 
@@ -284,7 +289,7 @@ cd jgmenu
 dpkg-buildpackage -tc -b -us -uc
 
 cd ..
-sudo dpkg -i jgmenu_4.3.0-i_amd64.deb 
+sudo dpkg -i jgmenu_4.4.0-i_amd64.deb 
 ```
 #### configure jgmenu interactively
 ```
@@ -329,8 +334,9 @@ python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu
 ```
-#### or b) conda-forge way
+#### or b) Conda-Forge way (preferred)
 ```sh
+cd ~/Downloads
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
 chmod +x Mambaforge-Linux-x86_64.sh
 ./Mambaforge-Linux-x86_64.sh
@@ -345,12 +351,12 @@ conda deactivate
 ```
 Create a new environment, for example named 'datasci'
 ```sh
-conda create --name datasci
+conda create --name datasci python=3.9
 conda activate datasci
 ```
 Install Python libraries
 ```sh
-mamba install notebook seaborn gmpy2 scikit-learn sympy
+mamba install notebook seaborn gmpy2 scikit-learn sympy spyder
 python -m pip install --user tensorflow-gpu
 ```
 ### 17) R Language Debian packages
@@ -365,9 +371,13 @@ Answer 'yes' twice to setting up a personal library
 ```
 q()
 ```
-### 18) Julia Language
+### 18) Julia Language (version 1.6.4 LTS)
 ```
-sudo apt install julia
+cd ~/Downloads
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.4-linux-x86_64.tar.gz
+tar xvf julia-1.6.4-linux-x86_64.tar.gz
+cd julia-1.6.4/
+sudo ln -s ~/Downloads/julia-1.6.4/bin/julia /usr/local/bin/julia
 
 julia
 
