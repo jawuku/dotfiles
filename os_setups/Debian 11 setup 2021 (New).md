@@ -217,7 +217,7 @@ notification: dunst (**xfce4-notifyd** together with **libnotify-bin** as an alt
 lock screen: light-locker
 calendar: gsimplecal
 ```
-### 10a) Microsoft Edge Beta Branch (from https://www.microsoftedgeinsider.com/en-us/download/)
+### 10a) (Optional) Microsoft Edge Beta Branch (from https://www.microsoftedgeinsider.com/en-us/download/)
 ```sh
 ## Setup
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
@@ -233,6 +233,7 @@ sudo apt install microsoft-edge-beta
 mkdir -p ~/.config/{openbox,rofi,jgmenu}
 cd ~/.config/openbox
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/rc.xml
+
 ```
 #### and a list of applications to autostart
 ```
@@ -257,6 +258,12 @@ pnmixer &
 
 # Replace lattitude/longitude coordinates with your own (example here is Trafalgar Sq, London)
 redshift-gtk -l 51.508:-0.128 -t 6500:3500 &
+```
+#### tint2 panel configuration
+```
+cd ~/.config/tint2
+rm tint2rc
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/tint2/tint2rc
 ```
 ### 12) Rofi - run program launcher
 #### Download config.rasi and Adapta-Nokto.rasi to ~/.config/rofi
