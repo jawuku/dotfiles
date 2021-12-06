@@ -2,6 +2,8 @@
 
 picom &
 
+nitrogen --restore &
+
 lxpolkit &
 
 tint2 &
