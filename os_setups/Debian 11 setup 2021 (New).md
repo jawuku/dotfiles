@@ -182,7 +182,7 @@ lxappearance lxappearance-obconf lightdm-gtk-greeter-settings xdg-user-dirs
 
 xdg-user-dirs-update
 ```
-### 09) Add Nvidia drivers and reboot (no need to do anything for AMD GPUs/APUs
+### 09) Add Nvidia drivers and reboot (no need to do anything for AMD GPUs/APUs)
 ```
 sudo apt install nvidia-driver
 
@@ -208,7 +208,7 @@ spreadsheet: gnumeric
 media player: smplayer
 compositor: picom
 program launcher: rofi
-menu system: johanmalm/jgmenu or nwg-piotr/sgtk-menu (latter 2 from github)
+menu system: johanmalm/jgmenu  (from github - see below)
 status bar: tint2, lxpanel or xfce4-panel
 icons: elementary-xfce-icon-theme
 moka-icon-theme
@@ -365,6 +365,23 @@ Install Python libraries
 ```sh
 mamba install notebook seaborn gmpy2 scikit-learn sympy spyder
 python -m pip install --user tensorflow-gpu
+```
+#### For Conda, append this text to the end of ~/.zshrc
+```sh
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/jason/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/jason/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/home/jason/mambaforge/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/jason/mambaforge/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 ```
 ### 17) R Language Debian packages
 ```
