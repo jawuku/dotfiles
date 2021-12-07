@@ -359,17 +359,17 @@
     <!-- Multimedia Keys - raise, lower and mute volume -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>amixer sset Master,0 5+</command>
+        <command>pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ +5%</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>amixer sset Master,0 5-</command>
+        <command>pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ -5%</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>amixer sset Master,0 toggle</command>
+        <command>pactl set-sink-mute @DEFAULT_SINK@ toggle</command>
       </action>
     </keybind>
   </keyboard>
