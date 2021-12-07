@@ -210,8 +210,9 @@ compositor: picom
 program launcher: rofi
 menu system: johanmalm/jgmenu  (from github - see below)
 status bar: tint2, lxpanel or xfce4-panel
-icons: elementary-xfce-icon-theme
+icons: oxygen-icon-theme
 moka-icon-theme
+deepin-icon-theme
 utils: gtk-theme-switch
 notification: dunst (**xfce4-notifyd** together with **libnotify-bin** as an alternative)
 lock screen: light-locker
@@ -370,14 +371,15 @@ python -m pip install --user tensorflow-gpu
 ```sh
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jason/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# Replace 'username' with your own username (without the quotes)
+__conda_setup="$('/home/username/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/jason/mambaforge/etc/profile.d/conda.sh" ]; then
-        . "/home/jason/mambaforge/etc/profile.d/conda.sh"
+    if [ -f "/home/username/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/home/username/mambaforge/etc/profile.d/conda.sh"
     else
-        export PATH="/home/jason/mambaforge/bin:$PATH"
+        export PATH="/home/username/mambaforge/bin:$PATH"
     fi
 fi
 unset __conda_setup
