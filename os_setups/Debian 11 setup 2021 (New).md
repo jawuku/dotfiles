@@ -286,7 +286,7 @@ cd jgmenu
 dpkg-buildpackage -tc -b -us -uc
 
 cd ..
-sudo dpkg -i jgmenu_4.4.0-i_amd64.deb 
+sudo dpkg -i jgmenu_4.4.0-i_amd64.deb # or whatever the latest version of the jgmenu package is
 ```
 #### configure jgmenu interactively
 ```
