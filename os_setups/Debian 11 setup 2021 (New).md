@@ -129,7 +129,7 @@ deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free
 ```
 ### 06) Install basic command-line utilities
 ```
-sudo apt install build-essential git p7zip-full unzip zip curl bat exa linux-headers-amd64
+sudo apt install build-essential git p7zip-full unzip zip curl bat exa linux-headers-amd64 bsdmainutils
 ```
 ### 07) Install a simple zsh shell setup (Optional)
 ```
@@ -198,7 +198,7 @@ archiver: xarchiver
 task manager: htop
 policykit: lxpolkit
 volume: pavucontrol pnmixer
-web browser: firefox-esr (or see below to install Microsoft Edge Beta release)
+web browser: firefox-esr
 backup web: vivaldi or brave (from respective websites), or midori (from repositories)
 bit-torrent:  transmission-gtk
 eyestrain prevention: redshift-gtk
@@ -217,17 +217,6 @@ utils: gtk-theme-switch
 notification: dunst (**xfce4-notifyd** together with **libnotify-bin** as an alternative)
 lock screen: light-locker
 calendar: gsimplecal
-```
-### 10a) (Optional) Microsoft Edge Beta Branch (from https://www.microsoftedgeinsider.com/en-us/download/)
-```sh
-## Setup
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-beta.list'
-sudo rm microsoft.gpg
-## Install
-sudo apt update
-sudo apt install microsoft-edge-beta
 ```
 ### 11) Download rc.xml to ~/.config/openbox/rc.xml
 ```
@@ -453,12 +442,18 @@ sudo ./install-latest-clojure-lsp.sh
 ```
 ### 20) install latest LTS nodejs
 ```
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
 # close terminal, reopen then run:
 nvm install --lts
 ```
-### 21) Setup Yubikey
+### 21) Setup HP Printer / Scanner
+#### My model is an HP Envy 5032
+#### use Document Scanner in the menu for scanning
+```
+sudo apt install cups hplip system-config-printer printer-driver-cups-pdf simple-scan
+```
+### 22) Setup Yubikey
 ```
 sudo apt install libpam-u2f
 mkdir -p ~/.config/Yubico
