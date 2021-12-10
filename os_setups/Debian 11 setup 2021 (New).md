@@ -13,7 +13,7 @@ Unzip its contents, and extract into top directory on the usb disk
 Also download the amd64 packages for:
 iwd
 wireless-regdb
-iucode-tool
+iucode-tool (if you have an Intel CPU)
 
 https://packages.debian.org/bullseye/iwd
 
@@ -24,6 +24,7 @@ https://packages.debian.org/bullseye/iucode-tool
 and put them in the directory 'extradebs' on usb disk
 
 ### 01) Install from barebones netinstall image, to Command Line Interface only
+#### I leave the root password blank, so sudo is enabled for the user automatically
 
 Unselect everything except 'Standard System Utilities' in the task selection
 
@@ -182,29 +183,48 @@ lxappearance lxappearance-obconf lightdm-gtk-greeter-settings xdg-user-dirs
 
 xdg-user-dirs-update
 ```
-### 09) Add Nvidia drivers and reboot (no need to do anything for AMD GPUs/APUs)
+### 09) Install Nvidia drivers (AMD GPU/APU drivers are already installed in the kernel)
+### Skip this if you don't have an NVIDIA card
 ```
 sudo apt install nvidia-driver
-
-sudo reboot
 ```
-### 10) other packages to install via apt
+### 09a) (Optional) - Enable 32-bit graphics drivers for Steam games
+#### First, enable 32-bit libraries
 ```
-file manager : thunar
+sudo dkpg --add-architecture i386
+sudo apt update
+```
+#### For AMD cards/APUs - install these libraries:
+```
+sudo apt install libglx-mesa0:i386 mesa-vulkan-drivers:i386 libgl1-mesa-dri:i386
+```
+#### Or for NVIDIA cards:
+```
+sudo apt install nvidia-driver-libs:i386
+```
+#### then install Steam
+```
+sudo apt install steam
+```
+### 10) other packages to install via apt after rebooting
+#### Log in via the graphical screen, and open a terminal (xterm)
+#### install the packages of your choice, some suggestions listed below
+```
+file manager : thunar or pcmanfm
 gui text editor : geany
-terminal: sakura
+terminal: sakura or terminator 
 wallpapers: nitrogen
 archiver: xarchiver
 task manager: htop
 policykit: lxpolkit
-volume: pavucontrol pnmixer
+volume: pavucontrol (along with pnmixer)
 web browser: firefox-esr
 backup web: vivaldi or brave (from respective websites), or midori (from repositories)
 bit-torrent:  transmission-gtk
 eyestrain prevention: redshift-gtk
 document viewer: atril
-word processor: abiword
-spreadsheet: gnumeric
+word processor: abiword (or install Libreoffice or OnlyOffice)
+spreadsheet: gnumeric (or as above)
 media player: smplayer
 compositor: picom
 program launcher: rofi
@@ -502,7 +522,7 @@ sudo nano /etc/pam.d/login
 # just under the line @include common-auth
 # add
 auth    required    pam_u2f.so
-```
+``` 
 #### themes from outside
 1) Vertex icon theme
 https://github.com/horst3180/vertex-icons
