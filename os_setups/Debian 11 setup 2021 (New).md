@@ -453,7 +453,15 @@ nvm install --lts
 ```
 sudo apt install cups hplip system-config-printer printer-driver-cups-pdf simple-scan
 ```
-### 22) Setup Yubikey
+### 22) OnlyOffice download
+#### taken from https://helpcenter.onlyoffice.com/installation/desktop-install-ubuntu.aspx
+```
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+echo 'deb https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee -a /etc/apt/sources.list.d/onlyoffice.list
+sudo apt update
+sudo apt install onlyoffice-desktopeditors
+```
+### 23) Setup Yubikey
 ```
 sudo apt install libpam-u2f
 mkdir -p ~/.config/Yubico
