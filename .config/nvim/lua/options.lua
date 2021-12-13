@@ -29,8 +29,7 @@ bo.tabstop = indent          -- Number of spaces tabs count for
 -- global options --
 o.autochdir = true           -- automatically change directory
 o.clipboard = 'unnamed,unnamedplus' -- clipboard integrates with desktop
-o.cmdheight = 2              -- allows displaying of error messages below
-o.completeopt = 'menuone,noselect' -- enable nvim.compe 
+o.cmdheight = 2              -- allows displaying of error messages below 
 o.confirm = true             -- Confirm to save file on exit
 o.hidden = true              -- Enable modified buffers in background
 o.ignorecase = true          -- Ignore case
@@ -53,17 +52,20 @@ wo.relativenumber = true     -- Relative line numbers
 wo.signcolumn = 'auto'       -- show sign column 
 
 -- Put your favorite colour scheme here
--- Choices: tender, dark_plus, NeoSolarized
+-- Choices: tender, NeoSolarized
 cmd 'colorscheme tender'
 
 -- Set Python executable binary
 g.python3_host_prog = '$HOME/nvim/bin/python3'
 
 -- tenderplus colour scheme for lightline
-g.lightline = { 'colorscheme': 'tenderplus' }
+g.lightline = { 'colorscheme' = 'tenderplus' }
 
--- Set indent-line character
-g.indentLine_char = '┆'
+-- Set indent-line character, exclude it showing in help files and terminal
+g.indent_blankline_char = '┆'
+g.indent_blankline_filetype_exclude = { 'help', 'packer'}
+g.indent_blankline_buftype_exclude = { 'terminal', 'nofile'}
+g.indent_blankline_show_trailing_blankline_indent = false
 
--- Rainbow parentheses on
-g.rainbow_active = 1
+-- Rainbow parentheses on (now handled by treesitter)
+-- g.rainbow_active = 1
