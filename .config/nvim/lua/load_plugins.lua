@@ -16,12 +16,16 @@ return require('packer').startup(function()
 -- use 'ojroques/nvim-hardline'
 use 'itchyny/lightline.vim'
 
+-- comment visual lines or regions with "gc"       
+use 'tpope/vim-commentary'
+
 -- Treesitter
 use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 use 'nvim-treesitter/playground'
 
 -- Display indentation lines
-use 'Yggdroot/indentLine'
+-- use 'Yggdroot/indentLine'
+use 'lukas-reineke/indent-blankline.nvim'
 
 -- Buffer Decoration & Developer Icons
 -- use nerd fonts
@@ -38,29 +42,24 @@ use 'nvim-telescope/telescope-fzy-native.nvim'
 use 'neovim/nvim-lspconfig'
 
 -- autocompletion support
-use 'hrsh7th/nvim-compe'
+use 'hrsh7th/nvim-cmp'
+use 'hrsh7th/cmp-nvim-lsp'
+
+-- manage code snippets
+use 'saadparwaiz1/cmp_luasnip'
+use 'L3MON4D3/LuaSnip'
 
 -- Colour schemes
-use 'dunstontc/vim-vscode-theme'
 use 'jacoborus/tender.vim'
 use 'iCyMind/NeoSolarized'
 
--- Rainbow Parentheses
-use 'luochen1990/rainbow'
+-- Rainbow Parentheses - use treesitter instead for native support - see setup
+-- use 'luochen1990/rainbow'
 
 -- neovim-qt
 use 'equalsraf/neovim-gui-shim'
 
 -- autoclose pairs
 use 'Raimondi/delimitMate'
-
--- linter for neovim written in lua
-use 'mfussenegger/nvim-lint'
-
--- conjure
-use 'Olical/conjure'
-
--- compe-conjure (make compe work with conjure)
-use 'tami5/compe-conjure'
 
 end)
