@@ -16,13 +16,11 @@ style: Big Chief
 ]]--
 
 -- Julia language server - to install:
--- julia -e 'using Pkg; Pkg.add("LanguageServer"); Pkg.add("SymbolServer")'
+-- julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 require'lspconfig'.julials.setup{}
 
 -- Clojure language server - to install:
--- wget https://github.com/clojure-lsp/clojure-lsp/blob/master/install-latest-clojure-lsp.sh
--- chmod +x install-latest-clojure-lsp.sh
--- sudo ./install-latest-clojure-lsp.sh
+-- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/blob/master/install)
 require'lspconfig'.clojure_lsp.setup{}
 
 -- Language server for Python
