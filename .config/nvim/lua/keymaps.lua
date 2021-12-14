@@ -11,14 +11,16 @@ ASCII art from https://ascii.co.uk/text
 style: Big Chief
 ]]--
 
+local keymap = vim.api.nvim_set_keymap
+
 -- Remap space as leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Remap for dealing with word wrap
-vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
-vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 --[[  Key combos for split screens:
 
@@ -34,10 +36,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 ]]--
 
-kmap('n', '<C-H>', '<C-W><C-H>', {noremap = true})
-kmap('n', '<C-J>', '<C-W><C-J>', {noremap = true})
-kmap('n', '<C-K>', '<C-W><C-K>', {noremap = true})
-kmap('n', '<C-L>', '<C-W><C-L>', {noremap = true})
+keymap('n', '<C-H>', '<C-W><C-H>', {noremap = true})
+keymap('n', '<C-J>', '<C-W><C-J>', {noremap = true})
+keymap('n', '<C-K>', '<C-W><C-K>', {noremap = true})
+keymap('n', '<C-L>', '<C-W><C-L>', {noremap = true})
 
 --[[ Copy to clipboard
 vnoremap  <leader>y  "+y
@@ -46,10 +48,10 @@ nnoremap  <leader>y  "+y
 nnoremap  <leader>yy  "+yy
 ]]--
 
-kmap('v', '<leader>y', '"+y', {noremap = true})
-kmap('n', '<leader>Y', '"+yg_', {noremap = true})
-kmap('n', '<leader>y', '"+y', {noremap = true})
-kmap('n', '<leader>yy', '"+yy', {noremap = true})
+keymap('v', '<leader>y', '"+y', {noremap = true})
+keymap('n', '<leader>Y', '"+yg_', {noremap = true})
+keymap('n', '<leader>y', '"+y', {noremap = true})
+keymap('n', '<leader>yy', '"+yy', {noremap = true})
 
 --[[ Paste from clipboard
 nnoremap <leader>p "+p
@@ -58,10 +60,10 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 ]]--
 
-kmap('n', '<leader>p', '"+p', {noremap = true})
-kmap('n', '<leader>P', '"+P', {noremap = true})
-kmap('v', '<leader>p', '"+p', {noremap = true})
-kmap('v', '<leader>P', '"+P', {noremap = true})
+keymap('n', '<leader>p', '"+p', {noremap = true})
+keymap('n', '<leader>P', '"+P', {noremap = true})
+keymap('v', '<leader>p', '"+p', {noremap = true})
+keymap('v', '<leader>P', '"+P', {noremap = true})
 
 --[[ Telescope.nvim mappings
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -69,10 +71,10 @@ nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 ]]--
-kmap('n', '<leader>ff', '<cmd>lua require('telescope.builtin').find_files()<cr>', {noremap = true})
-kmap('n', '<leader>fg', '<cmd>lua require('telescope.builtin').live_grep()<cr>', {noremap = true})
-kmap('n', '<leader>fb', '<cmd>lua require('telescope.builtin').buffers()<cr>', {noremap = true})
-kmap('n', '<leader>fh', '<cmd>lua require('telescope.builtin').help_tagss()<cr>', {noremap = true})
+keymap('n', '<leader>ff', '<cmd>lua require('telescope.builtin').find_files()<cr>', {noremap = true})
+keymap('n', '<leader>fg', '<cmd>lua require('telescope.builtin').live_grep()<cr>', {noremap = true})
+keymap('n', '<leader>fb', '<cmd>lua require('telescope.builtin').buffers()<cr>', {noremap = true})
+keymap('n', '<leader>fh', '<cmd>lua require('telescope.builtin').help_tagss()<cr>', {noremap = true})
 
 -- LSP keybindings
 local nvim_lsp = require 'lspconfig'
