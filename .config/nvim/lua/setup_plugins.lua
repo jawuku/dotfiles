@@ -58,3 +58,6 @@ require('nvim-web-devicons').setup {
 
 -- Bufferline setup
 require'bufferline'.setup{}
+
+-- Comment.nvim
+require('Comment').setup()
