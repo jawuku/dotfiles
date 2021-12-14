@@ -8,6 +8,7 @@
 '####: ##::. ##:'####:::: ##::::::: ###:::: ########:. #######:: ##:::: ##:
 ....::..::::..::....:::::..::::::::...:::::........:::.......:::..:::::..::
 init.lua for Neovim v0.5+
+A lot of code comes from github.com/nvim-lua/kickstart.nvim
 
 ASCII art from https://ascii.co.uk/text
 style: Banner3d
@@ -29,8 +30,7 @@ require('load_plugins')
 require('setup_plugins')
 require('options')
 require('keymaps')
-require('lspsetup')
--- require('hardline').setup {}
+require('lsp_setup')
 
 -- lazy load packer.nvim plugins
 cmd('autocmd BufWritePost plugins.lua PackerCompile')
