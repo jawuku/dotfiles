@@ -29,7 +29,13 @@ require('nvim-treesitter.configs').setup {
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false -- Whether the query persists across vim sessions
   },
-
+  
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+  },
+  
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -41,34 +47,9 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
--- nvim-compe (completion engine)
-require('compe').setup {
-    enabled = true;
-    autocomplete = true;
-    debug = false;
-    min_length = 1;
-    preselect = 'enable';
-    throttle_time = 80;
-    source_timeout = 200;
-    incomplete_delay = 400;
-    max_abbr_width = 100;
-    max_kind_width = 100;
-    max_menu_width = 100;
-    documentation = true;
-    source = {
-      path = true;
-      buffer = true;
-      calc = true;
-      vsnip = true;
-      nvim_lsp = true;
-      nvim_lua = true;
-      spell = true;
-      tags = true;
-      snippets_nvim = false;
-      omni = true;
-      conjure = true;
-    };
-  }
+-- nvim-cmp (completion engine)
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Telescope.nvim setup
 require('telescope').setup {}
