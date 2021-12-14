@@ -32,9 +32,7 @@ use 'lukas-reineke/indent-blankline.nvim'
 use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
 
 -- nvim telescope (file finder and previewer)
-use {'nvim-telescope/telescope.nvim',
-  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-}
+use {'nvim-telescope/telescope.nvim',  requires = 'nvim-lua/plenary.nvim'}
 
 use 'nvim-telescope/telescope-fzy-native.nvim'
 
