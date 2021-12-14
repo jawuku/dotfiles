@@ -62,7 +62,8 @@ o.background = 'dark'
 g.colors_name = 'tender'
 
 -- Set Python executable binary
-g.python3_host_prog = '$HOME/nvim/bin/python3'
+-- adjust to your Python executable location
+g.python3_host_prog = '$HOME/mambaforge/envs/datasci/bin/python3'
 
 -- tenderplus colour scheme for lightline
 g.lightline = { colorscheme = 'tenderplus' }
