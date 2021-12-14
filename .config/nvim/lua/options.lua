@@ -19,7 +19,7 @@ local opt = vim.opt
 local cmd = vim.cmd
 
 -- local buffer options --
-local indent = 2
+local indent = 4
 bo.expandtab = true          -- Use spaces instead of tabs
 bo.modeline = false          -- don't display mode, as status bar does this
 bo.shiftwidth = indent       -- Size of an indent
@@ -51,6 +51,9 @@ wo.number = true             -- Show line number
 wo.relativenumber = true     -- Relative line numbers
 wo.signcolumn = 'auto'       -- show sign column 
 
+-- save undo history
+opt.undofile = true
+
 -- Put your favorite colour scheme here
 -- Choices: tender, NeoSolarized
 cmd 'colorscheme tender'
@@ -59,13 +62,10 @@ cmd 'colorscheme tender'
 g.python3_host_prog = '$HOME/nvim/bin/python3'
 
 -- tenderplus colour scheme for lightline
-g.lightline = { 'colorscheme' = 'tenderplus' }
+g.lightline = { colorscheme = 'tenderplus' }
 
 -- Set indent-line character, exclude it showing in help files and terminal
 g.indent_blankline_char = '┆'
 g.indent_blankline_filetype_exclude = { 'help', 'packer'}
 g.indent_blankline_buftype_exclude = { 'terminal', 'nofile'}
 g.indent_blankline_show_trailing_blankline_indent = false
-
--- Rainbow parentheses on (now handled by treesitter)
--- g.rainbow_active = 1
