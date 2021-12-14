@@ -15,10 +15,6 @@ ASCII art from https://ascii.co.uk/text
 style: Big Chief
 ]]--
 
-local nvim_lsp = require 'lspconfig'
-local on_attach = function(_, bufnr)
-vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
 -- nvim-cmp (completion engine)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
@@ -29,6 +25,7 @@ require'lspconfig'.julials.setup{}
 
 -- Clojure language server - to install:
 -- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/blob/master/install)
+-- or alternatively if using Homebrew: homebrew install clojure-lsp
 require'lspconfig'.clojure_lsp.setup{}
 
 -- Language server for Python
