@@ -16,8 +16,12 @@ return require('packer').startup(function()
 -- use 'ojroques/nvim-hardline'
 use 'itchyny/lightline.vim'
 
--- comment visual lines or regions with "gc"       
-use 'tpope/vim-commentary'
+-- comment visual lines or regions      
+use {'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+}
 
 -- Treesitter
 use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
