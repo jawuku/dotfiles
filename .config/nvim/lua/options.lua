@@ -54,9 +54,12 @@ wo.signcolumn = 'auto'       -- show sign column
 -- save undo history
 opt.undofile = true
 
+-- set background as 'dark' or 'light'
+o.background = 'dark'
+
 -- Put your favorite colour scheme here
 -- Choices: tender, NeoSolarized
-cmd 'colorscheme tender'
+g.colors_name = 'tender'
 
 -- Set Python executable binary
 g.python3_host_prog = '$HOME/nvim/bin/python3'
