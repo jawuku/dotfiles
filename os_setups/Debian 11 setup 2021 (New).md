@@ -130,7 +130,7 @@ deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free
 ```
 ### 06) Install basic command-line utilities
 ```
-sudo apt install build-essential git p7zip-full unzip zip curl bat exa linux-headers-amd64 bsdmainutils
+sudo apt install build-essential git subversion p7zip-full unzip zip curl bat exa linux-headers-amd64 bsdmainutils
 ```
 ### 07) Install a simple zsh shell setup (Optional)
 ```
@@ -278,9 +278,8 @@ wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/tint2/tint
 ### 12) Rofi - run program launcher
 #### Download config.rasi and Adapta-Nokto.rasi to ~/.config/rofi
 ```
-cd ~/.config/rofi
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/Adapta-Nokto.rasi
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/rofi/config.rasi
+cd ~/.config
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/rofi
 ```
 ### 13) jgmenu - nice menu system, replaces Openbox menu
 
@@ -295,7 +294,7 @@ git clone https://github.com/johanmalm/jgmenu.git
 ```
 sudo apt install debhelper libx11-dev libxrandr-dev libcairo2-dev \
 libpango1.0-dev librsvg2-dev libxml2-dev libglib2.0-dev libmenu-cache-dev \
-openbox-menu xfce4-panel libxfce4panel-2.0-dev 
+xfce4-panel libxfce4panel-2.0-dev 
 ```
 #### compile and build Debian package
 ```
@@ -312,13 +311,11 @@ sudo dpkg -i jgmenu_4.4.0-i_amd64.deb # or whatever the latest version of the jg
 ```
 jgmenu_run init -i
 ```
-#### can optionally download jgmenurc config files
+#### can optionally download jgmenurc config files from github
 #### into ~/.config/jgmenu
 ```
-cd ~/.config/jgmenu
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/append.csv
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/prepend.csv
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/jgmenu/jgmenurc
+cd ~/.config
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
 ```
 ### 14) ufw firewall
 ```
@@ -498,7 +495,6 @@ sudo mv nvim.appimage /usr/local/bin/nvim
 ```
 sudo apt install xclip # clipboard managenent integrating with the desktop environment
 sudo apt install ripgrep # for finding files
-sudo apt install subversion # for manually downloading neovim config from Github
 npm install -g pyright neovim tree-sitter
 conda activate datasci
 mamba install pynvim
