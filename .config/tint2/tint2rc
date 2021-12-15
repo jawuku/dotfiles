@@ -163,7 +163,8 @@ startup_notifications = 1
 launcher_tooltip = 1
 launcher_item_app = /usr/share/applications/sakura.desktop
 launcher_item_app = /usr/share/applications/thunar.desktop
-launcher_item_app = /usr/share/applications/firefox-esr.desktop
+#launcher_item_app = /usr/share/applications/firefox-esr.desktop
+launcher_item_app = /usr/share/applications/vivaldi-stable.desktop
 launcher_item_app = /usr/share/applications/geany.desktop
 launcher_item_app = /usr/share/applications/smplayer.desktop
 
