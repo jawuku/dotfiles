@@ -18,24 +18,22 @@ style: Big Chief
 -- nvim-cmp (completion engine)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
+--[[
 -- Julia language server - to install:
--- julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
-require'lspconfig'.julials.setup{}
+julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 
 -- Clojure language server - to install:
--- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/blob/master/install)
--- or alternatively if using Homebrew: homebrew install clojure-lsp
-require'lspconfig'.clojure_lsp.setup{}
+sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/blob/master/install)
+or alternatively if using Homebrew: homebrew install clojure-lsp
 
--- Language server for Python
--- npm install -g pyright
-require'lspconfig'.pyright.setup{}
+-- Language server for Python - to install:
+npm install -g pyright
 
 -- R language server - to install:
--- R
--- install.packages("languageserver")
-require'lspconfig'.r_language_server.setup{}
+R
+install.packages("languageserver")
+
+]]--
 
 local servers = {'julials', 'clojure_lsp', 'pyright', 'r_language_server' }
 for _, lsp in ipairs(servers) do
