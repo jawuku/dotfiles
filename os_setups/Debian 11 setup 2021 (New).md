@@ -345,7 +345,7 @@ also look at his relevant [github configuration files.](https://github.com/Brodi
 ### 16) Python 3 basic data science Debian packages
 #### a) Debian native package way
 ```sh
-sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 \
+sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 spyder\
 python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 
 pip3 install --upgrade pip
@@ -454,11 +454,7 @@ sudo ./linux-install-1.10.3.814.sh
 ```
 #### d) Install Clojure Language Server
 ```
-wget https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install-latest-clojure-lsp.sh
-
-chmod +x install-latest-clojure-lsp.sh
-
-sudo ./install-latest-clojure-lsp.sh
+sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 ```
 ### 20) install latest LTS nodejs
 ```
@@ -480,6 +476,28 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 echo 'deb https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee -a /etc/apt/sources.list.d/onlyoffice.list
 sudo apt update
 sudo apt install onlyoffice-desktopeditors
+```
+### 23) Install Neovim and prerequisites to plugins
+#### Download Neovim appimage, make executable and install
+```
+wget https://github.com/neovim/neovim/releases/download/v0.6.0/nvim.appimage
+chmod +x nvim.appimage
+sudo mv nvim.appimage /usr/local/bin/nvim
+```
+#### Some other plugin dependencies
+```
+sudo apt install xclip # clipboard managenent integrating with the desktop environment
+sudo apt install ripgrep # for finding files
+sudo apt install subversion # for manually downloading neovim config from Github
+npm install -g pyright neovim tree-sitter
+conda activate datasci
+mamba install pynvim
+```
+#### download neovim configuration (from this Github repository
+#### (or use your own setup files)
+```
+cd ~/.config
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/nvim
 ```
 ### 23) Setup Yubikey
 ```
