@@ -66,10 +66,12 @@ keymap('v', '<leader>p', '"+p', {noremap = true})
 keymap('v', '<leader>P', '"+P', {noremap = true})
 
 -- Telescope.nvim mappings
+vim.cmd[[
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+]]
 
 -- LSP keybindings
 local nvim_lsp = require 'lspconfig'
