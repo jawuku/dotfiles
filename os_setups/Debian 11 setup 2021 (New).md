@@ -477,7 +477,17 @@ echo 'deb https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee -
 sudo apt update
 sudo apt install onlyoffice-desktopeditors
 ```
-### 23) Install Neovim and prerequisites to plugins
+### 23) Nerd Font - Fira Code with extra glyphs
+#### enhances Unicode icons, useful in exa and neovim
+#### Download latest .zip file from https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode (click link to go to page)
+#### Install fonts
+For example, with the downloaded file Fira_Code_v6.2.zip
+```
+unzip -j Fira_Code_v6.2.zip "ttf/*" -d "~/.local/share/fonts"
+fc-cache -fv
+```
+Open a terminal, select Fira Code Retina with your preferred size.
+### 24) Install Neovim and prerequisites to plugins
 #### Download Neovim appimage, make executable and install
 ```
 wget https://github.com/neovim/neovim/releases/download/v0.6.0/nvim.appimage
@@ -499,7 +509,7 @@ mamba install pynvim
 cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/nvim
 ```
-### 23) Setup Yubikey
+### 25) Setup Yubikey (Optional)
 ```
 sudo apt install libpam-u2f
 mkdir -p ~/.config/Yubico
