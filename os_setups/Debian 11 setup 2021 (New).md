@@ -229,7 +229,7 @@ media player: smplayer
 compositor: picom
 program launcher: rofi
 menu system: johanmalm/jgmenu  (from github - see below)
-status bar: tint2, lxpanel or xfce4-panel
+status bar: tint2
 icons: oxygen-icon-theme
 moka-icon-theme
 deepin-icon-theme
@@ -240,7 +240,7 @@ calendar: gsimplecal
 ```
 ### 11) Download rc.xml to ~/.config/openbox/rc.xml
 ```
-mkdir -p ~/.config/{openbox,rofi,jgmenu}
+mkdir -p ~/.config/{openbox,jgmenu}
 cd ~/.config/openbox
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/rc.xml
 
@@ -271,9 +271,8 @@ redshift-gtk -l 51.508:-0.128 -t 6500:3500 &
 ```
 #### tint2 panel configuration
 ```
-cd ~/.config/tint2
-rm tint2rc
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/tint2/tint2rc
+cd ~/.config
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/tint2
 ```
 ### 12) Rofi - run program launcher
 #### Download config.rasi and Adapta-Nokto.rasi to ~/.config/rofi
@@ -311,7 +310,7 @@ sudo dpkg -i jgmenu_4.4.0-i_amd64.deb # or whatever the latest version of the jg
 ```
 jgmenu_run init -i
 ```
-#### can optionally download jgmenurc config files from github
+#### can optionally download my own jgmenurc config files from github
 #### into ~/.config/jgmenu
 ```
 cd ~/.config
@@ -478,7 +477,7 @@ sudo apt install onlyoffice-desktopeditors
 #### enhances Unicode icons, useful in exa and neovim
 #### Download latest .zip file from https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode (click link to go to page)
 #### Install fonts
-For example, with the downloaded file Fira_Code_v6.2.zip
+For example, with the downloaded file Fira_Code_v6.2.zip (or whatever the latest version is)
 ```
 unzip -j Fira_Code_v6.2.zip "ttf/*" -d "~/.local/share/fonts"
 fc-cache -fv
