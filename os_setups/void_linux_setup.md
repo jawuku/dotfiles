@@ -1,4 +1,5 @@
-## Void Linux Setup from base
+## Void Linux Setup from base - This is a work in progress
+## This eventually may turn into to a nice i3-gaps desktop
 ### Update repository and update (do twice then reboot)
 ```sh
 sudo xbps-install -Su
