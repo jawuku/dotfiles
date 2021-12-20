@@ -8,10 +8,10 @@ sudo xbps-install vpm
 
 # add some useful tools, and populate directories in user directory 
 sudo vpm install bash-completion git zip unzip p7zip xdg-user-dirs
-sudo vpm install exa wget curl
+sudo vpm install exa wget curl bat
 
 # add some text editors to make life easier (vpm i = vpm install)
-sudo vpm i nano neovim
+sudo vpm i nano neovim python3-neovim xclip
 
 # add nano syntax highlighter
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
@@ -20,7 +20,7 @@ curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 sudo vpm i base-devel
 
 # add headers for current kernel
-sudo vpm i linux5.8-headers-$(uname -r)
+sudo vpm i linux5.15-headers-$(uname -r)
 
 # add non-free repository to install NVIDIA drivers
 sudo vpm addrepo void-repo-non-free 
@@ -53,36 +53,50 @@ cp -rf Numix-Circle-Light/ ~/.icons/
 cd ~
 rm -rf numix-icon-theme numix-icon-theme-circle/
 
-## install powerline fonts
-git clone https://github.com/powerline/fonts.git
-cd fonts
-./install.sh
-
-## can delete ~/fonts if desired
-## delete font directories in ~/.local/share/fonts if no longer needed
-## and run fc-cache -f to update local font database
+## install nerd fonts - my favourite is Fira Code Retina
+sudo vpm i nerd-fonts-otf
 
 ## add colour bash prompt
 
 echo '# Custom bash prompt via kirsle.net/wizards/ps1.html
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"' >> ~/.bashrc
 
-## install extra programs
+## Optional: install zsh and plugins
+sudo vpm i zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
 
-sudo vpm i firefox-esr-i18n-en-GB 
+#### .zshrc
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=2000
+setopt notify
+unsetopt beep
 
-sudo vpm i pcmanfm budgie-desktop plank neofetch octoxbps
+zstyle :compinstall filename '/home/jason/.zshrc'
 
-sudo vpm i geany zsh grml-zsh-config ntfs-3g xclip
+autoload -Uz compinit
+compinit
+
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# aliases
+alias ls=exa
+alias ll='exa -la --icons'
+alias cat=batcat
+
+# Colourful yet compact prompt
+PS1='%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
+
+### end of .zshrc
 
 # Install Python 3 libraries
-sudo vpm i python3-pip python3-gmpy2 python3-virtualenv python3-pandas python3-scikit-learn python3-matplotlib python3-jupyter
+sudo vpm i python3-pip python3-gmpy2 python3-virtualenv python3-seaborn python3-scikit-learn python3-jupyter python3-sympy
 
-# install atom IDE editor
-sudo vpm i atom
+# install nodejs
+sudo vpm i nodejs-lts
+sudo npm i -g neovim
 
-# install julia
-sudo vpm i julia julia-doc
+# install julia - use downloaded binary from official website
 
 # install Jupyter package in Julia
 julia
@@ -90,18 +104,21 @@ using Pkg
 Pkg.add("IJulia")
 exit()
 
-# add package "uber-juno" in atom
-atom & # etc.
-
 # install R and development libraries needed
 sudo vpm i R libxml2-devel zlib-devel libcurl-devel czmq-devel
 
-#start R and install library
+#start R and install libraries
 R
-install.packages("tidyverse")
-install.packages("devtools")
+install.packages( c("tidyverse", "devtools", "languageserver"))
 # type 'yes' for local installation, and select mirror
 q() # to exit
 
+## install extra GUI programs
+
+sudo vpm i firefox-esr-i18n-en-GB 
+
+sudo vpm i neofetch octoxbps
+
+sudo vpm i geany geany-plugins geany-plugins-extra
 
 
