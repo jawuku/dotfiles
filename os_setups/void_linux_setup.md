@@ -61,7 +61,6 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 alias ls=exa
 alias ll='exa -la --icons'
 alias cat=batcat
-alias apt=vpm # use Debian/Ubuntu install as normal :)
 
 # Colourful yet compact prompt
 PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
