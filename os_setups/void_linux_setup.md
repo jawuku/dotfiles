@@ -60,7 +60,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # aliases
 alias ls=exa
 alias ll='exa -la --icons'
-alias cat=batcat
+alias cat=bat
 
 # Colourful yet compact prompt
 PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
@@ -69,7 +69,7 @@ PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %
 ```sh
 chsh
 <enter sudo password>
-# select /usr/bin/zsh
+# select /bin/zsh
 zsh
 ```
 ### Include development libraries (equivalent of build-essential in Debian)
