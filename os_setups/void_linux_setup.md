@@ -4,6 +4,16 @@
 ```sh
 sudo xbps-install -Su
 ```
+### Install legible font
+```sh
+sudo xbps-install -S terminus-font
+setfont /usr/share/kbd/consolefonts/ter-i22b.psf.gz
+```
+#### to permanently enable this font at boot, edit /etc/rc.conf
+#### uncomment FONT= to read
+```
+FONT="ter-i22b"
+```
 ### vpm is a nice wrapper for xbps, similar syntax to apt
 ```sh
 sudo xbps-install vpm
@@ -14,6 +24,7 @@ sudo vpm install git zip unzip p7zip xdg-user-dirs
 sudo vpm install exa wget curl bat
 ```
 ### Install zsh shell
+#### (vpm i = vpm install) - useful shorthand
 ```sh
 sudo vpm i zsh zsh-autosuIggestions zsh-syntax-highlighting zsh-completions
 ```
@@ -42,6 +53,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 alias ls=exa
 alias ll='exa -la --icons'
 alias cat=batcat
+alias apt=vpm # use Debian/Ubuntu install as normal :)
 
 # Colourful yet compact prompt
 PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
