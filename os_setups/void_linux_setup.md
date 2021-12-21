@@ -9,14 +9,22 @@ sudo xbps-install -Su
 sudo xbps-install -S terminus-font
 setfont /usr/share/kbd/consolefonts/ter-i22b.psf.gz
 ```
+### vpm is a nice wrapper for xbps, similar syntax to apt
+```sh
+sudo xbps-install vpm
+```
+### Add nano text editor to make life easier
+```sh
+sudo vpm install nano
+```
+### add nano syntax highlighter
+```sh
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+```
 #### to permanently enable this font at boot, edit /etc/rc.conf
 #### uncomment FONT= to read
 ```
 FONT="ter-i22b"
-```
-### vpm is a nice wrapper for xbps, similar syntax to apt
-```sh
-sudo xbps-install vpm
 ```
 ### Add some useful tools, and populate directories in user directory 
 ```sh
@@ -65,14 +73,6 @@ chsh
 # select /usr/bin/zsh
 zsh
 ```
-### Add some text editors to make life easier (vpm i = vpm install)
-```sh
-sudo vpm i nano neovim python3-neovim xclip
-```
-### add nano syntax highlighter
-```sh
-curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
-```
 ### Include development libraries (equivalent of build-essential in Debian)
 ```sh
 sudo vpm i base-devel
@@ -90,6 +90,10 @@ sudo vpm addrepo void-repo-non-free
 sudo vpm i nvidia
 sudo nvidia-xconfig
 sudo reboot
+```
+### Install neovim
+```
+sudo vpm i neovim python3-neovim
 ```
 ### Icons
 ```sh
@@ -168,7 +172,7 @@ q() # to exit
 
 sudo vpm i firefox-esr-i18n-en-GB 
 
-sudo vpm i neofetch octoxbps
+sudo vpm i neofetch octoxbps xclip
 
 sudo vpm i geany geany-plugins geany-plugins-extra
 
