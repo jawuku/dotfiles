@@ -59,7 +59,7 @@ o.background = 'dark'
 
 -- Put your favorite colour scheme here
 -- Choices: tender, NeoSolarized
-vim.cmd[[colorscheme tender]]
+vim.cmd "colorscheme tender"
 
 -- Set Python executable binary
 -- adjust to your Python executable location
