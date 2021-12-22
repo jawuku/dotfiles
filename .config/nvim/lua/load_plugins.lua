@@ -5,7 +5,7 @@
 _/___(___/_(___(_(___/_________/___/_/___(___(__(___/_/___/___/_(__)_
                               /                    /                 
                              /                 (_ / 
-load-plugins.lua
+load_plugins.lua
 
 ASCII art from https://ascii.co.uk/text
 style: Big Chief							 
@@ -32,6 +32,7 @@ use {'numToStr/Comment.nvim',
 -- Treesitter
 use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 use 'nvim-treesitter/playground'
+use 'p00f/nvim-ts-rainbow'  -- for rainbow parentheses and brackets
 
 -- Display indentation lines
 -- use 'Yggdroot/indentLine'
@@ -39,7 +40,8 @@ use 'lukas-reineke/indent-blankline.nvim'
 
 -- Buffer Decoration & Developer Icons
 -- use nerd fonts
-use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
+use {'akinsho/nvim-bufferline.lua', 
+     requires = 'kyazdani42/nvim-web-devicons'}
 
 -- nvim telescope (file finder and previewer)
 use {
@@ -61,11 +63,9 @@ use 'saadparwaiz1/cmp_luasnip'
 use 'L3MON4D3/LuaSnip'
 
 -- Colour schemes
+use 'doums/darcula'
 use 'jacoborus/tender.vim'
 use 'iCyMind/NeoSolarized'
-
--- Rainbow Parentheses - use treesitter instead for native support - see setup
--- use 'luochen1990/rainbow'
 
 -- neovim-qt
 use 'equalsraf/neovim-gui-shim'
