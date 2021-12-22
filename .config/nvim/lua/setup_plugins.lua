@@ -5,7 +5,7 @@
 _(__)_(___ _(_ __(___(____/___/_______/___/_/___(___(__(___/_/___/___/_(__)_
                          /           /                    /                 
                         /           /                 (_ / 
-setup-plugins.lua	
+setup_plugins.lua	
 
 ASCII art from https://ascii.co.uk/text
 style: Big Chief					
