@@ -58,9 +58,6 @@ vim.cmd 'colorscheme darcula'
 -- adjust to your Python executable location
 vim.g.python3_host_prog = '$HOME/mambaforge/envs/datasci/bin/python3'
 
--- darcula colour scheme for lightline
-vim.g.lightline = { colorscheme = 'darculaOriginal' }
-
 -- Set indent-line character, exclude it showing in help files and terminal
 vim.g.indent_blankline_char = '┆'
 vim.g.indent_blankline_filetype_exclude = { 'help', 'packer'}
