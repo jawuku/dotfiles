@@ -13,10 +13,10 @@ style: Big Chief
 
 local keymap = vim.api.nvim_set_keymap
 
--- Remap space as leader key
+-- Remap space as leader key, '\' as local leader
 keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = '\\'
 
 -- Remap for dealing with word wrap
 keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
