@@ -19,9 +19,12 @@ end
 return require('packer').startup(function(use)
 
 -- status bar
--- use 'ojroques/nvim-hardline'
-use 'itchyny/lightline.vim'
-
+-- use 'itchyny/lightline.vim'
+use {
+  'nvim-lualine/lualine.nvim',
+  requires = {'kyazdani42/nvim-web-devicons', opt = true}
+}
+        
 -- comment visual lines or regions      
 use {'numToStr/Comment.nvim',
     config = function()
