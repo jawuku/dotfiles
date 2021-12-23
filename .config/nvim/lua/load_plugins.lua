@@ -31,8 +31,8 @@ use {'numToStr/Comment.nvim',
 
 -- Treesitter
 use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-use 'nvim-treesitter/playground'
 use 'p00f/nvim-ts-rainbow'  -- for rainbow parentheses and brackets
+-- use 'nvim-treesitter/playground' -- not needed at the moment
 
 -- Display indentation lines
 -- use 'Yggdroot/indentLine'
