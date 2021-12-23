@@ -22,13 +22,6 @@ require('nvim-treesitter.configs').setup {
   indent = {
     enable = true
   },
-
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false -- Whether the query persists across vim sessions
-  },
   
   rainbow = {
     enable = true,
@@ -48,7 +41,7 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Telescope.nvim setup
-require('telescope').setup {}
+require('telescope').setup()
 require('telescope').load_extension('fzy_native')
 
 -- Developer Icons
@@ -57,7 +50,10 @@ require('nvim-web-devicons').setup {
 }
 
 -- Bufferline setup
-require'bufferline'.setup{}
+require'bufferline'.setup()
 
 -- Comment.nvim
 require('Comment').setup()
+
+-- Lualine setup
+require('lualine').setup()
