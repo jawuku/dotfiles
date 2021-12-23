@@ -9,8 +9,7 @@
 ....::..::::..::....:::::..::::::::...:::::........:::.......:::..:::::..::
 init.lua for Neovim v0.6+
 A lot of code and ideas come from github.com/nvim-lua/kickstart.nvim
-also from Olivier Roque's webpage https://oroques.dev/notes/neovim-init/
-
+and Christian Chiarulli https://github.com/LunarVim/Neovim-from-scratch
 ASCII art from https://ascii.co.uk/text
 style: Banner3d
 ]]--
