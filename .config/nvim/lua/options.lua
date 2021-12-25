@@ -44,15 +44,12 @@ local myoptions = {
   signcolumn = 'auto',       -- show sign column 
   undofile = true,
   background = 'dark',
+  completeopt = {'menu', 'menuone', 'noselect'} -- for nvim-cmp
   }
 
 for k, v in pairs(myoptions) do
   vim.opt[k] = v
 end
-
--- Put your favorite colour scheme here
--- Choices: tender, darcula, NeoSolarized
-vim.cmd 'colorscheme darcula'
 
 -- Set Python executable binary
 -- adjust to your Python executable location
