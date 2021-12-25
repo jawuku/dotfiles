@@ -17,9 +17,9 @@ style: Big Chief
 local myoptions = {
   expandtab = true,          -- Use spaces instead of tabs
   modeline = false,          -- don't display mode, as status bar does this
-  shiftwidth = indent,       -- Size of an indent
+  shiftwidth = 4,            -- Size of an indent
   smartindent = true,        -- Insert indents automatically
-  tabstop = indent,          -- Number of spaces tabs count for
+  tabstop = 4,               -- Number of spaces tabs count for
   autochdir = true,          -- automatically change directory
   clipboard = 'unnamed,unnamedplus', -- clipboard integrates with desktop
   cmdheight = 2,             -- allows displaying of error messages below 
