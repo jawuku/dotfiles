@@ -31,11 +31,11 @@ require'lspconfig'.julials.setup{lsp_flags}
 
 -- Clojure language server - to install:
 -- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/blob/master/install)
--- or alternatively if using Homebrew: homebrew install clojure-lsp
+-- or alternatively if using Homebrew: brew install clojure-lsp/brew/clojure-lsp-native
 require'lspconfig'.clojure_lsp.setup{lsp_flags}
 
 -- Language server for Python - to install:
---npm install -g pyright
+-- npm install -g pyright
 require'lspconfig'.pyright.setup{lsp_flags}
 
 -- R language server - to install:
@@ -43,6 +43,53 @@ require'lspconfig'.pyright.setup{lsp_flags}
 -- install.packages("languageserver")
 require'lspconfig'.r_language_server.setup{lsp_flags}
 
+--[[ Lua language server - to install:
+ if using homebrew (easy) : brew install lua-language-server
+
+-- otherwise (more involved)
+git clone https://github.com/sumneko/lua-language-server
+
+cd lua-language-server
+
+git submodule update --init --recursive
+
+cd 3rd/luamake
+./compile/install.sh
+cd ../..
+./3rd/luamake/luamake rebuild
+
+sudo ln -s ~/lua-language-server/bin/lua-language-server /usr/local/bin/lua-language-server
+
+]]--
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = runtime_path,
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 -- luasnip setup
 local luasnip = require 'luasnip'
