@@ -14,8 +14,12 @@ ASCII art from https://ascii.co.uk/text
 style: Banner3d
 ]]--
 
--- Load config files
 require('load_plugins')
+
+-- Put your favorite colour scheme here
+-- Choices: tender, darcula, NeoSolarized
+vim.cmd 'colorscheme darcula'
+
 require('setup_plugins')
 require('options')
 require('keymaps')
