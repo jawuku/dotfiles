@@ -168,6 +168,13 @@ sudo vpm i R libxml2-devel zlib-devel libcurl-devel czmq-devel
 R
 install.packages( c("tidyverse", "devtools", "languageserver"))
 # type 'yes' for local installation, and select mirror
+
+library("devtools")
+
+devtools::github_install("IRkernel/IRkernel")
+
+IRkernel::installspec()
+
 q() # to exit
 ```
 ### Install extra GUI programs
