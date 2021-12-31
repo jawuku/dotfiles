@@ -129,8 +129,11 @@ sudo vpm i python3-pip python3-gmpy2 python3-virtualenv python3-seaborn python3-
 ```
 ### Install nodejs
 ```sh
-sudo vpm i nodejs-lts
-sudo npm i -g neovim
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+(close terminal and reopen)
+nvm install --lts
+node -v
+npm install -g neovim pyright
 ```
 ### Install julia - download latest stable binary from official website www.julialang.org/downloads/
 
@@ -168,11 +171,39 @@ install.packages( c("tidyverse", "devtools", "languageserver"))
 q() # to exit
 ```
 ### Install extra GUI programs
-
+```
 sudo vpm i firefox-esr-i18n-en-GB 
 
 sudo vpm i neofetch octoxbps xclip
 
 sudo vpm i geany geany-plugins geany-plugins-extra
+```
+### Rough notes for i3-gaps
+```
+sudo vpm i startup-notification-devel libxcb-devel xcb-util-devel \
+xcb-cursor-devel xcb-util-keysyms-devel xcb-util-wm-devel yajl-devel \
+xcb-util-xrm-devel cairo-devel pango-devel glib-devel iconv meson
 
-tbc ....
+sudo vpm i xkbcommon-devel libxkbcommon-x11 libxkbcommon-devel \
+libev-devel asciidoc xmlto nitrogen
+
+git clone https://github.com/LinoBigatti/i3-rounded.git
+cd i3-rounded
+
+mkdir buildopt
+cd buildopt
+meson -Ddocs=True -Dmans=True --buildtype=debugoptimized ..
+ninja
+sudo ninja install
+
+sudo vpm i xinit xorg-server xorg-minimal xterm rofi sakura falkon nnn picom
+
+cd ~
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.Xresources
+xrdb -merge ~/.Xresources
+
+echo 'exec i3' > ~/.xinitrc
+
+```
+
+### need to setup sound and polybar next
