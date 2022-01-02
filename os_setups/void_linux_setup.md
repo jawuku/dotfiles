@@ -13,6 +13,10 @@ setfont /usr/share/kbd/consolefonts/ter-i22b.psf.gz
 ```sh
 sudo xbps-install vpm
 ```
+### Install file retrieval and decompression utilities
+```
+sudo vpm install git subversion wget curl unzip xz p7zip zip unzip
+```
 ### Add nano text editor to make life easier
 ```sh
 sudo vpm install nano
@@ -28,8 +32,9 @@ FONT="ter-i22b"
 ```
 ### Add some useful tools, and populate directories in user directory 
 ```sh
-sudo vpm install git zip unzip p7zip xdg-user-dirs
-sudo vpm install exa wget curl bat
+sudo vpm install xdg-user-dirs
+sudo vpm install exa bat
+xdg-user-dirs-update
 ```
 ### Install zsh shell
 #### (vpm i = vpm install) - useful shorthand
@@ -37,14 +42,14 @@ sudo vpm install exa wget curl bat
 sudo vpm i zsh zsh-autosuIggestions zsh-syntax-highlighting zsh-completions
 ```
 #### Example ~/.zprofile
-```sh
+```sh 
 # get aliases and functions
 [ -f $HOME/.zshrc ] && . $HOME/.zshrc
 ```
 #### and ~/.zshrc
 ```sh
 HISTFILE=~/.histfile
-HISTSIZE=1000
+HISTSIZE=2000
 SAVEHIST=2000
 setopt notify
 unsetopt beep
