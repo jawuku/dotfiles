@@ -1,4 +1,6 @@
-## Debian System Setup v.3 - Updated for Debian 11 (Bullseye)
+## Debian System Setup v.3.1 - Updated for Debian 11 (Bullseye)
+## Using Nvidia Official Drivers
+## and installing Pytorch with GPU usage
 ## Set up a full Openbox Desktop Environment from scratch
 
 ### 00) - Prior preparation - get offline packages
@@ -43,7 +45,7 @@ TerminusBold font
 ```
 sudo mkdir -p /mnt/usbdisk
 # insert usb disk and install non-free drivers
-sudo dmesg -t 50 # get id of usb disk (assuming /dev/sdd1)
+sudo dmesg # get id of usb disk (assuming /dev/sdd1)
 
 sudo mount -t vfat /dev/sdd1 /mnt/usbdisk
 
@@ -138,8 +140,8 @@ sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
 ```
 #### Set up ~/.zshrc as follows
 ```
-HISTFILE=~/.histfile
-HISTSIZE=1000
+HISTFILE=~/.zsh_history
+HISTSIZE=2000
 SAVEHIST=2000
 setopt notify
 unsetopt beep
@@ -178,33 +180,32 @@ logout and login again to your new zsh prompt!
 ### 08) Basic Xorg and Openbox
 ```
 sudo apt install xserver-xorg-core openbox fonts-dejavu fonts-roboto \
-fonts-liberation lightdm desktop-base openbox-menu xterm x11-xserver-utils \
-lxappearance lxappearance-obconf lightdm-gtk-greeter-settings xdg-user-dirs
+fonts-liberation desktop-base openbox-menu xterm x11-xserver-utils \
+lxappearance lxappearance-obconf xdg-user-dirs xinit
 
 xdg-user-dirs-update
 ```
-### 09) Install Nvidia drivers (AMD GPU/APU drivers are already installed in the kernel)
+#### Create **~/.xinitrc** and add this line:
+```
+exec openbox-session
+```
+#### Try it out (will give a blank screen)
+#### Right click for menu - the terminal works
+#### Exit back to console
+```
+startx
+```
+### 09) Install Nvidia drivers from the official repositories
+### Instructions from [Nvidia website](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Debian&target_version=11&target_type=deb_network)
+### (AMD GPU/APU drivers are already installed in the kernel)
 ### Skip this if you don't have an NVIDIA card
 ```
-sudo apt install nvidia-driver
-```
-### 09a) (Optional) - Enable 32-bit graphics drivers for Steam games
-#### First, enable 32-bit libraries
-```
-sudo dkpg --add-architecture i386
+sudo apt install software-properties-common
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/7fa2af80.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/ /"
+sudo add-apt-repository contrib
 sudo apt update
-```
-#### For AMD cards/APUs - install these libraries:
-```
-sudo apt install libglx-mesa0:i386 mesa-vulkan-drivers:i386 libgl1-mesa-dri:i386
-```
-#### Or for NVIDIA cards:
-```
-sudo apt install nvidia-driver-libs:i386
-```
-#### then install Steam
-```
-sudo apt install steam
+sudo apt -y install cuda
 ```
 ### 10) other packages to install via apt after rebooting
 #### Log in via the graphical screen, and open a terminal (xterm)
@@ -212,31 +213,37 @@ sudo apt install steam
 ```
 file manager : thunar or pcmanfm
 gui text editor : geany
-terminal: sakura or terminator 
+terminal: kitty or sakura
 wallpapers: nitrogen
-archiver: xarchiver
-task manager: htop
+archiver: xarchiver (or peazip from website)
+task manager: htop (or install glances - [guide](https://www.linuxcapable.com/how-to-install-glances-system-monitor-on-debian-11/)
 policykit: lxpolkit
 volume: pavucontrol (along with pnmixer)
-web browser: firefox-esr
-backup web: vivaldi or brave (from respective websites), or midori (from repositories)
+web browser: firefox-esr or midori
+backup web: [vivaldi broswer](https://vivaldi.com/download/)
 bit-torrent:  transmission-gtk
 eyestrain prevention: redshift-gtk
 document viewer: atril
 word processor: abiword (or install Libreoffice or OnlyOffice)
 spreadsheet: gnumeric (or as above)
-media player: smplayer
+media player: parole or smplayer
 compositor: picom
 program launcher: rofi
 menu system: johanmalm/jgmenu  (from github - see below)
 status bar: tint2
 icons: oxygen-icon-theme
 moka-icon-theme
-deepin-icon-theme
 utils: gtk-theme-switch
 notification: dunst (**xfce4-notifyd** together with **libnotify-bin** as an alternative)
 lock screen: light-locker
 calendar: gsimplecal
+picture viewer : ristretto or viewnior
+```
+#### for example
+```
+sudo apt install thunar geany kitty nitrogen xarchiver lxpolkit pavucontrol pnmixer \
+firefox-esr transmission-gtk redshift-gtk atril parole picom rofi tint2 oxygen-icon-theme \
+moka-icon-theme gsimplecal xfce4-notifyd libnotify-bin ristretto xfburn
 ```
 ### 11) Download rc.xml to ~/.config/openbox/rc.xml
 ```
@@ -347,7 +354,7 @@ python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
 pip3 install --upgrade pip
 pip3 install --user tensorflow-gpu
 ```
-#### or b) Conda-Forge way (preferred)
+#### or b) Conda-Forge way (preferred) - with Pytorch
 ```sh
 cd ~/Downloads
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
@@ -367,10 +374,10 @@ Create a new environment, for example named 'datasci'
 conda create --name datasci python=3.9
 conda activate datasci
 ```
-Install Python libraries
+Install Python and Pytorch libraries
 ```sh
-mamba install notebook seaborn gmpy2 scikit-learn sympy spyder
-python -m pip install --user tensorflow-gpu
+mamba install jupyter seaborn gmpy2 scikit-learn sympy
+mamba install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
 #### For Conda, append this text to the end of ~/.zshrc
 ```sh
@@ -402,7 +409,7 @@ Answer 'yes' twice to setting up a personal library
 ```
 q()
 ```
-### 18) Julia Language (version 1.6.4 LTS)
+### 18) Julia Language (version 1.7.1)
 ```
 cd ~/Downloads
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.4-linux-x86_64.tar.gz
