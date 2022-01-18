@@ -201,10 +201,15 @@ startx
 ### Skip this if you don't have an NVIDIA card
 ```
 sudo apt install software-properties-common
+
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/7fa2af80.pub
+
 sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/ /"
+
 sudo add-apt-repository contrib
+
 sudo apt update
+
 sudo apt -y install cuda
 ```
 ### 10) other packages to install via apt after rebooting
@@ -212,7 +217,7 @@ sudo apt -y install cuda
 #### install the packages of your choice, some suggestions listed below
 ```
 file manager : thunar or pcmanfm
-gui text editor : geany
+gui text editor : geany 
 terminal: kitty or sakura
 wallpapers: nitrogen
 archiver: xarchiver (or peazip from website)
@@ -226,7 +231,7 @@ eyestrain prevention: redshift-gtk
 document viewer: atril
 word processor: abiword (or install Libreoffice or OnlyOffice)
 spreadsheet: gnumeric (or as above)
-media player: parole or smplayer
+media player: parole or smplayer or vlc
 compositor: picom
 program launcher: rofi
 menu system: johanmalm/jgmenu  (from github - see below)
@@ -242,7 +247,7 @@ picture viewer : ristretto or viewnior
 #### for example
 ```
 sudo apt install thunar geany kitty nitrogen xarchiver lxpolkit pavucontrol pnmixer \
-firefox-esr transmission-gtk redshift-gtk atril parole picom rofi tint2 oxygen-icon-theme \
+firefox-esr transmission-gtk redshift-gtk atril smplayer picom rofi tint2 oxygen-icon-theme \
 moka-icon-theme gsimplecal xfce4-notifyd libnotify-bin ristretto xfburn
 ```
 ### 11) Download rc.xml to ~/.config/openbox/rc.xml
@@ -325,7 +330,7 @@ svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
 ```
 ### 14) ufw firewall
 ```
-sudo apt install ufw
+sudo apt install gufw
 
 sudo ufw enable
 ```
@@ -348,13 +353,14 @@ also look at his relevant [github configuration files.](https://github.com/Brodi
 ### 16) Python 3 basic data science Debian packages
 #### a) Debian native package way
 ```sh
-sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 spyder\
-python3-sympy python3-pip python3-wheel nvidia-cuda-toolkit nvidia-cuda-dev
+sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 python3-sympy \
+python3-pip python3-wheel
 
 pip3 install --upgrade pip
-pip3 install --user tensorflow-gpu
+
+pip3 install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 ```
-#### or b) Conda-Forge way (preferred) - with Pytorch
+#### or b) Conda-Forge way (preferred)
 ```sh
 cd ~/Downloads
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
@@ -369,33 +375,16 @@ To disable the default 'base' environment:
 conda config --set auto_activate_base false
 conda deactivate
 ```
-Create a new environment, for example named 'datasci'
+Create a new environment, for example named 'pytorch'
 ```sh
-conda create --name datasci python=3.9
-conda activate datasci
+conda create --name pytorch python=3.9
+conda activate pytorch
 ```
-Install Python and Pytorch libraries
+Install Python and Pytorch GPU libraries
 ```sh
 mamba install jupyter seaborn gmpy2 scikit-learn sympy
+
 mamba install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
-```
-#### For Conda, append this text to the end of ~/.zshrc
-```sh
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# Replace 'username' with your own username (without the quotes)
-__conda_setup="$('/home/username/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/username/mambaforge/etc/profile.d/conda.sh" ]; then
-        . "/home/username/mambaforge/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/username/mambaforge/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 ```
 ### 17) R Language Debian packages
 ```
@@ -412,17 +401,19 @@ q()
 ### 18) Julia Language (version 1.7.1)
 ```
 cd ~/Downloads
-wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.4-linux-x86_64.tar.gz
-tar xvf julia-1.6.4-linux-x86_64.tar.gz
-cd julia-1.6.4/
-sudo ln -s ~/Downloads/julia-1.6.4/bin/julia /usr/local/bin/julia
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.1-linux-x86_64.tar.gz
+
+tar xvf julia-1.7.1-linux-x86_64.tar.gz
+
+cd julia-1.7.1/
+
+sudo ln -s ~/Downloads/julia-1.7.1/bin/julia /usr/local/bin/julia
 
 julia
 
 ]
 
-add IJulia, Plots, OhMyREPL, LanguageServer, SymbolServer
-
+add IJulia, Plots, OhMyREPL, LanguageServer
 <backspace>
 
 exit()
@@ -449,11 +440,11 @@ cd ~/Downloads
 
 sudo apt install rlwrap
 
-curl -O https://download.clojure.org/install/linux-install-1.10.3.814.sh
+curl -O https://download.clojure.org/install/linux-install-1.10.3.1058.sh
 
-chmod +x linux-install-1.10.3.814.sh
+chmod +x linux-install-1.10.3.1058.sh
 
-sudo ./linux-install-1.10.3.814.sh
+sudo ./linux-install-1.10.3.1058.sh
 ```
 #### d) Install Clojure Language Server
 ```
@@ -461,7 +452,7 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/
 ```
 ### 20) install latest LTS nodejs
 ```
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # close terminal, reopen then run:
 nvm install --lts
