@@ -484,14 +484,14 @@ Open a terminal, select Fira Code Retina with your preferred size.
 ### 24) Install Neovim and prerequisites to plugins
 #### Download Neovim appimage, make executable and install
 ```
-wget https://github.com/neovim/neovim/releases/download/v0.6.0/nvim.appimage
+wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim.appimage
 chmod +x nvim.appimage
 sudo mv nvim.appimage /usr/local/bin/nvim
 ```
 #### Some other plugin dependencies
 ```
 sudo apt install xclip # clipboard managenent integrating with the desktop environment
-sudo apt install ripgrep # for finding files
+sudo apt install ripgrep fd-find # for finding files
 npm install -g pyright neovim tree-sitter
 conda activate datasci
 mamba install pynvim
