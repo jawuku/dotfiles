@@ -354,7 +354,7 @@ also look at his relevant [github configuration files.](https://github.com/Brodi
 #### a) Debian native package way
 ```sh
 sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 python3-sympy \
-python3-pip python3-wheel
+python3-statsmodels python3-pip python3-wheel
 
 pip3 install --upgrade pip
 
@@ -382,7 +382,7 @@ conda activate pytorch
 ```
 Install Python and Pytorch GPU libraries
 ```sh
-mamba install jupyter seaborn gmpy2 scikit-learn sympy
+mamba install jupyter seaborn gmpy2 scikit-learn sympy statsmodels
 
 mamba install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
@@ -440,11 +440,11 @@ cd ~/Downloads
 
 sudo apt install rlwrap
 
-curl -O https://download.clojure.org/install/linux-install-1.10.3.1058.sh
+curl -O https://download.clojure.org/install/linux-install-1.10.3.1069.sh
 
-chmod +x linux-install-1.10.3.1058.sh
+chmod +x linux-install-1.10.3.1069.sh
 
-sudo ./linux-install-1.10.3.1058.sh
+sudo ./linux-install-1.10.3.1069.sh
 ```
 #### d) Install Clojure Language Server
 ```
