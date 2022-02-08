@@ -1,67 +1,169 @@
-nvm installer for nodejs
-------------------------
+## OpenSuse 15.3 Leap Installation with XFCE Desktop
 
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+Use Guided Partitioning
 
-# logout, relogin
-nvm install --lts
+Existing Disk Layout:
 
-npm install -g neovim clj-kondo
+/dev/sda : Windows install
 
-conda install plugins
----------------------
+/dev/sdb : Windows games e.g. Steam
 
-conda install gmpy2 hy pandas scikit-learn matplotlib notebook 
+/dev/sdc1 : EFI System Partition (do not overwrite)
 
-Install R for OpenSuse
-----------------------
+/dev/sdc2 : Swap partition
 
-VERSION=$(grep "^PRETTY_NAME" /etc/os-release | tr " " "_" | sed -e 's/PRETTY_NAME=//' | sed -e 's/"//g')
+/dev/sdc3 : Root partition
 
-sudo zypper addrepo -f http://download.opensuse.org/repositories/devel\:/languages\:/R\:/patched/$VERSION/ R-base
+Preserve all non-Linux partitions e.g. EFI partition
+Format all Linux Partitions i.e. /dev/sdc3
 
-sudo zypper install R-base R-base-devel
+Select Software
+---------------
+
+Base Development
+C/C++ Development
+Linux Kernel Development
+
+After Installation and Reboot
+-----------------------------
+
+Nvidia
+------
+
+sudo zypper addrepo --refresh 'https://download.nvidia.com/opensuse/leap/$releasever' NVIDIA
+
+sudo zypper install x11-video-nvidiaG05
+
+CUDA
+----
+
+sudo zypper addrepo --refresh https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/cuda-opensuse15.repo
+
+sudo zypper install -y cuda
+
+# (select 1 to replace drivers to ensure compatibility)
+
+systemctl reboot
 
 
-Install dependencies for R languageserver, IRkernel, tidyverse
---------------------------------------------------------------
+Flatpak
+-------
 
-sudo zypper install libxml2-devel libopenssl-devel libcurl-devel libunwind-devel \
-libzmq5 cppzmq-devel
+sudo zypper install flatpak
 
-Install clang - installs clangd and clang-format for neovim
------------------------------------------------------------
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-sudo zypper install clang9
+Nodejs16 LTS
+------------
+sudo zypper install nodejs16
 
+Python (miniconda with conda-forge)
+-----------------------------------
 
-Install Julia libraries
+cd ~/Downloads
+
+https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+
+chmod +x Mambaforge-Linux-x86_64.sh
+
+./Mambaforge-Linux-x86_64.sh
+
+# (close terminal and reopen)
+
+conda config --set auto_activate_base false
+
+conda deactivate base
+
+conda create -n pytorch python=3.9
+
+conda activate pytorch
+
+mamba install jupyter seaborn scikit-learn gmpy2 sympy statsmodels
+
+mamba install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+
+Neovim
+------
+
+cd ~/Downloads
+
+wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim.appimage
+
+chmod +x nvim.appimage
+
+ln -s ~/Downloads/nvim.appimage ~/bin/nvim
+
+Qogir Icon Theme
+----------------
+mkdir ~/github
+
+cd ~/github
+
+git clone https://github.com/vinceliuice/Qogir-icon-theme.git
+
+cd Qogir-icon-theme/
+
+./install.sh
+
+cd ..
+
+Nerd Fonts (Fira Code OpenType)
+-------------------------------
+cd ~/Downloads
+
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+
+mkdir -p ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Bold Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Light Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Medium Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Regular Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Retina Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+fc-cache -fv
+
+kitty terminal emulator
 -----------------------
 
-press ]
+# install in home directory - use this command to update version
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
-add IJulia, LanguageServer, LinearAlgebra
+# add to local PATH
+ln -s ~/.local/kitty.app/bin/kitty ~/bin/kitty
 
-press Backspace, then exit()
+# Desktop menu integration
+sudo cp ~/.local/kitty.app/share/applications/kitty.desktop /usr/share/applications/
 
-clojure-lsp
------------
-git clone https://github.com/snoe/clojure-lsp.git
+sudo sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" /usr/share/applications/kitty.desktop
 
-cd clojure-lsp/
+kitty configuration (save in ~/.config/kitty/kitty.conf)
+--------------------------------------------------------
 
-./install_clojure_lsp  # installs into ~/bin
+font_family      Fira Code Retina Nerd Font Complete
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
 
+font_size 14.0
 
-Coc.nvim plugins
-----------------
-:CocInstall coc-julia coc-python coc-json coc-r-lsp coc-clangd
+disable_ligatures active cursor
 
-conda plugins
+font_features FiraCode-Retina +ss02 +ss05 +ss08 +cv16
 
-Calysto Hy - make sure conda environment already activated when installing
-----------
+scrollback_lines 2000
 
-pip3 install git+https://github.com/ekaschalk/jedhy.git
-pip3 install git+https://github.com/Calysto/calysto_hy.git
-python3 -m calysto_hy install --user
+enable_audio_bell no
+
+remember_window_size  yes
+initial_window_width  80c
+initial_window_height 25c
+
+Select kitty colour scheme interactively
+----------------------------------------
+kitty +kitten themes
+
