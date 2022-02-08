@@ -473,11 +473,22 @@ sudo apt install onlyoffice-desktopeditors
 ```
 ### 23) Nerd Font - Fira Code with extra glyphs
 #### enhances Unicode icons, useful in exa and neovim
-#### Download latest .zip file from https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode (click link to go to page)
+#### Download latest .zip file from https://github.com/ryanoasis/nerd-fonts (click link to go to page)
 #### Install fonts
-For example, with the downloaded file Fira_Code_v6.2.zip (or whatever the latest version is)
-```
-unzip -j Fira_Code_v6.2.zip "ttf/*" -d "~/.local/share/fonts"
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+
+mkdir -p ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Bold Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Light Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Medium Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Regular Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
+unzip FiraCode.zip "Fira Code Retina Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
+
 fc-cache -fv
 ```
 Open a terminal, select Fira Code Retina with your preferred size.
