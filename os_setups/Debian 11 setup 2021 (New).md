@@ -475,6 +475,7 @@ sudo apt install onlyoffice-desktopeditors
 #### enhances Unicode icons, useful in exa and neovim
 #### Download latest .zip file from https://github.com/ryanoasis/nerd-fonts (click link to go to page)
 #### Install fonts
+```
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
 
 mkdir -p ~/.local/share/fonts/NerdFonts
