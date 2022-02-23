@@ -1,4 +1,4 @@
-## Debian System Setup v.3.1 - Updated for Debian 11 (Bullseye)
+## Debian System Setup v.3.2 - Updated for Debian 11 (Bullseye)
 ## Using Nvidia Official Drivers
 ## and installing Pytorch with GPU usage
 ## Set up a full Openbox Desktop Environment from scratch
@@ -181,19 +181,9 @@ logout and login again to your new zsh prompt!
 ```
 sudo apt install xserver-xorg-core openbox fonts-dejavu fonts-roboto \
 fonts-liberation desktop-base openbox-menu xterm x11-xserver-utils \
-lxappearance lxappearance-obconf xdg-user-dirs xinit
+lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
 
 xdg-user-dirs-update
-```
-#### Create **~/.xinitrc** and add this line:
-```
-exec openbox-session
-```
-#### Try it out (will give a blank screen)
-#### Right click for menu - the terminal works
-#### Exit back to console
-```
-startx
 ```
 ### 09) Install Nvidia drivers from the official repositories
 ### Instructions from [Nvidia website](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Debian&target_version=11&target_type=deb_network)
@@ -236,31 +226,65 @@ compositor: picom
 program launcher: rofi
 menu system: johanmalm/jgmenu  (from github - see below)
 status bar: tint2
-icons: oxygen-icon-theme
-moka-icon-theme
+icons: elementary-xfce-icon-theme 
+extra-icons: qogir-icon-theme, tela-icon-theme
 utils: gtk-theme-switch
 notification: dunst (**xfce4-notifyd** together with **libnotify-bin** as an alternative)
 lock screen: light-locker
 calendar: gsimplecal
-picture viewer : ristretto or viewnior
+picture viewer : gpicview or viewnior
 ```
 #### for example
 ```
-sudo apt install thunar geany kitty nitrogen xarchiver lxpolkit pavucontrol pnmixer \
-firefox-esr transmission-gtk redshift-gtk atril smplayer picom rofi tint2 oxygen-icon-theme \
-moka-icon-theme gsimplecal xfce4-notifyd libnotify-bin ristretto xfburn
+sudo apt install thunar geany nitrogen engrampa lxpolkit pavucontrol pnmixer \
+midori transmission-gtk redshift-gtk atril parole picom rofi tint2 \
+gsimplecal xfce4-notifyd libnotify-bin gpicview xfburn htop
 ```
-### 11) Download rc.xml to ~/.config/openbox/rc.xml
+### 11) Fira Code Nerd Font (Optional)
+#### enhances Unicode icons, useful in exa and neovim
+#### good with Kitty Terminal Emulator
+#### Download latest .zip file from https://github.com/ryanoasis/nerd-fonts (click link to go to page)
+#### Install fonts
 ```
-mkdir -p ~/.config/{openbox,jgmenu}
-cd ~/.config/openbox
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/rc.xml
+cd ~/Downloads
+
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+unzip -l FiraCode.zip # list contents of zip file
+
+mkdir -p ~/.local/share/fonts
+
+# extract each font
+unzip -j FiraCode.zip "Fira Code Bold Nerd Font Complete.otf" -d ~/.local/share/fonts
+unzip -j FiraCode.zip "Fira Code Medium Nerd Font Complete.otf" -d ~/.local/share/fonts
+unzip -j FiraCode.zip "Fira Code Retina Nerd Font Complete.otf" -d ~/.local/share/fonts
+unzip -j FiraCode.zip "Fira Code Regular Nerd Font Complete.otf" -d ~/.local/share/fonts
+unzip -j FiraCode.zip "Fira Code Light Nerd Font Complete.otf" -d ~/.local/share/fonts
+
+fc-cache -fv
+```
+### 12) Kitty Terminal Emulator https://sw.kovidgoyal.net/kitty/binary/
+#### This uses GPU acceleration and nerd fonts with ligatures work well
+Download my config files:
+```
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
+```
+To Install - rerun this line to install updates
+```
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+```
+Set symbolic link in $PATH
+```
+sudo ln -s ~/.local/kitty.app/bin/kitty /usr/local/bin/kitty
+```
+### 13) Download rc.xml to ~/.config/openbox/rc.xml
+### and a list of applications to autostart
 
 ```
-#### and a list of applications to autostart
-```
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/openbox/autostart
-chmod +x autostart
+mkdir -p ~/.config/{openbox,jgmenu}
+cd ~/.config
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/openbox
+
+chmod +x openbox/autostart
 ```
 #### listing of autostarted items
 ```
@@ -283,16 +307,14 @@ redshift-gtk -l 51.508:-0.128 -t 6500:3500 &
 ```
 #### tint2 panel configuration
 ```
-cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/tint2
 ```
-### 12) Rofi - run program launcher
+### 14) Rofi - run program launcher
 #### Download config.rasi and Adapta-Nokto.rasi to ~/.config/rofi
 ```
-cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/rofi
 ```
-### 13) jgmenu - nice menu system, replaces Openbox menu
+### 15) jgmenu - nice menu system, replaces Openbox menu
 
 #### set up git subdirectory, download jgmenu
 ```
@@ -318,23 +340,65 @@ dpkg-buildpackage -tc -b -us -uc
 cd ..
 sudo dpkg -i jgmenu_4.4.0-i_amd64.deb # or whatever the latest version of the jgmenu package is
 ```
-#### configure jgmenu interactively
+#### either configure jgmenu interactively
 ```
 jgmenu_run init -i
 ```
-#### can optionally download my own jgmenurc config files from github
+#### or can optionally download my own jgmenurc config files from github
 #### into ~/.config/jgmenu
 ```
 cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
 ```
-### 14) ufw firewall
+### 15a) Qogir Icon theme
+```
+cd ~/github
+
+git clone https://github.com/vinceliuice/Qogir-icon-theme.git
+
+cd Qogir-icon-theme
+
+./install.sh # installs into ~/.local/share/icons
+```
+### 15b) Tela Icon Theme
+```
+cd ..
+
+git clone https://github.com/vinceliuice/Tela-icon-theme.git
+cd Tela-icon-theme
+./install.sh -a # option installs all colour variations
+```
+### 15c)  install Kvantum theme manager
+```
+sudo apt install qt5-style-kvantum
+```
+#### Download Layan Kvantum Theme
+```
+cd ..
+
+git clone https://github.com/vinceliuice/Layan-kde.git
+cd Layan-kde
+
+./install.sh
+kvantummanager
+(install Layan Theme)
+```
+### 15d) Layan GTK Theme
+```
+cd ..
+
+sudo apt install gtk2-engines-murrine gtk2-engines-pixbuf
+git clone https://github.com/vinceliuice/Layan-gtk-theme.git
+cd Layan-gtk-theme
+./install.sh
+```
+### 16) ufw firewall
 ```
 sudo apt install gufw
 
 sudo ufw enable
 ```
-### 15) System notifications using Dunst *(if not using xfce4-notifyd with libnotifyd)*
+### 17) System notifications using Dunst *(if not using xfce4-notifyd with libnotifyd)*
 #### from [Addictive Tips](https://www.addictivetips.com/ubuntu-linux-tips/set-up-better-system-notifications-on-linux-with-dunst/)
 Note: you can skip this section if you installed the 2 packages *xfce4-notifyd* and *libnotify-bin* instead
 ```
@@ -350,7 +414,7 @@ systemctl restart --user dunst.service
 ```
 #### Optional - make Dunst look better from a YouTube video by [Brodie Robertson](https://www.youtube.com/watch?v=-Ky9YgvUa40)
 also look at his relevant [github configuration files.](https://github.com/BrodieRobertson/dotfiles/tree/master/config/dunst)
-### 16) Python 3 basic data science Debian packages
+### 18) Python 3 basic data science Debian packages
 #### a) Debian native package way
 ```sh
 sudo apt install python3-seaborn python3-sklearn jupyter python3-gmpy2 python3-sympy \
@@ -386,7 +450,7 @@ mamba install jupyter seaborn gmpy2 scikit-learn sympy statsmodels
 
 mamba install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
-### 17) R Language Debian packages
+### 19) R Language Debian packages
 ```
 sudo apt install r-base r-base-dev r-cran-tidyverse r-cran-irkernel
 
@@ -398,16 +462,16 @@ Answer 'yes' twice to setting up a personal library
 ```
 q()
 ```
-### 18) Julia Language (version 1.7.1)
+### 20) Julia Language (version 1.7.2)
 ```
 cd ~/Downloads
-wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.1-linux-x86_64.tar.gz
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.2-linux-x86_64.tar.gz
 
-tar xvf julia-1.7.1-linux-x86_64.tar.gz
+tar xvf julia-1.7.2-linux-x86_64.tar.gz
 
-cd julia-1.7.1/
+cd julia-1.7.2/
 
-sudo ln -s ~/Downloads/julia-1.7.1/bin/julia /usr/local/bin/julia
+sudo ln -s ~/Downloads/julia-1.7.2/bin/julia /usr/local/bin/julia
 
 julia
 
@@ -418,7 +482,7 @@ add IJulia, Plots, OhMyREPL, LanguageServer
 
 exit()
 ```
-### 19) Java and Clojure
+### 21) Java and Clojure
 
 #### a) Install Java JDK
 ```
@@ -440,11 +504,11 @@ cd ~/Downloads
 
 sudo apt install rlwrap
 
-curl -O https://download.clojure.org/install/linux-install-1.10.3.1069.sh
+curl -O https://download.clojure.org/install/linux-install-1.10.3.1075.sh
 
-chmod +x linux-install-1.10.3.1069.sh
+chmod +x linux-install-1.10.3.1075.sh
 
-sudo ./linux-install-1.10.3.1069.sh
+sudo ./linux-install-1.10.3.1075.sh
 ```
 #### d) Install Clojure Language Server
 ```
@@ -471,29 +535,7 @@ echo 'deb https://download.onlyoffice.com/repo/debian squeeze main' | sudo tee -
 sudo apt update
 sudo apt install onlyoffice-desktopeditors
 ```
-### 23) Nerd Font - Fira Code with extra glyphs
-#### enhances Unicode icons, useful in exa and neovim
-#### Download latest .zip file from https://github.com/ryanoasis/nerd-fonts (click link to go to page)
-#### Install fonts
-```
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
-
-mkdir -p ~/.local/share/fonts/NerdFonts
-
-unzip FiraCode.zip "Fira Code Bold Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
-
-unzip FiraCode.zip "Fira Code Light Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
-
-unzip FiraCode.zip "Fira Code Medium Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
-
-unzip FiraCode.zip "Fira Code Regular Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
-
-unzip FiraCode.zip "Fira Code Retina Nerd Font Complete.otf" -d ~/.local/share/fonts/NerdFonts
-
-fc-cache -fv
-```
-Open a terminal, select Fira Code Retina with your preferred size.
-### 24) Install Neovim and prerequisites to plugins
+### 23) Install Neovim and prerequisites to plugins
 #### Download Neovim appimage, make executable and install
 ```
 wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim.appimage
@@ -514,7 +556,7 @@ mamba install pynvim
 cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/nvim
 ```
-### 25) Setup Yubikey (Optional)
+### 24) Setup Yubikey (Optional)
 ```
 sudo apt install libpam-u2f
 mkdir -p ~/.config/Yubico
@@ -556,9 +598,3 @@ sudo nano /etc/pam.d/login
 # add
 auth    required    pam_u2f.so
 ``` 
-#### themes from outside
-1) Vertex icon theme
-https://github.com/horst3180/vertex-icons
-
-2) Mistral Openbox theme
-https://www.box-look.org/content/show.php/Mistral?content=167604
