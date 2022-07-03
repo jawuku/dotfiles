@@ -149,8 +149,8 @@ in
       music = "$HOME/Music";
     };
     shellAliases = {
-      ll  = "exa -la --icons";
       ls  = "exa";
+      ll  = "exa -la --icons";
       cat = "bat";
       update = "sudo nixos-rebuild switch";
     };
