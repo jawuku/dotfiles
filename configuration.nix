@@ -89,7 +89,7 @@ in
 # Enable sound
   sound = {
     enable = true;
-    mediakeys.enable = true;
+    mediaKeys.enable = true;
   };
 
   hardware.pulseaudio = {
