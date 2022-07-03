@@ -45,7 +45,7 @@ in
 # Networking with Network Manager, enable firewall
   networking = {
     hostName = "nixos";
-    networkManager.enable = true;
+    networkmanager.enable = true;
     firewall.enable = true;
   };
 
@@ -186,8 +186,9 @@ home-manager.useGlobalPkgs = true;
   environment.systemPackages = with pkgs; [
     wget
     curl
-    brave
+    brave # for x86_64 only
     onlyoffice-bin # for x86_64 only
+    # use libreoffice and firefox-esr for aarch64 instead
     git
     subversion
     htop
