@@ -121,7 +121,7 @@ in
   users.users.${defaultUser} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "video" "audio" "networkmanager" "lp" "scanner" ];
-    description = ${desc};
+    description = desc;
     initialPassword = "123"; # *must* change after 1st reboot
     shell = pkgs.zsh; # set zsh as default shell
   };
@@ -194,9 +194,6 @@ home-manager.useGlobalPkgs = true;
     pragha
     mate.atril
   ];
-
-# Zsh Autocompletion paths
-  environment.pathsToLink = [ "/share/zsh" ];
 
 # Check for updates daily
   system.autoUpgrade = {
