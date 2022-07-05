@@ -126,15 +126,13 @@ in
   };
 
 # Add home-manager.users block after user definition
-  home-manager.users.bookiboo = { pkgs, ... }: {
+  home-manager.users.${defaultuser} = { pkgs, ... }: {
   home.packages = with pkgs; [
     bat
     exa
-    whitesur-gtk-theme
-    qogir-icon-theme
-    arc-theme
     neofetch
     kitty
+    htop
   ];
   programs.zsh = {
     enable = true;
@@ -163,10 +161,11 @@ in
     enable = true;
     settings = {
       font_size = "14.0";
-      font_family      = "FiraCode Nerd Font";
+      font_family      = "FiraCode Retina Nerd Font Complete";
       bold_font        = "auto";
       italic_font      = "auto";
       bold_italic_font = "auto";
+      disable_ligatures = false;
       font_features = "FiraCode-Retina +ss02 +ss08 +cv16 +ss05";
       scrollback_lines = 10000;
       enable_audio_bell = false;
@@ -179,10 +178,10 @@ in
 home-manager.useGlobalPkgs = true;
 
 # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+nixpkgs.config.allowUnfree = true;
 
 # Default packages to install in 
-  environment.systemPackages = with pkgs; [
+environment.systemPackages = with pkgs; [
     wget
     curl
     firefox-esr
@@ -192,6 +191,9 @@ home-manager.useGlobalPkgs = true;
     pragha
     mate.atril
     abiword
+    whitesur-gtk-theme
+    qogir-icon-theme
+    arc-theme
     gnumeric
   ];
 
