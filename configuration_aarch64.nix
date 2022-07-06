@@ -57,19 +57,24 @@ in
   console = {
     font = "ter-v24b"; # Terminus Bold 24
     keyMap = "uk"; # xorg code is different - see below
-    # useXkbConfig = "true";
+    useXkbConfig = "true";
   };
 
-# Xorg options - load XFCE desktop environment
+# Xorg options - load XFCE desktop environment, set keyboard layout
   services.xserver = {
     enable = true;
+    
+    # Display Manager Options
     displayManager.lightdm.enable = true;
     displayManager.defaultSession = "xfce";
     desktopManager.xfce.enable = true;
     desktopManager.xterm.enable = false;
     # windowManager.jwm.enable = true;
+    
+    # Keyboard Layout Options
     layout = "gb"; # note different than console code
-    libinput.enable = true; # enable touchpad support
+    xkbVariant = "mac"; # to set Mac keyboard
+    # libinput.enable = true; # enable touchpad support
   };
 
 # GUI Fonts
@@ -115,7 +120,7 @@ in
 # Enable zsh autocompletion paths
   programs.zsh = {
     enable = true;
-    promptInit = "PS1 = '%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b'";
+    promptInit = "PS1='%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b'";
   };
   
 environment.pathsToLink = [ "/share/zsh" ];
