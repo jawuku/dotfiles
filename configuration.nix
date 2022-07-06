@@ -25,7 +25,7 @@ in
     efi.efiSysMountPoint = "/boot/efi";
     timeout = 7; # timeout in seconds
     # limit max number of config generations
-    systemd-boot.configurationLimit = 10;
+    systemd-boot.configurationLimit = 20;
   };
 
 # Use GRUB for dual-boot: (uncomment if needed)
@@ -36,11 +36,6 @@ in
 #    efiSupport = true;
 #    useOSProber = true;
 #  };
-
-# Extra modules e.g. AMD or Nvidia Graphics Drivers
-  boot.initrd.kernelModules = [ "amdgpu" ];
-# or
-# boot.initrd.kernelModules = [ "nvidia" ];
   
 # Networking with Network Manager, enable firewall
   networking = {
@@ -56,19 +51,21 @@ in
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "ter-v24b"; # Terminus Bold 24
-    keyMap = "uk"; # xorg code is different - see below
-    # useXkbConfig = "true";
+    useXkbConfig = "true"; # use xorg settings for keyboard layout below
   };
 
-# Xorg options - load XFCE desktop environment
+# Xorg options
   services.xserver = {
     enable = true;
+    
+    # set display manager and desktop environment
     displayManager.lightdm.enable = true;
     displayManager.defaultSession = "xfce";
     desktopManager.xfce.enable = true;
     desktopManager.xterm.enable = false;
-    # windowManager.jwm.enable = true;
-    layout = "gb"; # note different than console code
+
+    # set keyboard layout
+    layout = "gb";
     libinput.enable = true; # enable touchpad support
   };
 
@@ -112,8 +109,24 @@ in
   
   services.blueman.enable = true;
 
-# Enable zsh autocompletion paths
-  programs.zsh.enable = true;  
+# AMD GPU setup
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.opengl = {
+    driSupport = true;
+    driSupport32Bit = true; # for 32 bit applications
+    extraPackages = with pkgs; [
+      rocm-opencl-icd
+      rocm-opencl-runtime
+    ];
+  };
+  
+# Zsh setup - set prompt, enable autocompletion paths
+  programs.zsh = {
+    enable = true;
+    promptInit = "PS1='%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b'";
+  };
+  
   environment.pathsToLink = [ "/share/zsh" ];
 
 # Define a user - change password after 1st reboot
@@ -122,31 +135,24 @@ in
     extraGroups = [ "wheel" "video" "audio" "networkmanager" "lp" "scanner" ];
     description = desc;
     initialPassword = "123"; # *must* change after 1st reboot
-    shell = pkgs.zsh; # set zsh as default shell
+    shell = pkgs.zsh; # set zsh as default shell for this user
   };
 
 # Add home-manager.users block after user definition
-  home-manager.users.jason = { pkgs, ... }: {
+  home-manager.users.${defaultUser} = { pkgs, ... }: {
   home.packages = with pkgs; [
     bat
     exa
-    whitesur-gtk-theme
     qogir-icon-theme
     arc-theme
     neofetch
     kitty
   ];
+  
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
-    dirHashes = {
-      docs  = "$HOME/Documents";
-      dl    = "$HOME/Downloads";
-      pics  = "$HOME/Pictures";
-      vids  = "$HOME/Videos";
-      music = "$HOME/Music";
-    };
     shellAliases = {
       ls  = "exa";
       ll  = "exa -la --icons";
@@ -154,7 +160,6 @@ in
       update = "sudo nixos-rebuild switch";
     };
     sessionVariables = {
-      PS1 = "%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b";
       EDITOR = "nano";
       TERM = "kitty";
     };
@@ -167,7 +172,6 @@ in
       bold_font        = "auto";
       italic_font      = "auto";
       bold_italic_font = "auto";
-      font_features = "FiraCode-Retina +ss02 +ss08 +cv16 +ss05";
       scrollback_lines = 10000;
       enable_audio_bell = false;
       remember_window_size = true;
@@ -185,9 +189,8 @@ home-manager.useGlobalPkgs = true;
   environment.systemPackages = with pkgs; [
     wget
     curl
-    brave # for x86_64 only
-    onlyoffice-bin # for x86_64 only
-    # use libreoffice and firefox-esr for aarch64 instead
+    brave
+    onlyoffice-bin
     git
     subversion
     htop
