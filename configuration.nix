@@ -67,6 +67,9 @@ in
     # set keyboard layout
     layout = "gb";
     libinput.enable = true; # enable touchpad support
+    
+    # Thunar plugins
+    desktopManager.xfce.thunarPlugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
   };
 
 # GUI Fonts
@@ -120,7 +123,16 @@ in
       rocm-opencl-runtime
     ];
   };
-  
+
+# Picom compositor
+  services.picom = {
+    enable = true;
+    fade = true;
+    inactiveOpacity = 0.9;
+    shadow = true;
+    fadeDelta = 4;
+  };
+
 # Zsh setup - set prompt, enable autocompletion paths
   programs.zsh = {
     enable = true;
