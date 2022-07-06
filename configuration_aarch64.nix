@@ -194,7 +194,6 @@ environment.systemPackages = with pkgs; [
     pragha
     mate.atril
     abiword
-    whitesur-gtk-theme
     qogir-icon-theme
     arc-theme
     gnumeric
