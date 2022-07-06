@@ -113,8 +113,12 @@ in
   services.blueman.enable = true;
 
 # Enable zsh autocompletion paths
-  programs.zsh.enable = true;  
-  environment.pathsToLink = [ "/share/zsh" ];
+  programs.zsh = {
+    enable = true;
+    promptInit = "PS1 = '%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b'";
+  };
+  
+environment.pathsToLink = [ "/share/zsh" ];
 
 # Define a user - change password after 1st reboot
   users.users.${defaultUser} = {
@@ -141,35 +145,30 @@ in
     enable = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
-    dirHashes = {
-      docs  = "$HOME/Documents";
-      dl    = "$HOME/Downloads";
-      pics  = "$HOME/Pictures";
-      vids  = "$HOME/Videos";
-      music = "$HOME/Music";
-    };
+    
     shellAliases = {
       ls  = "exa";
       ll  = "exa -la --icons";
       cat = "bat";
       update = "sudo nixos-rebuild switch";
     };
+    
     sessionVariables = {
-      PS1 = "%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b";
       EDITOR = "nano";
       TERM = "kitty";
     };
   };
+  
   programs.kitty = {
     enable = true;
     settings = {
       font_size = "14.0";
-      font_family      = "FiraCode Retina Nerd Font Complete";
+      font_family      = "FiraCode Nerd Font";
       bold_font        = "auto";
       italic_font      = "auto";
       bold_italic_font = "auto";
       disable_ligatures = false;
-      font_features = "FiraCode-Retina +ss02 +ss08 +cv16 +ss05";
+      font_features = "+ss02 +ss08 +cv16 +ss05";
       scrollback_lines = 10000;
       enable_audio_bell = false;
       remember_window_size = true;
@@ -178,6 +177,7 @@ in
     };
   };
 };
+
 home-manager.useGlobalPkgs = true;
 
 # Allow unfree packages
