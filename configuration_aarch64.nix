@@ -56,8 +56,7 @@ in
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "ter-v24b"; # Terminus Bold 24
-    keyMap = "uk"; # xorg code is different - see below
-    useXkbConfig = "true";
+    useXkbConfig = "true"; # use xorg keymap settings below
   };
 
 # Xorg options - load XFCE desktop environment, set keyboard layout
@@ -72,7 +71,7 @@ in
     # windowManager.jwm.enable = true;
     
     # Keyboard Layout Options
-    layout = "gb"; # note different than console code
+    layout = "gb";
     xkbVariant = "mac"; # to set Mac keyboard
     # libinput.enable = true; # enable touchpad support
   };
