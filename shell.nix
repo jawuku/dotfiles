@@ -41,5 +41,6 @@ in
       ];
       
     shellHook = ''
+      julia -e 'using Pkg; Pkg.add("IJulia")';
       '';
 }
