@@ -169,7 +169,8 @@ in
       ls  = "exa";
       ll  = "exa -la --icons";
       cat = "bat";
-      update = "sudo nixos-rebuild switch";
+      update  = "sudo nix-channel update";
+      upgrade = "sudo nixos-rebuild switch";
     };
     sessionVariables = {
       EDITOR = "nano";
