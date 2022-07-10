@@ -22,6 +22,7 @@ in
       
       # R
       R
+      rPackages.devtools
       rPackages.tidyverse
       rPackages.ggplot2
       rPackages.IRkernel
