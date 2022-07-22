@@ -422,7 +422,7 @@ python3-statsmodels python3-pip python3-wheel
 
 pip3 install --upgrade pip
 
-pip3 install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 #### or b) Conda-Forge way (preferred)
 ```sh
@@ -446,7 +446,7 @@ conda activate pytorch
 ```
 Install Python and Pytorch GPU libraries
 ```sh
-mamba install jupyter seaborn gmpy2 scikit-learn sympy statsmodels
+mamba install notebook seaborn gmpy2 scikit-learn sympy statsmodels
 
 mamba install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
@@ -462,16 +462,16 @@ Answer 'yes' twice to setting up a personal library
 ```
 q()
 ```
-### 20) Julia Language (version 1.7.2)
+### 20) Julia Language (version 1.7.3)
 ```
 cd ~/Downloads
-wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.2-linux-x86_64.tar.gz
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.3-linux-x86_64.tar.gz
 
-tar xvf julia-1.7.2-linux-x86_64.tar.gz
+tar xvf julia-1.7.3-linux-x86_64.tar.gz
 
-cd julia-1.7.2/
+cd julia-1.7.3/
 
-sudo ln -s ~/Downloads/julia-1.7.2/bin/julia /usr/local/bin/julia
+sudo ln -s ~/Downloads/julia-1.7.3/bin/julia /usr/local/bin/julia
 
 julia
 
@@ -504,11 +504,11 @@ cd ~/Downloads
 
 sudo apt install rlwrap
 
-curl -O https://download.clojure.org/install/linux-install-1.10.3.1075.sh
+curl -O https://download.clojure.org/install/linux-install-1.11.1.1149.sh
 
-chmod +x linux-install-1.10.3.1075.sh
+chmod +x linux-install-1.11.1.1149.sh
 
-sudo ./linux-install-1.10.3.1075.sh
+sudo ./linux-install-1.11.1.1149.sh
 ```
 #### d) Install Clojure Language Server
 ```
@@ -538,7 +538,7 @@ sudo apt install onlyoffice-desktopeditors
 ### 23) Install Neovim and prerequisites to plugins
 #### Download Neovim appimage, make executable and install
 ```
-wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim.appimage
+wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
 chmod +x nvim.appimage
 sudo mv nvim.appimage /usr/local/bin/nvim
 ```
