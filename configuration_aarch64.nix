@@ -93,7 +93,7 @@ in
 # Enable sound
   sound = {
     enable = true;
-    mediaKeys.enable = true;
+    # mediaKeys.enable = true; # only used in separate window managers
   };
 
   hardware.pulseaudio = {
@@ -125,65 +125,21 @@ in
 environment.pathsToLink = [ "/share/zsh" ];
 
 # Define a user - change password after 1st reboot
-  users.users.${defaultUser} = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "video" "audio" "networkmanager" "lp" "scanner" ];
-    description = desc;
-    initialPassword = "123"; # *must* change after 1st reboot
-    shell = pkgs.zsh; # set zsh as default shell
-  };
-
-# Add home-manager.users block after user definition
-  home-manager.users.${defaultuser} = { pkgs, ... }: {
-  home.packages = with pkgs; [
-    bat
-    exa
-    neofetch
-    kitty
-    htop
-  ];
-  
-  programs.bat.enable = true;
-  
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
-    
-    shellAliases = {
-      ls  = "exa";
-      ll  = "exa -la --icons";
-      cat = "bat";
-      update  = "sudo nix-channel update";
-      upgrade = "sudo nixos-rebuild switch";
-    };
-    
-    sessionVariables = {
-      EDITOR = "nano";
-      TERM = "kitty";
-    };
-  };
-  
-  programs.kitty = {
-    enable = true;
-    settings = {
-      font_size = "14.0";
-      font_family      = "FiraCode Nerd Font";
-      bold_font        = "auto";
-      italic_font      = "auto";
-      bold_italic_font = "auto";
-      disable_ligatures = false;
-      font_features = "+ss02 +ss08 +cv16 +ss05";
-      scrollback_lines = 10000;
-      enable_audio_bell = false;
-      remember_window_size = true;
-      initial_window_width = "80c";
-      initial_window_height = "25c";
-    };
-  };
+users.users.${defaultUser} = {
+  isNormalUser = true;
+  extraGroups = [ "wheel" "video" "audio" "networkmanager" "lp" "scanner" ];
+  description = desc;
+  initialPassword = "123"; # *must* change after 1st reboot
+  shell = pkgs.zsh; # set zsh as default shell
 };
 
-home-manager.useGlobalPkgs = true;
+# Add home-manager.users block after user definition
+home-manager.users.${defaultuser} = { imports = [ /etc/nixos/home.nix ]; };
+  
+home-manager = {
+  useGlobalPkgs = true;
+  useUserPackages = true;
+};
 
 # Allow unfree packages
 nixpkgs.config.allowUnfree = true;
@@ -205,13 +161,11 @@ environment.systemPackages = with pkgs; [
   ];
 
 # Check for updates daily
-  system.autoUpgrade = {
-    enable = true;    
-  };
+system.autoUpgrade.enable = true;    
 
 # Automatic garbage collection
-  nix = {
-    settings.auto-optimise-store = true;
+nix = {
+  settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -220,8 +174,8 @@ environment.systemPackages = with pkgs; [
   };
 
 # Save backup of configuration - useful if original accidentally deleted
-  system.copySystemConfiguration = true;
+system.copySystemConfiguration = true;
 
 # System Version - do not change
-  system.stateVersion = "22.05";
+system.stateVersion = "22.05";
 }
