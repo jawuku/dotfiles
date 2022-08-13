@@ -181,7 +181,7 @@ in
     python39Packages.pillow-simd
     nodePackages.pyright
     nodePackages.bash-language-server
-    # julia_17-bin # only for x86_64
+    julia_17-bin # only for x86_64
     clojure
     clojure-lsp
     leiningen
