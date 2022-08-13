@@ -155,10 +155,43 @@ in
   home.packages = with pkgs; [
     bat
     exa
-    qogir-icon-theme
-    arc-theme
     neofetch
     kitty
+    htop
+    most
+    neovim
+    tree-sitter
+    rPackages.languageserver
+    rPackages.tidyverse
+    rPackages.devtools
+    rPackages.IRkernel
+    rPackages.ggplot2
+    rPackages.lintr
+    rPackages.styler
+    python39
+    python39Packages.sympy
+    python39Packages.seaborn
+    python39Packages.notebook
+    python39Packages.numpy
+    python39Packages.matplotlib
+    python39Packages.scikit-learn
+    python39Packages.pandas
+    python39Packages.scipy
+    python39Packages.gmpy2
+    python39Packages.pillow-simd
+    nodePackages.pyright
+    nodePackages.bash-language-server
+    # julia_17-bin # only for x86_64
+    clojure
+    clojure-lsp
+    leiningen
+    clang
+    clangd
+    clang-format
+    octaveFull
+    fzf
+    ripgrep
+    sumneko-lua-language-server
   ];
   
   programs.zsh = {
@@ -168,6 +201,7 @@ in
     shellAliases = {
       ls  = "exa";
       ll  = "exa -la --icons";
+      lt = "exa --tree";
       cat = "bat";
       update  = "sudo nix-channel update";
       upgrade = "sudo nixos-rebuild switch";
@@ -175,8 +209,10 @@ in
     sessionVariables = {
       EDITOR = "nano";
       TERM = "kitty";
+      PAGER = "most";
     };
   };
+  
   programs.kitty = {
     enable = true;
     settings = {
@@ -192,6 +228,48 @@ in
       initial_window_height = "25c";
     };
   };
+
+ programs.neovim = {
+    enable = true;
+    vimAlias = false;
+
+	  plugins = with pkgs.vimPlugins; [
+	    nvim-lspconfig
+	    cmp-nvim-lsp
+	    cmp-buffer
+	    cmp-path
+	    cmp-cmdline
+	    nvim-cmp
+	    nvim-web-devicons
+	    lualine-nvim
+	    bufferline-nvim
+	    comment-nvim
+	    nvim-treesitter
+	    nvim-ts-rainbow
+	    indent-blankline-nvim
+	    plenary-nvim
+	    telescope-nvim
+	    telescope-fzy-native
+	    cmp_luasnip
+	    luasnip
+	    tender-vim
+	    NeoSolarized
+	    nvim-autopairs
+	    vim-code-dark
+	  ];
+	
+	  extraConfig = ''
+	    lua << EOF
+      -- copy lua config files into ~/.config/nvim/user/
+	    ${builtins.readFile ~/.config/nvim/user/setup_plugins.lua}
+		  ${builtins.readFile ~/.config/nvim/user/options.lua}
+		  ${builtins.readFile ~/.config/nvim/user/keymaps.lua}
+		  ${builtins.readFile ~/.config/nvim/user/lsp_setup.lua}
+	    EOF
+	    colorscheme codedark
+	  '';
+  };
+
 };
 home-manager.useGlobalPkgs = true;
 
