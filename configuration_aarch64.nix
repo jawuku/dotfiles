@@ -5,16 +5,17 @@
 # Include the results of the hardware scan
 { config, pkgs, ... }:
 
-# set variable e.g. default username
+# set variable e.g. default username, home-manager download location
 let
   defaultUser = "bookiboo";
   desc = "Booki Boo";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
 in
 
 {
   imports = [
     ./hardware-configuration.nix
-    <home-manager/nixos>
+    (import "${home-manager}/nixos")
   ];
 
 # System-D Boot Loader - use for single-boot installations
@@ -57,6 +58,15 @@ in
   console = {
     font = "ter-v24b"; # Terminus Bold 24
     useXkbConfig = "true"; # use xorg keymap settings below
+  };
+
+# Location data
+  location = {
+    provider = "manual"; # set to "geoclue2" for automatic setting
+
+  # Liverpool as an example of manual setting
+  latitude  = 53.430759;
+  longitude = -2.961425;
   };
 
 # Xorg options - load XFCE desktop environment, set keyboard layout
@@ -123,6 +133,15 @@ in
   };
   
 environment.pathsToLink = [ "/share/zsh" ];
+
+# Picom compositor
+  services.picom = {
+    enable = true;
+    fade = true;
+    inactiveOpacity = 0.9;
+    shadow = true;
+    fadeDelta = 4;
+  };
 
 # Define a user - change password after 1st reboot
 users.users.${defaultUser} = {
