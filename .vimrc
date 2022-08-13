@@ -10,6 +10,9 @@ call plug#begin('~/.vim/plugged')
 
 " Plugins from github repos:
 
+" dark plus theme
+Plug 'tomasiser/vim-code-dark'
+
 " Gruvbox colour theme
 Plug 'morhetz/gruvbox'
 
@@ -54,6 +57,9 @@ let g:default_julia_version = "devel"
 
 " Vim-slime to interact with running REPL
 "Plug 'jpalardy/vim-slime'
+
+" Nix support
+Plug 'LnL7/vim-nix'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -153,6 +159,9 @@ let &t_SI = "\<Esc>[5 q" "SI = insert mode, blinking vertical bar
 let &t_SR = "\<Esc>[4 q" "SR = replace mode, solid underscore
 let &t_EI = "\<Esc>[2 q" "EI = normal mode, solid block
 
+" disable -- INSERT --
+set noshowmode
+
 " Plugin setup
 
 " =================================
@@ -179,10 +188,10 @@ let g:ale_linters = {
 \   'clojure': ['clj-kondo', 'joker']
 \}
 
-" install yapf, flake8, clang-tools
+" install yapf3, flake8, clangd, clang-format
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf', 'flake8'],
+\   'python': ['yapf3', 'flake8'],
 \   'c': ['clangd', 'clang-format'],
 \   'cpp': ['clangd', 'clang-format']
 \}
@@ -224,25 +233,25 @@ if has('gui_running')
     set termguicolors
     set background=light
     colorscheme gruvbox
+    let g:lightline = { 'colorscheme': 'PaperColor' }
 else
     " Tender colour scheme in text mode
     set background=dark
     colorscheme tender
+    let g:lightline = { 'colorscheme': 'tender' }
 endif
-
-" set lightline theme inside lightline config
-let g:lightline = { 'colorscheme': 'tender' }
 
 " 4 new user-defined commands to select Tender or Gruvbox colours
 command GruvLight  set termguicolors | set background=light | colorscheme gruvbox
 command GruvDark   set termguicolors | set background=dark  | colorscheme gruvbox
 command Tender  set background=dark  | colorscheme tender
+command Darkplus set background=dark | colorscheme onedarkplus
 
 " rainbow parentheses
 " Activation based on file type
 augroup rainbows
   autocmd!
-  autocmd FileType lisp,clojure,scheme,json,r,c,cpp,python RainbowParentheses
+  autocmd FileType lisp,clojure,scheme,json,r,c,cpp,python,nix RainbowParentheses
 augroup END
 
 let g:rainbow#max_level = 16
