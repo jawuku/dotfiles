@@ -55,6 +55,15 @@ in
     useXkbConfig = "true"; # use xorg settings for keyboard layout below
   };
 
+# Location data
+  location = {
+    provider = "manual"; # set to "geoclue2" for automatic setting
+
+  # Liverpool as an example of manual setting
+  latitude  = 53.430759;
+  longitude = -2.961425;
+  };
+
 # Xorg options
   services.xserver = {
     enable = true;
@@ -132,6 +141,21 @@ in
     inactiveOpacity = 0.9;
     shadow = true;
     fadeDelta = 4;
+  };
+
+# Redshift screen colour temperature - according to location
+  services.redshift = {
+    enable = true;
+    
+    brightness = {
+      day   = "1";
+      night = "1";
+    };
+    
+    temperature = {
+      day   = 6000;
+      night = 3500;
+    };
   };
 
 # Zsh setup - set prompt, enable autocompletion paths
