@@ -69,41 +69,43 @@
   programs.neovim = {
     enable = true;
     vimAlias = false;
-
-	  plugins = with pkgs.vimPlugins; [
-	    nvim-lspconfig
-	    cmp-nvim-lsp
-	    cmp-buffer
-	    cmp-path
-	    cmp-cmdline
-	    nvim-cmp
-	    nvim-web-devicons
-	    lualine-nvim
-	    bufferline-nvim
-	    comment-nvim
-	    nvim-treesitter
-	    nvim-ts-rainbow
-	    indent-blankline-nvim
-	    plenary-nvim
-	    telescope-nvim
-	    telescope-fzy-native
-	    cmp_luasnip
-	    luasnip
-	    tender-vim
-	    NeoSolarized
-	    nvim-autopairs
-	    vim-code-dark
-	  ];
+    withPython3 = true;
+    withNodeJs = true;
+    
+    plugins = with pkgs.vimPlugins; [
+      nvim-lspconfig
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+      nvim-cmp
+      nvim-web-devicons
+      lualine-nvim
+      bufferline-nvim
+      comment-nvim
+      nvim-treesitter
+      nvim-ts-rainbow
+      indent-blankline-nvim
+      plenary-nvim
+      telescope-nvim
+      telescope-fzy-native
+      cmp_luasnip
+      luasnip
+      tender-vim
+      NeoSolarized
+      nvim-autopairs
+      vim-code-dark
+    ];
 	
-	  extraConfig = ''
-	    lua << EOF
-	      ${builtins.readFile /home/jason/.config/nvim/user/setup_plugins.lua}
-              ${builtins.readFile /home/jason/.config/nvim/user/options.lua}
-	      ${builtins.readFile /home/jason/.config/nvim/user/keymaps.lua}
-	      ${builtins.readFile /home/jason/.config/nvim/user/lsp_setup.lua}
-	    EOF
-	    colorscheme codedark
-	  '';
+      extraConfig = ''
+	lua << EOF
+	${builtins.readFile /home/jason/.config/nvim/user/setup_plugins.lua}
+        ${builtins.readFile /home/jason/.config/nvim/user/options.lua}
+	${builtins.readFile /home/jason/.config/nvim/user/keymaps.lua}
+	${builtins.readFile /home/jason/.config/nvim/user/lsp_setup.lua}
+	EOF
+	colorscheme codedark
+	'';
   };
   
   programs.kitty = {
