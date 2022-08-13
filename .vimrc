@@ -152,7 +152,7 @@ set ignorecase smartcase
 set confirm
 
 " set python3 path
-let g:python3_host_prog='/home/bookiboo/miniforge3/bin/python'
+let g:python3_host_prog='/home/jason/mambaforge/bin/python3'
 
 " different cursor shapes in insert mode
 let &t_SI = "\<Esc>[5 q" "SI = insert mode, blinking vertical bar
@@ -245,7 +245,7 @@ endif
 command GruvLight  set termguicolors | set background=light | colorscheme gruvbox
 command GruvDark   set termguicolors | set background=dark  | colorscheme gruvbox
 command Tender  set background=dark  | colorscheme tender
-command Darkplus set background=dark | colorscheme onedarkplus
+command Darkplus set background=dark | colorscheme codedark
 
 " rainbow parentheses
 " Activation based on file type
