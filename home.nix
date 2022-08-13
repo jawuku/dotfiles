@@ -15,32 +15,32 @@
     rPackages.tidyverse
     rPackages.devtools
     rPackages.IRkernel
-	  rPackages.ggplot2
-	  rPackages.lintr
-	  rPackages.styler
-	  python39
-	  python39Packages.sympy
-	  python39Packages.seaborn
-	  python39Packages.notebook
-	  python39Packages.numpy
-	  python39Packages.matplotlib
-	  python39Packages.scikit-learn
-	  python39Packages.pandas
-	  python39Packages.scipy
-	  python39Packages.gmpy2
-	  python39Packages.pillow-simd
-	  nodePackages.pyright
-	  nodePackages.bash-language-server
-	  # julia_17-bin # only for x86_64
-	  clojure
-	  clojure-lsp
-	  leiningen
-	  clang
-	  clang-tools
-	  octaveFull
-	  fzf
-	  ripgrep
-	  sumneko-lua-language-server
+    rPackages.ggplot2
+    rPackages.lintr
+    rPackages.styler
+    python39
+    python39Packages.sympy
+    python39Packages.seaborn
+    python39Packages.notebook
+    python39Packages.numpy
+    python39Packages.matplotlib
+    python39Packages.scikit-learn
+    python39Packages.pandas
+    python39Packages.scipy
+    python39Packages.gmpy2
+    python39Packages.pillow-simd
+    nodePackages.pyright
+    nodePackages.bash-language-server
+    # julia_17-bin # only for x86_64
+    clojure
+    clojure-lsp
+    leiningen
+    clang
+    clang-tools
+    octaveFull
+    fzf
+    ripgrep
+    sumneko-lua-language-server
   ];
   
   programs.bat.enable = true;
@@ -97,10 +97,10 @@
 	
 	  extraConfig = ''
 	    lua << EOF
-	    ${builtins.readFile /home/jason/.config/nvim/user/setup_plugins.lua}
-		  ${builtins.readFile /home/jason/.config/nvim/user/options.lua}
-		  ${builtins.readFile /home/jason/.config/nvim/user/keymaps.lua}
-		  ${builtins.readFile /home/jason/.config/nvim/user/lsp_setup.lua}
+	      ${builtins.readFile /home/jason/.config/nvim/user/setup_plugins.lua}
+              ${builtins.readFile /home/jason/.config/nvim/user/options.lua}
+	      ${builtins.readFile /home/jason/.config/nvim/user/keymaps.lua}
+	      ${builtins.readFile /home/jason/.config/nvim/user/lsp_setup.lua}
 	    EOF
 	    colorscheme codedark
 	  '';
