@@ -9,12 +9,13 @@
 let
   defaultUser = "jason";
   desc = "Jason Awuku";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
 in
 
 {
   imports = [
     ./hardware-configuration.nix
-    <home-manager/nixos>
+    (import "${home-manager}/nixos")
   ];
 
 # System-D Boot Loader - use for single-boot installations
