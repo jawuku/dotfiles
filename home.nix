@@ -34,8 +34,7 @@
     clojure-lsp
     leiningen
     clang
-    clangd
-    clang-format
+    clang-tools
     octaveFull
     fzf
     ripgrep
