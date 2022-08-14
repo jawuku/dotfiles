@@ -19,24 +19,24 @@ in
   ];
 
 # System-D Boot Loader - use for single-boot installations
-  boot.loader = {
-    grub.enable = false;
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
-    timeout = 7; # timeout in seconds
+#  boot.loader = {
+#    grub.enable = false;
+#    systemd-boot.enable = true;
+#    efi.canTouchEfiVariables = true;
+#    efi.efiSysMountPoint = "/boot/efi";
+#    timeout = 7; # timeout in seconds
     # limit max number of config generations
-    systemd-boot.configurationLimit = 10;
-  };
+#    systemd-boot.configurationLimit = 10;
+#  };
 
 # Use GRUB for dual-boot: (uncomment if needed)
-#  boot.loader.grub = {
-#    enable = true;
-#    devices = [ "nodev" ];
-#    efiInstallAsRemovable = true;
-#    efiSupport = true;
-#    useOSProber = true;
-#  };
+  boot.loader.grub = {
+    enable = true;
+    devices = [ "nodev" ];
+    efiInstallAsRemovable = true;
+    efiSupport = true;
+    useOSProber = true;
+  };
 
 # Extra modules e.g. AMD or Nvidia Graphics Drivers
 # boot.initrd.kernelModules = [ "amdgpu" ];
@@ -57,7 +57,7 @@ in
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "ter-v24b"; # Terminus Bold 24
-    useXkbConfig = "true"; # use xorg keymap settings below
+    useXkbConfig = true; # use xorg keymap settings below
   };
 
 # Location data
@@ -69,14 +69,14 @@ in
     longitude = -2.961425;
   };
 
-# Xorg options - load XFCE desktop environment, set keyboard layout
+# Xorg options - load LXQT desktop environment, set keyboard layout
   services.xserver = {
     enable = true;
     
     # Display Manager Options
-    displayManager.lightdm.enable = true;
-    displayManager.defaultSession = "xfce";
-    desktopManager.xfce.enable = true;
+    displayManager.sddm.enable = true;
+    displayManager.defaultSession = "kwin+lxqt";
+    desktopManager.lxqt.enable = true;
     desktopManager.xterm.enable = false;
     # windowManager.openbox.enable = true;
     
@@ -168,11 +168,10 @@ users.users.${defaultUser} = {
   shell = pkgs.zsh; # set zsh as default shell
 };
 
-# Add home-manager.users block after user definition
-home-manager.users.${defaultUser} = { imports = [ /etc/nixos/home.nix ]; };
-  
+# Add home-manager block after user definition
 home-manager = {
-  useGlobalPkgs = true;
+  users.${defaultUser} = { imports = [ /etc/nixos/home.nix ]; };
+  useGlobalPkgs   = true;
   useUserPackages = true;
 };
 
@@ -187,12 +186,13 @@ environment.systemPackages = with pkgs; [
     git
     subversion
     htop
-    pragha
-    mate.atril
+    notepadqq
     abiword
     qogir-icon-theme
+    numix-icon-theme-circle
     arc-theme
-    gnumeric
+    vim-configurable
+    libsForQt5.kwin
   ];
 
 # Check for updates daily
