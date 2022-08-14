@@ -88,7 +88,7 @@
       indent-blankline-nvim
       plenary-nvim
       telescope-nvim
-      telescope-fzy-native
+      telescope-fzf-native-nvim
       cmp_luasnip
       luasnip
       tender-vim
