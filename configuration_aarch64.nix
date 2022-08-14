@@ -65,8 +65,8 @@ in
     provider = "manual"; # set to "geoclue2" for automatic setting
 
   # Liverpool as an example of manual setting
-  latitude  = 53.430759;
-  longitude = -2.961425;
+    latitude  = 53.430759;
+    longitude = -2.961425;
   };
 
 # Xorg options - load XFCE desktop environment, set keyboard layout
@@ -78,12 +78,13 @@ in
     displayManager.defaultSession = "xfce";
     desktopManager.xfce.enable = true;
     desktopManager.xterm.enable = false;
-    # windowManager.jwm.enable = true;
+    # windowManager.openbox.enable = true;
     
     # Keyboard Layout Options
-    layout = "gb";
+    layout = "gb"; # UK keyboard
     xkbVariant = "mac"; # to set Mac keyboard
-    # libinput.enable = true; # enable touchpad support
+    # libinput.enable = true; # enable touchpad support in basic window managers
+    # desktop environments enable it by default
   };
 
 # GUI Fonts
@@ -104,6 +105,7 @@ in
   sound = {
     enable = true;
     # mediaKeys.enable = true; # only used in separate window managers
+    # enabled by default in desktop environments
   };
 
   hardware.pulseaudio = {
@@ -137,11 +139,25 @@ environment.pathsToLink = [ "/share/zsh" ];
 # Picom compositor
   services.picom = {
     enable = true;
-    fade = true;
+    fade   = true;
     inactiveOpacity = 0.9;
     shadow = true;
     fadeDelta = 4;
   };
+
+# Redshift colour temperature according to location (sunrise/sunset)
+services.redshift = {
+  enable = true;
+  brightness = {
+    # Note the string values below.
+    day   = "1";
+    night = "1";
+  };
+  temperature = {
+    day   = 6000;
+    night = 3500;
+  };
+};
 
 # Define a user - change password after 1st reboot
 users.users.${defaultUser} = {
@@ -190,7 +206,7 @@ nix = {
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-  };
+};
 
 # Save backup of configuration - useful if original accidentally deleted
 system.copySystemConfiguration = true;
