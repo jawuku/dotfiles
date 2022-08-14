@@ -54,15 +54,15 @@
       cat = "bat";
       ls  = "exa";
       ll  = "exa -la --icons";
-      lt = "exa --tree";
+      lt  = "exa --tree";
       update  = "sudo nix-channel update";
       upgrade = "sudo nixos-rebuild switch";
     };
     
     sessionVariables = {
       EDITOR = "nano";
-      TERM = "kitty";
-      PAGER = "most";
+      TERM   = "kitty";
+      PAGER  = "most";
     };
   };
   
@@ -70,7 +70,7 @@
     enable = true;
     vimAlias = false;
     withPython3 = true;
-    withNodeJs = true;
+    withNodeJs  = true;
     
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
@@ -99,6 +99,7 @@
 	
       extraConfig = ''
 	lua << EOF
+	-- download following 4 files from https://github.com/
 	${builtins.readFile /home/jason/.config/nvim/user/setup_plugins.lua}
         ${builtins.readFile /home/jason/.config/nvim/user/options.lua}
 	${builtins.readFile /home/jason/.config/nvim/user/keymaps.lua}
