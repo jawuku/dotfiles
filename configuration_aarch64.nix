@@ -169,7 +169,7 @@ users.users.${defaultUser} = {
 };
 
 # Add home-manager.users block after user definition
-home-manager.users.${defaultuser} = { imports = [ /etc/nixos/home.nix ]; };
+home-manager.users.${defaultUser} = { imports = [ /etc/nixos/home.nix ]; };
   
 home-manager = {
   useGlobalPkgs = true;
