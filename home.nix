@@ -6,11 +6,10 @@
     bat
     exa
     neofetch
-    kitty
     htop
     most
-    neovim
     tree-sitter
+    R
     rPackages.languageserver
     rPackages.tidyverse
     rPackages.devtools
@@ -18,25 +17,25 @@
     rPackages.ggplot2
     rPackages.lintr
     rPackages.styler
-    python39
-    python39Packages.sympy
-    python39Packages.seaborn
-    python39Packages.notebook
-    python39Packages.numpy
-    python39Packages.matplotlib
-    python39Packages.scikit-learn
-    python39Packages.pandas
-    python39Packages.scipy
-    python39Packages.gmpy2
-    python39Packages.pillow-simd
+   # python310Packages.sympy
+   # python310Packages.seaborn
+   # python310Packages.notebook
+   # python310Packages.numpy
+   # python310Packages.matplotlib
+   # python310Packages.scikit-learn
+   # python310Packages.pandas
+   # python310Packages.scipy
+   # python310Packages.gmpy2
+   # python310Packages.pillow-simd
     nodePackages.pyright
     nodePackages.bash-language-server
-    # julia_17-bin # only for x86_64
+    julia_17-bin # only for x86_64
     clojure
     clojure-lsp
     leiningen
     clang
-    clang-tools
+    clangd
+    clang-format
     octaveFull
     fzf
     ripgrep
@@ -67,8 +66,9 @@
   };
   
   programs.neovim = {
-    enable = true;
-    vimAlias = false;
+    package = pkgs.neovim-unwrapped;
+    enable =      true;
+    vimAlias   = false;
     withPython3 = true;
     withNodeJs  = true;
     
@@ -98,13 +98,17 @@
     ];
 	
       extraConfig = ''
-	lua << EOF
-	-- download following 4 files from https://github.com/
-	${builtins.readFile /home/jason/.config/nvim/user/setup_plugins.lua}
-        ${builtins.readFile /home/jason/.config/nvim/user/options.lua}
-	${builtins.readFile /home/jason/.config/nvim/user/keymaps.lua}
-	${builtins.readFile /home/jason/.config/nvim/user/lsp_setup.lua}
-	EOF
+	" download following 4 files from https://github.com/
+        " cd /etc/nixos/
+        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/setup_plugins.lua
+        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/options.lua
+        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/keymaps.lua
+        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/lsp_cmp_setup.lua
+        
+	luafile ${./setup_plugins.lua}
+        luafile ${./options.lua}
+	luafile ${./keymaps.lua}
+	luafile ${./lsp_cmp_setup.lua}
 	colorscheme codedark
 	'';
   };
