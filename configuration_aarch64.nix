@@ -191,7 +191,7 @@ environment.systemPackages = with pkgs; [
     qogir-icon-theme
     numix-icon-theme-circle
     arc-theme
-    vim-configurable
+    vim_configurable
     libsForQt5.kwin
   ];
 
