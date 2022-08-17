@@ -2,7 +2,7 @@
 
 picom &
 
-nitrogen --restore &
+feh --recursive --randomize --bg-fill $HOME/Pictures/wallpapers &
 
 lxpolkit &
 
