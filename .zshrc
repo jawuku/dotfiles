@@ -1,6 +1,6 @@
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTFILE=~/.zsh_history
+HISTSIZE=2000
+SAVEHIST=2000
 setopt notify
 unsetopt beep
 
@@ -23,7 +23,5 @@ PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %
 # install exa and bat from repositories
 alias ls="exa"
 alias ll="exa -la --icons"
+alias lt="exa --tree"
 alias cat="batcat"
-
-# copy and paste conda settings below from ~/.bashrc
-# and the same for nvm
