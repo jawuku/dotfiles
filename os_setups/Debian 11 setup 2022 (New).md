@@ -158,17 +158,13 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # aliases
 alias ls=exa
 alias ll='exa -la --icons'
+alias lt='exa --tree'
 alias cat=batcat
 
 # Colourful yet compact prompt
 PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
 ```
 #### Set zsh as the default login shell
-copy login shell for zsh
-```
-cp ~/.profile ~/.zprofile
-```
-change default shell to zsh
 ```
 chsh
 ```
@@ -179,7 +175,7 @@ logout and login again to your new zsh prompt!
 
 ### 08) Basic Xorg and Openbox
 ```
-sudo apt install xserver-xorg-core openbox fonts-dejavu fonts-roboto \
+sudo apt install xserver-xorg-core openbox fonts-dejavu fonts-noto \
 fonts-liberation desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
 
@@ -206,7 +202,7 @@ sudo apt -y install cuda
 #### Log in via the graphical screen, and open a terminal (xterm)
 #### install the packages of your choice, some suggestions listed below
 ```
-file manager : thunar or pcmanfm
+file manager : thunar thunar-archive-plugin thunar-gtkhash thunar-font-manager
 gui text editor : geany 
 terminal: kitty or sakura
 wallpapers: nitrogen
