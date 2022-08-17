@@ -88,7 +88,7 @@ in
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
+    efi.efiSysMountPoint = "/boot";
     timeout = 7; # timeout in seconds
     # limit max number of config generations
     systemd-boot.configurationLimit = 10;
