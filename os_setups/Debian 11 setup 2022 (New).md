@@ -236,6 +236,12 @@ sudo apt install thunar geany nitrogen engrampa lxpolkit pavucontrol pnmixer \
 midori transmission-gtk redshift-gtk atril parole picom rofi tint2 \
 gsimplecal xfce4-notifyd libnotify-bin gpicview xfburn htop
 ```
+### 10a) Download assorted wallpapers
+#### thanks to Eznix, MyDebOS, EnsoOS
+```
+cd ~/Pictures
+svn checkout https://github.com/jawuku/dotfiles/trunk/wallpapers
+```
 ### 11) Fira Code Nerd Font (Optional)
 #### enhances Unicode icons, useful in exa and neovim
 #### good with Kitty Terminal Emulator
