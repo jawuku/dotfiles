@@ -205,8 +205,8 @@ sudo apt -y install cuda
 file manager : thunar thunar-archive-plugin thunar-gtkhash thunar-font-manager
 gui text editor : geany 
 terminal: kitty or sakura
-wallpapers: nitrogen
-archiver: xarchiver (or peazip from website)
+wallpapers: feh or nitrogen
+archiver: xarchiver (or peazip from website https://sourceforge.net/projects/peazip/files/)
 task manager: htop (or install glances - [guide](https://www.linuxcapable.com/how-to-install-glances-system-monitor-on-debian-11/)
 policykit: lxpolkit
 volume: pavucontrol (along with pnmixer)
@@ -232,7 +232,7 @@ picture viewer : gpicview or viewnior
 ```
 #### for example
 ```
-sudo apt install thunar geany nitrogen engrampa lxpolkit pavucontrol pnmixer \
+sudo apt install thunar geany feh engrampa lxpolkit pavucontrol pnmixer \
 midori transmission-gtk redshift-gtk atril parole picom rofi tint2 \
 gsimplecal xfce4-notifyd libnotify-bin gpicview xfburn htop
 ```
@@ -268,6 +268,7 @@ fc-cache -fv
 #### This uses GPU acceleration and nerd fonts with ligatures work well
 Download my config files:
 ```
+cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
 ```
 To Install - rerun this line to install updates
@@ -294,7 +295,7 @@ chmod +x openbox/autostart
 
 picom &
 
-nitrogen --restore &
+feh --recursive --randomize --bg-fill $HOME/Pictures/wallpapers &
 
 lxpolkit &
 
