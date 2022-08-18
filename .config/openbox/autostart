@@ -1,5 +1,6 @@
 # Openbox programs to be loaded from the start
 
+# xrandr -s 1920x1080 # for VMs only, uncomment to use in them
 picom &
 
 feh --recursive --randomize --bg-fill $HOME/Pictures/wallpapers &
