@@ -54,7 +54,7 @@ sudo apt install -y picom rofi tint2 xfce4-notifyd libnotify-bin \
 gsimplecal light-locker viewnior lxpolkit redshift-gtk
 
 # office
-sudo apt install -y atril
+sudo apt install -y atril geany geany-plugins
 
 # install glances, a system monitor like htop, written in Python
 # https://www.linuxcapable.com/how-to-install-glances-system-monitor-on-debian-11/
