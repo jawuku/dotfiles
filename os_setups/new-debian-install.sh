@@ -10,7 +10,7 @@ sudo apt update && sudo apt upgrade
 
 # basic utilities
 sudo apt install -y build-essential git subversion p7zip-full unzip zip curl \
-bat exa linux-headers-amd64 bsdmainutils \
+bat exa linux-headers-amd64 bsdmainutils most \
 zsh zsh-autosuggestions zsh-syntax-highlighting
 
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.zshrc
