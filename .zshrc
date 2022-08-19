@@ -25,3 +25,6 @@ alias ls="exa"
 alias ll="exa -la --icons"
 alias lt="exa --tree"
 alias cat="batcat"
+
+# extra environment variables
+export PAGER="most"
