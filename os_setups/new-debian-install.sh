@@ -9,7 +9,7 @@ cd $HOME
 sudo apt update && sudo apt upgrade
 
 # basic utilities
-sudo apt -y install build-essential git subversion p7zip-full unzip zip curl \
+sudo apt install -y build-essential git subversion p7zip-full unzip zip curl \
 bat exa linux-headers-amd64 bsdmainutils \
 zsh zsh-autosuggestions zsh-syntax-highlighting
 
@@ -17,7 +17,8 @@ wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.zshrc
 
 sed -i "s/yourname/$USER/g" $HOME/.zshrc
 
-chsh -s /usr/bin/zsh
+# set zsh as default shell for user
+sudo chsh -s $(which zsh) $USER
 
 # Basic Xorg
 sudo apt install -y xserver-xorg-core openbox fonts-dejavu \ 
