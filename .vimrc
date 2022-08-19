@@ -46,6 +46,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 "Asynchronous Linting Engine (ALE)
 Plug 'dense-analysis/ale'
+Plug 'rhysd/vim-lsp-ale'
 
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -69,7 +70,7 @@ call plug#end()
 " ====================
 
 " Set Julia path
-let g:lsp_julia_path = '$HOME/bin/julia'
+let g:lsp_julia_path = '/usr/local/bin/julia'
 
 " use modern Vim settings instead of vi
 set nocompatible
