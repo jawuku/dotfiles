@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## Debian Openbox Script
 ## do after fresh netinstall of Debian 11 with firmware
