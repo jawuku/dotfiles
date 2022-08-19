@@ -20,6 +20,7 @@ local myoptions = {
   shiftwidth = 4,            -- Size of an indent
   smartindent = true,        -- Insert indents automatically
   tabstop = 4,               -- Number of spaces tabs count for
+  softtabstop = 4,
   autochdir = true,          -- automatically change directory
   clipboard = 'unnamed,unnamedplus', -- clipboard integrates with desktop
   cmdheight = 2,             -- allows displaying of error messages below 
