@@ -1,15 +1,17 @@
 
 { config, pkgs, ... }:
 {
+imports = [ neovim.nix ];
 
   home.packages = with pkgs; [
     bat
     exa
-    neofetch
-    htop
+    screenfetch
+    glances
     most
     tree-sitter
     R
+    rstudio
     rPackages.languageserver
     rPackages.tidyverse
     rPackages.devtools
@@ -17,24 +19,24 @@
     rPackages.ggplot2
     rPackages.lintr
     rPackages.styler
-   # python310Packages.sympy
-   # python310Packages.seaborn
-   # python310Packages.notebook
-   # python310Packages.numpy
-   # python310Packages.matplotlib
-   # python310Packages.scikit-learn
-   # python310Packages.pandas
-   # python310Packages.scipy
-   # python310Packages.gmpy2
-   # python310Packages.pillow-simd
+   # python39Packages.sympy
+   # python39Packages.seaborn
+   # python39Packages.notebook
+   # python39Packages.numpy
+   # python39Packages.matplotlib
+   # python39Packages.scikit-learn
+   # python39Packages.pandas
+   # python39Packages.scipy
+   # python39Packages.gmpy2
+   # python39Packages.pillow-simd
+    nodejs
     nodePackages.pyright
     nodePackages.bash-language-server
+    nodePackages.vim-language-server
     # julia_17-bin # only for x86_64
     clojure
     clojure-lsp
     leiningen
-    clang
-    clang-tools
     octaveFull
     fzf
     ripgrep
@@ -64,54 +66,6 @@
     };
   };
   
-  programs.neovim = {
-    package = pkgs.neovim-unwrapped;
-    enable =      true;
-    vimAlias   = false;
-    withPython3 = true;
-    withNodeJs  = true;
-    
-    plugins = with pkgs.vimPlugins; [
-      nvim-lspconfig
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-      nvim-cmp
-      nvim-web-devicons
-      lualine-nvim
-      bufferline-nvim
-      comment-nvim
-      nvim-treesitter
-      nvim-ts-rainbow
-      indent-blankline-nvim
-      plenary-nvim
-      telescope-nvim
-      telescope-fzf-native-nvim
-      cmp_luasnip
-      luasnip
-      tender-vim
-      NeoSolarized
-      nvim-autopairs
-      vim-code-dark
-    ];
-	
-      extraConfig = ''
-	" download following 4 files from https://github.com/
-        " cd /etc/nixos/
-        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/setup_plugins.lua
-        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/options.lua
-        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/keymaps.lua
-        " wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.config/nvim/lua/user/lsp_cmp_setup.lua
-        
-	luafile ${./setup_plugins.lua}
-        luafile ${./options.lua}
-	luafile ${./keymaps.lua}
-	luafile ${./lsp_cmp_setup.lua}
-	colorscheme codedark
-	'';
-  };
-  
   programs.kitty = {
     enable = true;
     settings = {
@@ -125,7 +79,7 @@
       scrollback_lines = 10000;
       enable_audio_bell = false;
       remember_window_size = true;
-      initial_window_width = "80c";
+      initial_window_width  = "80c";
       initial_window_height = "25c";
     };
   };
