@@ -1,7 +1,13 @@
+# Nixos neovim configuration in Home Manager
+# Adapted from Srid's Neovim config
+# https://github.com/srid/nixos-config/blob/master/home/neovim.nix
+
 { pkgs, inputs, system, ... }:
+
 let
   lunarvim-darkplus = callPackage ./lunarvim-darkplus.nix { };
 in
+
 {
   imports = [
     telescope.nix
