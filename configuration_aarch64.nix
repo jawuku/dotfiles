@@ -19,31 +19,31 @@ in
   ];
 
 # System-D Boot Loader - use for single-boot installations
-#  boot.loader = {
-#    grub.enable = false;
-#    systemd-boot.enable = true;
-#    efi.canTouchEfiVariables = true;
-#    efi.efiSysMountPoint = "/boot/efi";
-#    timeout = 7; # timeout in seconds
+  boot.loader = {
+    grub.enable = false;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot/efi";
+    timeout = 7; # timeout in seconds
     # limit max number of config generations
-#    systemd-boot.configurationLimit = 10;
-#  };
+    systemd-boot.configurationLimit = 20;
+  };
 
 # Use GRUB for dual-boot: (uncomment if needed)
-  boot.loader.grub = {
-    enable = true;
-    devices = [ "nodev" ];
-    efiInstallAsRemovable = true;
-    efiSupport = true;
-    useOSProber = true;
-  };
+#  boot.loader.grub = {
+#    enable = true;
+#    devices = [ "nodev" ];
+#    efiInstallAsRemovable = true;
+#    efiSupport = true;
+#    useOSProber = true;
+#  };
 
 # Extra modules e.g. AMD or Nvidia Graphics Drivers
 # boot.initrd.kernelModules = [ "amdgpu" ];
 # or
 # boot.initrd.kernelModules = [ "nvidia" ];
   
-# Networking with Network Manager, enable firewall
+# Networking with Network Manager, enable firewall, set hostname
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -69,14 +69,14 @@ in
     longitude = -2.961425;
   };
 
-# Xorg options - load LXQT desktop environment, set keyboard layout
+# Xorg options - load XFCE desktop environment, set keyboard layout
   services.xserver = {
     enable = true;
     
     # Display Manager Options
-    displayManager.sddm.enable = true;
-    displayManager.defaultSession = "kwin+lxqt";
-    desktopManager.lxqt.enable = true;
+    displayManager.lightdm.enable = true;
+    displayManager.defaultSession = "xfce";
+    desktopManager.xfce.enable = true;
     desktopManager.xterm.enable = false;
     # windowManager.openbox.enable = true;
     
@@ -89,7 +89,7 @@ in
 
 # GUI Fonts
   fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
     noto-fonts
     noto-fonts-extra
     noto-fonts-cjk-sans
@@ -128,12 +128,13 @@ in
   
   services.blueman.enable = true;
 
-# Enable zsh autocompletion paths
+# initial zsh setup
   programs.zsh = {
     enable = true;
     promptInit = "PS1='%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b'";
   };
   
+# Enable zsh autocompletion paths  
 environment.pathsToLink = [ "/share/zsh" ];
 
 # Picom compositor
@@ -184,15 +185,20 @@ environment.systemPackages = with pkgs; [
     curl
     firefox-esr
     git
+    unzip
+    p7zip
+    unrar
     subversion
     htop
-    notepadqq
+    mate.atril
     abiword
-    qogir-icon-theme
-    numix-icon-theme-circle
+    tela-icon-theme
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xfce.thunar-media-tags-plugin
     arc-theme
-    vim_configurable
-    libsForQt5.kwin
+    neovim
+    xclip
   ];
 
 # Check for updates daily
@@ -204,7 +210,7 @@ nix = {
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 14d";
     };
 };
 
