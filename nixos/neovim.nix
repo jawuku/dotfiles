@@ -10,7 +10,7 @@ in
 
 {
   imports = [
-    telescope.nix
+    ./telescope.nix
   ];
   
   programs.neovim = {
