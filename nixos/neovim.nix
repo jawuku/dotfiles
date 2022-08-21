@@ -1,6 +1,6 @@
 { pkgs, inputs, system, ... }:
 let
-  let darkplus = callPackage ./lunarvim-darkplus.nix { };
+  lunarvim-darkplus = callPackage ./lunarvim-darkplus.nix { };
 in
 {
   imports = [
@@ -40,7 +40,7 @@ in
       # Preferred themes
       tender-vim
       gruvbox-nvim
-      darkplus # custom plugin from LunarVim/darkplus.nvim from github
+      lunarvim-darkplus # custom plugin from LunarVim/darkplus.nvim from github
       # status bar
       {
         plugin = lualine-nvim;
