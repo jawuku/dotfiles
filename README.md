@@ -16,14 +16,14 @@ chmod +x new-debian-install.sh
 #### Screenshots - Standard Debian 11 login manager theme (slick-greeter)
 ![Login Screen](slick-greeter.png "Debian default login screen")
 #### Sample Desktop (note wallpaper cycles randomly each login)
-* GTK theme is Layan Dark
+![Desktop Screenshot](example-desktop.png "Gorgeous Green Desktop")
+* GTK theme is Arc Dark
 * Icon theme Tela Green Dark
 * Window Decoration theme is Nightmare-03
 * Menu is standard jgmenu
-![Desktop](https://github.com/jawuku/dotfiles/blob/master/example-screen.png?raw=true "Screenshot")
+* Terminal is kitty running htop with the Fira Code Nerd Font
 ### 2) Configuration files for NixOS XFCE
 ### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
-![Desktop Screenshot](example-desktop.png "Gorgeous Green Desktop")
 #### Choose to install a plain NixOS system (without desktop environment)
 #### add following packages to /etc/nixos/configuration.nix when installing
 ```
