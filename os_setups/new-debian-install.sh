@@ -5,7 +5,9 @@
 
 # define messaging function, waits for 3 seconds before proceeding
 message () {
-    echo $1
+    echo
+    echo "--~== $1 ==~--"
+    echo
     sleep 3
 }
 
@@ -87,6 +89,7 @@ for feature in $fonts; do
     unzip -j FiraCode.zip "Fira Code $feature Nerd Font Complete.otf" -d $HOME/.local/share/fonts
 done
 
+# more manual way of doing the same thing
 # unzip -j FiraCode.zip "Fira Code Bold Nerd Font Complete.otf" -d $HOME/.local/share/fonts
 # unzip -j FiraCode.zip "Fira Code Medium Nerd Font Complete.otf" -d $HOME/.local/share/fonts
 # unzip -j FiraCode.zip "Fira Code Retina Nerd Font Complete.otf" -d $HOME/.local/share/fonts
