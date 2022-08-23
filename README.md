@@ -22,6 +22,7 @@ chmod +x new-debian-install.sh
 * Window Decoration theme is Nightmare-03
 * Menu is standard jgmenu
 * Terminal is kitty running htop with the Fira Code Nerd Font
+* Wallpaper is ~/Pictures/wallpapers/EznixOS/waterfall_lake.jpg
 ### 2) Configuration files for NixOS XFCE
 ### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
 #### Choose to install a plain NixOS system (without desktop environment)
