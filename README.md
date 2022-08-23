@@ -1,7 +1,29 @@
 ## dotfiles - subject to regular change
-### 1) Configuration files for NixOS XFCE
-### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
+### 1) Debian 11 (Stable) Automated Install Script
+#### Installs basic Openbox system, minus languages and tools
+#### May install them with the Nix package manager in future
 
+#### Designed for Virtual Machines e.g. Virtualbox on x86_64
+#### Install fresh Debian 11 Netinstall
+#### with standard system utils only (no desktop environment)
+![Debian Tasksel](tasksel.png "Select only 'standard system utilities'")
+#### Login as normal user, use sudo password as requested
+```sh
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/os_setups/new-debian-install.sh
+chmod +x new-debian-install.sh
+./new-debian-install.sh
+```
+#### Screenshots - Standard Debian 11 login manager theme (slick-greeter)
+![Login Screen](slick-greeter.png "Debian default login screen")
+#### Sample Desktop (note wallpaper cycles randomly each login)
+* GTK theme is Layan Dark
+* Icon theme Tela Green Dark
+* Window Decoration theme is Nightmare-03
+* Menu is standard jgmenu
+
+### 2) Configuration files for NixOS XFCE
+### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
+![Example screen](example-desktop.png "Nice example screen")
 #### Choose to install a plain NixOS system (without desktop environment)
 #### add following packages to /etc/nixos/configuration.nix when installing
 ```
@@ -43,8 +65,9 @@ sudo reboot
 * julia
 * octave
 * nodejs
-### 2) Setup various operating systems in os_setups/
-* Debian 11 with Openbox
+
+### 3) Setup various operating systems in os_setups/
+* Debian 11 with Openbox (see above)
 * macOS M1 Development Setup
 * NixOS (out of date setup - see above instead)
 * Debian 10 (Old Setup)
