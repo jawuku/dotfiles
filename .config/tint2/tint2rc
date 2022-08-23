@@ -161,12 +161,12 @@ launcher_icon_theme = Moka
 launcher_icon_theme_override = 0
 startup_notifications = 1
 launcher_tooltip = 1
-launcher_item_app = $HOME/.local/share/applications/kitty.desktop
 launcher_item_app = /usr/share/applications/thunar.desktop
 launcher_item_app = /usr/share/applications/firefox-esr.desktop
 #launcher_item_app = /usr/share/applications/vivaldi-stable.desktop
 launcher_item_app = /usr/share/applications/geany.desktop
-launcher_item_app = /usr/share/applications/parole.desktop
+launcher_item_app = /usr/share/applications/org.xfce.Parole.desktop
+launcher_item_app = $HOME/.local/share/applications/kitty.desktop
 
 #-------------------------------------
 # Clock
