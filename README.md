@@ -20,10 +20,10 @@ chmod +x new-debian-install.sh
 * Icon theme Tela Green Dark
 * Window Decoration theme is Nightmare-03
 * Menu is standard jgmenu
-
+![Desktop](https://github.com/jawuku/dotfiles/blob/master/example-screen.png?raw=true "Screenshot")
 ### 2) Configuration files for NixOS XFCE
 ### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
-![Example screen](example-desktop.png "Nice example screen")
+![Desktop Screenshot](example-desktop.png "Gorgeous Green Desktop")
 #### Choose to install a plain NixOS system (without desktop environment)
 #### add following packages to /etc/nixos/configuration.nix when installing
 ```
