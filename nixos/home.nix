@@ -12,38 +12,6 @@ imports = [ ./neovim.nix ];
     screenfetch
     glances
     most
-    tree-sitter
-    R
-    rstudio
-    rPackages.languageserver
-    rPackages.tidyverse
-    rPackages.devtools
-    rPackages.IRkernel
-    rPackages.ggplot2
-    rPackages.lintr
-    rPackages.styler
-   # python39Packages.sympy
-   # python39Packages.seaborn
-   # python39Packages.notebook
-   # python39Packages.numpy
-   # python39Packages.matplotlib
-   # python39Packages.scikit-learn
-   # python39Packages.pandas
-   # python39Packages.scipy
-   # python39Packages.gmpy2
-   # python39Packages.pillow-simd
-    nodejs
-    nodePackages.pyright
-    nodePackages.bash-language-server
-    nodePackages.vim-language-server
-    # julia_17-bin # only for x86_64
-    clojure
-    clojure-lsp
-    leiningen
-    octaveFull
-    fzf
-    ripgrep
-    sumneko-lua-language-server
   ];
   
   programs.bat.enable = true;
@@ -64,8 +32,9 @@ imports = [ ./neovim.nix ];
     
     sessionVariables = {
       EDITOR = "nano";
-      TERM   = "kitty";
-      PAGER  = "most";
+      TERMINAL = "kitty";
+      PAGER = "most";
+      BAT_THEME = "Visual Studio Dark+";
     };
   };
   
