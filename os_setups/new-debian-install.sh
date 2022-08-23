@@ -29,7 +29,7 @@ sed -i "s/yourname/$USER/g" $HOME/.zshrc
 message "Setting zsh as the default user shell"
 sudo chsh -s $(which zsh) $USER
 
-message"Installing Basic Xorg environment"
+message "Installing Basic Xorg environment"
 sudo apt install -y xserver-xorg-core openbox fonts-dejavu \ 
 fonts-noto desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
