@@ -61,7 +61,7 @@ sudo apt install -y parole
 
 # openbox utils
 sudo apt install -y picom rofi tint2 xfce4-notifyd libnotify-bin \
-gsimplecal light-locker viewnior lxpolkit redshift-gtk
+gsimplecal light-locker viewnior lxpolkit redshift-gtk arc-theme
 
 # office
 sudo apt install -y atril geany geany-plugins
@@ -72,6 +72,16 @@ sudo apt install -y atril geany geany-plugins
 #python3-setuptools hddtemp python3-pip lm-sensors
 
 #sudo pip3 install glances
+
+echo "Installing Pywal Themer"
+message "Pywal sets terminal theme from wallpaper colours"
+sudo apt install python3-pip python3-wheel python3-dev
+sudo apt install imagemagick 
+pip3 install --user pywal
+
+# Walbox uses Pywal to set Openbox theme
+cd $HOME/github
+git clone https://github.com/edisile/walbox.git
 
 message "Downloading wallpapers"
 cd $HOME/Pictures
@@ -141,9 +151,7 @@ cd jgmenu
 
 dpkg-buildpackage -tc -b -us -uc
 
-cd $HOME/github/jgmenu
-
-sudo dpkg -i jgmenu_4.4.0-1_amd64.deb
+sudo dpkg -i $HOME/github/jgmenu/jgmenu_4.4.0-1_amd64.deb
 
 message "Installing Qogir Icon Theme"
 cd $HOME/github
@@ -184,4 +192,7 @@ echo "Reboot into new system with systemctl reboot"
 echo "Login, and add Layan-kde to kvantummanger"
 echo "May install Nix package manager"
 echo "for a Neovim development environment in the future."
-echo "Other ideas - use pywal to set accent colour for jgmenu and window decoration"
+echo "Use Pywal to generate Openbox theme:"
+echo "cd ~/github/walbox"
+echo "./install.sh"
+echo "openbox --reconfigure"
