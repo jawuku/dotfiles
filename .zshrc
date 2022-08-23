@@ -7,6 +7,7 @@ unsetopt beep
 zstyle :compinstall filename '/home/yourname/.zshrc'
 # replace 'yourname' with your own username
 
+# autocompletion
 autoload -Uz compinit
 compinit
 
@@ -28,3 +29,6 @@ alias cat="batcat"
 
 # extra environment variables
 export PAGER="most"
+
+# add ~/.local/bin to PATH
+PATH="$PATH:~/local/bin"
