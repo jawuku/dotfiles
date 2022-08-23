@@ -1,5 +1,5 @@
 ## dotfiles
-### 1) Configuration files for NixOS
+### 1) Configuration files for NixOS XFCE
 ### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
 
 #### Choose to install a plain NixOS system (without desktop environment)
@@ -11,7 +11,7 @@ environment.systemPackages = with pkgs; [
 ];
 ```
 #### Reboot
-
+```sudo reboot```
 #### Make copy of configuration.nix
 #### (in case something goes wrong)
 ```sh
@@ -26,19 +26,33 @@ sudo reboot
 ```
 #### If everything goes well, welcome to NixOS with XFCE desktop
 #### with
-* configured neovim
+* configured neovim with language servers and tree-sitter
 * python
 * clojure
-* R
+* R with RStudio
 * julia
 * octave
-### 2) Setup various operating systems
+* nodejs
+### 2) Setup various operating systems in os_setups/
 * Debian 11 with Openbox
 * macOS M1 Development Setup
+* NixOS (out of date setup - see above instead)
 * Debian 10 (Old Setup)
 * OpenSuse Post-install (Old)
 * Debian 11 install script (Experimental - may not work)
 ### 3) Miscellaneous files
 * Old vim configurations
-* Collected wallpapers
+* Collected wallpapers from
+    * EznixOS https://sourceforge.net/projects/eznixos/files/Xfce
+        * (download tar file and extract backgrounds folder)
+    * EnsoOS https://github.com/nick92/Enso-OS/tree/master/wallpapers
+    * MyDebOS (no longer available) https://youtu.be/jpAfVOz6P4Q
+* Openbox configs in .config/ directory:
+    * Openbox menu config
+    * rofi
+    * tint2
+    * jgmenu
+    * kitty terminal emulator
+    * sakura terminal emulator
+* .config/nvim/* - *outdated - don't use*
 * other bits and bobs
