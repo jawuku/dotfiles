@@ -4,7 +4,11 @@
 
 { pkgs, inputs, system, ... }:
 
-# define new custom plugin
+# to get rev, define new custom plugin, clone repo and do 'git log'
+# for the latest revision (top entry)
+
+# to get sha256, put in a dummy argument,
+# and replace with the correct value specified in the error message
 let
   LunarVim-darkplus-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "LunarVim-darkplus-nvim";
@@ -12,8 +16,7 @@ let
       owner = "LunarVim";
       repo = "darkplus.nvim";
       rev = "49cfa2b2aaea0389436e6bc220a92c998249d10f";
-      sha256 = "1c2spdx4jvv7j52f37lxk64m3rx7003whjnra3y1c7m2d7ljs6rb";
-      # change sha256 to the value suggested by the error
+      sha256 = "sha256-HAVHEqq//SaQ3Eblfc3T00vM5ZrT3gFr5Up+v/CybBY=";
   };
 };
 in
@@ -26,13 +29,13 @@ in
   programs.neovim = {
     enable = true;
 
-    extraPackages = with pkgs; [
-      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
-    ];
+    # extraPackages = with pkgs; [];  
 
     plugins = with pkgs.vimPlugins; [
+      # install alltree-sitter grammars
+      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+
       # completion using language servers
-      
       nvim-lspconfig
       cmp-nvim-lsp
       cmp-buffer
@@ -49,12 +52,13 @@ in
       nvim-web-devicons
 
       # tree-sitter plugins
-      nvim-ts-rainbow
+      nvim-ts-rainbow # rainbow brackets [] {} ()
 
       # Preferred themes
       tender-vim
       gruvbox-nvim
       LunarVim-darkplus-nvim # custom plugin from LunarVim/darkplus.nvim from github
+      
       # status bar
       {
         plugin = lualine-nvim;
