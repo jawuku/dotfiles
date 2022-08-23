@@ -4,14 +4,16 @@
 
 { pkgs, inputs, system, ... }:
 
+# define new custom plugin
 let
   LunarVim-darkplus-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "LunarVim-darkplus-nvim";
-    owner = "LunarVim";
-    repo = "darkplus.nvim";
-    rev = "49cfa2b2aaea0389436e6bc220a92c998249d10f";
-    sha256 = "1c2spdx4jvv7j52f37lxk64m3rx7003whjnra3y1c7m2d7ljs6rb";
-    # change to the value suggested by the error
+    src = pkgs.fetchFromGitHub {
+      owner = "LunarVim";
+      repo = "darkplus.nvim";
+      rev = "49cfa2b2aaea0389436e6bc220a92c998249d10f";
+      sha256 = "1c2spdx4jvv7j52f37lxk64m3rx7003whjnra3y1c7m2d7ljs6rb";
+      # change sha256 to the value suggested by the error
   };
 };
 in
@@ -25,7 +27,7 @@ in
     enable = true;
 
     extraPackages = with pkgs; [
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
     ];
 
     plugins = with pkgs.vimPlugins; [
@@ -116,9 +118,9 @@ in
     # plugins list above.
     extraConfig = ''
       lua << EOF
-      ${builtins.readFile ./neovim/options.lua}
-      ${builtins.readFile ./neovim/treesitter.lua}
-      ${builtins.readFile ./neovim/lsp.lua}
+      ${builtins.readFile ./options.lua}
+      ${builtins.readFile ./treesitter.lua}
+      ${builtins.readFile ./lsp.lua}
       EOF
       colorscheme darkplus
     '';
