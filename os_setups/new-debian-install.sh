@@ -1,26 +1,33 @@
 #!/bin/bash
-
 ## Debian Openbox Script
 ## do after fresh netinstall of Debian 11 with firmware
 ## run as normal user - will prompt for sudo password
 
+# define messaging function, waits for 3 seconds before proceeding
+message () {
+    echo $1
+    sleep 3
+}
+
 cd $HOME
-# update packages
+
+message "Updating packages"
 sudo apt update && sudo apt upgrade
 
-# basic utilities
+message "Install basic utilities"
 sudo apt install -y build-essential git subversion p7zip-full unzip zip curl \
-bat exa linux-headers-amd64 bsdmainutils most \
+bat exa linux-headers-amd64 bsdmainutils most htop \
 zsh zsh-autosuggestions zsh-syntax-highlighting
 
+# change .zshrc to own username automatically
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.zshrc
 
 sed -i "s/yourname/$USER/g" $HOME/.zshrc
 
-# set zsh as default shell for user
+message "Setting zsh as the default user shell"
 sudo chsh -s $(which zsh) $USER
 
-# Basic Xorg
+message"Installing Basic Xorg environment"
 sudo apt install -y xserver-xorg-core openbox fonts-dejavu \ 
 fonts-noto desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
@@ -28,7 +35,7 @@ lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
 # home directory default folders e.g. Downloads, Documents etc.
 xdg-user-dirs-update
 
-## GUI software
+message "Installing GUI software"
 
 # file manager
 sudo apt install -y thunar thunar-archive-plugin thunar-gtkhash \
@@ -59,20 +66,20 @@ sudo apt install -y atril geany geany-plugins
 
 # install glances, a system monitor like htop, written in Python
 # https://www.linuxcapable.com/how-to-install-glances-system-monitor-on-debian-11/
-sudo apt install -y python3-dev python3-jinja2 python3-psutil \
-python3-setuptools hddtemp python3-pip lm-sensors
+#sudo apt install -y python3-dev python3-jinja2 python3-psutil \
+#python3-setuptools hddtemp python3-pip lm-sensors
 
-sudo pip3 install glances
+#sudo pip3 install glances
 
-# download wallpapers
+message "Downloading wallpapers"
 cd $HOME/Pictures
 svn checkout https://github.com/jawuku/dotfiles/trunk/wallpapers
 
-# install Fira Code Nerd font
+message "Install Fira Code Nerd font"
 cd $HOME/Downloads
 
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
-# mkdir -p $HOME/.local/share/fonts
+mkdir -p $HOME/.local/share/fonts
 
 # extract each font
 fonts="Bold Light Medium Regular Retina"
@@ -88,7 +95,8 @@ done
 
 fc-cache -fv
 
-# Kitty Terminal Emulator
+message "Instaling Kitty Terminal Emulator"
+mkdir -p $HOME/.config
 cd $HOME/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
 
@@ -100,19 +108,19 @@ cp $HOME/.local/kitty.app/share/applications/kitty-open.desktop $HOME/.local/sha
 sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" $HOME/.local/share/applications/kitty*.desktop
 sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" $HOME/.local/share/applications/kitty*.desktop
 
-# Openbox config
+message "Openbox configuration"
 cd $HOME/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/openbox
 
 chmod +x openbox/autostart
 
-# tint2 panel config
+message "Tint2 panel config"
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/tint2
 
-# Rofi
+message "Rofi program launcher"
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/rofi
 
-# build jgmenu
+message "Build jgmenu dynamic desktop menu"
 mkdir $HOME/github
 cd $HOME/github
 
@@ -128,29 +136,30 @@ cd jgmenu
 
 dpkg-buildpackage -tc -b -us -uc
 
-cd ..
+cd $HOME/github/jgmenu
+
 sudo dpkg -i jgmenu_4.4.0-i_amd64.deb
 
-
-# Qogir Icon Theme
+message "Installing Qogir Icon Theme"
 cd $HOME/github
 
 git clone https://github.com/vinceliuice/Qogir-icon-theme.git
 
-cd Qogir-icon-theme
+cd $HOME/github/Qogir-icon-theme
 
 ./install.sh # installs into $HOME/.local/share/icons
 
-# Tela Icon Theme
-cd ..
+message "Installing Tela Icon Theme"
+cd $HOME/github
 
 git clone https://github.com/vinceliuice/Tela-icon-theme.git
 cd Tela-icon-theme
 ./install.sh -a # option installs all colour variations
 
-# Layan kvantum theme
+message "Installing Layan kvantum theme"
 sudo apt install -y qt5-style-kvantum
-cd ..
+
+cd $HOME/github
 
 git clone https://github.com/vinceliuice/Layan-kde.git
 cd Layan-kde
@@ -158,13 +167,14 @@ cd Layan-kde
 ./install.sh
 
 # Layan GTK Theme
-cd ..
+cd $HOME/github
 
 sudo apt install -y gtk2-engines-murrine gtk2-engines-pixbuf
 git clone https://github.com/vinceliuice/Layan-gtk-theme.git
 cd Layan-gtk-theme
 ./install.sh
 
+message ""
 echo "Reboot into new system with systemctl reboot"
 echo "Login, and add Layan-kde to kvantummanger"
 echo "May install Nix package manager"
