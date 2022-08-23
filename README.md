@@ -1,4 +1,4 @@
-## dotfiles
+## dotfiles - subject to regular change
 ### 1) Configuration files for NixOS XFCE
 ### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
 
@@ -50,19 +50,23 @@ sudo reboot
 * Debian 10 (Old Setup)
 * OpenSuse Post-install (Old)
 * Debian 11 install script (Experimental - may not work)
-### 3) Miscellaneous files
+### 3) In wallpapers/ directory
+Collected wallapers from
+* EznixOS https://sourceforge.net/projects/eznixos/files/Xfce
+    * (download tar file and extract backgrounds folder)
+* EnsoOS https://github.com/nick92/Enso-OS/tree/master/wallpapers
+* MyDebOS (no longer available) https://youtu.be/jpAfVOz6P4Q
+### 4) Openbox configs in .config/ directory
+* Openbox menu config
+* rofi program launcher
+* tint2 panel
+* jgmenu dynamic menu
+* kitty terminal emulator
+* sakura terminal emulator
+### 5) Miscellaneous config files
+* .Xresources
 * Old vim configurations
-* Collected wallpapers from
-    * EznixOS https://sourceforge.net/projects/eznixos/files/Xfce
-        * (download tar file and extract backgrounds folder)
-    * EnsoOS https://github.com/nick92/Enso-OS/tree/master/wallpapers
-    * MyDebOS (no longer available) https://youtu.be/jpAfVOz6P4Q
-* Openbox configs in .config/ directory:
-    * Openbox menu config
-    * rofi
-    * tint2
-    * jgmenu
-    * kitty terminal emulator
-    * sakura terminal emulator
+* .zshrc
+        
 * .config/nvim/* - *outdated - don't use*
-* other bits and bobs
+
