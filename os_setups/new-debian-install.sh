@@ -97,6 +97,7 @@ fc-cache -fv
 
 message "Instaling Kitty Terminal Emulator"
 mkdir -p $HOME/.config
+mkdir -p $HOME/.local/share/applications
 cd $HOME/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
 
