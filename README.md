@@ -21,6 +21,16 @@ sudo mv nixos/configuration.nix nixos/config-original.nix
 #### Then download configuration from GitHub:
 ```sh
 sudo svn co https://github.com/jawuku/dotfiles/trunk/nixos
+```
+#### Change the variables *defaultUser* and *desc*
+#### in lines 9 and 10 in /etc/nixos/configuration.nix
+#### to your own name, e.g.
+```
+defaultUser = "jeanluc";
+desc = "Jean-Luc Picard";
+```
+#### and reboot
+```
 sudo nixos-rebuild switch
 sudo reboot
 ```
