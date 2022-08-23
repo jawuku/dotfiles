@@ -53,7 +53,6 @@ sources = cmp.config.sources({
   require('lspconfig')['bashls'].setup { capabilities = capabilities }
   require('lspconfig')['r_language_server'].setup { capabilities = capabilities }
   require('lspconfig')['vimls'].setup { capabilities = capabilities }
-  require('lspconfig')['bashls'].setup { capabilities = capabilities }
 
 -- Sumneko Lua language server setup 
 require'lspconfig'.sumneko_lua.setup {
