@@ -30,7 +30,7 @@ message "Setting zsh as the default user shell"
 sudo chsh -s $(which zsh) $USER
 
 message "Installing Basic Xorg environment"
-sudo apt install -y xserver-xorg-core openbox fonts-dejavu \ 
+sudo apt install -y xserver-xorg-core openbox fonts-dejavu \
 fonts-noto desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
 
@@ -142,7 +142,7 @@ dpkg-buildpackage -tc -b -us -uc
 
 cd $HOME/github/jgmenu
 
-sudo dpkg -i jgmenu_4.4.0-i_amd64.deb
+sudo dpkg -i jgmenu_4.4.0-1_amd64.deb
 
 message "Installing Qogir Icon Theme"
 cd $HOME/github
@@ -178,8 +178,9 @@ git clone https://github.com/vinceliuice/Layan-gtk-theme.git
 cd Layan-gtk-theme
 ./install.sh
 
-message ""
+message "Finished"
 echo "Reboot into new system with systemctl reboot"
 echo "Login, and add Layan-kde to kvantummanger"
 echo "May install Nix package manager"
 echo "for a Neovim development environment in the future."
+echo "Other ideas - use pywal to set accent colour for jgmenu and window decoration"
