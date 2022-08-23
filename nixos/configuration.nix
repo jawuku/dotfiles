@@ -7,8 +7,8 @@
 
 # set variable e.g. default username, home-manager download location
 let
-  defaultUser = "bookiboo";
-  desc = "Booki Boo";
+  defaultUser = "jason";
+  desc = "Jason Awuku";
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
 in
 
