@@ -31,4 +31,4 @@ alias cat="batcat"
 export PAGER="most"
 
 # add ~/.local/bin to PATH
-PATH="$PATH:~/.local/bin"
+PATH="$PATH:$HOME/.local/bin"
