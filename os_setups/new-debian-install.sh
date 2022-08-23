@@ -99,20 +99,21 @@ done
 fc-cache -fv
 
 message "Instaling Kitty Terminal Emulator"
-mkdir -p $HOME/.config
 mkdir -p $HOME/.local/share/applications
+mkdir -p $HOME/.local/bin
 cd $HOME/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
 
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
-sudo ln -s $HOME/.local/kitty.app/bin/kitty /usr/local/bin/kitty
+ln -s $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/
 cp $HOME/.local/kitty.app/share/applications/kitty.desktop $HOME/.local/share/applications/
 cp $HOME/.local/kitty.app/share/applications/kitty-open.desktop $HOME/.local/share/applications/
 sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" $HOME/.local/share/applications/kitty*.desktop
 sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" $HOME/.local/share/applications/kitty*.desktop
 
 message "Openbox configuration"
+mkdir -p $HOME/.config
 cd $HOME/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/openbox
 
