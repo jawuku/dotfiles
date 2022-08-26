@@ -30,8 +30,8 @@ message "Setting zsh as the default user shell"
 sudo chsh -s $(which zsh) $USER
 
 message "Installing Basic Xorg environment"
-sudo apt install -y xserver-xorg-core openbox fonts-dejavu \
-fonts-noto desktop-base openbox-menu xterm x11-xserver-utils \
+sudo apt install -y xserver-xorg-core openbox fonts-noto \
+desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
 
 # home directory default folders e.g. Downloads, Documents etc.
@@ -65,6 +65,9 @@ gsimplecal light-locker viewnior lxpolkit redshift-gtk arc-theme
 
 # office
 sudo apt install -y atril geany geany-plugins
+
+# screenshots
+sudo apt install -y kazam
 
 # install glances, a system monitor like htop, written in Python
 # https://www.linuxcapable.com/how-to-install-glances-system-monitor-on-debian-11/
@@ -136,6 +139,9 @@ message "Rofi program launcher"
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/rofi
 
 message "Build jgmenu dynamic desktop menu"
+cd ~/.config
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
+
 mkdir $HOME/github
 cd $HOME/github
 
@@ -169,23 +175,38 @@ git clone https://github.com/vinceliuice/Tela-icon-theme.git
 cd Tela-icon-theme
 ./install.sh -a # option installs all colour variations
 
-message "Installing Layan kvantum theme"
-sudo apt install -y qt5-style-kvantum
+echo "Installing nodejs"
+sudo apt install -y nodejs npm
 
+message "Installing Neovim from Christian Chiarulli's nvim-basic-ide"
+sudo apt install -y cmake libtool-bin xclip ripgrep
+sudo npm install -g pyright neovim bash-language-server
+pip3 install --user pynvim
+
+# compile source code
 cd $HOME/github
+git clone https://github.com/neovim/neovim.git
+cd neovim
+git checkout release-0.7
+make CMAKE_BUILD_TYPE=Release
+sudo make install
 
-git clone https://github.com/vinceliuice/Layan-kde.git
-cd Layan-kde
+# download config file to ~/.config/nvim
+git clone https://github.com/LunarVim/nvim-basic-ide.git ~/.config/nvim
 
-./install.sh
-
-# Layan GTK Theme
+message "Installing Lua Language Server"
+# from 
 cd $HOME/github
+git clone  --depth=1 https://github.com/sumneko/lua-language-server
+cd lua-language-server
+git submodule update --depth 1 --init --recursive
 
-sudo apt install -y gtk2-engines-murrine gtk2-engines-pixbuf
-git clone https://github.com/vinceliuice/Layan-gtk-theme.git
-cd Layan-gtk-theme
-./install.sh
+sudo apt install ninja
+
+cd 3rd/luamake
+./compile/install.sh
+cd ../..
+./3rd/luamake/luamake rebuild
 
 message "Finished"
 echo "Reboot into new system with systemctl reboot"
