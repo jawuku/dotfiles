@@ -1,0 +1,44 @@
+local wezterm = require("wezterm");
+
+return {
+  font = wezterm.font("Fira Code Nerd Font",
+    {
+    weight = "Retina",
+    italic = true,
+    harfbuzz_features = {"ss02", "ss03", "ss05", "cv16", "onum"}
+  },
+  
+  enable_scroll_bar = false,
+    
+  color_scheme = "Doom Peacock",
+  
+  scrollback_lines = 8192,
+  
+  font_size = 14,
+    
+  enable_tab_bar = true,
+    
+  hide_tab_bar_if_only_one_tab = true,
+    
+  automatically_reload_config = true,
+    
+  default_cursor_style = "BlinkingBlock",
+  
+  keys = {
+      {
+        key = "x",
+        mods = "CTRL",
+        action = "ActivateCopyMode",
+        },
+      {
+        key = "v",
+        mods = "CTRL|SHIFT",
+        action = wezterm.action({ PasteFrom = "Clipboard" }),
+        },
+      {
+        key = "c",
+        mods = "CTRL|SHIFT",
+        action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }),
+        },
+      }
+    }
