@@ -27,8 +27,5 @@ alias ll="exa -la --icons"
 alias lt="exa --tree"
 alias cat="batcat"
 
-# extra environment variables
-export PAGER="most"
-
 # add ~/.local/bin to PATH
 PATH="$PATH:$HOME/.local/bin"
