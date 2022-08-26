@@ -4,7 +4,7 @@
 
 { config, pkgs, ... }:
 {
-imports = [ ./neovim.nix ];
+imports = [ ./neovim/neovim.nix ];
 
   home.packages = with pkgs; [
     bat
