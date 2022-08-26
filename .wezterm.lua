@@ -2,11 +2,7 @@ local wezterm = require("wezterm");
 
 return {
   font = wezterm.font("Fira Code Nerd Font",
-    {
-    weight = "Retina",
-    italic = true,
-    harfbuzz_features = {"ss02", "ss03", "ss05", "cv16", "onum"}
-  },
+    {harfbuzz_features = {"ss02", "ss03", "ss05", "cv16"} }),
   
   enable_scroll_bar = false,
     
@@ -26,11 +22,6 @@ return {
   
   keys = {
       {
-        key = "x",
-        mods = "CTRL",
-        action = "ActivateCopyMode",
-        },
-      {
         key = "v",
         mods = "CTRL|SHIFT",
         action = wezterm.action({ PasteFrom = "Clipboard" }),
@@ -40,5 +31,5 @@ return {
         mods = "CTRL|SHIFT",
         action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }),
         },
-      }
+      },
     }
