@@ -212,27 +212,33 @@ environment.systemPackages = with pkgs; [
     rPackages.styler
     
     python39
-    # python39Packages.sympy
-    # python39Packages.seaborn
-    # python39Packages.notebook
-    # python39Packages.numpy
-    # python39Packages.matplotlib
-    # python39Packages.scikit-learn
-    # python39Packages.pandas
-    # python39Packages.scipy
-    # python39Packages.gmpy2
-    # python39Packages.pillow-simd
+    python39Packages.sympy
+    python39Packages.seaborn
+    python39Packages.notebook
+    python39Packages.numpy
+    python39Packages.matplotlib
+    python39Packages.scikit-learn
+    python39Packages.pandas
+    python39Packages.scipy
+    python39Packages.gmpy2
+    python39Packages.pillow
+    python39Packages.pynvim
+    python39Packages.flake8
+    black
     
     nodejs
     nodePackages.pyright
     nodePackages.bash-language-server
     nodePackages.vim-language-server
+    nodePackages.neovim
     
     # julia_17-bin # only for x86_64
     
     clojure
     clojure-lsp
     leiningen
+    clj-kondo
+    joker
     
     octaveFull
     
