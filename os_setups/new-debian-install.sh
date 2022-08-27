@@ -18,7 +18,7 @@ sudo apt update && sudo apt upgrade
 
 message "Install basic utilities"
 sudo apt install -y build-essential git subversion p7zip-full unzip zip curl \
-bat exa linux-headers-amd64 bsdmainutils most htop \
+bat exa linux-headers-amd64 bsdmainutils most \
 zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # change .zshrc to own username automatically
@@ -32,7 +32,7 @@ sudo chsh -s $(which zsh) $USER
 message "Installing Basic Xorg environment"
 sudo apt install -y xserver-xorg-core openbox fonts-noto \
 desktop-base openbox-menu xterm x11-xserver-utils \
-lxappearance lxappearance-obconf xdg-user-dirs slick-greeter
+lxappearance lxappearance-obconf slick-greeter
 
 # home directory default folders e.g. Downloads, Documents etc.
 xdg-user-dirs-update
@@ -69,29 +69,19 @@ sudo apt install -y atril geany geany-plugins
 # screenshots
 sudo apt install -y kazam
 
-# install glances, a system monitor like htop, written in Python
-# https://www.linuxcapable.com/how-to-install-glances-system-monitor-on-debian-11/
-#sudo apt install -y python3-dev python3-jinja2 python3-psutil \
-#python3-setuptools hddtemp python3-pip lm-sensors
-
-#sudo pip3 install glances
-
 echo "Installing Pywal Themer"
 message "Pywal sets terminal theme from wallpaper colours"
 sudo apt install python3-pip python3-wheel python3-dev
 sudo apt install imagemagick 
 pip3 install --user pywal
 
-# Walbox uses Pywal to set Openbox theme
-cd $HOME/github
-git clone https://github.com/edisile/walbox.git
-
 message "Downloading wallpapers"
 cd $HOME/Pictures
 svn checkout https://github.com/jawuku/dotfiles/trunk/wallpapers
 
 message "Install Fira Code Nerd font"
-cd $HOME/Downloads
+mkdir $HOME/github
+cd $HOME/github
 
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
 mkdir -p $HOME/.local/share/fonts
@@ -111,20 +101,6 @@ done
 
 fc-cache -fv
 
-message "Instaling Kitty Terminal Emulator"
-mkdir -p $HOME/.local/share/applications
-mkdir -p $HOME/.local/bin
-cd $HOME/.config
-svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
-
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-
-ln -s $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/
-cp $HOME/.local/kitty.app/share/applications/kitty.desktop $HOME/.local/share/applications/
-cp $HOME/.local/kitty.app/share/applications/kitty-open.desktop $HOME/.local/share/applications/
-sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" $HOME/.local/share/applications/kitty*.desktop
-sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" $HOME/.local/share/applications/kitty*.desktop
-
 message "Openbox configuration"
 mkdir -p $HOME/.config
 cd $HOME/.config
@@ -142,7 +118,6 @@ message "Build jgmenu dynamic desktop menu"
 cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
 
-mkdir $HOME/github
 cd $HOME/github
 
 git clone https://github.com/johanmalm/jgmenu.git
@@ -157,7 +132,7 @@ cd jgmenu
 
 dpkg-buildpackage -tc -b -us -uc
 
-sudo dpkg -i $HOME/github/jgmenu/jgmenu_4.4.0-1_amd64.deb
+sudo dpkg -i $HOME/github/jgmenu_4.4.0-1_amd64.deb
 
 message "Installing Qogir Icon Theme"
 cd $HOME/github
@@ -175,49 +150,53 @@ git clone https://github.com/vinceliuice/Tela-icon-theme.git
 cd Tela-icon-theme
 ./install.sh -a # option installs all colour variations
 
-echo "Installing nodejs"
-sudo apt install -y nodejs npm
+message "Installing Tela Circle Icon Theme"
+cd $HOME/github
 
-message "Installing Neovim from Christian Chiarulli's nvim-basic-ide"
-sudo apt install -y cmake libtool-bin xclip ripgrep
-sudo npm install -g pyright neovim bash-language-server vim-language-server
+git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
+cd Tela-circle-icon-theme
+./install.sh -a # option installs all colour variations
+
+message "Installing Homebrew"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ 
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.zprofile
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+message "Installing glances - system monitor"
+brew install glances
+
+message "Installing nodejs"
+brew install node
+
+message "Installing Wezterm Terminal Emulator"
+cd $HOME/github
+wget https://github.com/wez/wezterm/releases/download/20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
+sudo apt install ./20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua $HOME
+
+message "Installing Neovim"
+sudo apt install -y xclip ripgrep
+npm install -g pyright neovim bash-language-server vim-language-server
 pip3 install --user pynvim
 
-# compile source code
+# download Neovim Appimage
 cd $HOME/github
-git clone https://github.com/neovim/neovim.git
-cd neovim
-git checkout release-0.7
-make CMAKE_BUILD_TYPE=Release
-sudo make install
-
-# download config file to ~/.config/nvim
-git clone https://github.com/LunarVim/nvim-basic-ide.git ~/.config/nvim
+wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
+chmod +x nvim.appimage
+ln -s $HOME/github.com/nvim.appimage $HOME/.local/bin/nvim
 
 message "Installing Lua Language Server"
-# from https://github.com/sumneko/lua-language-server
-cd $HOME/github
-git clone  --depth=1 https://github.com/sumneko/lua-language-server
-cd lua-language-server
-git submodule update --depth 1 --init --recursive
-
-sudo apt install ninja-build
-
-cd 3rd/luamake
-./compile/install.sh
-cd ../..
-./3rd/luamake/luamake rebuild
-
-ln -s $HOME/github/lua-language-server/bin/lua-language-server $HOME/.local/bin/lua-language-server
+brew install lua-language-server
 
 message "Installing Stylua, a Lua code formatter"
-wget https://github.com/JohnnyMorganz/StyLua/releases/download/v0.14.2/stylua-linux.zip ~/Downloads
-unzip ~/Downloads/stylua-linux.zip -d ~/.local/bin/
+brew install stylua
 
 message "Installing Python libraries"
 sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmpy2 python3-sympy python3-statsmodels
 
-pip3 install --user torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+# revisit - getting out of memory error in VM - may fare better on real PC with >= 8GB
+# pip3 install --user torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 
 message "Installing Julia"
 cd $HOME/Downloads
@@ -229,15 +208,14 @@ message "Julia Language Server for Neovim"
 julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 
 message "Installing Clojure"
-sudo apt install -y rlwrap leiningen
-
-cd $HOME/Downloads
-curl -O https://download.clojure.org/install/linux-install-1.11.1.1155.sh
-chmod +x linux-install-1.11.1.1155.sh
-sudo ./linux-install-1.11.1.1155.sh
+brew install clojure leiningen
 
 message "Installing Clojure Language Server"
-sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
+brew install clojure-lsp
+
+message "Clojure linters"
+brew install borkdude/brew/clj-kondo
+brew install candid82/brew/joker
 
 message "Install R"
 sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse
@@ -255,10 +233,4 @@ dpkg-sig --verify rstudio-2022.07.1-554-amd64.deb
 sudo dpkg -i rstudio-2022.07.1-554-amd64.deb
 
 message "Finished"
-echo "Reboot into new system with systemctl reboot"
-echo "Might install Homebrew package manager"
-echo "for easier installation in the future."
-echo "Use Pywal to generate Openbox theme:"
-echo "cd ~/github/walbox"
-echo "./install.sh"
-echo "openbox --reconfigure"
+echo "Reboot into new system with 'systemctl reboot'"
