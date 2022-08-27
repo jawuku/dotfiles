@@ -166,7 +166,8 @@ launcher_item_app = /usr/share/applications/firefox-esr.desktop
 #launcher_item_app = /usr/share/applications/vivaldi-stable.desktop
 launcher_item_app = /usr/share/applications/geany.desktop
 launcher_item_app = /usr/share/applications/org.xfce.Parole.desktop
-launcher_item_app = $HOME/.local/share/applications/kitty.desktop
+#launcher_item_app = $HOME/.local/share/applications/kitty.desktop
+launcher_item_app = /usr/share/applications/org.wezfurlong.wezterm.desktop
 
 #-------------------------------------
 # Clock
