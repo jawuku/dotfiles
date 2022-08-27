@@ -469,16 +469,16 @@ Answer 'yes' twice to setting up a personal library
 ```
 q()
 ```
-### 20) Julia Language (version 1.7.3)
+### 20) Julia Language (version 1.8.0)
 ```
 cd ~/Downloads
-wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.3-linux-x86_64.tar.gz
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.8.0-linux-x86_64.tar.gz
 
-tar xvf julia-1.7.3-linux-x86_64.tar.gz
+tar xvf julia-1.8.0-linux-x86_64.tar.gz
 
-cd julia-1.7.3/
+cd julia-1.8.0/
 
-sudo ln -s ~/Downloads/julia-1.7.3/bin/julia /usr/local/bin/julia
+sudo ln -s ~/Downloads/julia-1.8.0/bin/julia /usr/local/bin/julia
 
 julia
 
@@ -511,11 +511,11 @@ cd ~/Downloads
 
 sudo apt install rlwrap
 
-curl -O https://download.clojure.org/install/linux-install-1.11.1.1149.sh
+curl -O https://download.clojure.org/install/linux-install-1.11.1.1155.sh
 
-chmod +x linux-install-1.11.1.1149.sh
+chmod +x linux-install-1.11.1.1155.sh
 
-sudo ./linux-install-1.11.1.1149.sh
+sudo ./linux-install-1.11.1.1155.sh
 ```
 #### d) Install Clojure Language Server
 ```
