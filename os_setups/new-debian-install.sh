@@ -61,7 +61,7 @@ sudo apt install -y parole
 
 # openbox utils
 sudo apt install -y picom rofi tint2 xfce4-notifyd libnotify-bin \
-gsimplecal light-locker viewnior lxpolkit redshift-gtk arc-theme
+gsimplecal light-locker gpicview lxpolkit redshift-gtk arc-theme
 
 # office
 sudo apt install -y atril geany geany-plugins
@@ -180,7 +180,7 @@ sudo apt install -y nodejs npm
 
 message "Installing Neovim from Christian Chiarulli's nvim-basic-ide"
 sudo apt install -y cmake libtool-bin xclip ripgrep
-sudo npm install -g pyright neovim bash-language-server
+sudo npm install -g pyright neovim bash-language-server vim-language-server
 pip3 install --user pynvim
 
 # compile source code
@@ -195,24 +195,69 @@ sudo make install
 git clone https://github.com/LunarVim/nvim-basic-ide.git ~/.config/nvim
 
 message "Installing Lua Language Server"
-# from 
+# from https://github.com/sumneko/lua-language-server
 cd $HOME/github
 git clone  --depth=1 https://github.com/sumneko/lua-language-server
 cd lua-language-server
 git submodule update --depth 1 --init --recursive
 
-sudo apt install ninja
+sudo apt install ninja-build
 
 cd 3rd/luamake
 ./compile/install.sh
 cd ../..
 ./3rd/luamake/luamake rebuild
 
+ln -s $HOME/github/lua-language-server/bin/lua-language-server $HOME/.local/bin/lua-language-server
+
+message "Installing Stylua, a Lua code formatter"
+wget https://github.com/JohnnyMorganz/StyLua/releases/download/v0.14.2/stylua-linux.zip ~/Downloads
+unzip ~/Downloads/stylua-linux.zip -d ~/.local/bin/
+
+message "Installing Python libraries"
+sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmpy2 python3-sympy python3-statsmodels
+
+pip3 install --user torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+
+message "Installing Julia"
+cd $HOME/Downloads
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.0-linux-x86_64.tar.gz
+tar xvf julia-1.8.0-linux-x86_64.tar.gz
+ln -s $HOME/Downloads/julia-1.8.0/bin/julia $HOME/.local/bin/julia
+
+message "Julia Language Server for Neovim"
+julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
+
+message "Installing Clojure"
+sudo apt install -y rlwrap leiningen
+
+cd $HOME/Downloads
+curl -O https://download.clojure.org/install/linux-install-1.11.1.1155.sh
+chmod +x linux-install-1.11.1.1155.sh
+sudo ./linux-install-1.11.1.1155.sh
+
+message "Installing Clojure Language Server"
+sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
+
+message "Install R"
+sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse
+
+message "Installing R 'languageserver', 'lintr' and 'styler' packages"
+Rscript --save --verbose -e "install.packages( c('languageserver', 'lintr', 'styler'))"
+
+message "RStudio"
+gpg --keyserver keyserver.ubuntu.com --recv-keys 3F32EE77E331692F
+
+sudo apt install -y dpkg-sig
+cd $HOME/Downloads
+wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.1-554-amd64.deb
+dpkg-sig --verify rstudio-2022.07.1-554-amd64.deb
+sudo dpkg -i rstudio-2022.07.1-554-amd64.deb
+
 message "Finished"
 echo "Reboot into new system with systemctl reboot"
-echo "Login, and add Layan-kde to kvantummanger"
-echo "May install Nix package manager"
-echo "for a Neovim development environment in the future."
+echo "Might install Homebrew package manager"
+echo "for easier installation in the future."
 echo "Use Pywal to generate Openbox theme:"
 echo "cd ~/github/walbox"
 echo "./install.sh"
