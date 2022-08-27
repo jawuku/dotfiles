@@ -347,7 +347,7 @@
     <!-- Control-Alt-T launches a login terminal -->
     <keybind key="C-A-t">
       <action name="Execute">
-        <command>sakura -l</command>
+        <command>wezterm</command>
       </action>
     </keybind>
     <!-- Control-Alt-L locks the screen -->
