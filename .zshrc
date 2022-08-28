@@ -24,11 +24,11 @@ PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %
 # install exa and bat from repositories
 alias ls="exa"
 alias ll="exa -la --icons"
-alias lt="exa --tree"
+alias lt="exa --tree --icons"
 alias cat="batcat"
 
 # add ~/.local/bin to PATH
 PATH="$PATH:$HOME/.local/bin"
 
-# add pywal theme
-(cat ~/.cache/wal/sequences &)
+# add pywal theme (uncomment to enable)
+#(\cat ~/.cache/wal/sequences &)
