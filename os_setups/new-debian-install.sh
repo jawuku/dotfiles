@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ## Debian Openbox Script
 ## do after fresh netinstall of Debian 11 with firmware
 ## run as normal user - will prompt for sudo password
@@ -177,7 +177,7 @@ wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua $HOME
 
 message "Installing Neovim"
 sudo apt install -y xclip ripgrep
-npm install -g pyright neovim bash-language-server vim-language-server
+npm install -g pyright neovim bash-language-server vim-language-server tree-sitter-cli
 pip3 install --user pynvim
 
 # download Neovim Appimage
@@ -208,7 +208,8 @@ message "Julia Language Server for Neovim"
 julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 
 message "Installing Clojure"
-brew install clojure leiningen
+brew install clojure/tools/clojure
+brew install leiningen
 
 message "Installing Clojure Language Server"
 brew install clojure-lsp
