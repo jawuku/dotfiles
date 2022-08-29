@@ -18,7 +18,11 @@ return {
     
   automatically_reload_config = true,
     
-  default_cursor_style = "BlinkingBlock",
+  default_cursor_style = "BlinkingBar",
+  
+  initial_cols = 80,
+  
+  initial_rows = 25,
   
   keys = {
       {
