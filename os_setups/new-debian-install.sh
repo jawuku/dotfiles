@@ -180,6 +180,9 @@ sudo apt install -y xclip ripgrep
 npm install -g pyright neovim bash-language-server vim-language-server tree-sitter-cli
 pip3 install --user pynvim
 
+sudo apt install fd-find
+ln -s $(which fdfind) ~/.local/bin/fd
+
 # download Neovim Appimage
 cd $HOME/github
 wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
