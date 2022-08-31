@@ -42,7 +42,9 @@ return require('packer').startup(function(use)
 
 -- Lualine status line
   use {"nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true }}
+    config = function() require("lualine").setup {
+      options = { theme = "papercolor_light" } } end,
+    requires = { "kyazdani42/nvim-web-devicons", opt = true } }
 
 -- Bufferline
   use {"noib3/nvim-cokeline",
