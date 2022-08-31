@@ -71,8 +71,8 @@ sudo apt install -y kazam
 
 echo "Installing Pywal Themer"
 message "Pywal sets terminal theme from wallpaper colours"
-sudo apt install python3-pip python3-wheel python3-dev
-sudo apt install imagemagick 
+sudo apt -y install python3-pip python3-wheel python3-dev
+sudo apt -y install imagemagick 
 pip3 install --user pywal
 
 message "Downloading wallpapers"
@@ -180,7 +180,7 @@ sudo apt install -y xclip ripgrep
 npm install -g pyright neovim bash-language-server vim-language-server tree-sitter-cli
 pip3 install --user pynvim
 
-sudo apt install fd-find
+sudo apt install -y fd-find
 ln -s $(which fdfind) ~/.local/bin/fd
 
 # download Neovim Appimage
