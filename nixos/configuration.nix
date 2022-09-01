@@ -1,5 +1,7 @@
 # configuration.nix for Parallels VM on M1 Macbook Air
 
+# Alter any configuration options as needed
+
 # Load configuration and packages
 
 # Include the results of the hardware scan
@@ -9,7 +11,26 @@
 let
   defaultUser = "jason";
   desc = "Jason Awuku";
+
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
+
+  my-python-packages = python-packages: with python-packages; [
+    isort
+    black
+    sympy
+    seaborn
+    notebook
+    numpy
+    matplotlib
+    scikit-learn
+    pandas
+    scipy
+    gmpy2
+    pynvim
+    flake8
+  ];
+python-with-my-packages = python3.withPackages my-python-packages;
+
 in
 
 {
@@ -78,7 +99,7 @@ in
     displayManager.defaultSession = "xfce";
     desktopManager.xfce.enable = true;
     desktopManager.xterm.enable = false;
-    # windowManager.openbox.enable = true;
+    # windowManager.openbox.enable = true; # maybe explore more in future
     
     # Keyboard Layout Options
     layout = "gb"; # UK keyboard
@@ -135,8 +156,11 @@ in
   };
   
 # Enable zsh autocompletion paths  
-environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = [ "/share/zsh" ];
 
+# Add zsh to user shells
+  environment.shells = with pkgs; [ zsh ];
+  
 # Picom compositor
   services.picom = {
     enable = true;
@@ -201,30 +225,10 @@ environment.systemPackages = with pkgs; [
     xclip
     tree-sitter
     
-    R
-    rstudio
-    rPackages.languageserver
-    rPackages.tidyverse
-    rPackages.devtools
-    rPackages.IRkernel
-    rPackages.ggplot2
-    rPackages.lintr
-    rPackages.styler
+    gcc
+    clang-tools
     
-    python39
-    python39Packages.sympy
-    python39Packages.seaborn
-    python39Packages.notebook
-    python39Packages.numpy
-    python39Packages.matplotlib
-    python39Packages.scikit-learn
-    python39Packages.pandas
-    python39Packages.scipy
-    python39Packages.gmpy2
-    python39Packages.pillow
-    python39Packages.pynvim
-    python39Packages.flake8
-    black
+    python-with-my-packages # as defined above
     
     nodejs
     nodePackages.pyright
@@ -243,6 +247,7 @@ environment.systemPackages = with pkgs; [
     octaveFull
     
     fzf
+    fd
     ripgrep
     sumneko-lua-language-server
   ];
