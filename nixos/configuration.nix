@@ -14,23 +14,6 @@ let
 
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
 
-  my-python-packages = python-packages: with python-packages; [
-    isort
-    black
-    sympy
-    seaborn
-    notebook
-    numpy
-    matplotlib
-    scikit-learn
-    pandas
-    scipy
-    gmpy2
-    pynvim
-    flake8
-  ];
-python-with-my-packages = python3.withPackages my-python-packages;
-
 in
 
 {
@@ -227,9 +210,7 @@ environment.systemPackages = with pkgs; [
     
     gcc
     clang-tools
-    
-    python-with-my-packages # as defined above
-    
+        
     nodejs
     nodePackages.pyright
     nodePackages.bash-language-server
@@ -250,6 +231,10 @@ environment.systemPackages = with pkgs; [
     fd
     ripgrep
     sumneko-lua-language-server
+    
+    # allow R knitr function to output markdown to PDF
+    pandoc
+    texlive.combined.scheme-full
   ];
 
 # Check for updates daily
