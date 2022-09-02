@@ -214,7 +214,7 @@ message "Installing Lua Language Server"
 sudo apt install -y ninja-build
 cd $HOME/github
 
-git clone  --depth=1 https://github.com/sumneko/lua-language-server
+git clone --depth=1 https://github.com/sumneko/lua-language-server
 cd lua-language-server
 git submodule update --depth 1 --init --recursive
 
@@ -223,7 +223,9 @@ cd 3rd/luamake
 cd ../..
 ./3rd/luamake/luamake rebuild
 
-ln -s $HOME/github/lua-language-server/bin/lua-language-server $HOME/.local/bin/
+echo '#!/bin/bash' > $HOME/.local/bin/lua-language-server
+echo 'exec "$HOME/github/lua-language-server/bin/lua-language-server" "$@"' >> $HOME/.local/bin/lua-language-server
+chmod +x $HOME/.local/bin/lua-language-server
 
 message "Installing Python libraries"
 sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmpy2 python3-sympy python3-statsmodels flake8 black
