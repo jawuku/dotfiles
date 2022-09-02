@@ -31,4 +31,12 @@ alias cat="batcat"
 PATH="$PATH:$HOME/.local/bin"
 
 # add pywal theme (uncomment to enable)
-(\cat ~/.cache/wal/sequences &)
+#(\cat ~/.cache/wal/sequences &)
+
+# to use nvm immediately in this script
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# lua language server
+alias luamake=~/github/lua-language-server/3rd/luamake/luamake
