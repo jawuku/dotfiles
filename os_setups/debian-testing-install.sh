@@ -162,13 +162,6 @@ cd Tela-circle-icon-theme
 message "Installing node version manager (nvm)"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-# add nvm initialisation to .zshrc
-tee -a .zshrc <<EOF
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-EOF
-
 # to use nvm immediately in this script
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -186,18 +179,12 @@ cd $HOME
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
 
 message "Installing Neovim"
-sudo apt install -y xclip ripgrep
+sudo apt install -y xclip ripgrep neovim
 npm install -g pyright neovim bash-language-server vim-language-server tree-sitter-cli
 pip3 install --user pynvim
 
 sudo apt install -y fd-find
 ln -s $(which fdfind) ~/.local/bin/fd
-
-# download Neovim Appimage
-cd $HOME/github
-wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
-chmod +x nvim.appimage
-ln -s $HOME/github.com/nvim.appimage $HOME/.local/bin/nvim
 
 # install Packer.nvim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
