@@ -148,8 +148,10 @@ sudo ln -s ~/lua-language-server/bin/lua-language-server /usr/local/bin/lua-lang
 require'lspconfig'.sumneko_lua.setup {
   settings = {
     Lua = {
+      cmd = { '$HOME/github/lua-language-server/bin/lua-language-server' },
       runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        -- Tell the language server which version of Lua you're using
+        -- (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
       },
       diagnostics = {
