@@ -202,6 +202,10 @@ wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
 chmod +x nvim.appimage
 cp $HOME/Downloads/nvim.appimage $HOME/.local/bin/nvim
 
+# download lua config files
+cd $HOME/.config
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/nvim
+
 # install Packer.nvim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
