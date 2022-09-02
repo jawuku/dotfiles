@@ -1,8 +1,10 @@
-local wezterm = require("wezterm");
+local wezterm = require("wezterm")
 
 return {
-  font = wezterm.font("Fira Code Nerd Font",
-    {harfbuzz_features = {"ss02", "ss03", "ss05", "cv16"} }),
+  font = wezterm.font {
+    family = "Fira Code Nerd Font",
+    harfbuzz_features = {"ss02", "ss03", "ss05", "cv16"},
+  },
   
   enable_scroll_bar = false,
     
