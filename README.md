@@ -9,20 +9,24 @@
 ![Debian Tasksel](tasksel.png "Select only 'standard system utilities'")
 #### Login as normal user, use sudo password as requested
 ```sh
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/os_setups/new-debian-install.sh
-chmod +x new-debian-install.sh
-./new-debian-install.sh
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/os_setups/debian-11-install.sh
+chmod +x debian-11-install.sh
+./debian-11-install.sh
 ```
 #### Screenshots - Standard Debian 11 login manager theme (slick-greeter)
 ![Login Screen](slick-greeter.png "Debian default login screen")
+
 #### Sample Desktop (note wallpaper cycles randomly each login)
 ![Desktop Screenshot](example-desktop.png "Gorgeous Green Desktop")
+These are not the default settings, but all the themes are installed.
+Just go into Menu -> Settings -> customize Look and Feel to change them.
 * GTK theme is Arc Dark
 * Icon theme Tela Green Dark
 * Window Decoration theme is Nightmare-03
-* Menu is standard jgmenu
+* Menu is the originally unconfigured jgmenu
 * Terminal is kitty running htop with the Fira Code Nerd Font
 * Wallpaper is ~/Pictures/wallpapers/EznixOS/waterfall_lake.jpg
+
 ### 2) Configuration files for NixOS XFCE
 ### Currently on a VM (e.g. Parallels on macOS, or VirtualBox)
 #### Choose to install a plain NixOS system (without desktop environment)
@@ -73,24 +77,23 @@ sudo reboot
 * NixOS (out of date setup - see above instead)
 * Debian 10 (Old Setup)
 * OpenSuse Post-install (Old)
-* Debian 11 install script (Experimental - may not work)
-### 3) In wallpapers/ directory
+* Debian 11 install script
+### 4) In wallpapers/ directory
 Collected wallapers from
 * EznixOS https://sourceforge.net/projects/eznixos/files/Xfce
     * (download tar file and extract backgrounds folder)
 * EnsoOS https://github.com/nick92/Enso-OS/tree/master/wallpapers
 * MyDebOS (no longer available) https://youtu.be/jpAfVOz6P4Q
-### 4) Openbox configs in .config/ directory
+### 5) Openbox configs in .config/ directory
 * Openbox menu config
 * rofi program launcher
 * tint2 panel
 * jgmenu dynamic menu
 * kitty terminal emulator
 * sakura terminal emulator
-### 5) Miscellaneous config files
+### 6) Miscellaneous config files
 * .Xresources
 * Old vim configurations
 * .zshrc
-        
-* .config/nvim/* - *outdated - don't use*
+* .wezterm.lua - wezterm terminal emulator configuration
 
