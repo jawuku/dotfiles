@@ -31,4 +31,4 @@ alias cat="batcat"
 PATH="$PATH:$HOME/.local/bin"
 
 # add pywal theme (uncomment to enable)
-#(\cat ~/.cache/wal/sequences &)
+(\cat ~/.cache/wal/sequences &)
