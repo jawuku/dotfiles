@@ -159,23 +159,27 @@ git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
 cd Tela-circle-icon-theme
 ./install.sh -a # option installs all colour variations
 
+message "Installing Layan Cursors"
+cd $HOME/github
+git clone https://github.com/vinceliuice/Layan-cursors.git
+cd Layan-cursors
+./install.sh
+
+message "Nordic Themes"
+mkdir $HOME/.themes
+cd $HOME/.themes
+git https://github.com/EliverLara/Nordic.git
+
 message "Installing node version manager (nvm)"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-
-# add nvm initialisation to .zshrc
-tee -a .zshrc <<EOF
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-EOF
 
 # to use nvm immediately in this script
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# install latest node version
-nvm install v18.8.0
+# install LTS node version
+nvm install --lts
 
 message "Installing Wezterm Terminal Emulator"
 cd $HOME/Downloads
@@ -193,10 +197,10 @@ sudo apt install -y fd-find
 ln -s $(which fdfind) ~/.local/bin/fd
 
 # download Neovim Appimage
-cd $HOME/github
+cd $HOME/Downloads
 wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
 chmod +x nvim.appimage
-ln -s $HOME/github.com/nvim.appimage $HOME/.local/bin/nvim
+cp $HOME/Downloads/nvim.appimage $HOME/.local/bin/nvim
 
 # install Packer.nvim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
