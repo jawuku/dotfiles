@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ## Debian Openbox Script
-## do after fresh netinstall of Debian 11 with firmware
+## do after fresh netinstall of Debian 11 Bullseye Stable with firmware
 ## run as normal user - will prompt for sudo password
 
 # define messaging function, waits for 3 seconds before proceeding
@@ -18,7 +18,7 @@ sudo apt update && sudo apt upgrade
 
 message "Install basic utilities"
 sudo apt install -y build-essential git subversion p7zip-full unzip zip curl \
-bat exa linux-headers-amd64 bsdmainutils most \
+bat exa linux-headers-amd64 bsdmainutils most htop \
 zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # change .zshrc to own username automatically
@@ -37,6 +37,9 @@ lxappearance lxappearance-obconf slick-greeter
 # home directory default folders e.g. Downloads, Documents etc.
 xdg-user-dirs-update
 
+# creating config directories in ~/.config
+mkdir -p $HOME/.config/{openbox,rofi,jgmenu,tint2,nvim}
+
 message "Installing GUI software"
 
 # file manager
@@ -53,7 +56,7 @@ sudo apt install -y engrampa
 sudo apt install -y pavucontrol pnmixer
 
 # internet and firewall
-sudo apt install -y firefox-esr transmission-gtk gufw
+sudo apt install -y firefox-esr transmission-gtk ufw
 sudo ufw enable
 
 # media player
@@ -72,7 +75,7 @@ sudo apt install -y kazam
 echo "Installing Pywal Themer"
 message "Pywal sets terminal theme from wallpaper colours"
 sudo apt -y install python3-pip python3-wheel python3-dev
-sudo apt -y install imagemagick 
+sudo apt -y install imagemagick
 pip3 install --user pywal
 
 message "Downloading wallpapers"
@@ -102,7 +105,6 @@ done
 fc-cache -fv
 
 message "Openbox configuration"
-mkdir -p $HOME/.config
 cd $HOME/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/openbox
 
@@ -157,23 +159,30 @@ git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
 cd Tela-circle-icon-theme
 ./install.sh -a # option installs all colour variations
 
-message "Installing Homebrew"
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
- 
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.zprofile
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+message "Installing node version manager (nvm)"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-message "Installing glances - system monitor"
-brew install glances
+# add nvm initialisation to .zshrc
+tee -a .zshrc <<EOF
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+EOF
 
-message "Installing nodejs"
-brew install node
+# to use nvm immediately in this script
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# install latest node version
+nvm install v18.8.0
 
 message "Installing Wezterm Terminal Emulator"
-cd $HOME/github
+cd $HOME/Downloads
 wget https://github.com/wez/wezterm/releases/download/20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
 sudo apt install ./20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua $HOME
+cd $HOME
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
 
 message "Installing Neovim"
 sudo apt install -y xclip ripgrep
@@ -189,52 +198,109 @@ wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
 chmod +x nvim.appimage
 ln -s $HOME/github.com/nvim.appimage $HOME/.local/bin/nvim
 
-message "Installing Lua Language Server"
-brew install lua-language-server
+# install Packer.nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-message "Installing Stylua, a Lua code formatter"
-brew install stylua
+message "Installing Lua Language Server"
+sudo apt install -y ninja-build
+cd $HOME/github
+
+git clone  --depth=1 https://github.com/sumneko/lua-language-server
+cd lua-language-server
+git submodule update --depth 1 --init --recursive
+
+cd 3rd/luamake
+./compile/install.sh
+cd ../..
+./3rd/luamake/luamake rebuild
+
+ln -s $HOME/github/lua-language-server/bin/lua-language-server $HOME/.local/bin/
 
 message "Installing Python libraries"
-sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmpy2 python3-sympy python3-statsmodels
+sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmpy2 python3-sympy python3-statsmodels flake8 black
 
 # revisit - getting out of memory error in VM - may fare better on real PC with >= 8GB
 # pip3 install --user torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 
 message "Installing Julia"
 cd $HOME/Downloads
-wget https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.0-linux-x86_64.tar.gz
-tar xvf julia-1.8.0-linux-x86_64.tar.gz
-ln -s $HOME/Downloads/julia-1.8.0/bin/julia $HOME/.local/bin/julia
+
+# check machine architecture
+PROCESSOR=$(uname -m)
+case $PROCESSOR in
+  x86_64|amd64)
+    arch="x64"
+    cpu="x86_64";;
+  i?86)
+    arch="x86"
+    cpu="i686";;
+  aarch64)
+    arch="aarch64"
+    cpu=$arch;;
+esac
+
+echo "Installing Julia for $cpu architecture"
+
+julia_ver="1.8.0"
+julia_minver=${julia_ver:0:-2}
+
+wget https://julialang-s3.julialang.org/bin/linux/$arch/$julia_minver/julia-$julia_ver-linux-$cpu.tar.gz
+tar xvf julia-$julia_ver-linux-$cpu.tar.gz
+ln -s $HOME/Downloads/julia-$julia_ver/bin/julia $HOME/.local/bin/julia
 
 message "Julia Language Server for Neovim"
-julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
+$HOME/.local/bin/julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 
 message "Installing Clojure"
-brew install clojure/tools/clojure
-brew install leiningen
+sudo apt install -y rlwrap openjdk-11-jdk
+curl -O https://download.clojure.org/install/linux-install-1.11.1.1155.sh
+chmod +x linux-install-1.11.1.1155.sh
+sudo ./linux-install-1.11.1.1155.sh
+
+sudo apt install -y leiningen
 
 message "Installing Clojure Language Server"
-brew install clojure-lsp
+sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 
 message "Clojure linters"
-brew install borkdude/brew/clj-kondo
-brew install candid82/brew/joker
+kondo_ver="2022.08.03"
+joker_ver="1.0.0"
 
-message "Install R"
-sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse
+if [[ $cpu == "x86_64" ]]
+then
+  wget https://github.com/clj-kondo/clj-kondo/releases/download/v$kondo_ver/clj-kondo-$kondo_ver-linux-amd64.zip
+  unzip clj-kondo-$kondo_ver-linux-amd64.zip -d $HOME/.local/bin
 
-message "Installing R 'languageserver', 'lintr' and 'styler' packages"
+  wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-$joker_ver-linux-amd64.zip
+  unzip joker-$joker_ver-linux-amd64.zip -d $HOME/.local/bin
+else
+  message "Joker needs to be compiled from source on $cpu architecture"
+  echo "see https://github.com/candid82/joker#building"
+  echo "Needs the Go language for building"
+  echo "see https://www.linuxcapable.com/how-to-install-go-golang-compiler-on-debian-11/"
+  sleep 15
+fi
+
+message "Installing R"
+sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse r-cran-irkernel
+
 Rscript --save --verbose -e "install.packages( c('languageserver', 'lintr', 'styler'))"
 
-message "RStudio"
-gpg --keyserver keyserver.ubuntu.com --recv-keys 3F32EE77E331692F
+# Rstudio does not install on Debian bookworm
+if [[ $cpu != "x86_64" ]]
+then
+  message "Sorry, RStudio is not available on $cpu architecture"
+else
+  message "Installing RStudio on $cpu"
+  gpg --keyserver keyserver.ubuntu.com --recv-keys 3F32EE77E331692F
 
-sudo apt install -y dpkg-sig
-cd $HOME/Downloads
-wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.1-554-amd64.deb
-dpkg-sig --verify rstudio-2022.07.1-554-amd64.deb
-sudo dpkg -i rstudio-2022.07.1-554-amd64.deb
+  sudo apt install -y dpkg-sig
+  cd $HOME/Downloads
+  wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.1-554-amd64.deb
+  dpkg-sig --verify rstudio-2022.07.1-554-amd64.deb
+  sudo apt install ./rstudio-2022.07.1-554-amd64.deb
+fi
 
 message "Finished"
 echo "Reboot into new system with 'systemctl reboot'"
