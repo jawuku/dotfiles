@@ -86,7 +86,7 @@ message "Install Fira Code Nerd font"
 mkdir $HOME/github
 cd $HOME/github
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.1/FiraCode.zip
 mkdir -p $HOME/.local/share/fonts
 
 # extract each font
@@ -168,7 +168,7 @@ cd Layan-cursors
 message "Nordic Themes"
 mkdir $HOME/.themes
 cd $HOME/.themes
-git https://github.com/EliverLara/Nordic.git
+git clone https://github.com/EliverLara/Nordic.git
 
 message "Installing node version manager (nvm)"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
