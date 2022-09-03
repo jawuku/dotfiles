@@ -90,17 +90,18 @@ wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.1/FiraCode.z
 mkdir -p $HOME/.local/share/fonts
 
 # extract each font
-fonts="Bold Light Medium Regular Retina"
+fonts="Bold Light SemiBold Medium Regular Retina"
 for feature in $fonts; do
-    unzip -j FiraCode.zip "Fira Code $feature Nerd Font Complete.otf" -d $HOME/.local/share/fonts
+    unzip -j FiraCode.zip "Fira Code $feature Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
 done
 
 # more manual way of doing the same thing
-# unzip -j FiraCode.zip "Fira Code Bold Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Medium Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Retina Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Regular Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Light Nerd Font Complete.otf" -d $HOME/.local/share/fonts
+# unzip -j FiraCode.zip "Fira Code Bold Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
+# unzip -j FiraCode.zip "Fira Code SemiBold Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
+# unzip -j FiraCode.zip "Fira Code Medium Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
+# unzip -j FiraCode.zip "Fira Code Light Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
+# unzip -j FiraCode.zip "Fira Code Regular Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
+# unzip -j FiraCode.zip "Fira Code Retina Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
 
 fc-cache -fv
 
