@@ -143,4 +143,4 @@ configuration {
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
 /* Pywal Dark theme. */
-@import "~/.cache/wal/colors-rofi-dark"
+/ *@import "~/.cache/wal/colors-rofi-dark" */
