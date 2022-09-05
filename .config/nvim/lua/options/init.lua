@@ -49,7 +49,8 @@ local myoptions = {
   undofile = true,
   background = 'dark',
   completeopt = {'menu', 'menuone', 'noselect'}, -- for nvim-cmp
-  foldenable = false         -- disable automatic folding
+  foldenable = false,        -- disable automatic folding
+  mouse = "a"                -- enable mouse support
   }
 
 for k, v in pairs(myoptions) do
