@@ -18,8 +18,9 @@ sudo apt update && sudo apt upgrade
 
 message "Install basic utilities"
 sudo apt install -y build-essential git subversion p7zip-full unzip zip curl \
-bat exa linux-headers-amd64 bsdmainutils most htop \
-zsh zsh-autosuggestions zsh-syntax-highlighting
+bat exa linux-headers-amd64 bsdmainutils most htop cmake pkg-config doxygen \
+zsh zsh-autosuggestions zsh-syntax-highlighting libtool-bin automake gettext \
+ninja-build
 
 # change .zshrc to own username automatically
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.zshrc
@@ -185,7 +186,7 @@ nvm install --lts
 message "Installing Wezterm Terminal Emulator"
 cd $HOME/Downloads
 wget https://github.com/wez/wezterm/releases/download/20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
-sudo dpkg -i ./20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
+sudo dpkg -i 20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
 cd $HOME
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
 
@@ -198,13 +199,14 @@ sudo apt install -y fd-find
 ln -s $(which fdfind) ~/.local/bin/fd
 
 # download Neovim Appimage
-nvim_ver="0.7.2"
-cd $HOME/Downloads
-wget https://github.com/neovim/neovim/releases/download/$nvim_ver/nvim.appimage
-chmod +x nvim.appimage
-cp $HOME/Downloads/nvim.appimage $HOME/.local/bin/nvim
+cd $HOME/github
+git clone https://github.com/neovim/neovim.git
+cd neovim
+git checkout stable
+make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/.local
+make install
 
-# download lua config files
+# download neovim lua config files
 cd $HOME/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/nvim
 
@@ -213,7 +215,6 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 message "Installing Lua Language Server"
-sudo apt install -y ninja-build
 cd $HOME/github
 
 git clone --depth=1 https://github.com/sumneko/lua-language-server
@@ -265,7 +266,7 @@ message "Julia Language Server for Neovim"
 $HOME/.local/bin/julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 
 message "Installing Clojure"
-clj_ver = "1.11.1.1155"
+clj_ver="1.11.1.1155"
 sudo apt install -y rlwrap openjdk-11-jdk
 curl -O https://download.clojure.org/install/linux-install-$clj_ver.sh
 chmod +x linux-install-$clj_ver.sh
@@ -308,11 +309,11 @@ else
   message "Installing RStudio on $cpu"
   gpg --keyserver keyserver.ubuntu.com --recv-keys 3F32EE77E331692F
 
-  sudo apt install -y dpkg-sig
+  sudo apt install -y dpkg-sig libclang-dev
   cd $HOME/Downloads
   wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.1-554-amd64.deb
   dpkg-sig --verify rstudio-2022.07.1-554-amd64.deb
-  sudo dpkg -i ./rstudio-2022.07.1-554-amd64.deb
+  sudo dpkg -i rstudio-2022.07.1-554-amd64.deb
 fi
 
 message "Finished"
