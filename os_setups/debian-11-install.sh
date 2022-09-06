@@ -185,7 +185,7 @@ nvm install --lts
 message "Installing Wezterm Terminal Emulator"
 cd $HOME/Downloads
 wget https://github.com/wez/wezterm/releases/download/20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
-sudo apt install ./20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
+sudo dpkg -i ./20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
 cd $HOME
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
 
@@ -198,8 +198,9 @@ sudo apt install -y fd-find
 ln -s $(which fdfind) ~/.local/bin/fd
 
 # download Neovim Appimage
+nvim_ver="0.7.2"
 cd $HOME/Downloads
-wget https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage
+wget https://github.com/neovim/neovim/releases/download/$nvim_ver/nvim.appimage
 chmod +x nvim.appimage
 cp $HOME/Downloads/nvim.appimage $HOME/.local/bin/nvim
 
@@ -264,10 +265,11 @@ message "Julia Language Server for Neovim"
 $HOME/.local/bin/julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 
 message "Installing Clojure"
+clj_ver = "1.11.1.1155"
 sudo apt install -y rlwrap openjdk-11-jdk
-curl -O https://download.clojure.org/install/linux-install-1.11.1.1155.sh
-chmod +x linux-install-1.11.1.1155.sh
-sudo ./linux-install-1.11.1.1155.sh
+curl -O https://download.clojure.org/install/linux-install-$clj_ver.sh
+chmod +x linux-install-$clj_ver.sh
+sudo ./linux-install-$clj_ver.sh
 
 sudo apt install -y leiningen
 
@@ -276,9 +278,9 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/
 
 message "Clojure linters"
 kondo_ver="2022.08.03"
-joker_ver="1.0.0"
+joker_ver="1.0.1"
 
-if [[ $cpu == "x86_64" ]]
+if [ $cpu == "x86_64" ]
 then
   wget https://github.com/clj-kondo/clj-kondo/releases/download/v$kondo_ver/clj-kondo-$kondo_ver-linux-amd64.zip
   unzip clj-kondo-$kondo_ver-linux-amd64.zip -d $HOME/.local/bin
@@ -296,10 +298,10 @@ fi
 message "Installing R"
 sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse r-cran-irkernel
 
-Rscript --save --verbose -e "install.packages( c('languageserver', 'lintr', 'styler'))"
+# Rscript --save --verbose -e "install.packages( c('languageserver', 'lintr', 'styler'))"
 
-# Rstudio does not install on Debian bookworm
-if [[ $cpu != "x86_64" ]]
+# Rstudio does not install on Arm-64
+if [ $cpu != "x86_64" ]
 then
   message "Sorry, RStudio is not available on $cpu architecture"
 else
@@ -310,8 +312,11 @@ else
   cd $HOME/Downloads
   wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.1-554-amd64.deb
   dpkg-sig --verify rstudio-2022.07.1-554-amd64.deb
-  sudo apt install ./rstudio-2022.07.1-554-amd64.deb
+  sudo dpkg -i ./rstudio-2022.07.1-554-amd64.deb
 fi
 
 message "Finished"
+echo "Install packages in R. Accept creation of new folders."
+echo "R"
+echo "install.packages( c('languageserver', 'lintr', 'styler'))"
 echo "Reboot into new system with 'systemctl reboot'"
