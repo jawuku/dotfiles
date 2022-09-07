@@ -185,10 +185,15 @@ nvm install --lts
 
 message "Installing Wezterm Terminal Emulator"
 cd $HOME/Downloads
-wget https://github.com/wez/wezterm/releases/download/20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
-sudo dpkg -i 20220807-113146-c2fee766/wezterm-20220807-113146-c2fee766.Debian11.deb
+wget https://github.com/wez/wezterm/releases/download/20220905-102802-7d4b8249/wezterm-20220905-102802-7d4b8249.Debian11.deb
+sudo dpkg -i wezterm-20220905-102802-7d4b8249.Debian11.deb
 cd $HOME
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
+
+message "Downloading fallback Xterm config with font and colour scheme"
+cd $HOME
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.Xresources
+xrdb -merge .Xresources
 
 message "Installing Neovim"
 sudo apt install -y xclip ripgrep
@@ -198,11 +203,11 @@ pip3 install --user pynvim
 sudo apt install -y fd-find
 ln -s $(which fdfind) ~/.local/bin/fd
 
-# download Neovim Appimage
+# compile neovim from source code
 cd $HOME/github
 git clone https://github.com/neovim/neovim.git
 cd neovim
-git checkout stable
+git checkout stable # omit this line if you want the development release
 make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/.local
 make install
 
