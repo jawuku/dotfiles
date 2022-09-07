@@ -271,11 +271,10 @@ message "Julia Language Server for Neovim"
 $HOME/.local/bin/julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
 
 message "Installing Clojure"
-clj_ver="1.11.1.1155"
 sudo apt install -y rlwrap openjdk-11-jdk
-curl -O https://download.clojure.org/install/linux-install-$clj_ver.sh
-chmod +x linux-install-$clj_ver.sh
-sudo ./linux-install-$clj_ver.sh
+curl -O https://download.clojure.org/install/linux-install-1.11.1.1155.sh
+chmod +x linux-install-1.11.1.1155.sh
+sudo ./linux-install-1.11.1.1155.sh
 
 sudo apt install -y leiningen
 
