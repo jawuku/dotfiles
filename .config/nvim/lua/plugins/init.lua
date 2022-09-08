@@ -26,68 +26,77 @@ vim.cmd([[
 
 return require('packer').startup(function(use)
 -- Packer can manage itself
-  use "wbthomason/packer.nvim"
+use "wbthomason/packer.nvim"
 
--- Tender vim colourscheme
-  use "jacoborus/tender"
+-- Tender colourscheme
+-- use "jacoborus/tender"
+use {"lanej/tender",
+  config = function() require("tender") end,
+  requires = { "rkjmp/lush.nvim" } }
 
 -- LunarVim's Dark+ colourscheme
-  use "LunarVim/darkplus.nvim"
+use "LunarVim/darkplus.nvim"
+
+-- Solarized nvim colourscheme
+use "shaunsingh/solarized.nvim"
 
 -- Treesitter
-  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
 
 -- Neovim Treesitter Rainbow brackets
-  use "p00f/nvim-ts-rainbow"
+use "p00f/nvim-ts-rainbow"
 
 -- Lualine status line
-  use {"nvim-lualine/lualine.nvim",
-    config = function() require("lualine").setup {
-      options = { theme = "papercolor_light" } } end,
-    requires = { "kyazdani42/nvim-web-devicons", opt = true } }
+use {"nvim-lualine/lualine.nvim",
+  config = function() require("lualine").setup {
+    options = { theme = "papercolor_light" } } end,
+  requires = { "kyazdani42/nvim-web-devicons", opt = true } }
 
 -- Bufferline
-  use {"noib3/nvim-cokeline",
-    requires = "kyazdani42/nvim-web-devicons"} -- If you want devicons
+use {"noib3/nvim-cokeline",
+  requires = "kyazdani42/nvim-web-devicons"} -- If you want devicons
 
 -- Nvim Tree - file explorer
-  use {"kyazdani42/nvim-tree.lua",
-    config = function() require("nvim-tree").setup{} end,
-    requires = {"kyazdani42/nvim-web-devicons"}, -- optional, for file icons
-    tag = "nightly"} -- optional, updated every week. (see issue #1193)
+use {"kyazdani42/nvim-tree.lua",
+  config = function() require("nvim-tree").setup{} end,
+  requires = {"kyazdani42/nvim-web-devicons"}, -- optional, for file icons
+  tag = "nightly"} -- optional, updated every week. (see issue #1193)
 
 -- close brackets automatically i.e. ( ), [ ], { }
-  use {"windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {
-      disable_filetype = { "TelescopePrompt" , "vim" },
-      check_ts = true,
+use {"windwp/nvim-autopairs",
+  config = function() require("nvim-autopairs").setup {
+    disable_filetype = { "TelescopePrompt" , "vim" },
+    check_ts = true,
     }
   end
-  }
+}
 
 -- Nvim-Telescope : fuzzy file finder
-  use {"nvim-telescope/telescope.nvim", tag = "0.1.0",
-  -- or                            , branch = '0.1.x',
-    requires = { {"nvim-lua/plenary.nvim"} }
-  }
+use {"nvim-telescope/telescope.nvim", tag = "0.1.0",
+ -- or                           , branch = '0.1.x',
+  requires = { {"nvim-lua/plenary.nvim"} }
+}
+
 -- Nvim-Telescope fzf-native
-  use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 
 -- Which-key : configure keybindings
-  use "folke/which-key.nvim"
+use "folke/which-key.nvim"
 
 -- Nvim-cmp : autocompletion
-  use "neovim/nvim-lspconfig"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-buffer"
-  use "hrsh7th/cmp-path"
-  use "hrsh7th/cmp-cmdline"
-  use "hrsh7th/nvim-cmp"
+use "neovim/nvim-lspconfig"
+use "hrsh7th/cmp-nvim-lsp"
+use "hrsh7th/cmp-buffer"
+use "hrsh7th/cmp-path"
+use "hrsh7th/cmp-cmdline"
+use "hrsh7th/nvim-cmp"
 
 -- Snippets
-  use "L3MON4D3/LuaSnip"
-  use "saadparwaiz1/cmp_luasnip"
-
+use "L3MON4D3/LuaSnip"
+use "saadparwaiz1/cmp_luasnip"
+use "rafamadriz/friendly-snippets"
+  
 -- Display completion icons
-  use "onsails/lspkind.nvim"
+use "onsails/lspkind.nvim"
+
 end)
