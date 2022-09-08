@@ -11,7 +11,6 @@ imports = [ ./neovim/neovim.nix ];
     exa
     screenfetch
     glances
-    most
   ];
   
   programs.bat.enable = true;
@@ -25,7 +24,7 @@ imports = [ ./neovim/neovim.nix ];
       cat = "bat";
       ls  = "exa";
       ll  = "exa -la --icons";
-      lt  = "exa --tree";
+      lt  = "exa --tree --icons";
       update  = "sudo nix-channel update";
       upgrade = "sudo nixos-rebuild switch";
     };
@@ -33,7 +32,6 @@ imports = [ ./neovim/neovim.nix ];
     sessionVariables = {
       EDITOR = "nano";
       TERMINAL = "kitty";
-      PAGER = "most";
       BAT_THEME = "Visual Studio Dark+";
     };
   };
