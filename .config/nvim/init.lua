@@ -17,14 +17,15 @@ https://youtube.com/playlist?list=PLPDVgSbOnt7LXQ8DTzu37UwCpA0elyD0V
 " ASCII art from https://ascii.co.uk/text
 " style: Banner3d
 ]]
+require("options")
 require("plugins")
 require("keymaps")
 require("which-key-config")
-require("options")
 -- require("lualine-config")
 require("bufferline-config")
 -- require("nvim-tree-config")
 require("treesitter-config")
 require("telescope-config")
-require("cmp-config")
+require("lsp-zero")
+-- require("cmp-config")
 vim.cmd("colo darkplus")
