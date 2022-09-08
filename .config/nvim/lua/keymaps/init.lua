@@ -34,10 +34,16 @@ local keymap = vim.api.nvim_set_keymap
 -- Map leader key to space
 vim.g.mapleader = " "
 
+-- switch to windows above / below / left / right
 keymap("n", "<C-h>", "<C-w>h", {noremap = true})
 keymap("n", "<C-j>", "<C-w>j", {noremap = true})
 keymap("n", "<C-k>", "<C-w>k", {noremap = true})
 keymap("n", "<C-l>", "<C-w>l", {noremap = true})
+
+keymap("n", "<C-left>",  "<C-w>h", {noremap = true})
+keymap("n", "<C-right>", "<C-w>l", {noremap = true})
+keymap("n", "<C-up>",    "<C-w>k", {noremap = true})
+keymap("n", "<C-down>",  "<C-w>j", {noremap = true})
 
 -- '>' in Visual mode inserts an indent
 -- '<' removes it
@@ -47,6 +53,23 @@ keymap("v", ">", ">gv", {noremap = true, silent = false})
 -- emulate <Esc> in Insert mode with 'jk' or 'kj'
 keymap("i", "jk", "<ESC>", {noremap = true})
 keymap("i", "kj", "<ESC>", {noremap = true})
+
+-- do not yank with 'x'
+keymap("n", "x", '"_x', {noremap = true})
+
+-- increment / decrement with '+' and '-'
+keymap("n", "+", "<C-a>", {noremap = true})
+keymap("n", "-", "<C-x>", {noremap = true})
+
+-- Delete a word backwards
+keymap("n", "dw", 'vb"_d', {noremap = true})
+
+-- select all with Ctrl-a
+keymap("n", "<C-a>", "gg<S-v>G", {noremap = true})
+
+-- split window
+keymap("n", "ss", ":split<cr><C-w>w",  {noremap = true, silent = true})
+keymap("n", "sv", ":vsplit<cr><C-w>w", {noremap = true, silent = true})
 
 --[[ Telescope.nvim keys: Find files using Telescope command-line sugar.
 keymap("n", "<leader>ff", ":Telescope find_files<cr>", {noremap = true})
