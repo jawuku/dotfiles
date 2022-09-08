@@ -85,9 +85,12 @@ use {
    "VonHeikemen/lsp-zero.nvim",
   requires = {
   -- LSP Support    
-  {"neovim/nvim-lspconfig"},
-  {"williamboman/mason.nvim"},
+  {"williamboman/mason.nvim",
+    config = function() require("mason").setup()
+                        require("mason-lspconfig").setup()
+    end},
   {"williamboman/mason-lspconfig.nvim"},
+  {"neovim/nvim-lspconfig"},
 
   -- Nvim-cmp : autocompletion
   {"hrsh7th/nvim-cmp"},
