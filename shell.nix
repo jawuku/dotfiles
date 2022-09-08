@@ -19,6 +19,10 @@ in
       python39Packages.notebook
       python39Packages.tensorflowWithoutCuda
       python39Packages.pytorchWithoutCuda
+      python39Packages.black
+      python39Packages.isort
+      python39Packages.flake8
+      python39Packages.pynvim
       
       # R
       R
@@ -42,6 +46,6 @@ in
       ];
       
     shellHook = ''
-      julia -e 'using Pkg; Pkg.add("IJulia")';
+      julia -e 'using Pkg; Pkg.add(["IJulia", "LanguageServer"])';
       '';
 }
