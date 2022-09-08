@@ -11,10 +11,7 @@
 88                           "Y8bbdP"                            
 
 ASCII art from https://ascii.co.uk/text
-style: Default Font	   
-
- new config style inspired by Christian Chiarulli's options page
- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/options.lua
+style: Default Font
 ]]
 -- Automatically run :PackerCompile when plugins.lua altered
 vim.cmd([[
