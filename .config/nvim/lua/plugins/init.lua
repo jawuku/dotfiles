@@ -26,10 +26,7 @@ return require('packer').startup(function(use)
 use "wbthomason/packer.nvim"
 
 -- Tender colourscheme
--- use "jacoborus/tender"
-use {"lanej/tender",
-  config = function() require("tender") end,
-  requires = { "rkjmp/lush.nvim" } }
+use "jacoborus/tender"
 
 -- LunarVim's Dark+ colourscheme
 use "LunarVim/darkplus.nvim"
