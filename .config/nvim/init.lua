@@ -25,6 +25,7 @@ require("which-key-config")
 require("bufferline-config")
 require("treesitter-config")
 require("telescope-config")
-require("lsp-zero")
--- require("cmp-config")
-vim.cmd("colo darkplus")
+require("lsp-zero") -- use cmp-config instead for manual setup
+-- require("cmp-config") -- use only if you want to setup plugins manually
+-- replace 
+vim.cmd("colo solarized")
