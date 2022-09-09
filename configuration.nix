@@ -185,7 +185,9 @@ in
     htop
     most
     neovim
-    tree-sitter
+    
+    # R
+    R
     rPackages.languageserver
     rPackages.tidyverse
     rPackages.devtools
@@ -193,6 +195,8 @@ in
     rPackages.ggplot2
     rPackages.lintr
     rPackages.styler
+    
+    # Python
     python39
     python39Packages.sympy
     python39Packages.seaborn
@@ -205,15 +209,33 @@ in
     python39Packages.gmpy2
     python39Packages.pillow-simd
     nodePackages.pyright
+    
     nodePackages.bash-language-server
     julia_17-bin # only for x86_64
+    
+    # Clojure
     clojure
     clojure-lsp
     leiningen
+    clj-kondo
+    joker
+    
+    # C / C++
     clang
-    clangd
     clang-format
-    octaveFull
+    
+    # Octave
+    octave
+    octavePackages.io
+    octavePackages.image
+    octavePackages.control
+    octavePackages.optim
+    octavePackages.signal
+    octavePackages.statistics
+    octavePackages.nan
+    octavePackages.symbolic
+    octavePackages.linear-algebra
+    
     fzf
     ripgrep
     sumneko-lua-language-server
