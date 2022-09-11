@@ -16,9 +16,25 @@ cd $HOME
 message "Updating packages"
 sudo apt update && sudo apt upgrade
 
+# check machine architecture
+PROCESSOR=$(uname -m)
+case $PROCESSOR in
+  x86_64|amd64)
+    arch="amd64"
+    cpu="x86_64";;
+  i?86)
+    arch="x86"
+    cpu="i686";;
+  aarch64)
+    arch="arm64"
+    cpu="aarch64";;
+esac
+
+message "This OS runs on the $arch architecture"
+
 message "Install basic utilities"
 sudo apt install -y build-essential git subversion p7zip-full unzip zip curl \
-bat exa linux-headers-amd64 bsdmainutils most htop cmake pkg-config doxygen \
+bat exa linux-headers-$arch bsdmainutils most htop cmake pkg-config doxygen \
 zsh zsh-autosuggestions zsh-syntax-highlighting libtool-bin automake gettext \
 ninja-build
 
@@ -39,7 +55,7 @@ lxappearance lxappearance-obconf slick-greeter
 xdg-user-dirs-update
 
 # creating config directories in ~/.config
-mkdir -p $HOME/.config/{openbox,rofi,jgmenu,tint2,nvim}
+mkdir -p $HOME/.config/{openbox,rofi,jgmenu,tint2,nvim,kitty}
 
 message "Installing GUI software"
 
@@ -83,27 +99,13 @@ message "Downloading wallpapers"
 cd $HOME/Pictures
 svn checkout https://github.com/jawuku/dotfiles/trunk/wallpapers
 
-message "Install Fira Code Nerd font"
+message "Install Fira Code font"
+sudo apt install -y fonts-firacode fontconfig
+mkdir -p $HOME/.local/share/fonts
 mkdir $HOME/github
 cd $HOME/github
-
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.1/FiraCode.zip
-mkdir -p $HOME/.local/share/fonts
-
-# extract each font
-fonts="Bold Light SemiBold Medium Regular Retina"
-for feature in $fonts; do
-    unzip -j FiraCode.zip "Fira Code $feature Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
-done
-
-# more manual way of doing the same thing
-# unzip -j FiraCode.zip "Fira Code Bold Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code SemiBold Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Medium Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Light Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Regular Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Retina Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
-
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/NerdFontsSymbolsOnly.zip
+unzip -j NerdFontsSymbolsOnly.zip *.ttf -d $HOME/.local/share/fonts
 fc-cache -fv
 
 message "Openbox configuration"
@@ -119,8 +121,10 @@ message "Rofi program launcher"
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/rofi
 
 message "Build jgmenu dynamic desktop menu"
-cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
+
+message "Kitty Terminal Editor config files"
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty
 
 cd $HOME/github
 
@@ -183,12 +187,20 @@ export NVM_DIR="$HOME/.nvm"
 # install LTS node version
 nvm install --lts
 
-message "Installing Wezterm Terminal Emulator"
-cd $HOME/Downloads
-wget https://github.com/wez/wezterm/releases/download/20220905-102802-7d4b8249/wezterm-20220905-102802-7d4b8249.Debian11.deb
-sudo dpkg -i wezterm-20220905-102802-7d4b8249.Debian11.deb
-cd $HOME
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
+message "Installing Kitty Terminal Emulator"
+sudo apt install -y mesa-utils
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+# Create a symbolic link to add kitty to PATH (assuming $HOME/.local/bin is in
+# your system-wide PATH)
+ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+mkdir -p $HOME/.local/share/applications
+# Place the kitty.desktop file somewhere it can be found by the OS
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+# If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
+cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+# Update the paths to the kitty and its icon in the kitty.desktop file(s)
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
 
 message "Downloading fallback Xterm config with font and colour scheme"
 cd $HOME
@@ -244,24 +256,10 @@ sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmp
 message "Installing Julia"
 cd $HOME/Downloads
 
-# check machine architecture
-PROCESSOR=$(uname -m)
-case $PROCESSOR in
-  x86_64|amd64)
-    arch="x64"
-    cpu="x86_64";;
-  i?86)
-    arch="x86"
-    cpu="i686";;
-  aarch64)
-    arch="aarch64"
-    cpu=$arch;;
-esac
-
 echo "Installing Julia for $cpu architecture"
 
 julia_ver="1.8.1"
-julia_minver=${julia_ver:0:-2}
+julia_minver=${julia_ver:0:-2} # take off last 2 chars to form "1.8"
 
 wget https://julialang-s3.julialang.org/bin/linux/$arch/$julia_minver/julia-$julia_ver-linux-$cpu.tar.gz
 tar xvf julia-$julia_ver-linux-$cpu.tar.gz
@@ -284,20 +282,20 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/
 message "Clojure linters"
 joker_ver="1.0.1"
 
-if [ $arch = "x64" ]; then
+if [ $arch = "amd64" ]; then
   curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
   chmod +x install-clj-kondo
   ./install-clj-kondo
-  wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-$joker_ver-linux-amd64.zip
-  unzip joker-$joker_ver-linux-amd64.zip -d $HOME/.local/bin
-elif [ $arch = "aarch64" ]; then
+  wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-$joker_ver-linux-$arch.zip
+  unzip joker-$joker_ver-linux-$arch.zip -d $HOME/.local/bin
+elif [ $arch = "arm64" ]; then
   message "Installing clj-kondo from npm on $arch architecture"
   npm install -g clj-kondo 
   echo "Joker needs to be compiled from source on $arch architecture"
-  message "Installing Go compiler on $cpu architecture"
+  message "Installing Go compiler on $arch architecture"
   cd $HOME/Downloads
-  wget https://go.dev/dl/go1.19.1.linux-arm64.tar.gz
-  sudo tar -C /usr/local -xzf go1.19.1.linux-arm64.tar.gz
+  wget https://go.dev/dl/go1.19.1.linux-$arch.tar.gz
+  sudo tar -C /usr/local -xzf go1.19.1.linux-$arch.tar.gz
   echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.zshrc
   export PATH=$PATH:/usr/local/go/bin
   echo "Go installed"
