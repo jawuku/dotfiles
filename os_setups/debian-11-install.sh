@@ -260,7 +260,7 @@ esac
 
 echo "Installing Julia for $cpu architecture"
 
-julia_ver="1.8.0"
+julia_ver="1.8.1"
 julia_minver=${julia_ver:0:-2}
 
 wget https://julialang-s3.julialang.org/bin/linux/$arch/$julia_minver/julia-$julia_ver-linux-$cpu.tar.gz
@@ -282,22 +282,39 @@ message "Installing Clojure Language Server"
 sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 
 message "Clojure linters"
-kondo_ver="2022.08.03"
 joker_ver="1.0.1"
 
-if [ $cpu == "x86_64" ]
-then
-  wget https://github.com/clj-kondo/clj-kondo/releases/download/v$kondo_ver/clj-kondo-$kondo_ver-linux-amd64.zip
-  unzip clj-kondo-$kondo_ver-linux-amd64.zip -d $HOME/.local/bin
-
+if [ $arch = "x64" ]; then
+  curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
+  chmod +x install-clj-kondo
+  ./install-clj-kondo
   wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-$joker_ver-linux-amd64.zip
   unzip joker-$joker_ver-linux-amd64.zip -d $HOME/.local/bin
+elif [ $arch = "aarch64" ]; then
+  message "Installing clj-kondo from npm on $arch architecture"
+  npm install -g clj-kondo 
+  echo "Joker needs to be compiled from source on $arch architecture"
+  message "Installing Go compiler on $cpu architecture"
+  cd $HOME/Downloads
+  wget https://go.dev/dl/go1.19.1.linux-arm64.tar.gz
+  sudo tar -C /usr/local -xzf go1.19.1.linux-arm64.tar.gz
+  echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.zshrc
+  export PATH=$PATH:/usr/local/go/bin
+  echo "Go installed"
+  go version
+  sleep 3
+  message "Compiling Joker"
+  wget https://github.com/candid82/joker/archive/refs/tags/v$joker_ver.tar.gz
+  cd joker-$joker_ver
+  ./install.sh
+  cp joker $HOME/.local/bin
 else
-  message "Joker needs to be compiled from source on $cpu architecture"
-  echo "see https://github.com/candid82/joker#building"
-  echo "Needs the Go language for building"
-  echo "see https://www.linuxcapable.com/how-to-install-go-golang-compiler-on-debian-11/"
-  sleep 15
+  echo
+  echo "Need to compile Go, and joker from source on your architecture"
+  echo "See https://go.dev/dl/"
+  echo "Also install clj-kondo via npm or yarn"
+  echo "Waiting 20 seconds ..."
+  sleep 20
 fi
 
 message "Installing R"
