@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-## Debian Xfce Install Script
+## Debian Xfce Install Minimal Script
 ## do after fresh netinstall of Debian 11 Bullseye Stable with firmware
 ## run as normal user - will prompt for sudo password
 
@@ -57,9 +57,6 @@ sudo apt install -y xdg-user-dirs
 xdg-user-dirs-update
 
 # internet and firewall
-sudo apt install -y network-manager network-manager-gnome \
-network-manager-openvpn network-manager-openvpn-gnome
-
 sudo apt install -y firefox-esr transmission-gtk gufw
 sudo ufw enable
 
@@ -129,11 +126,17 @@ sudo apt install -y qt5ct adwaita-qt
 message "Make QT5 apps adopt GTK theme"
 echo "export QT_QPA_PLATFORMTHRMR=qt5ct" | tee -a .bashrc
 
+# Other themes
+message "Installing other GTK and icon themes"
+sudo apt install -y bluebird-gtk-theme blackbird-gtk-theme numix-icon-theme-circle
+
 # Flatpak install
+message "Installing Flatpak"
 sudo apt install flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-message "Finished! Install Flatpak apps after reboot."
+message "Finished! Install some Flatpak apps after reboot."
+echo "For example: flatpak install org.gnome.Lollypop"
 echo "Waiting 20 seconds to reboot..."
 
 sleep 20
