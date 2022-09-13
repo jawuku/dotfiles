@@ -41,7 +41,7 @@ sudo apt install -y neofetch xfce4-appfinder xfce4-datetime-plugin \
 xfce4-pulseaudio-plugin xfce4-screenshooter xfce4-session xfce4-settings \
 xfce4-taskmanager xfce4-terminal xfce4-wavelan-plugin xfce4-panel \
 xfce4-xkb-plugin xfwm4 xfconf xfdesktop4 xfdesktop4-data slick-greeter \
-xarchiver xfce4-notifyd libnotifyd
+xarchiver xfce4-notifyd
 
 # Network manager
 sudo apt install -y network-manager-openvpn network-manager-gnome \
@@ -61,7 +61,7 @@ sudo apt install -y firefox-esr transmission-gtk gufw
 sudo ufw enable
 
 # media player
-sudo apt install -y parole
+sudo apt install -y lollypop
 
 # image viewer
 sudo apt install -y ristretto
@@ -132,11 +132,23 @@ sudo apt install -y bluebird-gtk-theme blackbird-gtk-theme numix-icon-theme-circ
 
 # Flatpak install
 message "Installing Flatpak"
-sudo apt install flatpak
+sudo apt install -y flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-message "Finished! Install some Flatpak apps after reboot."
-echo "For example: flatpak install org.gnome.Lollypop"
+# Distrobox Container
+message "Installing Arch Linux Container via Distrobox"
+sudo apt install -y podman
+cd $HOME/github
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+distrobox-create --name archlinux --image docker.io/archlinux:latest --yes
+
+message "Finished"
+echo "Install some Flatpak apps after reboot."
+echo "For example: flatpak install flathub org.wezfurlong.wezterm"
+echo "to install the Wezterm terminal emulator."
+echo
+echo "To enter Archlinux container, enter"
+echo "distrobox enter archlinux"
 echo "Waiting 20 seconds to reboot..."
 
 sleep 20
