@@ -3,6 +3,10 @@
 ## do after fresh netinstall of Debian 11 Bullseye Stable with firmware
 ## run as normal user - will prompt for sudo password
 
+## Basic ideas taken from https://github.com/coonrad/Debian-Xfce4-Minimal-Install
+## and Stephen's Tech Talks (on YouTube) to install the Archlinux container
+## https://www.youtube.com/watch?v=p9AdhNgR69k
+
 # define messaging function, waits for 3 seconds before proceeding
 message () {
     echo
