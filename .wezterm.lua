@@ -25,17 +25,4 @@ return {
   initial_cols = 80,
   
   initial_rows = 25,
-  
-  keys = {
-      {
-        key = "v",
-        mods = "CTRL|SHIFT",
-        action = wezterm.action({ PasteFrom = "Clipboard" }),
-        },
-      {
-        key = "c",
-        mods = "CTRL|SHIFT",
-        action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }),
-        },
-      },
-    }
+}
