@@ -186,15 +186,20 @@ let g:ale_sign_warning = '⚠' " unicode U+26A0 Warning Sign
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_linters = {
-\   'clojure': ['clj-kondo', 'joker']
+\   'clojure': ['clj-kondo'],
+\   'python': ['flake8'],
+\   'c': ['clangd'],
+\   'cpp': ['clangd'],
+\   'sh': ['shellcheck']
 \}
 
-" install yapf3, flake8, clangd, clang-format
+" install black, flake8, clangd, clang-format, joker, clj-kondo, isort
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf3', 'flake8'],
-\   'c': ['clangd', 'clang-format'],
-\   'cpp': ['clangd', 'clang-format']
+\   'clojure': ['joker'],
+\   'python': ['isort', 'black'],
+\   'c': ['clang-format'],
+\   'cpp': ['clang-format']
 \}
 
 " -----------------
