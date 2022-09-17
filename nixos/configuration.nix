@@ -200,13 +200,13 @@ environment.systemPackages = with pkgs; [
   zathura
   libreoffice
   tela-icon-theme
-	tela-circle-icon-theme
+  tela-circle-icon-theme
   xfce.thunar-archive-plugin
   xfce.thunar-volman
   xfce.thunar-media-tags-plugin
   arc-theme
   xclip
-   
+  
   clang
   clang-tools
         
@@ -218,22 +218,21 @@ environment.systemPackages = with pkgs; [
   leiningen
     
   octave
-	octavePackages.control
-	octavePackages.image
-	octavePackages.io
-	octavePackages.optim
-	octavePackages.signal
-	octavePackages.statistics
-	octavePackages.symbolic
-	octavePackages.dataframe
-	octavePackages.nan
-	octavePackages.linear-algebra
+  octavePackages.control
+  octavePackages.image
+  octavePackages.io
+  octavePackages.optim
+  octavePackages.signal
+  octavePackages.statistics
+  octavePackages.symbolic
+  octavePackages.dataframe
+  octavePackages.nan
+  octavePackages.linear-algebra
     
   fzf
   fd
   ripgrep
-	
-	mesa
+  mesa
   nix-prefetch-github
 ];
 
