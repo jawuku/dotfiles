@@ -24,13 +24,13 @@ let
 
   R-with-my-packages = rWrapper.override{ packages = with rPackages; [
     ggplot2
-	  tidyverse
+    tidyverse
     languageserver
-	  lintr
-	  styler
-	  devtools
-	  IRkernel
-	]; };
+    lintr
+    styler
+    devtools
+    IRkernel
+    ]; };
 in
 
 {
@@ -41,8 +41,8 @@ imports = [ ./neovim.nix ];
     exa
     screenfetch
     glances
-	  customPython # Python with packages specified above
-	  R-with-my-packages # R with packages specified above
+    customPython # Python with packages specified above
+    R-with-my-packages # R with packages specified above
   ];
   
   programs.bat.enable = true;
