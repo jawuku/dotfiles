@@ -38,7 +38,7 @@ lxappearance lxappearance-obconf slick-greeter
 xdg-user-dirs-update
 
 # creating config directories in ~/.config
-mkdir -p $HOME/.config/{openbox,rofi,jgmenu,tint2,nvim}
+mkdir -p $HOME/.config/{openbox,rofi,jgmenu,tint2,nvim,kitty}
 
 message "Installing GUI software"
 
@@ -187,7 +187,9 @@ cd 3rd/luamake
 cd ../..
 ./3rd/luamake/luamake rebuild
 
-ln -s $HOME/github/lua-language-server/bin/lua-language-server $HOME/.local/bin/
+echo '#!/bin/bash' > $HOME/.local/bin/lua-language-server
+echo 'exec "$HOME/github/lua-language-server/bin/lua-language-server" "$@"' >> $HOME/.local/bin/lua-language-server
+chmod +x $HOME/.local/bin/lua-language-server
 
 message "Installing Python libraries"
 sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmpy2 python3-sympy python3-statsmodels flake8 black
