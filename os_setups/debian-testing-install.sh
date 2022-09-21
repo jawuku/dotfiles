@@ -30,7 +30,7 @@ message "Setting zsh as the default user shell"
 sudo chsh -s $(which zsh) $USER
 
 message "Installing Basic Xorg environment"
-sudo apt install -y xserver-xorg-core openbox fonts-noto \
+sudo apt install -y xserver-xorg-core openbox fonts-noto fonts-firacode \
 desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf slick-greeter
 
@@ -70,7 +70,7 @@ gsimplecal light-locker gpicview lxpolkit redshift-gtk arc-theme
 sudo apt install -y atril
 
 # screenshots
-sudo apt install -y kazam
+sudo apt install -y xfce4-screenshooter
 
 echo "Installing Pywal Themer"
 message "Pywal sets terminal theme from wallpaper colours"
@@ -82,25 +82,15 @@ message "Downloading wallpapers"
 cd $HOME/Pictures
 svn checkout https://github.com/jawuku/dotfiles/trunk/wallpapers
 
-message "Install Fira Code Nerd font"
+message "Install Nerd Font Symbols"
 mkdir $HOME/github
 cd $HOME/github
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/NerdFontsSymbolsOnly.zip
 mkdir -p $HOME/.local/share/fonts
 
 # extract each font
-fonts="Bold Light Medium Regular Retina"
-for feature in $fonts; do
-    unzip -j FiraCode.zip "Fira Code $feature Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-done
-
-# more manual way of doing the same thing
-# unzip -j FiraCode.zip "Fira Code Bold Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Medium Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Retina Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Regular Nerd Font Complete.otf" -d $HOME/.local/share/fonts
-# unzip -j FiraCode.zip "Fira Code Light Nerd Font Complete.otf" -d $HOME/.local/share/fonts
+unzip NerdFontsSymbolsOnly.zip -d $HOME/.local/share/fonts
 
 fc-cache -fv
 
@@ -117,24 +107,11 @@ message "Rofi program launcher"
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/rofi
 
 message "Build jgmenu dynamic desktop menu"
-cd ~/.config
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
+sudo apt install -y jgmenu
 
-cd $HOME/github
-
-git clone https://github.com/johanmalm/jgmenu.git
-
-sudo apt -y install debhelper libx11-dev libxrandr-dev libcairo2-dev \
-libpango1.0-dev librsvg2-dev libxml2-dev libglib2.0-dev libmenu-cache-dev \
-xfce4-panel libxfce4panel-2.0-dev
-
-cd jgmenu
-
-./configure --prefix=/usr --with-lx --with-pmenu
-
-dpkg-buildpackage -tc -b -us -uc
-
-sudo dpkg -i $HOME/github/jgmenu_4.4.0-1_amd64.deb
+message "Kitty terminal emulator config"
+svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
 
 message "Installing Qogir Icon Theme"
 cd $HOME/github
@@ -167,16 +144,23 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# install latest node version
-nvm install v18.8.0
+# install LTS node version
+nvm install --lts
 
-message "Installing Wezterm Terminal Emulator"
-cd $HOME/Downloads
-wget https://github.com/wez/wezterm/releases/download/20220807-113146-c2fee766/WezTerm-20220807-113146-c2fee766-Ubuntu18.04.AppImage
-chmod +x WezTerm-20220807-113146-c2fee766-Ubuntu18.04.AppImage
-cp WezTerm-20220807-113146-c2fee766-Ubuntu18.04.AppImage $HOME/.local/bin/wezterm
-cd $HOME
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
+message "Installing Kitty terminal Emulator"
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
+# Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
+# your system-wide PATH)
+ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+# Place the kitty.desktop file somewhere it can be found by the OS
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+# If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
+cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+# Update the paths to the kitty and its icon in the kitty.desktop file(s)
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+
 
 message "Installing Neovim"
 sudo apt install -y xclip ripgrep neovim
@@ -230,7 +214,7 @@ esac
 
 echo "Installing Julia for $cpu architecture"
 
-julia_ver="1.8.0"
+julia_ver="1.8.1"
 julia_minver=${julia_ver:0:-2}
 
 wget https://julialang-s3.julialang.org/bin/linux/$arch/$julia_minver/julia-$julia_ver-linux-$cpu.tar.gz
@@ -242,9 +226,9 @@ $HOME/.local/bin/julia --project=~/.julia/environments/nvim-lspconfig -e 'using 
 
 message "Installing Clojure"
 sudo apt install -y rlwrap openjdk-11-jdk
-curl -O https://download.clojure.org/install/linux-install-1.11.1.1155.sh
-chmod +x linux-install-1.11.1.1155.sh
-sudo ./linux-install-1.11.1.1155.sh
+curl -O https://download.clojure.org/install/linux-install-1.11.1.1165.sh
+chmod +x linux-install-1.11.1.1165.sh
+sudo ./linux-install-1.11.1.1165.sh
 
 sudo apt install -y leiningen
 
@@ -252,10 +236,10 @@ message "Installing Clojure Language Server"
 sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 
 message "Clojure linters"
-kondo_ver="2022.08.03"
-joker_ver="1.0.0"
+kondo_ver="2022.09.08"
+joker_ver="1.0.1"
 
-if [[ $cpu == "x86_64" ]]
+if [ $cpu = "x86_64" ]
 then
   wget https://github.com/clj-kondo/clj-kondo/releases/download/v$kondo_ver/clj-kondo-$kondo_ver-linux-amd64.zip
   unzip clj-kondo-$kondo_ver-linux-amd64.zip -d $HOME/.local/bin
