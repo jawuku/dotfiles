@@ -14,7 +14,7 @@ let
       pandas
       scipy
       gmpy2
-      pynvim
+      black
       flake8
     ];
   };
@@ -26,7 +26,7 @@ let
     lintr
     styler
     devtools
-    IRkernel
+    IRkernel # activate within R:   IRkernel::installspec()
     ]; };
 
   clojure-devtools = with pkgs; [
