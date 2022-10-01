@@ -45,7 +45,7 @@ in
 
   # exclude some default Gnome packages
   environment.gnome.excludePackages = (with pkgs.gnome;
-    [ cheese totem ]);
+    [ cheese totem epiphany ]);
 
   # Configure keymap in X11
   services.xserver = {
@@ -110,6 +110,7 @@ in
     isNormalUser = true;
     description = "Jason Awuku";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    initialPassword = "123"; # change after 1st boot!
     packages = with pkgs; [
     #  firefox
     #  thunderbird
@@ -138,6 +139,7 @@ in
     micro
     openh264
     libdvdcss
+    brave
   ];
 
   # GUI Fonts
