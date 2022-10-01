@@ -4,16 +4,8 @@
 
 { config, pkgs, ... }:
 
-# set variables
 let
-  defaultUser = "jason";
-  desc = "Jason Awuku";
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
-  xfce-packages = with pkgs.xfce; [
-  	thunar-volman thunar-media-tags-plugin thunar-archive-plugin
-  	xfce4-screenshooter parole ristretto catfish xfwm4-themes xfce4-notifyd
-  	xfce4-appfinder xfce4-weather-plugin
-  ];
 in
 
 {
@@ -23,55 +15,130 @@ in
       (import "${home-manager}/nixos")
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot";
-    timeout = 7;
-    systemd-boot.configurationLimit = 10;
-  };
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  # AMD kernel modules
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  
   networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "Europe/London";
+
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-  console = {
-    font = "ter-v24b";
-    useXkbConfig = true; # use xkbOptions in tty.
-  };
+  i18n.defaultLocale = "en_GB.utf8";
 
   # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  # exclude some default Gnome packages
+  environment.gnome.excludePackages = (with pkgs.gnome;
+    [ cheese totem ]);
+
+  # Configure keymap in X11
   services.xserver = {
-    enable = true;
-    displayManager.lightdm.enable = true;
-    displayManager.defaultSession = "xfce";
-    desktopManager.xfce.enable = true;
-    desktopManager.xterm.enable = false;
     layout = "gb";
-    libinput.enable = true;
-    videoDrivers = [ "amdgpu" ];
+    xkbVariant = "";
   };
 
-  # Enable OpenCL & Vulkan drivers
+  # Configure console keymap
+  console.keyMap = "uk";
+
+  # AMD GPU setup
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.opengl = {
     driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
+    driSupport32Bit = true; # for 32 bit applications
+    extraPackages = with pkgs; [
+      rocm-opencl-icd
+      rocm-opencl-runtime
+    ];
   };
+
+  # enable Bash Completion
+  environment.pathsToLink = [ "/share/bash-completion" ];
+
+  programs.bash = {
+    enableCompletion = true;
+    promptInit = ''
+    # Custom bash prompt via kirsle.net/wizards/ps1.html
+    PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+    '';
+  };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.jason = {
+    isNormalUser = true;
+    description = "Jason Awuku";
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    packages = with pkgs; [
+    #  firefox
+    #  thunderbird
+    ];
+  };
+
+  # Add home-manager block after user definition
+  home-manager.users.jason = {
+    imports = [ ./home.nix ];
+  };
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+  #  vim # Do not forget to add an editor to edit configuration.nix!
+  # The Nano editor is also installed by default.
+    wget
+    git
+    subversion
+    glances
+    ntfs3g
+    virt-manager
+    clang
+    clang-tools
+    jdk11
+    micro
+    openh264
+    libdvdcss
+  ];
 
   # GUI Fonts
   fonts.fonts = with pkgs; [
@@ -83,72 +150,8 @@ in
     noto-fonts-emoji
     noto-fonts-emoji-blob-bin
   ];
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
-  # Enable sound.
-  sound = {
-    enable = true;
-    mediaKeys.enable = true;
-  };
-
-  hardware.pulseaudio = {
-    enable = true;
-    support32Bit = true;
-    # extraModules = [ pkgs.pulseaudio-modules-bt ]; not needed anymore
-    package = pkgs.pulseaudioFull;
-  };
-
-  nixpkgs.config.pulseaudio = true;
-
-  hardware.bluetooth = {
-    enable = true;
-    settings = {
-      General = {
-        Enable = "Source,Sink,Media,Socket";
-      };
-    };
-  };
-
-  services.blueman.enable = true;
-
-  # Enable zsh autocompletion paths
-  programs.zsh.enable = true;
-  environment.pathsToLink = [ "/share/zsh" ];
-
-  # Define a user - change password after 1st reboot
-  users.users.${defaultUser} = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "video" "audio" "networkmanager" "lp" "scanner" "libvirtd" ];
-    description = desc;
-    initialPassword = "123";
-    shell = pkgs.bash; # distrobox needs bash as default shell
-  #   packages = with pkgs; [ firefox thunderbird ];
-  };
-  
-  # Add home-manager block after user definition
-  home-manager = {
-    users.${defaultUser} = { imports = [ ./home.nix ]; };
-    useGlobalPkgs   = true;
-    useUserPackages = true;
-  };
-  
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    micro # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget curl zathura git subversion glances firefox-esr lollypop ntfs3g
-    xorg.xhost distrobox geany gnome.gucharmap asunder libreoffice
-    qogir-icon-theme tela-icon-theme virt-manager
-  ]
-
-  # XFCE packages
-  ++ xfce-packages;
-
-  # Podman Installation
+  # Podman installation with Docker compatibility
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
@@ -158,22 +161,26 @@ in
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
-  # Check for updates daily
-  system.autoUpgrade.enable = true;    
-
   # Automatic garbage collection
   nix = {
     settings.auto-optimise-store = true;
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 14d";
-      };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
   };
 
-  # Save backup of configuration - useful if original accidentally deleted
+  # enable flatpak
+  services.flatpak.enable = true;
+
+  # To use VSCode under Wayland
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  # Save backup of configuration file
+  # useful if original accidentally deleted
   system.copySystemConfiguration = true;
-    
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -191,12 +198,7 @@ in
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = true;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
+  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -207,4 +209,3 @@ in
   system.stateVersion = "22.05"; # Did you read the comment?
 
 }
-

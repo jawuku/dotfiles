@@ -2,9 +2,9 @@
 { config, pkgs, ... }:
 
 let
-  customPython = pkgs.python39.buildEnv.override {
+  # Python 3.9 with packages
+  my-Python-packages = pkgs.python39.buildEnv.override {
     extraLibs = with pkgs.python39Packages; [
-      isort
       sympy
       seaborn
       notebook
@@ -15,48 +15,62 @@ let
       scipy
       gmpy2
       black
+      isort
       flake8
     ];
   };
 
-  R-with-my-packages = pkgs.rWrapper.override{ packages = with pkgs.rPackages; [
+  # R Studio
+  my-R-packages = pkgs.rstudioWrapper.override
+  { packages = with pkgs.rPackages; [
     ggplot2
     tidyverse
     languageserver
     lintr
     styler
     devtools
-    IRkernel # activate within R:   IRkernel::installspec()
-    ]; };
-
-  clojure-devtools = with pkgs; [
-    jdk
-    clojure
-    leiningen
-    clojure-lsp
-    clj-kondo
-    joker
-  ];
+    ];
+  };
 in
+
 {
+  # Home packages
   home.packages = with pkgs; [
-  	bat exa screenfetch glances
-  	customPython
-  	R-with-my-packages ]
-    ++ clojure-devtools;
+    bat
+    exa
+    pfetch
+    julia-bin
+    my-Python-packages
+    my-R-packages
+    jetbrains.idea-community
+    gnome.gnome-mahjongg
+    celluloid
+    octaveFull
+  ];
 
   programs.vscode = {
     enable = true;
+    package = pkgs.vscodium.fhsWithPackages
+      (ps: with ps; [ jdk11 ]);
     extensions = with pkgs.vscode-extensions; [
+      betterthantomorrow.calva
+      jdinhlife.gruvbox
+      dracula-theme.theme-dracula
       vscodevim.vim
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    {
-    	name = "calva";
-    	publisher = "BetterThanTomorrow";
-    	version = "2.0.304";
-        sha256 = "6Mp5gBPNAdyIxbrvR6G7GvJ1ZdmVXS2v5NYCNhdHKI0=";
-    }	
+      yzhang.markdown-all-in-one
     ];
   };
 
+  programs.bash = {
+    enable = true;
+    historyControl = [ "ignoredups" ];
+    shellAliases = {
+      ls = "exa";
+      ll = "exa -la --icons";
+      lt = "exa --tree --icons";
+      cat = "bat";
+      rebuild = "sudo nixos-rebuild switch";
+    };
+    sessionVariables = { EDITOR = "micro"; };
+  };
 }
