@@ -60,7 +60,54 @@ in
       yzhang.markdown-all-in-one
     ];
   };
+  
+  programs.kitty = {
+    enable = true;
+    settings = {
+      font_size = "14.0";
+      font_family      = "FiraCode Nerd Font";
+      bold_font        = "auto";
+      italic_font      = "auto";
+      bold_italic_font = "auto";
+      disable_ligatures = false;
+      font_features = "+ss02 +ss08 +cv16 +ss05";
+      scrollback_lines = 10000;
+      enable_audio_bell = false;
+      remember_window_size = true;
+      initial_window_width  = "80c";
+      initial_window_height = "25c";
 
+      # Gruvbox theme
+      selection_foreground = "#ebdbb2";
+      selection_background = "#d65d0e";
+
+      foreground           = "#ebdbb2";
+      background           = "#282828";
+
+      color0               = "#3c3836";
+      color1               = "#cc241d";
+      color2               = "#98971a";
+      color3               = "#d79921";
+      color4               = "#458588";
+      color5               = "#b16286";
+      color6               = "#689d6a";
+      color7               = "#a89984";
+      color8               = "#928374";
+      color9               = "#fb4934";
+      color10              = "#b8bb26";
+      color11              = "#fabd2f";
+      color12              = "#83a598";
+      color13              = "#d3869b";
+      color14              = "#83c07c";
+      color15              = "#fbf1c7";
+
+      cursor               = "#bdae93";
+      cursor_text_color    = "#665c54";
+
+      url_color            = "#458588";
+    };
+  };
+  
   programs.bash = {
     enable = true;
     historyControl = [ "ignoredups" ];
@@ -71,6 +118,9 @@ in
       cat = "bat";
       rebuild = "sudo nixos-rebuild switch";
     };
-    sessionVariables = { EDITOR = "micro"; };
+    sessionVariables = {
+      EDITOR = "micro";
+      TERMINAL = "kitty";
+    };
   };
 }
