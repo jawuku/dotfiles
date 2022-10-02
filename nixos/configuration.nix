@@ -109,7 +109,7 @@ in
   users.users.jason = {
     isNormalUser = true;
     description = "Jason Awuku";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     initialPassword = "123"; # change after 1st boot!
     packages = with pkgs; [
     #  firefox
@@ -132,7 +132,7 @@ in
     subversion
     glances
     ntfs3g
-    virt-manager
+    gnome.gnome-boxes
     clang
     clang-tools
     jdk11
@@ -159,8 +159,7 @@ in
     dockerCompat = true;
   };
 
-  # Virt-manager
-  virtualisation.libvirtd.enable = true;
+  # DBus compatibility
   programs.dconf.enable = true;
 
   # Automatic garbage collection
