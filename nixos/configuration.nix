@@ -133,7 +133,8 @@ in
     glances
     ntfs3g
     gnome.gnome-boxes
-    clang
+    gcc
+    gnumake
     clang-tools
     jdk11
     micro
