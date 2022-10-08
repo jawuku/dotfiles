@@ -79,8 +79,11 @@ in
     '';
   };
 
-  # Enable CUPS to print documents.
+  # Enable printing and scanning of documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplip ];
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -109,7 +112,7 @@ in
   users.users.jason = {
     isNormalUser = true;
     description = "Jason Awuku";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "lp" "scanner" ];
     initialPassword = "123"; # change after 1st boot!
     packages = with pkgs; [
     #  firefox
