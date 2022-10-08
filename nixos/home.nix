@@ -45,7 +45,8 @@ in
     jetbrains.idea-community
     gnome.gnome-mahjongg
     celluloid
-    octaveFull
+    (octave.withPackages (opkgs: with opkgs; 
+      [ io image statistics control optim linear-algebra dataframe ]))
   ];
 
   programs.vscode = {
