@@ -30,7 +30,7 @@ message "Setting zsh as the default user shell"
 sudo chsh -s $(which zsh) $USER
 
 message "Installing Basic Xorg environment"
-sudo apt install -y xserver-xorg-core openbox fonts-noto fonts-firacode \
+sudo apt install -y xserver-xorg-core openbox fonts-noto \
 desktop-base openbox-menu xterm x11-xserver-utils \
 lxappearance lxappearance-obconf slick-greeter
 
@@ -38,7 +38,7 @@ lxappearance lxappearance-obconf slick-greeter
 xdg-user-dirs-update
 
 # creating config directories in ~/.config
-mkdir -p $HOME/.config/{openbox,rofi,jgmenu,tint2,nvim,kitty}
+mkdir -p $HOME/.config/{openbox,rofi,jgmenu,tint2,nvim,wezterm}
 
 message "Installing GUI software"
 
@@ -82,15 +82,19 @@ message "Downloading wallpapers"
 cd $HOME/Pictures
 svn checkout https://github.com/jawuku/dotfiles/trunk/wallpapers
 
-message "Install Nerd Font Symbols"
+message "Install FiraCode Nerd Font"
 mkdir $HOME/github
 cd $HOME/github
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/NerdFontsSymbolsOnly.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraCode.zip
 mkdir -p $HOME/.local/share/fonts
 
-# extract each font
-unzip NerdFontsSymbolsOnly.zip -d $HOME/.local/share/fonts
+# extract fonts
+features="Bold Light Medium Regular Retina SemiBold"
+
+for i in $features; do
+    unzip -j FiraCode.zip "Fira Code $i Nerd Font Complete.ttf" -d $HOME/.local/share/fonts
+done
 
 fc-cache -fv
 
@@ -110,8 +114,9 @@ message "Build jgmenu dynamic desktop menu"
 svn checkout https://github.com/jawuku/dotfiles/trunk/.config/jgmenu/
 sudo apt install -y jgmenu
 
-message "Kitty terminal emulator config"
-svn checkout https://github.com/jawuku/dotfiles/trunk/.config/kitty/
+message "Terminal emulator configs"
+cd wezterm
+wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
 
 message "Installing Qogir Icon Theme"
 cd $HOME/github
@@ -147,20 +152,9 @@ export NVM_DIR="$HOME/.nvm"
 # install LTS node version
 nvm install --lts
 
-message "Installing Kitty terminal Emulator"
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-
-# Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
-# your system-wide PATH)
-ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-# Place the kitty.desktop file somewhere it can be found by the OS
-cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-# If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
-cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-# Update the paths to the kitty and its icon in the kitty.desktop file(s)
-sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
-
+# install Flatpak
+sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 message "Installing Neovim"
 sudo apt install -y xclip ripgrep neovim
@@ -216,7 +210,7 @@ esac
 
 echo "Installing Julia for $cpu architecture"
 
-julia_ver="1.8.1"
+julia_ver="1.8.2"
 julia_minver=${julia_ver:0:-2}
 
 wget https://julialang-s3.julialang.org/bin/linux/$arch/$julia_minver/julia-$julia_ver-linux-$cpu.tar.gz
@@ -238,7 +232,7 @@ message "Installing Clojure Language Server"
 sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 
 message "Clojure linters"
-kondo_ver="2022.09.08"
+kondo_ver="2022.10.05"
 joker_ver="1.0.1"
 
 if [ $cpu = "x86_64" ]
@@ -246,8 +240,8 @@ then
   wget https://github.com/clj-kondo/clj-kondo/releases/download/v$kondo_ver/clj-kondo-$kondo_ver-linux-amd64.zip
   unzip clj-kondo-$kondo_ver-linux-amd64.zip -d $HOME/.local/bin
 
-  wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-$joker_ver-linux-amd64.zip
-  unzip joker-$joker_ver-linux-amd64.zip -d $HOME/.local/bin
+  wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-linux-amd64.zip
+  unzip joker-linux-amd64.zip -d $HOME/.local/bin
 else
   message "Joker needs to be compiled from source on $cpu architecture"
   echo "see https://github.com/candid82/joker#building"
@@ -257,9 +251,7 @@ else
 fi
 
 message "Installing R"
-sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse r-cran-irkernel
-
-Rscript --save --verbose -e "install.packages( c('languageserver', 'lintr', 'styler'))"
+sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse r-cran-irkernel libopenblas-dev
 
 # Rstudio does not install on Debian bookworm
 if [[ $cpu != "x86_64" ]]
@@ -276,5 +268,10 @@ else
  # sudo apt install ./rstudio-2022.07.1-554-amd64.deb
 fi
 
-message "Finished"
+message "Finished!"
+echo "Enter R, install packages:"
+echo "install.packages( c('languageserver', 'lintr', 'styler'))"
 echo "Reboot into new system with 'systemctl reboot'"
+echo "Then install wezterm with 'flatpak install -y org.wezfurlong.wezterm'"
+echo "Waiting 20 seconds"
+sleep 20
