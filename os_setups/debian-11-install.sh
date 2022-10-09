@@ -286,8 +286,8 @@ if [ $arch = "amd64" ]; then
   curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
   chmod +x install-clj-kondo
   ./install-clj-kondo
-  wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-$joker_ver-linux-$arch.zip
-  unzip joker-$joker_ver-linux-$arch.zip -d $HOME/.local/bin
+  wget https://github.com/candid82/joker/releases/download/v$joker_ver/joker-linux-$arch.zip
+  unzip joker-linux-$arch.zip -d $HOME/.local/bin
 elif [ $arch = "arm64" ]; then
   message "Installing clj-kondo from npm on $arch architecture"
   npm install -g clj-kondo 
@@ -330,9 +330,9 @@ else
 
   sudo apt install -y dpkg-sig libclang-dev
   cd $HOME/Downloads
-  wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.1-554-amd64.deb
-  dpkg-sig --verify rstudio-2022.07.1-554-amd64.deb
-  sudo dpkg -i rstudio-2022.07.1-554-amd64.deb
+  wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.2-576-amd64.deb
+  dpkg-sig --verify rstudio-2022.07.2-576-amd64.deb
+  sudo dpkg -i rstudio-2022.07.2-576-amd64.deb
 fi
 
 message "Finished"
