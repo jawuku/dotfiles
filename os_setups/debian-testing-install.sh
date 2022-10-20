@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-## Debian Openbox Script
-## do after fresh netinstall of Debian 11 with firmware
+## Debian Testing Gnome Install Script from scratch
+## do after fresh netinstall of Debian Testing with firmware
 ## run as normal user - will prompt for sudo password
 
 # define messaging function, waits for 3 seconds before proceeding
@@ -54,7 +54,11 @@ done
 
 fc-cache -fv
 
-message "Terminal emulator configs"
+message "Installing Printer Utilities"
+sudo apt install -y cups hplip cups-pk-helper system-config-printer printer-driver-cups-pdf \
+simple-scan avahi-daemon
+
+message "Terminal emulator config"
 cd wezterm
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
 
@@ -66,8 +70,8 @@ message "Installing Python libraries"
 sudo apt install -y python3-seaborn python3-sklearn python3-notebook python3-gmpy2 python3-sympy \
 python3-statsmodels python3-dev python3-pip python3-wheel flake8 black python3-venv
 
-# revisit - getting out of memory error in VM - may fare better on real PC with >= 8GB
-# pip3 install --user torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+message "Installing Pytorch for AMD GPUs"
+pip3 install --user torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/rocm5.1.1
 
 message "Installing Julia"
 pip3 install jill --user -U
