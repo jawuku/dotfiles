@@ -76,16 +76,18 @@ pip3 install --user torch torchvision torchaudio --extra-index-url https://downl
 message "Installing Julia"
 pip3 install jill --user -U
 ~/.local/bin/jill install
-~/.local/bin/julia -e 'using Pkg; Pkg.add(["IJulia", "Plots", "OhMyREPL", "PackageCompiler"])'
+~/.local/bin/julia -e 'using Pkg; Pkg.add(["IJulia", "Plots", "OhMyREPL", "PackageCompiler", "RowEchelon", "Symbolics"])'
 
 message "Installing GNU Octave"
 sudo apt install -y octave-control octave-image octave-io octave-optim octave-signal \
-octave-statistics liboctave-dev
+octave-statistics octave-symbolic liboctave-dev
 
 pip3 install --user octave_kernel
 
 message "Installing R"
-sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse r-cran-irkernel libopenblas-dev
+sudo apt install -y r-base r-base-dev r-recommended r-cran-tidyverse r-cran-irkernel libopenblas-dev \
+libfontconfig-dev libcairo2-dev
+pip3 install --user -U radian
 
 message "Installing Visual Studio Code"
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -99,7 +101,7 @@ sudo apt install -y code
 
 message "Things to do now"
 echo "Enter R, install packages:"
-echo "install.packages( c('languageserver', 'lintr', 'styler'))"
+echo "install.packages( c('languageserver', 'httpgd'))"
 echo "Then reboot into new system with 'systemctl reboot'"
 echo
 echo "Flatpaks to install after reboot:"
