@@ -27,5 +27,8 @@ alias ll="exa -la --icons"
 alias lt="exa --tree --icons"
 alias cat="batcat"
 
+# bat theme
+export BAT_THEME="gruvbox-light"
+
 # add ~/.local/bin to PATH
 PATH="$PATH:$HOME/.local/bin"
