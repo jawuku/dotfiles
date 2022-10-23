@@ -23,9 +23,10 @@ linux-headers-amd64 bsdmainutils most htop zsh zsh-autosuggestions zsh-syntax-hi
 message "Installing Gnome Desktop Environment" 
 sudo apt install gnome-core gnome-console desktop-base xdg-user-dirs
 
-sudo apt install gnome-tweaks gnome-initial-setup distrobox gnome-boxes gnome-mahjongg \
+sudo apt install gnome-tweaks gnome-initial-setup distrobox gnome-mahjongg \
 transmission-gtk gnome-clocks gnome-calendar font-manager gnome-maps lollypop fonts-noto \
-gnome-power-manager gnupg network-manager-gnome network-manager-openvpn
+gnome-power-manager gnupg network-manager-gnome network-manager-openvpn \
+qemu-system libvirt-daemon-system virt-manager
 
 # home directory default folders e.g. Downloads, Documents etc.
 xdg-user-dirs-update
