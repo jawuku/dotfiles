@@ -8,7 +8,8 @@ return {
   
   enable_scroll_bar = false,
     
-  color_scheme = "Doom Peacock",
+  -- color_scheme = "Doom Peacock",
+  color_scheme = "Gruvbox Light",
   
   scrollback_lines = 8192,
   
