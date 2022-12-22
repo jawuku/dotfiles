@@ -4,8 +4,12 @@
 
 { config, pkgs, ... }:
 
+# set variables e.g. default username
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
+  defaultUser = "bookiboo";
+  desc = "Booki Boo";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+
 in
 
 {
@@ -15,59 +19,114 @@ in
       (import "${home-manager}/nixos")
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  # Use the GRUB boot loader.
+  boot.loader.grub = {
+    enable = true;
+    devices = [ "nodev" ];
+    efiInstallAsRemovable = true;
+    efiSupport = true;
+    useOSProber = true;
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
+  # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  # Set your time zone.
+  time.timeZone = "Europe/London";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
-
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.utf8";
+  i18n.defaultLocale = "en_GB.UTF-8";
+  console = {
+    font = "ter-v24b";
+    useXkbConfig = true; # use xkbOptions in tty.
+  };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # exclude some default Gnome packages
-  environment.gnome.excludePackages = (with pkgs.gnome;
-    [ cheese totem epiphany ]);
-
-  # Configure keymap in X11
+  # Enable the X11, Gnome DE and configure keymap. Exclude xterm
   services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    desktopManager.xterm.enable = false;
+    excludePackages = with pkgs; [ xterm ];
     layout = "gb";
-    xkbVariant = "";
+    xkbVariant = ""; # use "mac" for macbook
+    libinput.enable = true;
   };
 
-  # Configure console keymap
-  console.keyMap = "uk";
+  # Nvidia drivers
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.enable = true;
 
-  # AMD GPU setup
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true; # for 32 bit applications
-    extraPackages = with pkgs; [
-      rocm-opencl-icd
-      rocm-opencl-runtime
-    ];
+  # GUI Fonts
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    fira-code
+    noto-fonts
+    noto-fonts-extra
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-emoji
+    noto-fonts-emoji-blob-bin
+  ];
+
+  # Enable WiFi printer
+  services = {
+    printing.enable = true;
+    avahi.enable = true;
+    avahi.openFirewall = true;
   };
 
+  # Scanner support
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.sane-airscan ];
+  };
+
+  # Enable sound.
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.${defaultUser} = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "lp" "scanner" ];
+    description = desc;
+    initialPassword = "123"; # *must* change after 1st reboot
+  #   packages = with pkgs; [
+  #     firefox
+  #     thunderbird
+  #   ];
+  };
+  
+  # Add home-manager block after user definition
+  home-manager.users.${defaultUser} = {
+    imports = [ ./home.nix ];
+  };
+  
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # exclude some default pre-installed Gnome packages
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-photos gnome-tour ])
+  ++ (with pkgs.gnome; [
+    cheese totem geary gnome-weather gnome-music epiphany tali iagno hitori atomix
+  ]);
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = (with pkgs; [
+  # vim # Do not forget to add an editor to edit configuration.nix!
+  # But, the Nano editor is already installed by default.
+  wget curl git subversion neofetch firefox-esr distrobox ])
+  ++ (with pkgs.gnome; [ gnome-boxes ]);
+  
   # enable Bash Completion
   environment.pathsToLink = [ "/share/bash-completion" ];
 
@@ -78,114 +137,27 @@ in
     PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
     '';
   };
-
-  # Enable printing and scanning of documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplip ];
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+  
+  # Steam support
+  programs.steam = {
+  enable = true;
+  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # Podman / Docker support
+  virtualisation = {
+    podman = {
+      enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.jason = {
-    isNormalUser = true;
-    description = "Jason Awuku";
-    extraGroups = [ "networkmanager" "wheel" "lp" "scanner" ];
-    initialPassword = "123"; # change after 1st boot!
-    packages = with pkgs; [
-    #  firefox
-    #  thunderbird
-    ];
-  };
-
-  # Add home-manager block after user definition
-  home-manager.users.jason = {
-    imports = [ ./home.nix ];
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix!
-  # The Nano editor is also installed by default.
-    wget
-    git
-    subversion
-    glances
-    ntfs3g
-    gnome.gnome-boxes
-    gcc
-    gnumake
-    clang-tools
-    jdk11
-    micro
-    openh264
-    libdvdcss
-    brave
-  ];
-
-  # GUI Fonts
-  fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    noto-fonts
-    noto-fonts-extra
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    noto-fonts-emoji
-    noto-fonts-emoji-blob-bin
-  ];
-
-  # Podman installation with Docker compatibility
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-  };
-
-  # DBus compatibility
-  programs.dconf.enable = true;
-
-  # Automatic garbage collection
-  nix = {
-    settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.dnsname.enable = true;
     };
   };
 
-  # enable flatpak
-  services.flatpak.enable = true;
-
-  # To use VSCode under Wayland
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # Save backup of configuration file
-  # useful if original accidentally deleted
-  system.copySystemConfiguration = true;
-  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -205,12 +177,32 @@ in
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  # Check for updates daily
+  system.autoUpgrade = {
+    enable = true;    
+  };
+
+  # Automatic garbage collection
+  nix = {
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+  };
+
+  # Copy the NixOS configuration file and link it from the resulting system
+  # (/run/current-system/configuration.nix). This is useful in case you
+  # accidentally delete configuration.nix.
+  system.copySystemConfiguration = true;
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 
 }
