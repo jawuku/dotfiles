@@ -4,10 +4,10 @@
 
 { config, pkgs, ... }:
 
-# set variables e.g. default username
+# set variables e.g. default username - change to your own username
 let
-  defaultUser = "bookiboo";
-  desc = "Booki Boo";
+  defaultUser = "jason";
+  desc = "Jason Awuku";
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
 
 in
