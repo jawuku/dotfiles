@@ -154,6 +154,7 @@ in
     sessionVariables = {
       EDITOR = "nano";
       TERMINAL = "kitty";
+      BAT_THEME = "gruvbox-light";
     };
   };
   
