@@ -156,4 +156,6 @@ in
       TERMINAL = "kitty";
     };
   };
+  
+  home.stateVersion = "22.11";
 }
