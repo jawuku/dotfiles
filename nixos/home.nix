@@ -2,9 +2,9 @@
 { config, pkgs, ... }:
 
 let
-  # Python 3.9 with packages
-  my-Python-packages = pkgs.python39.buildEnv.override {
-    extraLibs = with pkgs.python39Packages; [
+  # Python 3.10 with packages
+  my-Python-packages = pkgs.python310.buildEnv.override {
+    extraLibs = with pkgs.python310Packages; [
       sympy
       seaborn
       notebook
@@ -17,6 +17,9 @@ let
       black
       isort
       flake8
+      statsmodels
+      spyder
+      plotly
     ];
   };
 
@@ -44,9 +47,13 @@ in
     my-R-packages
     jetbrains.idea-community
     gnome.gnome-mahjongg
+    gnome.eog
+    lollypop
+    meteo
+    fragments
     celluloid
     (octave.withPackages (opkgs: with opkgs; 
-      [ io image statistics control optim linear-algebra dataframe ]))
+      [ io image statistics control optim linear-algebra dataframe symbolic ]))
   ];
 
   programs.vscode = {
@@ -66,7 +73,7 @@ in
     enable = true;
     settings = {
       font_size = "14.0";
-      font_family      = "FiraCode Nerd Font";
+      font_family      = "FiraCode";
       bold_font        = "auto";
       italic_font      = "auto";
       bold_italic_font = "auto";
@@ -79,33 +86,58 @@ in
       initial_window_height = "25c";
 
       # Gruvbox theme
-      selection_foreground = "#ebdbb2";
-      selection_background = "#d65d0e";
+      cursor                  = "#928374";
+      cursor_text_color       = "#fbf1c7";
 
-      foreground           = "#ebdbb2";
-      background           = "#282828";
+      url_color               = "#458588";
+ 
+      visual_bell_color       = "#689d6a";
+      bell_border_color       = "#689d6a";
 
-      color0               = "#3c3836";
-      color1               = "#cc241d";
-      color2               = "#98971a";
-      color3               = "#d79921";
-      color4               = "#458588";
-      color5               = "#b16286";
-      color6               = "#689d6a";
-      color7               = "#a89984";
-      color8               = "#928374";
-      color9               = "#fb4934";
-      color10              = "#b8bb26";
-      color11              = "#fabd2f";
-      color12              = "#83a598";
-      color13              = "#d3869b";
-      color14              = "#83c07c";
-      color15              = "#fbf1c7";
+      active_border_color     = "#b16286";
+      inactive_border_color   = "#1d2021";
 
-      cursor               = "#bdae93";
-      cursor_text_color    = "#665c54";
+      background              = "#fbf1c7";
+      foreground              = "#282828";
+      selection_foreground    = "#928374";
+      selection_background    = "#3c3836";
 
-      url_color            = "#458588";
+      active_tab_foreground   = "#282828";
+      active_tab_background   = "#928374";
+      inactive_tab_foreground = "#7c6f64";
+      inactive_tab_background = "#ebdbb2";
+
+      # white (bg3/bg4)
+      color0                  = "#bdae93";
+      color8                  = "#a89984";
+
+      # red
+      color1                  = "#cc241d";
+      color9                  = "#9d0006";
+
+      # green
+      color2                  = "#98971a";
+      color10                 = "#79740e";
+
+      # yellow
+      color3                  = "#d79921";
+      color11                 = "#b57614";
+
+      # blue
+      color4                  = "#458588";
+      color12                 = "#076678";
+
+      # purple
+      color5                  = "#b16286";
+      color13                 = "#8f3f71";
+
+      # aqua
+      color6                  = "#689d6a";
+      color14                 = "#427b58";
+
+      # black (fg4/fg3)
+     color7                  = "#7c6f64";
+     color15                 = "#665c54";
     };
   };
   
@@ -120,7 +152,7 @@ in
       rebuild = "sudo nixos-rebuild switch";
     };
     sessionVariables = {
-      EDITOR = "micro";
+      EDITOR = "nano";
       TERMINAL = "kitty";
     };
   };
