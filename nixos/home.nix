@@ -18,7 +18,6 @@ let
       isort
       flake8
       statsmodels
-      spyder
       plotly
     ];
   };
@@ -52,8 +51,8 @@ in
     meteo
     fragments
     celluloid
-    (octave.withPackages (opkgs: with opkgs; 
-      [ io image statistics control optim linear-algebra dataframe symbolic ]))
+    # (octave.withPackages (opkgs: with opkgs; 
+    # [ io image statistics control optim linear-algebra dataframe symbolic ]))
   ];
 
   programs.vscode = {
