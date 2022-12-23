@@ -51,6 +51,10 @@ in
     meteo
     fragments
     celluloid
+    drawing
+    mousai
+    blanket
+    dialect
     # (octave.withPackages (opkgs: with opkgs; 
     # [ io image statistics control optim linear-algebra dataframe symbolic ]))
   ];
@@ -58,7 +62,7 @@ in
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium.fhsWithPackages
-      (ps: with ps; [ jdk11 ]);
+      (ps: with ps; [ jdk17 ]);
     extensions = with pkgs.vscode-extensions; [
       betterthantomorrow.calva
       jdinhlife.gruvbox
