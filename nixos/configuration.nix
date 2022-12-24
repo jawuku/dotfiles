@@ -127,7 +127,8 @@ in
   environment.systemPackages = (with pkgs; [
   # vim # Do not forget to add an editor to edit configuration.nix!
   # But, the Nano editor is already installed by default.
-  wget curl git subversion neofetch firefox-esr distrobox ])
+  wget curl git subversion neofetch firefox-esr distrobox 
+  libreoffice hunspell hunspellDicts.en-gb-ise ])
   ++ (with pkgs.gnome; [ gnome-boxes ]);
   
   # enable Bash Completion
