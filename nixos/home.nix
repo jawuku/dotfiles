@@ -55,6 +55,7 @@ in
     mousai
     blanket
     dialect
+    octaveFull # for x86-64 only
     # (octave.withPackages (opkgs: with opkgs; 
     # [ io image statistics control optim linear-algebra dataframe symbolic ]))
   ];
