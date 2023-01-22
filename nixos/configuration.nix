@@ -128,14 +128,14 @@ in
     gnome-photos gnome-tour ])
   ++ (with pkgs.gnome; [
     cheese totem geary gnome-weather gnome-music epiphany tali iagno hitori atomix
-  ]);
+    gnome-mahjongg eog ]);
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = (with pkgs; [
   # vim # Do not forget to add an editor to edit configuration.nix!
   # But, the Nano editor is already installed by default.
-  wget curl git subversion neofetch firefox distrobox meteo jdk17 lollypop
+  wget curl git subversion firefox distrobox meteo jdk17 lollypop
   onlyoffice-bin celluloid virt-manager ]);
   
   # Virt-manager
