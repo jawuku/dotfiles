@@ -50,6 +50,17 @@ in
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
+  # AMD GPU Drivers
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.opengl.extraPackages = with pkgs; [
+  rocm-opencl-icd
+  rocm-opencl-runtime
+  amdvlk ];
+  hardware.opengl.driSupport = true;
+  # For 32 bit applications
+  hardware.opengl.driSupport32Bit = true;
+
   # Enable the X11, Gnome DE and configure keymap. Exclude xterm
   services.xserver = {
     enable = true;
@@ -62,10 +73,6 @@ in
     libinput.enable = true;
   };
 
-  # Nvidia drivers
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
-
   # GUI Fonts
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
@@ -77,18 +84,19 @@ in
     noto-fonts-emoji
     noto-fonts-emoji-blob-bin
   ];
+  
+  # Enable HP printer. Use following line to setup:
+  # NIXPKGS_ALLOW_UNFREE=1 nix-shell -p hplipWithPlugin --run 'sudo -E hp-setup'
 
-  # Enable WiFi printer
-  services = {
-    printing.enable = true;
-    avahi.enable = true;
-    avahi.openFirewall = true;
+  services.printing = {
+    	enable = true;
+    drivers = [ pkgs.hplipWithPlugin ];
   };
 
   # Scanner support
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.sane-airscan ];
+    extraBackends = [ pkgs.hplipWithPlugin ];
   };
 
   # Enable sound.
@@ -98,7 +106,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${defaultUser} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "lp" "scanner" ];
+    extraGroups = [ "wheel" "networkmanager" "lp" "scanner" "libvirtd" ];
     description = desc;
     initialPassword = "123"; # *must* change after 1st reboot
   #   packages = with pkgs; [
@@ -127,9 +135,12 @@ in
   environment.systemPackages = (with pkgs; [
   # vim # Do not forget to add an editor to edit configuration.nix!
   # But, the Nano editor is already installed by default.
-  wget curl git subversion neofetch firefox-esr distrobox 
-  libreoffice hunspell hunspellDicts.en-gb-ise ])
-  ++ (with pkgs.gnome; [ gnome-boxes ]);
+  wget curl git subversion neofetch firefox distrobox meteo jdk17 lollypop
+  onlyoffice-bin celluloid virt-manager ]);
+  
+  # Virt-manager
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
   
   # enable Bash Completion
   environment.pathsToLink = [ "/share/bash-completion" ];
