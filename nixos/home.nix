@@ -59,19 +59,6 @@ in
     # (octave.withPackages (opkgs: with opkgs; 
     # [ io image statistics control optim linear-algebra dataframe symbolic ]))
   ];
-
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscodium.fhsWithPackages
-      (ps: with ps; [ jdk17 ]);
-    extensions = with pkgs.vscode-extensions; [
-      betterthantomorrow.calva
-      jdinhlife.gruvbox
-      dracula-theme.theme-dracula
-      vscodevim.vim
-      yzhang.markdown-all-in-one
-    ];
-  };
   
   programs.kitty = {
     enable = true;
