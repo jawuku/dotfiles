@@ -45,16 +45,7 @@ in
     my-Python-packages
     my-R-packages
     jetbrains.idea-community
-    gnome.gnome-mahjongg
-    gnome.eog
-    lollypop
-    meteo
-    fragments
-    celluloid
-    drawing
-    mousai
-    blanket
-    dialect
+    ripes # Risc-v svisual simulator
     octaveFull # for x86-64 only
     # (octave.withPackages (opkgs: with opkgs; 
     # [ io image statistics control optim linear-algebra dataframe symbolic ]))
