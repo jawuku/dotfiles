@@ -126,9 +126,8 @@ in
   # exclude some default pre-installed Gnome packages
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos gnome-tour ])
-  ++ (with pkgs.gnome; [
-    cheese totem geary gnome-weather gnome-music epiphany tali iagno hitori atomix
-    gnome-mahjongg eog ]);
+  ++ (with pkgs.gnome; [ cheese totem geary gnome-weather gnome-music
+  epiphany tali iagno hitori atomix ]);
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -136,7 +135,8 @@ in
   # vim # Do not forget to add an editor to edit configuration.nix!
   # But, the Nano editor is already installed by default.
   wget curl git subversion firefox distrobox meteo jdk17 lollypop
-  onlyoffice-bin celluloid virt-manager ]);
+  onlyoffice-bin celluloid virt-manager fragments dialect blanket ])
+  ++ (with pkgs.gnome; [ gnome-mahjongg eog ]);
   
   # Virt-manager
   virtualisation.libvirtd.enable = true;
