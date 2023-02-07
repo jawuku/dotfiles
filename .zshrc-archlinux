@@ -1,0 +1,35 @@
+HISTFILE=~/.zsh_history
+HISTSIZE=2000
+SAVEHIST=2000
+setopt notify
+unsetopt beep
+
+zstyle :compinstall filename '/home/yourname/.zshrc'
+# replace 'yourname' with your own username
+
+# autocompletion
+autoload -Uz compinit
+compinit
+
+# use zsh plugins
+# in ArchLinux install with
+# sudo apt install zsh-autosuggestions zsh-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# set rainbow prompt colours and style
+PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
+
+# aliases
+# install exa and bat from repositories
+alias ls="exa"
+alias ll="exa -la --icons"
+alias lt="exa --tree --icons"
+alias cat="bat"
+alias hx="helix"
+
+# bat theme
+export BAT_THEME="gruvbox-light"
+
+# add ~/.local/bin to PATH
+PATH="$PATH:$HOME/.local/bin"
