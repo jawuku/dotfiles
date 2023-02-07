@@ -68,6 +68,8 @@ sudo pacman -S r gcc-fortran tk
 
 Rscript -e "install.packages( c('devtools', 'languageserver', 'IRkernel', 'tidyverse'), dependencies = TRUE, repos = 'https://cran.ma.imperial.ac.uk')"
 
-# RISC_V Simulators
-sudo pacman -S gtk3 libxtst
-paru -S rars
+# RISC_V Simulator
+sudo pacman -S fuse2
+cd $HOME/Downloads
+wget https://github.com/mortbopet/Ripes/releases/download/v2.2.6/Ripes-v.2.2.6-linux-x86_64.Appimage
+chmod a+x Ripes-v.2.2.6-linux-x86_64.Appimage
