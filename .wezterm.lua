@@ -9,10 +9,10 @@ return {
   enable_scroll_bar = false,
     
   -- color_scheme = "Doom Peacock",
-  -- color_scheme = "Gruvbox Light",
-  color_scheme = "Dark+",
+  -- color_scheme = "Dark+",
+  color_scheme = "Gruvbox Light",
   
-  scrollback_lines = 8192,
+  scrollback_lines = 10240,
   
   font_size = 14,
     
