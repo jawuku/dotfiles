@@ -1,23 +1,29 @@
 {
-  "diagnostic.displayByAle": true,
-
+  "python.linting.enabled": true,
+  "python.formatting.blackArgs": ["-t py39"],
+  "python.pythonPath": "$HOME/.local/bin/runpython",
+  "python.formatting.provider": "black",
+  "python.linting.ruffEnabled": true,
+  
+  "diagnostic.errorSign": "✘",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.hintSign": "💡",
+  "diagnostic.infoSign": "ⓘ",
   "languageserver": {
-    "clojure-lsp": {
-      "command": "bash",
-      "args": ["-c", "clojure-lsp"],
-      "filetypes": ["clojure"],
-      "rootPatterns": ["project.clj"],
-      "additionalSchemes": ["jar", "zipfile"],
-      "trace.server": "verbose",
-      "initializationOptions": {
-      }
-    },
+    "sql": {
+      "module": "/path/to/node_modules/sql-language-server/dist/bin/cli.js",
+      "args": [
+        "up",
+        "--method",
+        "node-ipc"
+      ],
 
-    "julia": {
-    "command": "$HOME/bin/julia",
-    "args" : ["--startup-file=no", "--history-file=no", "-e",
-    "using LanguageServer;\n       using Pkg;\n       import StaticLint;\n       import SymbolServer;\n       env_path = dirname(Pkg.Types.Context().env.project_file);\n       debug = false;\n       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, \"\");\n       server.runlinter = true;\n       run(server);" ],
-    "filetypes": ["julia"]
+      "filetypes": [
+        "sql",
+        "mysql"
+      ]
     }
-  } 
+  },
+
+  "Lua.diagnostics.globals": [ "vim "]
 }
