@@ -1,11 +1,3 @@
-local M = {
-  "neoclide/coc.nvim",
-  branch = "master",
-  build = "yarn install --frozen-lockfile",
-}
-
-M.config = function()
-
 local keyset = vim.keymap.set
 -- Autocomplete
 function _G.check_back_space()
