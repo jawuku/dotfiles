@@ -75,12 +75,23 @@ require("nvim-tree").setup ({
 
 --[[ Lualine Setup ]]
 require("lualine").setup{
-    options = { theme = "ayu" },
+    options = { theme = "tokyonight" },
 }
+
+--[[ Tokyonight Setup ]]
+require("tokyonight").setup({
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  style = "day",
+  styles = {
+    -- Style to be applied to different syntax groups
+    -- Value is any valid attr-list value for `:help nvim_set_hl`
+    comments = { italic = true },
+  },
+})
 
 --[[ Telescope.nvim Setup ]]
 require("telescope").setup()
-
 require("telescope").load_extension("fzf")
 
 --[[ Which-Key Setup ]]
