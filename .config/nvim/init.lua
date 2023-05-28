@@ -50,4 +50,4 @@ require("user.keymaps")
 
 -- set colourscheme
 -- vim.cmd.colorscheme("tender")
-vim.cmd.colorscheme("darkplus")
+vim.cmd.colorscheme("tokyonight")
