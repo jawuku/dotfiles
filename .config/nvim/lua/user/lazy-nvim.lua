@@ -37,8 +37,14 @@ vim.opt.rtp:prepend(lazypath)
 
 -- load plugins
 require("lazy").setup({
-	-- Colour schemes
-"lunarvim/darkplus.nvim",
+-- Colour schemes
+{
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
+},
+
 "jacoborus/tender.vim",
 
 -- Top tab bar - BarBar
