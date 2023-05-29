@@ -146,5 +146,6 @@ as well as fd-find and ripgrep ]]
 -- which-key gives reminders of key functions
 "folke/which-key.nvim",
 
-{"neoclide/coc.nvim", branch = {"release"} },
+-- Toggle comments easily with Comment.nvim
+'numToStr/Comment.nvim',
 })
