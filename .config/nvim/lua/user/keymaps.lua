@@ -95,3 +95,6 @@ keymap("n", "<leader>be", ":enew<cr>", {noremap = true})
 
 -- delete current buffer with <leader>bd
 keymap("n", "<leader>bd", ":bdelete<cr>", {noremap = true})
+
+-- Ctrl-n invokes :NvimTreeToggle
+keymap("n", "<C-n>", ":NvimTreeToggle<cr>", {noremap = true})
