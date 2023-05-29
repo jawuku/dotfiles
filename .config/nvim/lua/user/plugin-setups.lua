@@ -94,6 +94,9 @@ require("tokyonight").setup({
 require("telescope").setup()
 require("telescope").load_extension("fzf")
 
+--[[ Comment.nvim Setup ]]
+require('Comment').setup()
+
 --[[ Which-Key Setup ]]
 require("which-key").setup {}
 
