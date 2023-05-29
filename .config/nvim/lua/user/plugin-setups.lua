@@ -91,11 +91,6 @@ require("nvim-tree").setup ({
     },
 })
 
---[[ Lualine Setup ]]
-require("lualine").setup{
-    options = { theme = "tokyonight" },
-}
-
 --[[ Tokyonight Setup ]]
 require("tokyonight").setup({
   -- your configuration comes here
@@ -107,6 +102,11 @@ require("tokyonight").setup({
     comments = { italic = true },
   },
 })
+
+--[[ Lualine Setup ]]
+require("lualine").setup{
+    options = { theme = "tokyonight" },
+}
 
 --[[ Telescope.nvim Setup ]]
 require("telescope").setup()
