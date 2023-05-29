@@ -70,6 +70,24 @@ require("nvim-tree").setup ({
     },
     renderer = {
         group_empty = true,
+        -- Folder open and closed icons
+        icons = {
+            glyphs = {
+                folder = {
+                    arrow_closed = "▸", -- arrow when folder is closed
+                    arrow_open = "▾", -- arrow when folder is open
+                },
+            },
+        },
+    },
+    -- disable window_picker
+    -- for explorer to work well with window splits
+    actions = {
+        open_file = {
+            window_picker = {
+                enable = false,
+            },
+        },
     },
 })
 
