@@ -24,8 +24,8 @@ style: Default Font
 
 Miscellaneous keymaps not covered by other plugins
 ]]
--- set leader key to comma
-vim.g.mapleader = ","
+-- set leader key to space
+vim.g.mapleader = " "
 
 -- Telescope keys
 local builtin = require("telescope.builtin")
@@ -60,14 +60,38 @@ keymap("v", ">", ">gv", {noremap = true, silent = false})
 keymap("i", "jk", "<ESC>", {noremap = true})
 keymap("i", "kj", "<ESC>", {noremap = true})
 
+-- increment/decrement numbers with <leader>= and <leader>- respectively
+keymap("n", "<leader>=", "<C-a>")
+keymap("n", "<leader>-", "<C-x>")
+
 -- select all with Ctrl-a
 keymap("n", "<C-a>", "gg<S-v>G", {noremap = true})
 
--- split window
-keymap("n", "ss", ":split<cr><C-w>w",  {noremap = true, silent = true})
-keymap("n", "sv", ":vsplit<cr><C-w>w", {noremap = true, silent = true})
+-- do not copy to clipboard when pressing 'x' in normal mode
+keymap("n", "x", '"_x')
 
--- set [b to go to previous buffer
--- set ]b to go to next buffer
+-- split window (reversed in Python numpy array style)
+-- similar style to np.vsplit
+keymap("n", "<leader>sv", "<C-w>s",  {noremap = true, silent = true})
+
+-- similar style to np.hsplit
+keymap("n", "<leader>ss", "<C-w>v", {noremap = true, silent = true})
+
+-- set splits to be equally sized
+keymap("n", "<leader>se", "<C-w>=", {noremap = true, silent = true})
+
+-- delete current split window
+keymap("n", "<leader>sd", ":close<cr>", {noremap = true})
+
+-- set [b or <leader>bp to go to previous buffer
+-- set ]b or <leader>bn to go to next buffer
 keymap("n", "[b", ":bprevious<cr>", {noremap = true})
 keymap("n", "]b", ":bnext<cr>", {noremap = true})
+keymap("n", "<leader>bp", ":bprevious<cr>", {noremap = true})
+keymap("n", "<leader>bn", ":bnext<cr>", {noremap = true})
+
+-- open new buffer with <leader>be
+keymap("n", "<leader>be", ":enew<cr>", {noremap = true})
+
+-- delete current buffer with <leader>bd
+keymap("n", "<leader>bd", ":bdelete<cr>", {noremap = true})
