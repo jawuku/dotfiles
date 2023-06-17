@@ -16,8 +16,8 @@ message "Installing Base Packages"
 sudo apt update && sudo apt -y dist-upgrade
 
 sudo apt -y install gnome-core desktop-base network-manager-gnome gnome-console \
-build-essential dkms linux-headers-amd64 distrobox flatpak git curl \
-gnome-software-plugin-flatpak
+build-essential dkms linux-headers-amd64 distrobox flatpak git curl fonts-noto \
+gnome-software-plugin-flatpak timeshift
 
 # setup user directories
 message "Setting up user directories"
@@ -55,10 +55,11 @@ declare -a flatpaks=(
     "org.gnome.font-viewer"
     "org.gnome.TextEditor"
     "org.gnome.Lollypop"
-    "org.gnome.Epiphany"
     "org.gnome.SimpleScan"
     "org.gnome.Totem"
     "org.gnome.FileRoller"
+    "org.gnome.Boxes"
+    "org.gnome.Mahjongg"
     "de.haeckerfelix.Fragments"
     "com.valvesoftware.Steam"
     "org.onlyoffice.desktopeditors"
@@ -68,6 +69,7 @@ declare -a flatpaks=(
     "com.github.ADBeveridge.Raider"
     "org.wezfurlong.wezterm"
     "net.ankiweb.Anki"
+    "com.brave.Browser"
     )
 
 # setup flathub if not already done
