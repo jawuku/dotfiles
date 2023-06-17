@@ -26,7 +26,7 @@ xdg-user-dirs-update
 # remove these apps, use their flatpaks instead
 message "Removing extraneous packages"
 sudo apt -y purge eog evince baobab gnome-logs gnome-font-viewer gnome-text-editor \
-firefox-esr gnome-calculator gnome-characters totem
+firefox-esr gnome-calculator gnome-characters gnome-contacts totem
 
 sudo apt -y autoremove
 
