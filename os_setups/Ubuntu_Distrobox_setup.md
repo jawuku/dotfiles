@@ -1,7 +1,7 @@
 ## Ubuntu 22.04 Setup in Distrobox
 ### First install Ubuntu Container
 ```sh
-distrobox create -n ubuntu -i docker.io/library/ubuntu:22.04
+distrobox create -n ubuntu -i quay.io/toolbx-images/ubuntu-toolbox:22.04
 ```
 ### Enter Distrobox and update container
 ```sh
@@ -14,9 +14,13 @@ sudo apt upgrade
 ```sh
 sudo apt install build-essential
 ```
-### Set locales
+### Install Helix Text Editor
 ```sh
-sudo apt install locales
+sudo apt install software-properties-common
+
+sudo add-apt-repository ppa:maveonair/helix-editor
+sudo apt update
+sudo apt install helix
 ```
 ### Install Z-shell
 ```sh
@@ -29,44 +33,34 @@ sed -i "s/yourname/$USER/g" $HOME/.zshrc
 
 chsh -s /usr/bin/zsh
 ```
-### Neovim Pre-requisites
+### Install Python Libraries
 ```sh
-sudo apt install wl-clipboard python3-pip python3-venv git fd-find ripgrep
-
-sudo apt install ninja-build gettext libtool libtool-bin autoconf automake \
-cmake pkg-config unzip
-
-pip3 install --user pynvim
+sudo apt install python3-pip python3-pylsp python3-pylsp-black python3-pylsp-isort \
+python3-pylsp-flake8 python3-seaborn python3-gmpy2 python3-sympy python3-pycountry \
+python3-willow epiphany-browser python3-notebook
 ```
-### Install nodejs
+### Install R
 ```sh
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+sudo apt install r-base r-base-dev r-cran-tidyverse r-cran-irkernel
 
-# to add files to .zshrc
-echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.zshrc
-echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.zshrc
+# add user to staff group
+sudo usermod -aG staff $USER
 
-# exit distrobox, then re-enter and issue command:
-nvm install --lts
-
-npm install -g neovim
+# install languageserver
+R
+install.packages("languageserver")
+q()
 ```
-### Download and install Neovim
+### Install Java and Clojure
 ```sh
-cd ~/Downloads
-
-git clone https://github.com/neovim/neovim.git
-cd neovim
-git checkout stable
-
-make CMAKE_BUILD_TYPE=Release \
-CMAKE_INSTALL_PREFIX=~/.local/ install
-
-# install LazyVim distro
-cd ~/Downloads
-
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-### Nice to have : mpg123 CLI MP3 Player
-```sh
-sudo apt install mpg123
+sudo apt install openjdk-17-jdk rlwrap
+curl -O https://download.clojure.org/install/linux-install-1.11.1.1347.sh
+chmod +x linux-install-1.11.1.1347.sh
+sudo ./linux-install-1.11.1.1347.sh
 ```
+#### Clojure Language Server
+```sh
+wget https://github.com/clojure-lsp/clojure-lsp/releases/download/2023.05.04-19.38.01/clojure-lsp-native-linux-amd64.zip
+unzip clojure-lsp-native-linux-amd64.zip -d /usr/local/bin
+```
+
