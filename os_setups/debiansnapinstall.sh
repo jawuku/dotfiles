@@ -1,4 +1,5 @@
-# debloat Debian 12 Gnome - replace with snapd
+# debloat Debian 12 Gnome installed from tasksel
+# remove debs and replace with snaps
 
 sudo apt update
 sudo apt -y upgrade
@@ -9,7 +10,14 @@ systemctl reboot
 
 sudo apt install build-essential git curl fonts-noto
 
-sudo apt -y purge firefox-esr aisleriot gnome-2048 gnome-calculator gnome-characters gnome-calendar gnome-characters cheese gnome-chess gnome-clocks gnome-contacts evince evolution five-or-more four-in-a-row hitori libreoffice lightsoff gnome-font-viewer gnome-logs gnome-mahjongg gnome-maps quadrapassel iagno rhythmbox gnome-robots shotwell gnome-sudoku swell-foop tali gnome-taquin gnome-terminal gnome-tetravex gedit gnome-todo transmission-gtk totem gnome-weather gnome-nibbles gnome-klotski eog gnome-mines gnome-music gnome-system-monitor libreoffice*
+sudo apt -y purge firefox-esr aisleriot gnome-2048 gnome-calculator \
+gnome-characters gnome-calendar gnome-characters cheese gnome-chess \
+gnome-clocks gnome-contacts evince evolution five-or-more four-in-a-row \
+hitori libreoffice lightsoff gnome-font-viewer gnome-logs gnome-mahjongg \
+gnome-maps quadrapassel iagno rhythmbox gnome-robots shotwell gnome-sudoku \
+swell-foop tali gnome-taquin gnome-terminal gnome-tetravex gedit \
+gnome-todo transmission-gtk totem gnome-weather gnome-nibbles \
+gnome-klotski eog gnome-mines gnome-music gnome-system-monitor libreoffice*
 
 declare -a snaps=(
     "eog"
