@@ -36,6 +36,9 @@ declare -a snaps=(
     "fragments"
     "mousam"
     "amberol"
+    "marker"
+    "dialect"
+    "smplayer"
 )
 
 declare -a classic_snaps=(
