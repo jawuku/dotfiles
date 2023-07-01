@@ -19,6 +19,8 @@ swell-foop tali gnome-taquin gnome-terminal gnome-tetravex gedit \
 gnome-todo transmission-gtk totem gnome-weather gnome-nibbles \
 gnome-klotski eog gnome-mines gnome-music gnome-system-monitor libreoffice*
 
+sudo apt -y autoremove
+
 declare -a snaps=(
     "eog"
     "firefox"
