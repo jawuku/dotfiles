@@ -39,12 +39,14 @@ declare -a snaps=(
     "marker"
     "dialect"
     "smplayer"
+    "snap-store"
 )
 
 declare -a classic_snaps=(
     "pycharm-community"
     "intellij-idea-community"
     "alacritty"
+    "julia"
 )
 
 # install snaps
