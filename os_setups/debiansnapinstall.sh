@@ -8,7 +8,7 @@ sudo apt -y install snapd
 sudo snap install core
 systemctl reboot
 
-sudo apt install build-essential git curl fonts-noto
+sudo apt install build-essential git curl fonts-noto podman
 
 sudo apt -y purge firefox-esr aisleriot gnome-2048 gnome-calculator \
 gnome-characters gnome-calendar gnome-characters cheese gnome-chess \
@@ -62,6 +62,9 @@ for i in "${classic_snaps[@]}"
 do
     sudo snap install --classic $i
 done
+
+# install special distrobox snap
+sudo snap install distrobox --edge --devmode
 
 # Download and install FiraCode Nerd Fonts
 cd ~/Downloads
