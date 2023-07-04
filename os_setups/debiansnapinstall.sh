@@ -42,6 +42,8 @@ declare -a snaps=(
     "dialect"
     "smplayer"
     "snap-store"
+    "gtkhash"
+    "bitwarden"
 )
 
 declare -a classic_snaps=(
