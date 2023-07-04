@@ -6,7 +6,6 @@ sudo apt -y upgrade
 
 sudo apt -y install snapd
 sudo snap install core
-systemctl reboot
 
 sudo apt install build-essential git curl fonts-noto podman
 
