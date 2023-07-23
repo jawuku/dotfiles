@@ -184,7 +184,6 @@ in {
 
       # colour themes
       tender-vim
-      gruvbox-nvim
       tokyonight-nvim
 
       # Autocompletion
