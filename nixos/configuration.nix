@@ -102,6 +102,12 @@ in {
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  # enable WiFi printing
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -130,7 +136,7 @@ in {
     initialPassword = "123";
     extraGroups = ["networkmanager" "wheel" "libvirtd"];
     packages = with pkgs; [
-      firefox
+      #  firefox
       #  thunderbird
     ];
   };
@@ -142,7 +148,7 @@ in {
 
   # GUI Fonts
   fonts.fonts = with pkgs; [
-    (nerdfonts.override {fonts = ["SourceCodePro" "FiraCode"];})
+    (nerdfonts.override {fonts = ["FiraCode"];})
     noto-fonts
     noto-fonts-extra
     noto-fonts-cjk-sans
@@ -159,14 +165,18 @@ in {
   environment.systemPackages = with pkgs; [
     # Do not forget to add an editor to edit configuration.nix!
     # Although, the Nano editor is also installed by default.
-    helix
     wget
     git
     curl
+    subversion
     gcc
     nix-prefetch-github
     ntfs3g
-    nodejs_20
+    firefox
+    libreoffice
+    hunspell
+    hunspellDicts.en-gb-ise
+    virt-manager
   ];
 
   # Virt-manager
