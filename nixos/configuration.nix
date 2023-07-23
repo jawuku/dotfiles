@@ -142,7 +142,7 @@ in {
 
   # GUI Fonts
   fonts.fonts = with pkgs; [
-    (nerdfonts.override {fonts = ["SourceCodePro" "DroidSansMono"];})
+    (nerdfonts.override {fonts = ["SourceCodePro" "FiraCode"];})
     noto-fonts
     noto-fonts-extra
     noto-fonts-cjk-sans
