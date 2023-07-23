@@ -2,9 +2,9 @@
 { config, pkgs, ... }:
 
 let
-  # Python 3.10 with packages
-  my-Python-packages = pkgs.python310.buildEnv.override {
-    extraLibs = with pkgs.python310Packages; [
+  # Python 3.11 with packages
+  my-Python-packages = pkgs.python311.buildEnv.override {
+    extraLibs = with pkgs.python311Packages; [
       sympy
       seaborn
       notebook
@@ -14,11 +14,15 @@ let
       pandas
       scipy
       gmpy2
-      black
       isort
+      black
       flake8
       statsmodels
       plotly
+      pycountry
+      requests
+      pyyaml
+      pynvim
     ];
   };
 
@@ -37,7 +41,7 @@ in
 
 {
   # Home packages
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     bat
     exa
     pfetch
@@ -45,11 +49,42 @@ in
     my-Python-packages
     my-R-packages
     jetbrains.idea-community
-    ripes # Risc-v svisual simulator
+    jdk17
+    leiningen
+    gcc
+    fd
+    ripgrep
+    xclip
+    git
+    ripes # Risc-v visual simulator
     octaveFull # for x86-64 only
     # (octave.withPackages (opkgs: with opkgs; 
     # [ io image statistics control optim linear-algebra dataframe symbolic ]))
-  ];
+    
+    # language servers, linters, formatters
+    pylint
+    lua-language-server
+    luaformatter
+    nil
+    statix
+    alejandra
+    sqls
+    sqlfluff
+    beautysh
+    clojure-lsp
+    clj-kondo
+    joker
+    rome
+  ])
+
+  # Additiional nodejs packages for neovim plugins
+  ++ (with pkgs.nodePackages; [
+    pyright
+    vscode-langservers-extracted
+    jsonlint
+    bash-language-server
+    markdownlint-cli2
+  ]); 
   
   programs.kitty = {
     enable = true;
@@ -67,7 +102,7 @@ in
       initial_window_width  = "80c";
       initial_window_height = "25c";
 
-      # Gruvbox theme
+      # Gruvbox light theme
       cursor                  = "#928374";
       cursor_text_color       = "#fbf1c7";
 
@@ -139,6 +174,70 @@ in
       BAT_THEME = "gruvbox-light";
     };
   };
+
+  # get neovim config from /etc/nixos/nvim/
+  xdg.configFile.nvim = {
+    source = ./nvim;
+    recursive = true;
+  };
   
-  home.stateVersion = "22.11";
+  # configure neovim using nixpkgs
+  programs.neovim = {
+    enable = true;
+    extraConfig = ":luafile ./init.lua";
+    plugins = with pkgs.vimPlugins; [
+      # dependencies
+      plenary-nvim
+      nvim-web-devicons
+      nui-nvim
+
+      # colour themes
+      tender-vim
+      gruvbox-nvim
+      tokyonight-nvim
+
+      # Autocompletion
+      nvim-lspconfig
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+      nvim-cmp
+
+      # Snippet support
+      luasnip
+      cmp_luasnip
+      friendly-snippets
+
+      # top buffer line
+      bufferline-nvim
+
+      # bottom bar
+      lualine-nvim
+
+      # file navigation
+      nvim-tree-lua
+
+      # show indentation
+      indent-blankline-nvim
+
+      # Treesitter
+      nvim-treesitter
+      nvim-treesitter.withAllGrammars
+      nvim-ts-rainbow2
+
+      # Telescope
+      telescope-nvim
+      telescope-fzf-native-nvim
+
+      # other useful utilities
+      which-key-nvim
+      comment-nvim
+      null-ls-nvim
+      nvim-notify
+      noice-nvim
+    ];
+  };
+
+  home.stateVersion = "23.05";
 }
