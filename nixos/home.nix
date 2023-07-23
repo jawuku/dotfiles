@@ -184,7 +184,7 @@ in
   # configure neovim using nixpkgs
   programs.neovim = {
     enable = true;
-    extraConfig = ":luafile ./init.lua";
+    extraConfig = ":luafile ~/.config/nvim/init.lua";
     plugins = with pkgs.vimPlugins; [
       # dependencies
       plenary-nvim
