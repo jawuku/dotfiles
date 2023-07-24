@@ -16,13 +16,11 @@ in {
     (import "${home-manager}/nixos")
   ];
 
-  # Use the GRUB boot loader.
-  boot.loader.grub = {
-    enable = true;
-    devices = ["nodev"];
-    efiInstallAsRemovable = true;
-    efiSupport = true;
-    useOSProber = true;
+  # Use the systemd boot loader.
+  boot.loader = {
+    systemd-boot.enable = true;
+    systemd-boot.configurationLimit = true;
+    efi.canTouchEfiVariables = true;
   };
 
   networking.hostName = "nixos"; # Define your hostname.
