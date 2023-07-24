@@ -177,6 +177,7 @@ in {
     hunspell
     hunspellDicts.en-gb-ise
     virt-manager
+    node2nix # to make npm package derivations in nix
   ];
 
   # Virt-manager
