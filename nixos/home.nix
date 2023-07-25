@@ -226,6 +226,7 @@ in {
       null-ls-nvim
       nvim-notify
       noice-nvim
+      lspkind
     ];
   };
 
