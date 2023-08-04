@@ -7,6 +7,6 @@ if exists('g:GuiLoaded')
   GuiPopupmenu 1
   GuiTabline 0
 else
-  colorscheme darkplus
+  colorscheme tokyonight-moon
 endif
 
