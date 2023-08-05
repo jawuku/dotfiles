@@ -88,76 +88,82 @@ in {
       bash-language-server
       markdownlint-cli2
     ]);
-  # Kitty TokyoNight Moon config
-  # license: MIT
-  # author: Folke Lemaitre
-  # upstream: https://github.com/folke/tokyonight.nvim/raw/main/extras/kitty/tokyonight_moon.conf
+
   programs.kitty = {
     enable = true;
     settings = {
       font_size = "14.0";
-      font_family = "FiraCode";
-      bold_font = "auto";
-      italic_font = "auto";
+      font_family      = "FiraCode";
+      bold_font        = "auto";
+      italic_font      = "auto";
       bold_italic_font = "auto";
       disable_ligatures = false;
       font_features = "+ss02 +ss08 +cv16 +ss05";
       scrollback_lines = 10000;
       enable_audio_bell = false;
       remember_window_size = true;
-      initial_window_width = "80c";
+      initial_window_width  = "80c";
       initial_window_height = "25c";
 
-      # TokyoNight Moon theme
+      # Gruvbox light theme
+      cursor                  = "#928374";
+      cursor_text_color       = "#fbf1c7";
 
-      background = "#222436";
-      foreground = "#c8d3f5";
-      selection_background = "#2d3f76";
-      selection_foreground = "#c8d3f5";
-      url_color = "#4fd6be";
-      cursor = "#c8d3f5";
-      cursor_text_color = "#222436";
+      url_color               = "#458588";
 
-      # Tabs
-      active_tab_background = "#82aaff";
-      active_tab_foreground = "#1e2030";
-      inactive_tab_background = "#2f334d";
-      inactive_tab_foreground = "#545c7e";
-      #tab_bar_background #1b1d2b
+      visual_bell_color       = "#689d6a";
+      bell_border_color       = "#689d6a";
 
-      # Windows
-      active_border_color = "#82aaff";
-      inactive_border_color = "#2f334d";
+      active_border_color     = "#b16286";
+      inactive_border_color   = "#1d2021";
 
-      # normal
-      color0 = "#1b1d2b";
-      color1 = "#ff757f";
-      color2 = "#c3e88d";
-      color3 = "#ffc777";
-      color4 = "#82aaff";
-      color5 = "#c099ff";
-      color6 = "#86e1fc";
-      color7 = "#828bb8";
+      background              = "#fbf1c7";
+      foreground              = "#282828";
+      selection_foreground    = "#928374";
+      selection_background    = "#3c3836";
 
-      # bright
-      color8 = "#444a73";
-      color9 = "#ff757f";
-      color10 = "#c3e88d";
-      color11 = "#ffc777";
-      color12 = "#82aaff";
-      color13 = "#c099ff";
-      color14 = "#86e1fc";
-      color15 = "#c8d3f5";
+      active_tab_foreground   = "#282828";
+      active_tab_background   = "#928374";
+      inactive_tab_foreground = "#7c6f64";
+      inactive_tab_background = "#ebdbb2";
 
-      # extended colors
-      color16 = "#ff966c";
-      color17 = "#c53b53";
+      # white (bg3/bg4)
+      color0                  = "#bdae93";
+      color8                  = "#a89984";
+
+      # red
+      color1                  = "#cc241d";
+      color9                  = "#9d0006";
+
+      # green
+      color2                  = "#98971a";
+      color10                 = "#79740e";
+
+      # yellow
+      color3                  = "#d79921";
+      color11                 = "#b57614";
+
+      # blue
+      color4                  = "#458588";
+      color12                 = "#076678";
+
+      # purple
+      color5                  = "#b16286";
+      color13                 = "#8f3f71";
+
+      # aqua
+      color6                  = "#689d6a";
+      color14                 = "#427b58";
+
+      # black (fg4/fg3)
+     color7                  = "#7c6f64";
+     color15                 = "#665c54";
     };
   };
 
   programs.bash = {
     enable = true;
-    historyControl = ["ignoredups"];
+    historyControl = [ "ignoredups" ];
     shellAliases = {
       ls = "exa";
       ll = "exa -la --icons";
@@ -168,7 +174,7 @@ in {
     sessionVariables = {
       EDITOR = "nano";
       TERMINAL = "kitty";
-      BAT_THEME = "Monokai Extended";
+      BAT_THEME = "gruvbox-light";
     };
   };
 
@@ -184,7 +190,7 @@ in {
 
       # colour themes
       tender-vim
-      tokyonight-nvim
+      gruvbox-nvim
 
       # Autocompletion
       nvim-lspconfig
