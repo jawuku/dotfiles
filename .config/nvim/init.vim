@@ -30,4 +30,4 @@ lua require('nixos.plugin-setups')
 lua require('nixos.keymaps')
 
 " set colourscheme
-colorscheme tokyonight-moon
+colorscheme gruvbox
