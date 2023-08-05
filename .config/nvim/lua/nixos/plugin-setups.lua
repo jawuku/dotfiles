@@ -98,8 +98,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 -- [[ lualine ]]
 require('lualine').setup {
-   options = { theme = "tokyonight" },
-  --options = { theme = "papercolor_light" }
+  options = { theme = "papercolor_light" }
 }
 
 -- [[ Bufferline ]]
@@ -123,15 +122,6 @@ require("nvim-tree").setup({
   -- disable window_picker
   -- for explorer to work well with window splits
   actions = { open_file = { window_picker = { enable = false } } }
-})
-
--- [[ TokyoNight ]]
-require("tokyonight").setup({
-  styles = {
-    -- Style to be applied to different syntax groups
-    -- Value is any valid attr-list value for `:help nvim_set_hl`
-    comments = { italic = true }
-  }
 })
 
 -- [[ Tree-sitter ]]
