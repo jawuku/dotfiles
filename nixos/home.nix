@@ -105,59 +105,34 @@ in {
       initial_window_width  = "80c";
       initial_window_height = "25c";
 
-      # Gruvbox light theme
-      cursor                  = "#928374";
-      cursor_text_color       = "#fbf1c7";
-
-      url_color               = "#458588";
-
-      visual_bell_color       = "#689d6a";
-      bell_border_color       = "#689d6a";
-
-      active_border_color     = "#b16286";
-      inactive_border_color   = "#1d2021";
-
-      background              = "#fbf1c7";
-      foreground              = "#282828";
-      selection_foreground    = "#928374";
-      selection_background    = "#3c3836";
-
-      active_tab_foreground   = "#282828";
-      active_tab_background   = "#928374";
-      inactive_tab_foreground = "#7c6f64";
-      inactive_tab_background = "#ebdbb2";
-
-      # white (bg3/bg4)
-      color0                  = "#bdae93";
-      color8                  = "#a89984";
-
-      # red
-      color1                  = "#cc241d";
-      color9                  = "#9d0006";
-
-      # green
-      color2                  = "#98971a";
-      color10                 = "#79740e";
-
-      # yellow
-      color3                  = "#d79921";
-      color11                 = "#b57614";
-
-      # blue
-      color4                  = "#458588";
-      color12                 = "#076678";
-
-      # purple
-      color5                  = "#b16286";
-      color13                 = "#8f3f71";
-
-      # aqua
-      color6                  = "#689d6a";
-      color14                 = "#427b58";
-
-      # black (fg4/fg3)
-     color7                  = "#7c6f64";
-     color15                 = "#665c54";
+      # Melange-nvim theme
+      background              = "#F1F1F1";
+      foreground              = "#54433A";
+      cursor = "none";
+      url_color               = "#7892BD";
+      selection_background    = "#D9D3CE";
+      selection_foreground    = "#54433A";
+      tab_bar_background      = "#E9E1DB";
+      active_tab_background   = "#E9E1DB";
+      active_tab_foreground   = "#BC5C00";
+      inactive_tab_background = "#E9E1DB";
+      inactive_tab_foreground = "#54433A";
+      color0                  = "#E9E1DB";
+      color1                  = "#C77B8B";
+      color2                  = "#6E9B72";
+      color3                  = "#BC5C00";
+      color4                  = "#7892BD";
+      color5                  = "#BE79BB";
+      color6                  = "#739797";
+      color7                  = "#7D6658";
+      color8                  = "#A98A78";
+      color9                  = "#BF0021";
+      color10                 = "#3A684A";
+      color11                 = "#A06D00";
+      color12                 = "#465AA4";
+      color13                 = "#904180";
+      color14                 = "#3D6568";
+      color15                 = "#54433A";
     };
   };
 
