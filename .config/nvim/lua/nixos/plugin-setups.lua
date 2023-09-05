@@ -97,9 +97,7 @@ require 'lspconfig'.lua_ls.setup {
 require("luasnip.loaders.from_vscode").lazy_load()
 
 -- [[ lualine ]]
-require('lualine').setup {
-  options = { theme = "papercolor_light" }
-}
+require('lualine').setup {}
 
 -- [[ Bufferline ]]
 require("bufferline").setup{}
