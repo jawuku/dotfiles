@@ -17,15 +17,15 @@
       pandas
       scipy
       gmpy2
-      isort
-      black
-      flake8
+      pillow
       statsmodels
       plotly
       pycountry
       requests
       pyyaml
       pynvim
+      beautifulsoup4
+      ruff-lsp
     ];
   };
 
@@ -42,6 +42,18 @@
         devtools
       ];
     };
+
+# Neovim custom plugin
+rainbow-delimiters-nvim = pkgs.vimUtils.buildVimPlugin {
+  name = "rainbow-delimiters-nvim";
+  src = pkgs.fetchFromGitHub {
+    owner = "HiPhish";
+    repo = "rainbow-delimiters.nvim";
+    rev = "9cbd3dc409af1f5531778ccd1ea6bce668241f39";
+    sha256 = "4aH2UhG1alE9F1jOMZUSSnvHmWYR6QSC4HwH3oOv5GM=";
+  };
+};
+
 in {
   # Home packages
   home.packages =
@@ -66,7 +78,7 @@ in {
       # [ io image statistics control optim linear-algebra dataframe symbolic ]))
 
       # language servers, linters, formatters
-      pylint
+      ruff
       lua-language-server
       luaformatter
       nil
@@ -76,65 +88,16 @@ in {
       sqlfluff
       beautysh
       clojure-lsp
-      clj-kondo
       joker
       rome
     ])
     # Additional nodejs packages for neovim plugins
     ++ (with pkgs.nodePackages; [
-      pyright
       vscode-langservers-extracted
       jsonlint
       bash-language-server
-      markdownlint-cli2
+      markdownlint-cli
     ]);
-
-  programs.kitty = {
-    enable = true;
-    settings = {
-      font_size = "14.0";
-      font_family      = "FiraCode";
-      bold_font        = "auto";
-      italic_font      = "auto";
-      bold_italic_font = "auto";
-      disable_ligatures = false;
-      font_features = "+ss02 +ss08 +cv16 +ss05";
-      scrollback_lines = 10000;
-      enable_audio_bell = false;
-      remember_window_size = true;
-      initial_window_width  = "80c";
-      initial_window_height = "25c";
-
-      # Melange-nvim theme
-      background              = "#F1F1F1";
-      foreground              = "#54433A";
-      cursor = "none";
-      url_color               = "#7892BD";
-      selection_background    = "#D9D3CE";
-      selection_foreground    = "#54433A";
-      tab_bar_background      = "#E9E1DB";
-      active_tab_background   = "#E9E1DB";
-      active_tab_foreground   = "#BC5C00";
-      inactive_tab_background = "#E9E1DB";
-      inactive_tab_foreground = "#54433A";
-      color0                  = "#E9E1DB";
-      color1                  = "#C77B8B";
-      color2                  = "#6E9B72";
-      color3                  = "#BC5C00";
-      color4                  = "#7892BD";
-      color5                  = "#BE79BB";
-      color6                  = "#739797";
-      color7                  = "#7D6658";
-      color8                  = "#A98A78";
-      color9                  = "#BF0021";
-      color10                 = "#3A684A";
-      color11                 = "#A06D00";
-      color12                 = "#465AA4";
-      color13                 = "#904180";
-      color14                 = "#3D6568";
-      color15                 = "#54433A";
-    };
-  };
 
   programs.bash = {
     enable = true;
@@ -148,15 +111,13 @@ in {
     };
     sessionVariables = {
       EDITOR = "nano";
-      TERMINAL = "kitty";
-      BAT_THEME = "gruvbox-light";
+      BAT_THEME = "Twodark";
     };
   };
 
   # configure neovim using nixpkgs
   programs.neovim = {
     enable = true;
-    # extraConfig = ":luafile ~/.config/nvim/init.lua";
     plugins = with pkgs.vimPlugins; [
       # dependencies
       plenary-nvim
@@ -165,7 +126,7 @@ in {
 
       # colour themes
       tender-vim
-      gruvbox-nvim
+      melange-nvim
 
       # Autocompletion
       nvim-lspconfig
@@ -174,6 +135,7 @@ in {
       cmp-path
       cmp-cmdline
       nvim-cmp
+      nvim-autopairs
 
       # Snippet support
       luasnip
@@ -195,7 +157,7 @@ in {
       # Treesitter
       nvim-treesitter
       nvim-treesitter.withAllGrammars
-      nvim-ts-rainbow2
+      rainbow-delimiters-nvim
 
       # Telescope
       telescope-nvim
