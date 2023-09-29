@@ -45,7 +45,7 @@ sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/GRUB_CMDLINE_LINUX_DEFAULT="qu
 
 # declare array of flatpaks
 declare -a flatpaks=(
-    "org.gnome.eog"
+    "org.gnome.Loupe"
     "org.gnome.baobab"
     "org.gnome.Evince"
     "org.gnome.Calculator"
@@ -104,6 +104,20 @@ fc-cache -fv
 # download Wezterm config from my own github repo - Gruvbox Light colour scheme
 cd ~
 wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
+
+# Check if Nvidia card present
+# adapted from stackoverflow user Jetchisel's answer (13 March 2021)
+# stackoverflow.com/q/66611439
+# Title : "How to check if nvidia-gpu is available using bash-script?"
+gpu=$(lspci | grep -i '.* vga .* nvidia .*')
+shopt -s nocasematch
+
+if [[ $gpu == *' nvidia '* ]]; then
+  message "Installing Nvidia Drivers"
+  printf 'Nvidia GPU present : %s/n' "$gpu"
+  sleep 3
+  sudo apt -y install nvidia-driver firmware-misc-nonfree
+fi
 
 message "F I N I S H E D"
 echo "Please reboot to enjoy your customised Gnome Desktop"
