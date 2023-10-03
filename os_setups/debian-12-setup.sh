@@ -15,7 +15,7 @@ message "Installing Base Packages"
 
 sudo apt update && sudo apt -y dist-upgrade
 
-sudo apt -y install gnome-core desktop-base network-manager-gnome gnome-console \
+sudo apt -y install gnome-core desktop-base network-manager-gnome \
 build-essential dkms linux-headers-amd64 distrobox flatpak git curl fonts-noto \
 gnome-software-plugin-flatpak timeshift
 
@@ -64,10 +64,11 @@ declare -a flatpaks=(
     "com.valvesoftware.Steam"
     "org.onlyoffice.desktopeditors"
     "app.drey.Dialect"
-    "dev.salaniLeo.forecast"
+    "io.github.amit9838.weather"
     "dev.geopjr.Collision"
     "com.github.ADBeveridge.Raider"
-    "org.wezfurlong.wezterm"
+    "org.gnome.gitlab.somas.Apostrophe"
+    "com.raggesilver.BlackBox"
     "net.ankiweb.Anki"
     "com.brave.Browser"
     )
@@ -101,10 +102,6 @@ done
 # install them locally
 fc-cache -fv
 
-# download Wezterm config from my own github repo - Gruvbox Light colour scheme
-cd ~
-wget https://raw.githubusercontent.com/jawuku/dotfiles/master/.wezterm.lua
-
 # Check if Nvidia card present
 # adapted from stackoverflow user Jetchisel's answer (13 March 2021)
 # stackoverflow.com/q/66611439
@@ -117,6 +114,23 @@ if [[ $gpu == *' nvidia '* ]]; then
   printf 'Nvidia GPU present : %s/n' "$gpu"
   sleep 3
   sudo apt -y install nvidia-driver firmware-misc-nonfree
+fi
+
+# Install Distrobox
+cd ~/Downloads
+sudo apt -y install podman
+git clone https://github.com/89luca89/distrobox.git
+cd distrobox
+./install
+cd ~/.local/bin
+
+# create nvidia tumbleweed distrobox container if nvidia card present
+if [[ $gpu == *' nvidia '* ]]; then
+  message "Nvidia Fedora Distrobox"
+  ./distrobox create -n fedora -i registry.fedoraproject.org/fedora-toolbox:39 --nvidia --home ~/fedora
+else
+  message "Fedora Distrobox without Nvidia"
+  ./distrobox create -n fedora -i registry.fedoraproject.org/fedora-toolbox:39 --home ~/fedora
 fi
 
 message "F I N I S H E D"
