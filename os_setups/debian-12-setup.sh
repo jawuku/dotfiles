@@ -16,7 +16,7 @@ message "Installing Base Packages"
 sudo apt update && sudo apt -y dist-upgrade
 
 sudo apt -y install gnome-core desktop-base network-manager-gnome \
-build-essential dkms linux-headers-amd64 distrobox flatpak git curl fonts-noto \
+build-essential dkms linux-headers-amd64 podman flatpak git curl fonts-noto \
 gnome-software-plugin-flatpak timeshift
 
 # setup user directories
@@ -41,48 +41,6 @@ sudo service zramswap reload
 # enable boot splash
 message "Enabling Graphical Boot Splash"
 sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/' /etc/default/grub
-
-
-# declare array of flatpaks
-declare -a flatpaks=(
-    "org.gnome.Loupe"
-    "org.gnome.baobab"
-    "org.gnome.Evince"
-    "org.gnome.Calculator"
-    "org.gnome.Characters"
-    "org.gnome.Contacts"
-    "org.gnome.Logs"
-    "org.gnome.font-viewer"
-    "org.gnome.TextEditor"
-    "org.gnome.Lollypop"
-    "org.gnome.SimpleScan"
-    "org.gnome.Totem"
-    "org.gnome.FileRoller"
-    "org.gnome.Boxes"
-    "org.gnome.Mahjongg"
-    "de.haeckerfelix.Fragments"
-    "com.valvesoftware.Steam"
-    "org.onlyoffice.desktopeditors"
-    "app.drey.Dialect"
-    "io.github.amit9838.weather"
-    "dev.geopjr.Collision"
-    "com.github.ADBeveridge.Raider"
-    "org.gnome.gitlab.somas.Apostrophe"
-    "com.raggesilver.BlackBox"
-    "net.ankiweb.Anki"
-    "com.brave.Browser"
-    )
-
-# setup flathub if not already done
-message "Install Flatpaks"
-
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-# install flatpaks from list
-for i in "${flatpaks[@]}"
-do
-   flatpak install -y $i
-done
 
 # Download and Install Nerd Fonts
 message "Download and Install Nerd fonts"
@@ -116,17 +74,58 @@ if [[ $gpu == *' nvidia '* ]]; then
   sudo apt -y install nvidia-driver firmware-misc-nonfree
 fi
 
+# declare array of flatpaks
+declare -a flatpaks=(
+    "org.gnome.Loupe"
+    "org.gnome.baobab"
+    "org.gnome.Evince"
+    "org.gnome.Calculator"
+    "org.gnome.Characters"
+    "org.gnome.Contacts"
+    "org.gnome.Logs"
+    "org.gnome.font-viewer"
+    "org.gnome.TextEditor"
+    "org.gnome.Lollypop"
+    "org.gnome.SimpleScan"
+    "com.github.rafostar.Clapper"
+    "org.gnome.FileRoller"
+    "org.gnome.Boxes"
+    "org.gnome.Mahjongg"
+    "de.haeckerfelix.Fragments"
+    "com.valvesoftware.Steam"
+    "org.onlyoffice.desktopeditors"
+    "app.drey.Dialect"
+    "io.github.amit9838.weather"
+    "dev.geopjr.Collision"
+    "com.github.ADBeveridge.Raider"
+    "org.gnome.gitlab.somas.Apostrophe"
+    "com.raggesilver.BlackBox"
+    "net.ankiweb.Anki"
+    "com.brave.Browser"
+    )
+
+# setup flathub if not already done
+message "Install Flatpaks"
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# install flatpaks from list
+for i in "${flatpaks[@]}"
+do
+   flatpak install -y $i
+done
+
 # Install Distrobox
+message "Installing Latest Distrobox"
 cd ~/Downloads
-sudo apt -y install podman
 git clone https://github.com/89luca89/distrobox.git
 cd distrobox
 ./install
 cd ~/.local/bin
 
-# create nvidia tumbleweed distrobox container if nvidia card present
+# create nvidia fedora distrobox container if nvidia card present
 if [[ $gpu == *' nvidia '* ]]; then
-  message "Nvidia Fedora Distrobox"
+  message "Nvidia Fedora Container"
   ./distrobox create -n fedora -i registry.fedoraproject.org/fedora-toolbox:39 --nvidia --home ~/fedora
 else
   message "Fedora Distrobox without Nvidia"
