@@ -1,0 +1,19 @@
+[language-server.ruff-lsp]
+command = "ruff-lsp"
+
+[language-server.ruff-lsp.config]
+documentFormatting = true 
+settings.run = "onSave"
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = [ "--stdio" ]
+config.reportMissingtypeStubs = false
+
+[[language]]
+name = "python"
+auto-format = true
+language-servers = [
+  { name = "ruff-lsp", only-features = [ "format", "diagnostics" ] },
+  { name = "pyright", except-features = [ "format", "diagnostics" ] },
+]
