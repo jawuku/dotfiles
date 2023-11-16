@@ -1,4 +1,4 @@
-theme = "gruvbox_light"
+theme = "dark_plus"
 
 [editor]
 line-number = "relative"
@@ -23,7 +23,7 @@ character = "┊"
 skip-levels = 1
 
 [editor.statusline]
-left = ["mode", "spinner"]
+left = ["mode", "spinner", "read-only-indicator", "file-modification-indicator" ]
 center = ["file-name"]
 right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
 separator = "|"
