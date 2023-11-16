@@ -16,4 +16,12 @@ args = [ "--ignore", "E501" ]
 command = "ruff"
 args = [ "format", "--line-length", "88", "--quiet", "-" ] 
 
+[[language]]
+name = "nix"
+formatter = { command = "nixpkgs-fmt" }
 
+[[language]]
+name = "rust"
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
