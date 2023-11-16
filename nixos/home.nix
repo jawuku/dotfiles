@@ -47,7 +47,7 @@ in {
       exa
       pfetch
       julia-bin
-      # (python311.withPackages my-Python-packages)
+      (python311.withPackages my-Python-packages)
       R-with-packages
       gcc
       xclip
