@@ -9,7 +9,7 @@ sudo apt -y upgrade
 sudo apt -y install snapd
 sudo snap install core
 
-sudo apt install build-essential git curl fonts-noto podman rlwrap
+sudo apt -y install build-essential git curl fonts-noto podman rlwrap
 
 sudo apt -y purge firefox-esr aisleriot gnome-2048 gnome-calculator \
 gnome-characters gnome-calendar gnome-characters cheese gnome-chess \
