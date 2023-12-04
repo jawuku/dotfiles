@@ -16,9 +16,9 @@ gnome-characters gnome-calendar gnome-characters cheese gnome-chess \
 gnome-clocks gnome-contacts evince evolution five-or-more four-in-a-row \
 hitori libreoffice lightsoff gnome-font-viewer gnome-logs gnome-mahjongg \
 gnome-maps quadrapassel iagno rhythmbox gnome-robots shotwell gnome-sudoku \
-swell-foop tali gnome-taquin gnome-terminal gnome-tetravex gedit \
-gnome-todo transmission-gtk totem gnome-weather gnome-nibbles \
-gnome-klotski eog gnome-mines gnome-music gnome-system-monitor libreoffice*
+swell-foop tali gnome-taquin  gnome-tetravex gedit gnome-todo \
+transmission-gtk totem gnome-weather gnome-nibbles gnome-klotski eog \
+gnome-mines gnome-music gnome-system-monitor libreoffice*
 
 sudo apt -y autoremove
 
@@ -70,16 +70,19 @@ done
 
 # setup openjdk snap
 # from https://github.com/jgneff/openjdk
-echo "export JAVA_HOME=/snap/openjdk/current/jdk" >> ~/.bashrc
+printf "\nexport JAVA_HOME=/snap/openjdk/current/jdk" >> ~/.bashrc
+echo "export PATH=$JAVA_HOME/bin:$PATH" >> ~/.bashrc
+export JAVA_HOME=/snap/openjdk/current/jdk
+export PATH=$JAVA_HOME/bin:$PATH
 
 # install latest distrobox
 curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 
 # install clojure
-curl -L -O https://github.com/clojure/brew-install/releases/latest/download/posix-install.sh
-chmod +x posix-install.sh
-sudo ./posix-install.sh
-rm posix-install.sh
+curl -L -O https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh
+chmod +x linux-install.sh
+sudo ./linux-install.sh
+rm linux-install.sh
 
 # Download and install FiraCode Nerd Fonts
 cd ~/Downloads
