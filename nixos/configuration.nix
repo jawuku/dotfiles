@@ -2,30 +2,25 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-# This configuration.nix file is generic - can modify either:
-# 1) uncomment multi-line Nvidia comment block for Nvidia GPUs (lines 77-103)
-# 2) xkbVariant = "mac"; # for Macbook (line 74)
+{ config, pkgs, ... }:
+
+let
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
+in
 
 {
-  config,
-  pkgs,
-  ...
-}: let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz";
-in {
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+      ./hardware-configuration.nix
 
     # Incorporate Home Manager
     (import "${home-manager}/nixos")
   ];
 
-  # Use systemd bootloader
+  # Bootloader
   boot.loader = {
     systemd-boot.enable = true;
-    systemd-boot.configurationLimit = 10;
-
+    systemd-boot.configurationLimit = 12;
     efi.canTouchEfiVariables = true;
   };
 
@@ -61,20 +56,27 @@ in {
   services.xserver = {
     enable = true;
 
-    # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
-
-    # Disable xterm
-    desktopManager.xterm.enable = false;
-    excludePackages = with pkgs; [ xterm ];
+    # Enable the Cinnamon Desktop Environment.
+    displayManager.lightdm = {
+      enable = true;
+      greeters.slick.enable = true;
+    };
+    desktopManager.cinnamon.enable = true;
 
     # Configure keymap in X11
     layout = "gb";
-    xkbVariant = ""; # use "mac" on Macbook
+    xkbVariant = "";
+
+    # Disable xterm
+    desktopManager.xterm.enable = false;
+    excludePackages = [ pkgs.xterm ];
   };
 
-/* Uncomment this block to load on an Nvidia GPU computer
+  # Enable Cinnamon default apps
+  services.cinnamon.apps.enable = true;
+  
+  # Configure console keymap
+  console.keyMap = "uk";
 
   # Make sure opengl is enabled
   hardware.opengl = {
@@ -84,7 +86,7 @@ in {
   };
 
   # Nvidia settings
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     # Modesetting is needed for most Wayland compositors
@@ -100,10 +102,6 @@ in {
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-*/
-
-  # Configure console keymap
-  console.keyMap = "uk";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -128,26 +126,26 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.example = {
     isNormalUser = true;
     description = "Example User";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     initialPassword = "123"; # remember to change after 1st login!
     shell = pkgs.zsh;
-    packages =  [
-      #  firefox thunderbird
-    ];
+  #  packages = with pkgs; [
+  #  ];
   };
 
   # Add home-manager block after user definition
   home-manager.users.example = {
-    imports = [./home.nix];
+    imports = [ ./home.nix ];
   };
 
   # GUI Fonts
-  fonts.fonts = with pkgs; [
-    (nerdfonts.override {fonts = ["RobotoMono" "Source Code Pro"];})
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {fonts = [ "RobotoMono" "FiraCode" ];})
     noto-fonts
     noto-fonts-extra
     noto-fonts-cjk-sans
@@ -156,36 +154,48 @@ in {
     noto-fonts-emoji-blob-bin
   ];
 
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = (with pkgs; [
-    # Do not forget to add an editor to edit configuration.nix!
-    # However, the Nano editor is installed by default.
+  environment.systemPackages = with pkgs; [
+    helix # Do not forget to add an editor to edit configuration.nix!
+    # Though, the Nano editor is installed by default anyway.
     wget
     git
     curl
     subversion
     nix-prefetch-github
-    smplayer
-    distrobox
-    # experimental minimal vim configuration
+    brave
+    ntfs3g
+    fd
+    ripgrep
+    tealdeer
+/*  vim cursor does not work in Wezterm - commenting out for now
+    use helix instead
+
     ((vim_configurable.override {  }).customize{
       name = "vim";
       # Install plugins for example for colourschemes
       vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
-        start = [ tender-vim vim-polyglot vim-airline vim-airline-themes ];
+        start = [
+          tender-vim
+          vim-polyglot
+          vim-airline
+          vim-airline-themes
+          rainbow
+        ];
         opt = [];
       };
-      # simple .vimrc
+      # experimental simple vim configuration
       vimrcConfig.customRC = ''
         set nocompatible
         syntax on
         filetype plugin indent on
         set nu rnu hid et sts=4 sw=4 enc=utf-8 wmnu
-        set clipboard=unnamedplus nobackup ru ls=2
+        set clipboard=unnamedplus nobackup ru ls=2 nosmd
         set ignorecase smartcase confirm termguicolors
 
         " different mode cursor shapes
@@ -198,18 +208,15 @@ in {
         let g:airline_theme = 'tender'
         let g:airline_powerline_fonts = 1
 
+        " rainbow parentheses
+        let g:rainbow_active = 1
         " set colourscheme
         colorscheme tender
       '';
-    }
-  )
-  ])
-  # and KDE packages
-  ++ (with pkgs.libsForQt5; [
-    falkon
-    kate
-    elisa
-  ]);
+      }
+    )
+*/
+  ];
 
   # Enable Zsh
   programs.zsh = {
@@ -221,6 +228,12 @@ in {
 
   # enable Zsh Completion
   environment.pathsToLink = [ "/share/zsh" ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -237,7 +250,7 @@ in {
     settings.auto-optimise-store = true;
     gc = {
       automatic = true;
-      dates = "weekly";
+      dates = "daily";
       options = "--delete-older-than 14d";
     };
   };
@@ -245,20 +258,27 @@ in {
   # Enable experimental features like flakes - maybe utilise in future?
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Enable Podman & Docker
+  # Enable libvirtd
   virtualisation = {
-    podman = {
-      enable = true;
-
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
+    libvirtd.enable = true;
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
+  # enable virt-manager
+  programs.virt-manager.enable = true;
+
+  # zram swap
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 25;
+  };
+
+  # enable flatpaks
+  services.flatpak.enable = true;
+  # enable flathub repository by typing in a terminal: 
+  # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  
+# Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
@@ -284,4 +304,5 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
+
 }
