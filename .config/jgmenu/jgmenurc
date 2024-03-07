@@ -6,7 +6,7 @@
 # tint2_look = 0
 position_mode = pointer
 # edge_snap_x = 30
-terminal_exec = wezterm
+terminal_exec = sakura
 # terminal_args = 
 # monitor = 0
 # hover_delay = 100
