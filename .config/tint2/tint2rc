@@ -166,8 +166,7 @@ launcher_item_app = /usr/share/applications/firefox-esr.desktop
 #launcher_item_app = /usr/share/applications/vivaldi-stable.desktop
 launcher_item_app = /usr/share/applications/geany.desktop
 launcher_item_app = /usr/share/applications/org.xfce.Parole.desktop
-#launcher_item_app = $HOME/.local/share/applications/kitty.desktop
-launcher_item_app = /usr/share/applications/org.wezfurlong.wezterm.desktop
+launcher_item_app = $HOME/.local/share/applications/sakura.desktop
 
 #-------------------------------------
 # Clock
@@ -228,8 +227,8 @@ button_max_icon_size = 0
 button = new
 button_icon = gnome-shutdown
 button_text = 
-button_lclick_command = obsession-logout
-button_rclick_command = obsession-logout
+button_lclick_command = openbox --exit
+button_rclick_command = openbox --exit
 button_mclick_command = 
 button_uwheel_command = 
 button_dwheel_command = 
