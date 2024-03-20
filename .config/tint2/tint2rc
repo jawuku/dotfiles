@@ -72,7 +72,7 @@ border_color_pressed = #000000 100
 
 #-------------------------------------
 # Panel
-panel_items = PLTSCP
+panel_items = PLTSCP # modify to PLTSBCP on a laptop to show battery
 panel_size = 100% 40
 panel_margin = 0 0
 panel_padding = 2 0 5
