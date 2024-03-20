@@ -1,4 +1,4 @@
-Terminal,wezterm,utilities-terminal
+Terminal,sakura,utilities-terminal
 Browser,firefox,firefox
 File manager,thunar,system-file-manager
 ^sep()
