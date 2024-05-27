@@ -42,8 +42,8 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Nightmare-01</name>
-    <titleLayout>NLIMC</titleLayout>
+    <name>Nightmare-02</name>
+    <titleLayout>CIMSLN</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -124,8 +124,11 @@
     <firstdesk>1</firstdesk>
     <names>
       <!-- set names up here if you want to, like this:
-    <name>desktop 1</name>
-    <name>desktop 2</name>
+    <name>One</name>
+    <name>Two</name>
+    <name>Three</name>
+    <name>Four</name>
+
     -->
     </names>
     <popupTime>875</popupTime>
@@ -264,10 +267,10 @@
         <menu>client-menu</menu>
       </action>
     </keybind>
-    <!-- Take a screenshot of the current window with scrot when Alt+Print are pressed -->
+    <!-- Take a screenshot of the current window with kazam when Alt+Print are pressed -->
     <keybind key="A-Print">
       <action name="Execute">
-        <command>scrot -s</command>
+        <command>kazam --window</command>
       </action>
     </keybind>
     <!-- Keybindings for window switching -->
@@ -329,13 +332,48 @@
           <enabled>true</enabled>
           <name>Rofi</name>
         </startupnotify>
-        <command>rofi -show drun -theme Adapta-Nokto</command>
+        <command>~/.local/bin/gtk-rofi -show drun spotlight</command>
       </action>
     </keybind>
-    <!-- Launch scrot when Print is pressed -->
+    <!-- Windows-E opens text editor -->
+    <keybind key="W-e">
+      <action name="Execute">
+        <command>geany</command>
+      </action>
+    </keybind>
+
+    <!-- Windows-h task manager -->
+    <keybind key="W-h">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Task Manager</name>
+        </startupnotify>
+        <command>lxtask</command>
+      </action>
+    </keybind>
+    <!-- Windows-V opens volume control -->
+    <keybind key="W-v">
+      <action name="Execute">
+        <command>pavucontrol</command>
+      </action>
+    </keybind>
+
+    <!-- Windows-M opens media player -->
+    <keybind key="W-m">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Media Player</name>
+        </startupnotify>
+        <command>parole</command>
+      </action>
+    </keybind>
+
+    <!-- Launch kazam when Print is pressed -->
     <keybind key="Print">
       <action name="Execute">
-        <command>scrot</command>
+        <command>kazam</command>
       </action>
     </keybind>
     <!-- Control-Escape launches jgmenu -->
@@ -347,13 +385,23 @@
     <!-- Control-Alt-T launches a login terminal -->
     <keybind key="C-A-t">
       <action name="Execute">
-        <command>wezterm</command>
+        <command>sakura -l</command>
       </action>
     </keybind>
     <!-- Control-Alt-L locks the screen -->
     <keybind key="C-A-l">
       <action name="Execute">
         <command>light-locker-command -l</command>
+      </action>
+    </keybind>
+    <!-- Windows-W opens web browser -->
+    <keybind key="W-w">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Web Browser</name>
+        </startupnotify>
+        <command>falkon</command>
       </action>
     </keybind>
     <!-- Multimedia Keys - raise, lower and mute volume -->
