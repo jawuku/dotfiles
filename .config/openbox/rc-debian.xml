@@ -325,6 +325,16 @@
       </action>
     </keybind>
     <!-- Keybindings for running applications -->
+    <keybind key="W-f">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Thunar</name>
+        </startupnotify>
+        <command>thunar</command>
+      </action>
+    </keybind>
+
     <!-- Alt-F2 opens a run dialogue (Rofi) -->
     <keybind key="A-F2">
       <action name="Execute">
@@ -335,6 +345,7 @@
         <command>~/.local/bin/gtk-rofi -show drun spotlight</command>
       </action>
     </keybind>
+
     <!-- Windows-E opens text editor -->
     <keybind key="W-e">
       <action name="Execute">
