@@ -21,10 +21,10 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 PS1="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%m%F{magenta} %~%F{red}]%F{white} %b"
 
 # aliases
-# install exa and bat from repositories
-alias ls="exa"
-alias ll="exa -la --icons"
-alias lt="exa --tree --icons"
+# install eza and bat from repositories
+alias ls="eza"
+alias ll="eza -la --icons"
+alias lt="eza --tree --icons"
 alias cat="bat"
 alias hx="helix"
 
