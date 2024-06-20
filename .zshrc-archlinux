@@ -4,8 +4,7 @@ SAVEHIST=2000
 setopt notify
 unsetopt beep
 
-zstyle :compinstall filename '/home/yourname/.zshrc'
-# replace 'yourname' with your own username
+zstyle :compinstall filename '~/.zshrc'
 
 # autocompletion
 autoload -Uz compinit
