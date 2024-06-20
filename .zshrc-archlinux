@@ -29,8 +29,8 @@ alias cat="bat"
 alias hx="helix"
 
 # bat theme
-# export BAT_THEME="gruvbox-light"
-export BAT_THEME="Visual Studio Dark+"
+export BAT_THEME="gruvbox-light"
+# export BAT_THEME="Visual Studio Dark+"
 
 # add ~/.local/bin to PATH
 PATH="$PATH:$HOME/.local/bin"
