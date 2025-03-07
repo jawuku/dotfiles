@@ -7,7 +7,7 @@ sudo apt update
 sudo apt -y upgrade
 
 sudo apt -y install snapd
-sudo snap install core
+sudo snap install snapd
 
 sudo apt -y install build-essential git curl fonts-noto podman rlwrap
 
@@ -24,7 +24,7 @@ sudo apt -y autoremove
 
 declare -a snaps=(
     "loupe"
-    "firefox"
+    "brave"
     "gnome-calculator"
     "gnome-calendar"
     "gnome-characters"
@@ -52,7 +52,7 @@ declare -a snaps=(
 declare -a classic_snaps=(
     "pycharm-community"
     "intellij-idea-community"
-    "alacritty"
+    "helix"
     "julia"
 )
 
@@ -84,17 +84,15 @@ chmod +x linux-install.sh
 sudo ./linux-install.sh
 rm linux-install.sh
 
-# Download and install FiraCode Nerd Fonts
+# Download and install Nerd Fonts
 cd ~/Downloads
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
-
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/FiraCode.tar.xz
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/RobotoMono.tar.xz
 mkdir -p ~/.local/share/fonts
 
-features="Bold Light Medium Regular Retina SemiBold"
+tar xvf FiraCode.xz --wildcards "FiraCodeNerdFont-*.ttf"
+tar xvf RobotoMono.tar.xz --wildcards "RobotoMonoNerdFont-*.ttf"
 
-for i in $features
-do
-    unzip -j FiraCode.zip FiraCodeNerdFont-$i.ttf -d ~/.local/share/fonts
-done
+mv *.ttf ~/.local/share/fonts
 
 fc-cache -fv
