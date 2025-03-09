@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usrbin/env bash
 # debloat Debian 12 Gnome installed from tasksel
 # remove debs and replace with snaps
 
@@ -32,7 +32,7 @@ declare -a snaps=(
     "gnome-clocks"
     "gnome-contacts"
     "evince"
-    "onlyoffice-desktopeditors"
+    "libreoffice"
     "gnome-logs"
     "gnome-mahjongg"
     "gnome-system-monitor"
@@ -40,8 +40,7 @@ declare -a snaps=(
     "mousam"
     "amberol"
     "marker"
-    "dialect"
-    "smplayer"
+    "celluloid"
     "snap-store"
     "gtkhash"
     "bitwarden"
@@ -79,10 +78,27 @@ export PATH=$JAVA_HOME/bin:$PATH
 curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 
 # install clojure
+cd ~/Downloads
 curl -L -O https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh
 chmod +x linux-install.sh
 sudo ./linux-install.sh
 rm linux-install.sh
+
+wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+sudo mv ./lein /usr/local/bin
+sudo chmod +x /usr/local/bin/lein
+lein
+
+# NodeJS
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+nvm install --lts
+
+echo "NodeJS $(node -v) now installed"
 
 # Download and install Nerd Fonts
 cd ~/Downloads
