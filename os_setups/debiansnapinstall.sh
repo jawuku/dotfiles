@@ -1,4 +1,4 @@
-#!/usrbin/env bash
+#!/usr/bin/env bash
 # debloat Debian 12 Gnome installed from tasksel
 # remove debs and replace with snaps
 
