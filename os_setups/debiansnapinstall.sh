@@ -69,7 +69,7 @@ done
 
 # setup openjdk snap
 # from https://github.com/jgneff/openjdk
-printf "\nexport JAVA_HOME=/snap/openjdk/current/jdk" >> ~/.bashrc
+printf "\n# OpenJDK Paths\nexport JAVA_HOME=/snap/openjdk/current/jdk\n" >> ~/.bashrc
 echo "export PATH=$JAVA_HOME/bin:$PATH" >> ~/.bashrc
 export JAVA_HOME=/snap/openjdk/current/jdk
 export PATH=$JAVA_HOME/bin:$PATH
@@ -90,7 +90,7 @@ sudo chmod +x /usr/local/bin/lein
 lein
 
 # NodeJS
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
