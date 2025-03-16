@@ -40,7 +40,7 @@ sudo apt install python3-seaborn python3-sklearn python3-gmpy2 python3-mpmath \
 python3-bs4 python3-bottleneck python3-requests python3-notebook
 
 # NodeJS
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
