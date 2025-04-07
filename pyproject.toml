@@ -1,35 +1,38 @@
 [project]
 name = "datasci"
 version = "0.1.0"
-description = "Add your description here"
+description = "Data Science Environment with Pytorch and Tensorflow (CPU)"
 readme = "README.md"
-requires-python = ">=3.13.2"
+requires-python = ">=3.12.9"
 dependencies = [
-  "gmpy2>=2.2.1",
-  "jupyter>=1.1.1",
-  "openpyxl>=3.1.5",
-  "pyarrow>=19.0.1",
-  "pyjanitor>=0.31.0",
-  "ruff-lsp>=0.0.62",
-  "scikit-learn>=1.6.1",
-  "seaborn>=0.13.2",
-  "sympy==1.13.1",
-  "torch>=2.6.0",
-  "torchaudio>=2.6.0",
-  "torchvision>=0.21.0",
+    "gmpy2>=2.2.1",
+    "jupyter>=1.1.1",
+    "odfpy>=1.4.1",
+    "openpyxl>=3.1.5",
+    "pyarrow>=19.0.1",
+    "pyjanitor>=0.31.0",
+    "python-lsp-ruff>=2.2.2",
+    "ruff-lsp>=0.0.62",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "sympy>=1.13.3",
+    "tensorflow-cpu>=2.18.0",
+    "torch>=2.4.1",
+    "torchaudio>=2.4.1",
+    "torchvision>=0.19.1",
 ]
 
 [tool.uv.sources]
 torch = [
-  { index = "pytorch-cpu"},
+    { index = "pytorch-cpu" },
 ]
 
 torchaudio = [
-  { index = "pytorch-cpu"},
+    { index = "pytorch-cpu" },
 ]
 
 torchvision = [
-  { index = "pytorch-cpu"},
+    { index = "pytorch-cpu" },
 ]
 
 [[tool.uv.index]]
