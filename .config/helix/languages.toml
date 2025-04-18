@@ -1,16 +1,14 @@
 [[language]]
 name = "python"
-language-servers = [ "pyright", "ruff-lsp" ]
+language-servers = [ "basedpyright", "ruff" ]
 auto-format = true
 
-[language-server.pyright.config.python.analysis]
+[language-server.basedpyright.config.python.analysis]
 typeCheckingMode = "basic"
 
-[language-server.ruff-lsp]
-command = "ruff-lsp"
-
-[language-server.ruff-lsp.config.settings]
-args = [ "--ignore", "E501" ]
+[language-server.ruff]
+command = "ruff"
+args = [ "server" ]
 
 [language.formatter]
 command = "ruff"
@@ -18,10 +16,13 @@ args = [ "format", "--line-length", "88", "--quiet", "-" ]
 
 [[language]]
 name = "nix"
-formatter = { command = "nixpkgs-fmt" }
+formatter = { command = "nixfmt" }
 
 [[language]]
-name = "rust"
+name = "markdown"
+language-servers = [ "marksman" "ltex-ls" ]
 
-[language-server.rust-analyzer.config.check]
-command = "clippy"
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = [ "format", "-" ] }
+auto-format = true
