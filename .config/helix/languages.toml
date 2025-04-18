@@ -20,7 +20,7 @@ formatter = { command = "nixfmt" }
 
 [[language]]
 name = "markdown"
-language-servers = [ "marksman" "ltex-ls" ]
+language-servers = [ "marksman", "ltex-ls" ]
 
 [[language]]
 name = "toml"
