@@ -1,4 +1,4 @@
-theme = "dark_plus"
+theme = "bogster" # default theme
 
 [editor]
 line-number = "relative"
@@ -26,7 +26,7 @@ skip-levels = 1
 left = ["mode", "spinner", "read-only-indicator", "file-modification-indicator" ]
 center = ["file-name"]
 right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
-separator = "|"
+separator = "┊" # unicode character 0x250A
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
@@ -36,3 +36,5 @@ display-messages = true
 
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"] 
+space.t.d = ":theme bogster"
+space.t.l = ":theme gruvbox_light"
