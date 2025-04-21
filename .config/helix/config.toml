@@ -1,4 +1,4 @@
-theme = "bogster" # default theme
+theme = "kanagawa" # default theme
 
 [editor]
 line-number = "relative"
@@ -8,6 +8,7 @@ bufferline = "multiple"
 auto-pairs = true
 cursorline = true
 true-color = true
+end-of-line-diagnostics = "hint"
 
 [editor.soft-wrap]
 enable = true
@@ -34,7 +35,10 @@ mode.select = "SELECT"
 [editor.lsp]
 display-messages = true
 
+[editor.inline-diagnostics]
+cursor-line = "error"
+
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"] 
-space.t.d = ":theme bogster"
+space.t.d = ":theme kanagawa"
 space.t.l = ":theme gruvbox_light"
