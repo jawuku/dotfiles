@@ -21,6 +21,9 @@ formatter = { command = "nixfmt" }
 [[language]]
 name = "markdown"
 language-servers = [ "marksman", "ltex-ls" ]
+formatter = { command = "prettierd", args = [".md"] }
+auto-format = true
+
 
 [[language]]
 name = "toml"
