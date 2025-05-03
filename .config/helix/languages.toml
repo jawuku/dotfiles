@@ -42,6 +42,11 @@ formatter = { command = "shfmt", args = ["-i", "4"] }
 auto-format = true
 
 [[language]]
+name = "clojure"
+formatter = { command = "cljfmt", args = [ "fix" ] }
+auto-format = true
+
+[[language]]
 name = "lua"
 formatter = { command = "stylua", args = ["-"] }
 auto-format = true
