@@ -43,6 +43,7 @@ auto-format = true
 
 [[language]]
 name = "clojure"
+indent = { tab-width = 2, unit = "  " }
 formatter = { command = "cljfmt", args = [ "fix" ] }
 auto-format = true
 
