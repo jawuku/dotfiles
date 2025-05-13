@@ -1,7 +1,9 @@
-## Ubuntu 22.04 Setup in Distrobox
+## Ubuntu 24.04 Setup in Distrobox
 ### First install Ubuntu Container
 ```sh
-distrobox create -n ubuntu -i quay.io/toolbx-images/ubuntu-toolbox:22.04
+distrobox create -n ubuntu \
+-i quay.io/toolbx-images/ubuntu-toolbox:24.04
+--home ~/ubuntu
 ```
 ### Enter Distrobox and update container
 ```sh
@@ -16,11 +18,8 @@ sudo apt install build-essential
 ```
 ### Install Helix Text Editor
 ```sh
-sudo apt install software-properties-common
-
-sudo add-apt-repository ppa:maveonair/helix-editor
-sudo apt update
-sudo apt install helix
+wget https://github.com/helix-editor/helix/releases/download/25.01.1/helix_25.1.1-1_amd64.deb
+sudo apt install ./helix_25.1.1-1_amd64.deb
 ```
 ### Install Z-shell
 ```sh
@@ -33,15 +32,22 @@ sed -i "s/yourname/$USER/g" $HOME/.zshrc
 
 chsh -s /usr/bin/zsh
 ```
-### Install Python Libraries
+### Install Python manager (UV) with data science environment
+- including Pytorch and Tensorflow (both CPU only)
 ```sh
-sudo apt install python3-pip python3-pylsp python3-pylsp-black python3-pylsp-isort \
-python3-pylsp-flake8 python3-seaborn python3-gmpy2 python3-sympy python3-pycountry \
-python3-willow epiphany-browser python3-notebook
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+cd ~
+uv init --python 3.12 datasci
+cd datasci
+rm pyproject.toml
+wget https://raw.githubusercontent.com/jawuku/dotfiles/refs/heads/master/pyproject.toml
+uv sync
 ```
+- once installed, activate with `source ~/datasci/.venv/bin/activate`
 ### Install R
 ```sh
-sudo apt install r-base r-base-dev r-cran-tidyverse r-cran-irkernel
+sudo apt install r-base r-base-dev r-cran-tidyverse r-cran-irkernel r-cran-devtools
 
 # add user to staff group
 sudo usermod -aG staff $USER
@@ -53,14 +59,26 @@ q()
 ```
 ### Install Java and Clojure
 ```sh
-sudo apt install openjdk-17-jdk rlwrap
-curl -O https://download.clojure.org/install/linux-install-1.11.1.1347.sh
-chmod +x linux-install-1.11.1.1347.sh
-sudo ./linux-install-1.11.1.1347.sh
+sudo apt install openjdk-21-jdk rlwrap
+curl -L -O https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh
+chmod +x linux-install.sh
+sudo ./linux-install.sh
+```
+#### Leiningen
+```sh
+wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+sudo mv lein /usr/local/bin/
+sudo chmod +x /usr/local/bin/lein
+lein version
 ```
 #### Clojure Language Server
 ```sh
-wget https://github.com/clojure-lsp/clojure-lsp/releases/download/2023.05.04-19.38.01/clojure-lsp-native-linux-amd64.zip
-unzip clojure-lsp-native-linux-amd64.zip -d /usr/local/bin
+sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 ```
+### Install Julia
+```sh
+curl -fsSL https://install.julialang.org | sh -s -- --yes
 
+julia -e 'Using Pkg; Pkg.add(["IJulia", "Plots", "OhMyREPL", "PackageCompiler", "RowEchelon", \
+"LanguageServer", "Symbolics"])'
+```
