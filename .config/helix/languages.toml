@@ -51,3 +51,14 @@ auto-format = true
 name = "lua"
 formatter = { command = "stylua", args = ["-"] }
 auto-format = true
+
+[[language]]
+name = "sql"
+language-servers = ["sqruff"]
+formatter = { command = "sqruff", args = ["fix", "-"] }
+auto-format = true
+
+[language-server.sqruff]
+command = "sqruff"
+args = ["lsp"]
+
