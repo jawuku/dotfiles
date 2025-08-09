@@ -159,7 +159,7 @@
     <right>0</right>
   </margins>
   <dock>
-    <position>Left</position>
+    <position>TopLeft</position>
     <!-- (Top|Bottom)(Left|Right|)|Top|Bottom|Left|Right|Floating -->
     <floatingX>0</floatingX>
     <floatingY>0</floatingY>
@@ -316,79 +316,54 @@
       </action>
     </keybind>
     <!-- Keybindings for running applications -->
+    <!-- Windows-F opens the file manager -->
     <keybind key="W-f">
       <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>Thunar</name>
-        </startupnotify>
         <command>thunar</command>
       </action>
     </keybind>
-
-    <!-- Take screenshot when Print is pressed -->
-    <keybind key="Print">
-      <action name="Execute">
-        <command>xfce4-screenshooter</command>
-      </action>
-    </keybind>
-
-    <!-- Windows-T launches a login terminal -->
-    <keybind key="W-t">
+    <!-- Ctrl-Alt-T opens the terminal -->
+    <keybind key="C-A-t">
       <action name="Execute">
         <command>sakura</command>
       </action>
     </keybind>
-    <!-- Windows-L locks the screen -->
-    <keybind key="W-l">
-      <action name="Execute">
-        <command>light-locker-command -l</command>
-      </action>
-    </keybind>
-    <!-- Windows-E opens text editor -->
+    <!-- Windows-E opens the GUI editor -->
     <keybind key="W-e">
       <action name="Execute">
         <command>geany</command>
       </action>
     </keybind>
-    <!-- Windows-W opens web browser -->
+    <!-- Windows-W opens the web browser -->
     <keybind key="W-w">
       <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>Web Browser</name>
-        </startupnotify>
-        <command>firefox</command>
+        <command>brave</command>
       </action>
     </keybind>
-    <!-- Windows-M opens media player -->
+    <!-- Windows-M opens the media player -->
     <keybind key="W-m">
       <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>Media Player</name>
-        </startupnotify>
-        <command>parole</command>
+        <command>smplayer</command>
       </action>
     </keybind>
-
-    <!-- Windows-h task manager -->
+    <!-- Windows-H opens the task manager -->
     <keybind key="W-h">
       <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>Task Manager</name>
-        </startupnotify>
-        <command>xfce4-taskmanager</command>
+        <command>lxtask</command>
       </action>
     </keybind>
-    <!-- Windows-V opens volume control -->
-    <keybind key="W-v">
+    <!-- PrintScreen opens the GUI editor -->
+    <keybind key="Print">
       <action name="Execute">
-        <command>pavucontrol</command>
+        <command>xfce4-screenshooter</command>
       </action>
     </keybind>
-
+    <!-- Ctrl-Escape launches jgmenu -->
+    <keybind key="C-Escape">
+      <action name="Execute">
+        <command>jgmenu_run</command>
+      </action>
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
@@ -695,9 +670,9 @@
           <menu>client-list-combined-menu</menu>
         </action>
       </mousebind>
-      <mousebind button="Right" action="Press">
-        <action name="ShowMenu">
-          <menu>root-menu</menu>
+      <mousebind button="Right" action="Release">
+        <action name="Execute">
+          <menu>jgmenu_run</menu>
         </action>
       </mousebind>
     </context>
