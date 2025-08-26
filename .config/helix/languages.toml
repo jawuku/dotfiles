@@ -62,3 +62,16 @@ auto-format = true
 command = "sqruff"
 args = ["lsp"]
 
+[[language]]
+name = "c"
+language-servers = ["clangd"]
+file-types = ["c", "h"]
+formatter = { command = 'clang-format' }
+auto-format = true
+
+[[language]]
+name = "cpp"
+language-servers = ["clangd"]
+file-types = ["cpp", "cc", "cxx", "hpp", "hcc", "hxx"]
+formatter = { command = 'clang-format' }
+auto-format = true
