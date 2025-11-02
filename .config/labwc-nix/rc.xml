@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<labwc_config>
+  <!-- Window Placement -->
+  <placement>
+    <policy>automatic</policy>
+  </placement>
+  <!-- Theme -->
+  <theme>
+    <name>Nord-Openbox-theme</name>
+    <cornerRadius>10</cornerRadius>
+    <!-- MacOS-style titlebar buttons -->
+    <titlebar>
+      <layout>close,iconify,max:icon</layout>
+    </titlebar>
+    <!-- Fonts -->
+    <!-- Weight is either Bold or Normal -->
+    <!-- Slant is either Normal or Italic -->
+    <font place="ActiveWindow">
+      <name>sans</name>
+      <size>14</size>
+      <weight>Bold</weight>
+      <slant>Normal</slant>
+    </font>
+    <font place="InactiveWindow">
+      <name>sans</name>
+      <size>14</size>
+      <weight>Normal</weight>
+      <slant>Normal</slant>
+    </font>
+    <font place="MenuHeader">
+      <name>sans</name>
+      <size>14</size>
+      <weight>Bold</weight>
+      <slant>Normal</slant>
+    </font>
+    <font place="MenuItem">
+      <name>sans</name>
+      <size>14</size>
+      <weight>Normal</weight>
+      <slant>Normal</slant>
+    </font>
+    <font place="ActiveOnScreenDisplay">
+      <name>sans</name>
+      <size>14</size>
+      <weight>Bold</weight>
+      <slant>Normal</slant>
+    </font>
+    <font place="InactiveOnScreenDisplay">
+      <name>sans</name>
+      <size>14</size>
+      <weight>Bold</weight>
+      <slant>Normal</slant>
+    </font>
+  </theme>
+  <!-- Desktops -->
+  <desktops>
+    <number>4</number>
+    <firstdesk>1</firstdesk>
+    <names>
+      <name>One</name>
+      <name>Two</name>
+      <name>Three</name>
+      <name>Four</name>
+    </names>
+  </desktops>
+  <!-- Input Options -->
+  <libinput>
+    <device>
+      <naturalScroll>no</naturalScroll>
+    </device>
+  </libinput>
+  <!-- Keyboard settings - add to default bindings -->
+  <keyboard>
+    <default/>
+    <!-- Custom key bindings -->
+    <keybind>
+      <!-- PrintScr key saves a picture of the whole screen -->
+      <key>Print</key>
+      <action name="Execute">
+        <command>sh -c 'grim ~/Pictures/screenshot-$(date +%Y-%m-%d_%H%M%S).png'</command>
+      </action>
+    </keybind>
+    <keybind>
+      <!-- Alt-PrintScr lets you choose a selection of the screen with the mouse -->
+      <key>A-Print</key>
+      <action name="Execute">
+        <command>sh -c 'grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y-%m-%d_%H%M%S).png'</command>
+      </action>
+    </keybind>
+    <keybind>
+      <key>W-w</key>
+      <action name="Execute" command="firefox"/>
+    </keybind>
+    <keybind>
+      <key>W-e</key>
+      <action name="Execute" command="alacritty -e hx"/>
+    </keybind>
+    <keybind>
+      <key>W-f</key>
+      <action name="Execute" command="thunar"/>
+    </keybind>
+    <keybind>
+      <key>W-Space</key>
+      <action name="Execute" command="rofi -show drun"/>
+    </keybind>
+    <keybind>
+      <key>C-q</key>
+      <action name="Close"/>
+    </keybind>
+    <!-- Windows-Shift-L to lock the screen -->
+    <keybind>
+      <key>W-S-l</key>
+      <action name="Execute" command="swaylock -f"/>
+    </keybind>
+    <!-- Keybinds to switch between desktops -->
+    <keybind>
+      <key>C-A-Up</key>
+      <action name="GoToDesktop" to="up" wrap="no"/>
+    </keybind>
+    <keybind>
+      <key>C-A-Down</key>
+      <action name="GoToDesktop" to="down" wrap="no"/>
+    </keybind>
+    <keybind>
+      <key>C-A-Left</key>
+      <action name="GoToDesktop" to="left" wrap="yes"/>
+    </keybind>
+    <keybind>
+      <key>C-A-Right</key>
+      <action name="GoToDesktop" to="right" wrap="yes"/>
+    </keybind>
+    <keybind>
+      <key>W-F1</key>
+      <action name="GoToDesktop" to="1"/>
+    </keybind>
+    <keybind>
+      <key>W-F2</key>
+      <action name="GoToDesktop" to="2"/>
+    </keybind>
+    <keybind>
+      <key>W-F3</key>
+      <action name="GoToDesktop" to="3"/>
+    </keybind>
+    <keybind>
+      <key>W-F4</key>
+      <action name="GoToDesktop" to="4"/>
+    </keybind>
+  </keyboard>
+  <!-- Window Switcher (Alt-Tab activated) -->
+  <windowSwitcher style="thumbnail"/>
+</labwc_config>

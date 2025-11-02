@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu>
+<!-- Note: for localization support of menu items "client-menu" has to be removed here -->
+<menu id="client-menu">
+  <item label="Always on Top">
+    <action name="ToggleAlwaysOnTop" />
+  </item>
+  <!--
+    Any menu with the id "workspaces" will be hidden
+    if there is only a single workspace available.
+  -->
+  <menu id="workspaces" label="Workspace">
+    <item label="Move left">
+      <action name="SendToDesktop" to="left" />
+    </item>
+    <item label="Move right">
+      <action name="SendToDesktop" to="right" />
+    </item>
+    <separator />
+    <item label="Always on Visible Workspace">
+      <action name="ToggleOmnipresent" />
+    </item>
+  </menu>
+</menu>
+
+<menu id="root-menu">
+  <item label="Terminal">
+    <action name="Execute" command="alacritty" />
+  </item>
+  <item label="File Manager">
+    <action name="Execute" command="thunar" />
+  </item>
+  <item label="Web Browser">
+    <action name="Execute" command="firefox" />
+  </item>
+  <item label="Program Launcher">
+    <action name="Execute" command="rofi -show drun" />
+  </item>
+  <item label="Emoji Chooser">
+    <action name="Execute" command="rofi -show emoji" />
+  </item>
+  <item label="Calculator">
+    <action name="Execute" command="rofi -show calc" />
+  </item>
+  <item label="Wallpaper Manager">
+    <action name="Execute" command="waytrogen" />
+  </item>
+
+  <item label="Themes">
+    <action name="Execute" command="nwg-look" />
+  </item>
+
+  <item label="Lock Screen">
+    <action name="Execute" command="swaylock -f" />
+  </item>
+
+  <item label="Reconfigure">
+    <action name="Reconfigure" />
+  </item>
+  <item label="Exit">
+    <action name="Exit" />
+  </item>
+</menu>
+</openbox_menu>
+
