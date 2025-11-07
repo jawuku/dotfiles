@@ -43,13 +43,30 @@
   <item label="Calculator">
     <action name="Execute" command="rofi -show calc" />
   </item>
-  <item label="Wallpaper Manager">
-    <action name="Execute" command="waytrogen" />
+
+  <item label="Audio Player">
+    <action name="Execute" command="deadbeef" />
   </item>
 
-  <item label="Themes">
+  <item label="Video Player">
+    <action name="Execute" command="celluloid" />
+  </item>
+
+  <item label="Set Themes">
     <action name="Execute" command="nwg-look" />
   </item>
+
+  <separator />
+
+  <item label="Edit NixOS Config">
+    <action name="Execute" command="alacritty -e sudo -Es hx /etc/nixos/" />
+  </item>
+
+  <item label="Edit LabWC Config">
+    <action name="Execute" command="alacritty -e hx ~/.config/labwc/" />
+  </item>
+
+  <separator />
 
   <item label="Lock Screen">
     <action name="Execute" command="swaylock -f" />

@@ -4,9 +4,15 @@
   <placement>
     <policy>automatic</policy>
   </placement>
-  <!-- Theme -->
+  <!-- Themes- uncomment the one you like -->
   <theme>
-    <name>Nord-Openbox-theme</name>
+    <!-- <name>Nord-Openbox-theme</name> -->
+    <!-- <name>Nightmare</name> -->
+    <!-- <name>Nightmare-01</name> -->
+    <!-- <name>Nightmare-02</name> -->
+    <!-- <name>Nightmare-03</name> -->
+    <!-- <name>Breeze-ob</name> -->
+    <name>GTK</name>
     <cornerRadius>10</cornerRadius>
     <!-- MacOS-style titlebar buttons -->
     <titlebar>
