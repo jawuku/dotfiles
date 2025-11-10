@@ -72,6 +72,14 @@
     <action name="Execute" command="swaylock -f" />
   </item>
 
+  <item label="Rofi Power Menu">
+    <action name="Execute">
+      <command>
+        rofi -show session-menu -modi "session-menu:rofi-power-menu --choices=logout/lockscreen"
+      </command>
+    </action>
+  </item>
+
   <item label="Reconfigure">
     <action name="Reconfigure" />
   </item>

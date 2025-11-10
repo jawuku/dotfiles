@@ -1,6 +1,7 @@
 # wlr-randr --output Virtual-1 --on --mode 1600x900@60 &
-
-waybar &
+# top panel
+waybar --log-level off &
+# Set random wallpaper from ~/Pictures/Wallpapers
 waypaper --random &
 # Session Lock from https://labwc.github.io/integration.html#session-lock
 swayidle -w \
@@ -10,4 +11,3 @@ resume 'wlopm --on \*' \
 before-sleep 'swaylock -f' >/dev/null 2>&1 &
 # Night Light with Gammastep
 gammastep-indicator &
-

@@ -151,6 +151,23 @@
       <key>W-F4</key>
       <action name="GoToDesktop" to="4"/>
     </keybind>
+   <!-- Volume control keybinds for media keys -->
+   <!-- see : https://www.reddit.com/r/hyprland/comments/12p2yzv/how_do_i_set_these_keybindings/ -->
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" />
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" />
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" />
+    </keybind>
+  <!-- Ctrl-Escape to show root menu -->
+  <keybind key="C-Escape">
+    <action name="ShowMenu">
+      <menu>root-menu</menu>
+    </action>
+  </keybind>
   </keyboard>
   <!-- Window Switcher (Alt-Tab activated) -->
   <windowSwitcher style="thumbnail"/>
