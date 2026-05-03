@@ -1,5 +1,5 @@
 ## Nix Install on Debian 13 / Testing
-### Also guidance from [Vimjoyer's YouTube video](https://www.youtube.com/watch?v=cZDiqGWPHKI)
+### Also guidance from [nixhero's YouTube video](https://www.youtube.com/watch?v=cZDiqGWPHKI)
 #### Update system, reboot if needed
 ```sh
 sudo apt update
@@ -9,21 +9,16 @@ sudo apt dist-upgrade
 ```sh
 sudo apt install build-essential curl
 ```
-### Installing Nix using the [Determinate Nix Installer](https://determinate.systems/posts/determinate-nix-installer/)
+### Installing Nix using the [Determinate Nix Installer](https://zero-to-nix.com/start/install/)
 ```sh
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
-sh -s -- install --determinate
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
-#### Either open a new shell, or type in the following:
-```sh
-. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-```
-#### Verify Nix has been installed
+#### Verify Nix has been installed, in a new terminal
 ```sh
 nix --version
 ```
 - You should see something like
-> nix (Determinate Nix 3.4.2) 2.28.3
+> nix (Determinate Nix 3.19.0) 2.34.6
 ### Set up Python Development Environment
 ```sh
 cd ~
@@ -32,7 +27,7 @@ cd python-nix
 
 nix flake init --template "github:DeterminateSystems/zero-to-nix#python-dev"
 ```
-#### Change `flake.nix` to this for a Python 3.12 environment
+#### Change `flake.nix` to this for a Python 3.13 environment
 ```nix
 {
   description = "Example Python development environment for Zero to Nix";
@@ -72,8 +67,8 @@ nix flake init --template "github:DeterminateSystems/zero-to-nix#python-dev"
         {
           default =
             let
-              # Use Python 3.12
-              python = pkgs.python312;
+              # Use Python 3.13
+              python = pkgs.python313;
             in
             pkgs.mkShell {
               # The Nix packages provided in the environment
@@ -102,7 +97,7 @@ nix flake init --template "github:DeterminateSystems/zero-to-nix#python-dev"
               ];
               shellHook = ''
                 echo
-                echo "-~= Welcome to the Python 3.12 development environment =~-"
+                echo "-~= Welcome to the Python 3.13 development environment =~-"
               '';
             };
         }
@@ -131,9 +126,10 @@ exit
 ### Nix Home Manager Setup
 #### Create initial Home Manager configuration
 ```sh
-nix-shell -p home-manager
+mkdir -p ~/.config/home-manager
+cd ~/.config/home-manager
 
-home-manager init
+nix run home-manager -- init --switch .
 ```
 #### Two new files have been created in `~/.config/home-manager/`
 |filename|description|
@@ -233,13 +229,12 @@ hello
 
   targets.genericLinux.enable = true;
 
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "25.11"; # Please read the comment before changing.
 
   # import modules
   imports = [
     ./modules/zsh.nix
     ./modules/git.nix
-    ./modules/datasci.nix
     ./modules/language-servers.nix
     ./modules/jvm-languages.nix
     ./modules/nvf.nix
@@ -308,42 +303,6 @@ hello
 }
 ```
 ### Modules in the `~/.config/home-manager/modules/` directory
-#### `datasci.nix`
-```nix
-# Data Science Languages Module
-# Python development flake environment already in ~/python-nix
-# Activate it with:
-# cd ~/python-nix
-# nix develop
-#
-{ pkgs, ... }:
-{
-  home.packages =
-    with pkgs;
-    let
-      # RStudio packages
-      RStudio = rstudioWrapper.override {
-        packages = with rPackages; [
-          tidyverse
-          languageserver
-          pracma
-          remotes
-          rgl
-          plotly
-          plot3D
-          Rmpfr
-          MASS
-        ];
-      };
-    in
-    [
-      RStudio
-      julia-bin
-      octaveFull
-      sequeler
-    ];
-}
-```
 #### `git.nix`
 - change `userName` and `userEmail` accordingly
 ```nix
@@ -368,14 +327,16 @@ hello
 ```nix
 # JVM Languages installation - for Java, Clojure and Scala
 { pkgs, ... }:
+let
+  jvm = pkgs.graalvmPackages.graalvm-ce;
 {
-  home.packages = with pkgs; [
-    jdk
+  home.packages = [
+    jvm
     # create folder '~/.lein' before using Leiningen
-    (leiningen.override { jdk = pkgs.jdk11; })
-    (clojure.override { jdk = pkgs.jdk11; })
-    (scala_3.override { jre = pkgs.jdk; })
-    (sbt.override { jre = pkgs.jdk; })
+    (pkgs.leiningen.override { jdk = jvm; })
+    (pkgs.clojure.override   { jdk = jvm; })
+    (pkgs.scala_3.override   { jre = jvm; })
+    (pkgs.sbt.override       { jre = jvm; })
   ];
 }
 ```
@@ -387,10 +348,9 @@ hello
 {
   home.packages =
     with pkgs;
-    ([
+    [
       # Nix Language Server
       nixd
-      nil # default for helix
       nixfmt-rfc-style
 
       # For JVM languages
@@ -398,7 +358,7 @@ hello
       clj-kondo
       cljfmt
       jdt-language-server
-      (metals.override { jre = pkgs.jdk; })
+      (metals.override { jre = pkgs.graalvmPackages.graalvm-ce; })
 
       # Markdown
       marksman
@@ -411,16 +371,12 @@ hello
       # bash formatter and linter used by bash-language-server
       shfmt
       shellcheck
+      bash-language-server
 
       # for Lua
       lua-language-server
       stylua
-    ])
-
-    # nodejs packages
-    ++ (with pkgs.nodePackages; [
-      bash-language-server
-    ]);
+    ];
 }
 ```
 #### `nvf.nix` - Neovim Nix Framework (WIP)
@@ -451,7 +407,7 @@ hello
         indent-blankline = {
           enable = true;
           setupOpts = {
-            indent.char = "┊"; # unicode 0x250A
+            indent.char = builtins.fromJSON '' "\u250a" '';
           };
         };
         rainbow-delimiters = {
