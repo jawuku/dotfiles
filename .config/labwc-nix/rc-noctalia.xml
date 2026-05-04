@@ -103,11 +103,11 @@
     </keybind>
     <keybind>
       <key>W-f</key>
-      <action name="Execute" command="pcmanfm-qt"/>
+      <action name="Execute" command="thunar"/>
     </keybind>
     <keybind>
       <key>W-Space</key>
-      <action name="Execute" command="qs -c noctalia-shell ipc call launcher toggle"/>
+      <action name="Execute" command="noctalia-shell ipc call launcher toggle"/>
     </keybind>
     <keybind>
       <key>C-q</key>
@@ -116,7 +116,7 @@
     <!-- Windows-Shift-L to lock the screen -->
     <keybind>
       <key>W-S-l</key>
-      <action name="Execute" command="qs -c noctalia-shell ipc call lockScreen lock"/>
+      <action name="Execute" command="noctalia-shell ipc call lockScreen lock"/>
     </keybind>
     <!-- Keybinds to switch between desktops -->
     <keybind>
@@ -154,13 +154,13 @@
    <!-- Volume control keybinds for media keys -->
    <!-- see : https://docs.noctalia.dev/v4/getting-started/keybinds/ -->
     <keybind key="XF86AudioRaiseVolume">
-      <action name="Execute" command="qs -c noctalia-shell ipc call volume increase" />
+      <action name="Execute" command="noctalia-shell ipc call volume increase" />
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-      <action name="Execute" command="qs -c noctalia-shell ipc call volume decrease" />
+      <action name="Execute" command="noctalia-shell ipc call volume decrease" />
     </keybind>
     <keybind key="XF86AudioMute">
-      <action name="Execute" command="qs -c noctalia-shell ipc call volume muteOutput" />
+      <action name="Execute" command="noctalia-shell ipc call volume muteOutput" />
     </keybind>
   <!-- Ctrl-Escape to show root menu -->
   <keybind key="C-Escape">
