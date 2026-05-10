@@ -6,13 +6,13 @@
   </placement>
   <!-- Themes- uncomment the one you like -->
   <theme>
-    <!-- <name>Nord-Openbox-theme</name> -->
+    <name>Nord-Openbox-theme</name>
     <!-- <name>Nightmare</name> -->
     <!-- <name>Nightmare-01</name> -->
     <!-- <name>Nightmare-02</name> -->
     <!-- <name>Nightmare-03</name> -->
     <!-- <name>Breeze-ob</name> -->
-    <name>GTK</name>
+    <!-- <name>GTK</name> -->
     <cornerRadius>10</cornerRadius>
     <!-- MacOS-style titlebar buttons -->
     <titlebar>
@@ -170,5 +170,5 @@
   </keybind>
   </keyboard>
   <!-- Window Switcher (Alt-Tab activated) -->
-  <windowSwitcher style="thumbnail"/>
+  <windowSwitcher><osd style="thumbnail"/>
 </labwc_config>
