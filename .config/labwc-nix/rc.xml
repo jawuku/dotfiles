@@ -6,13 +6,13 @@
   </placement>
   <!-- Themes- uncomment the one you like -->
   <theme>
-    <!-- <name>Nord-Openbox-theme</name> -->
+    <name>Nord-Openbox-theme</name>
     <!-- <name>Nightmare</name> -->
     <!-- <name>Nightmare-01</name> -->
     <!-- <name>Nightmare-02</name> -->
     <!-- <name>Nightmare-03</name> -->
     <!-- <name>Breeze-ob</name> -->
-    <name>GTK</name>
+    <!-- <name>GTK</name> -->
     <cornerRadius>10</cornerRadius>
     <!-- MacOS-style titlebar buttons -->
     <titlebar>
@@ -118,6 +118,21 @@
       <key>W-S-l</key>
       <action name="Execute" command="swaylock -f"/>
     </keybind>
+    <!-- Windows-Delete to open the logout menu -->
+    <keybind>
+      <key>W-Delete</key>
+      <action name="Execute" command="wleave"/>
+    </keybind>
+    <!-- Windows-M to open the media player -->
+    <keybind>
+      <key>W-m</key>
+      <action name="Execute" command="celluloid"/>
+    </keybind>
+  <!-- Windows-G to open Geany text editor -->
+    <keybind>
+      <key>W-g</key>
+      <action name="Execute" command="geany"/>
+    </keybind>
     <!-- Keybinds to switch between desktops -->
     <keybind>
       <key>C-A-Up</key>
@@ -151,23 +166,23 @@
       <key>W-F4</key>
       <action name="GoToDesktop" to="4"/>
     </keybind>
-   <!-- Volume control keybinds for media keys -->
-   <!-- see : https://www.reddit.com/r/hyprland/comments/12p2yzv/how_do_i_set_these_keybindings/ -->
+    <!-- Volume control keybinds for media keys -->
+    <!-- see : https://www.reddit.com/r/hyprland/comments/12p2yzv/how_do_i_set_these_keybindings/ -->
     <keybind key="XF86AudioRaiseVolume">
-      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" />
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"/>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" />
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"/>
     </keybind>
     <keybind key="XF86AudioMute">
-      <action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" />
+      <action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"/>
     </keybind>
-  <!-- Ctrl-Escape to show root menu -->
-  <keybind key="C-Escape">
-    <action name="ShowMenu">
-      <menu>root-menu</menu>
-    </action>
-  </keybind>
+    <!-- Ctrl-Escape to show root menu -->
+    <keybind key="C-Escape">
+      <action name="ShowMenu">
+        <menu>root-menu</menu>
+      </action>
+    </keybind>
   </keyboard>
   <!-- Window Switcher (Alt-Tab activated) -->
   <windowSwitcher style="thumbnail"/>
