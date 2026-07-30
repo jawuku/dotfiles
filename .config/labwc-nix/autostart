@@ -1,8 +1,11 @@
 # wlr-randr --output Virtual-1 --on --mode 1600x900@60 &
-# top panel
-waybar --log-level off &
+
 # Set random wallpaper from ~/Pictures/Wallpapers
 waypaper --random &
+
+# top panel
+waybar --log-level off &
+
 # Session Lock from https://labwc.github.io/integration.html#session-lock
 swayidle -w \
 timeout 300 'swaylock -f' \
