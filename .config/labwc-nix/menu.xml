@@ -31,8 +31,12 @@
   <item label="File Manager">
     <action name="Execute" command="thunar" />
   </item>
-  <item label="Web Browser">
+  <item label="Firefox Web Browser">
     <action name="Execute" command="firefox" />
+  </item>
+  </item>
+  <item label="Document Viewer">
+    <action name="Execute" command="atril" />
   </item>
   <item label="Program Launcher">
     <action name="Execute" command="rofi -show drun" />
@@ -44,15 +48,19 @@
     <action name="Execute" command="rofi -show calc" />
   </item>
 
-  <item label="Audio Player">
-    <action name="Execute" command="deadbeef" />
-  </item>
-
-  <item label="Video Player">
+  <item label="Media Player">
     <action name="Execute" command="celluloid" />
   </item>
 
-  <item label="Set Themes">
+  <item label="Image Viewer">
+    <action name="Execute" command="ristretto" />
+  </item>
+
+  <item label="GUI Text Editor">
+    <action name="Execute" command="geany" />
+  </item>
+  
+  <item label="Set GTK Themes">
     <action name="Execute" command="nwg-look" />
   </item>
 
@@ -72,19 +80,12 @@
     <action name="Execute" command="swaylock -f" />
   </item>
 
-  <item label="Rofi Power Menu">
+  <item label="Exit to Power Menu">
     <action name="Execute">
       <command>
-        rofi -show session-menu -modi "session-menu:rofi-power-menu --choices=logout/lockscreen"
+        wleave
       </command>
     </action>
-  </item>
-
-  <item label="Reconfigure">
-    <action name="Reconfigure" />
-  </item>
-  <item label="Exit">
-    <action name="Exit" />
   </item>
 </menu>
 </openbox_menu>
